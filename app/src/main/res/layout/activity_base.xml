@@ -1,0 +1,22 @@
+<android.support.v4.widget.SlidingPaneLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/slidingPane"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white" >
+
+    <fragment
+        android:id="@+id/main_fragment_slidingpane"
+        android:name="com.app.sircle.UI.SlidingPane.SlidingPaneFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="left" />
+
+    <FrameLayout
+        android:id="@+id/main_layout_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="right" >
+    </FrameLayout>
+
+</android.support.v4.widget.SlidingPaneLayout>
