@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">Sircle</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="description_image_default">description_image_default</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Username or email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Login</string>
+    <string name="action_sign_in_short">Sign in</string>
+
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="activity_login_title">Sircle</string>
+    <string name="activity_login_address_text">Mazagaon,\nMumbai-10\nIndia</string>
+    <string name="activity_login_email_address">support@snaptech.in</string>
+    <string name="activity_login_contact_number">+919819737252</string>
+
+    <!-- Splash -->
+    <string name="activity_splash_powered_by_text">"Powered By: Snaptech Digital Solutions"</string>
+
+    <!-- Sliding Pane -->
+    <string-array name="array_module_name">
+        <item>Home</item>
+        <item>Calendar</item>
+        <item>Photos</item>
+        <item>Notifications</item>
+        <item>NewsLetters</item>
+        <item>Documents</item>
+        <item>Videos</item>
+        <item>Links</item>
+        <item>Settings</item>
+        <item>Support</item>
+        <item>Signout</item>
+
+    </string-array>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
