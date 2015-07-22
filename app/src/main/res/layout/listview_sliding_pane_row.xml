@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/darker_gray">
+    android:background="@android:color/darker_gray"
+    android:orientation="horizontal">
 
     <View
         android:id="@+id/sliding_pane_row_selected_view"
         android:layout_width="8dp"
         android:layout_height="match_parent"
-        android:visibility="gone"
         android:background="@android:color/holo_blue_dark"
-        />
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/sliding_pane_module_image_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_menu_add"
-        android:layout_margin="10dp"
         android:layout_gravity="center_vertical"
-        android:contentDescription="@string/description_image_default"/>
+        android:layout_margin="10dp"
+        android:contentDescription="@string/description_image_default"
+        android:src="@android:drawable/ic_menu_add" />
 
     <TextView
         android:id="@+id/sliding_pane_text_module_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="0dp"
         android:layout_gravity="center_vertical"
-        android:textColor="@android:color/white"
-        android:text="Home"/>
+        android:padding="0dp"
+        android:text="Home"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>

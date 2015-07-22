@@ -21,7 +21,7 @@
     <string name="activity_login_contact_number">+919819737252</string>
 
     <!-- Splash -->
-    <string name="activity_splash_powered_by_text">"Powered By: Snaptech Digital Solutions"</string>
+    <string name="activity_splash_powered_by_text">"Powered By : Snaptech Digital Solutions"</string>
 
     <!-- Sliding Pane -->
     <string-array name="array_module_name">

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_light">
+    android:background="@android:color/holo_blue_light"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,10 +15,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:padding="10dp"
             android:background="@android:color/transparent"
             android:contentDescription="@string/description_image_default"
-            android:src="@android:drawable/ic_menu_slideshow"/>
+            android:padding="10dp"
+            android:src="@android:drawable/ic_menu_slideshow" />
 
 
     </LinearLayout>
@@ -26,9 +27,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:contentDescription="@string/description_image_default"
         android:layout_marginTop="50dp"
-        android:src="@android:drawable/picture_frame"/>
+        android:contentDescription="@string/description_image_default"
+        android:src="@android:drawable/picture_frame" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -39,27 +40,27 @@
             android:id="@+id/activity_login_address_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:lineSpacingExtra="1dp"
             android:text="@string/activity_login_address_text"
             android:textColor="@android:color/white"
-            android:lineSpacingExtra="1dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
             android:textSize="@dimen/activity_login_address_text_view_size" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:orientation="vertical"
-            android:layout_alignParentRight="true">
+            android:layout_alignParentRight="true"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/activity_login_email_address_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:lineSpacingExtra="1dp"
                 android:text="@string/activity_login_email_address"
                 android:textColor="@android:color/white"
-                android:lineSpacingExtra="1dp"
                 android:textColorLink="@android:color/white"
                 android:textSize="@dimen/activity_login_address_text_view_size" />
 
@@ -67,10 +68,10 @@
                 android:id="@+id/activity_login_contact_number_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:lineSpacingExtra="1dp"
                 android:text="@string/activity_login_contact_number"
                 android:textColor="@android:color/white"
-                android:lineSpacingExtra="1dp"
-                android:layout_marginTop="10dp"
                 android:textColorLink="@android:color/white"
                 android:textSize="@dimen/activity_login_address_text_view_size" />
 

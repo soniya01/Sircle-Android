@@ -3,7 +3,7 @@
     android:id="@+id/slidingPane"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white" >
+    android:background="@android:color/white">
 
     <fragment
         android:id="@+id/main_fragment_slidingpane"
@@ -16,7 +16,6 @@
         android:id="@+id/main_layout_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="right" >
-    </FrameLayout>
+        android:layout_gravity="right"></FrameLayout>
 
 </android.support.v4.widget.SlidingPaneLayout>
