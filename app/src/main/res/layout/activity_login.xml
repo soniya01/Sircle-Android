@@ -188,6 +188,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:lineSpacingExtra="1dp"
+                        android:autoLink="phone"
                         android:text="@string/activity_login_contact_number"
                         android:textColor="@android:color/white"
                         android:textColorLink="@android:color/white"

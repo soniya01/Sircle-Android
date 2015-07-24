@@ -72,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="1dp"
                 android:text="@string/activity_login_email_address"
+                android:autoLink="email"
                 android:textColor="@android:color/white"
                 android:textColorLink="@android:color/white"
                 android:textSize="@dimen/activity_login_address_text_view_size" />
@@ -83,6 +84,7 @@
                 android:layout_marginTop="10dp"
                 android:lineSpacingExtra="1dp"
                 android:text="@string/activity_login_contact_number"
+                android:autoLink="phone"
                 android:textColor="@android:color/white"
                 android:textColorLink="@android:color/white"
                 android:textSize="@dimen/activity_login_address_text_view_size" />
