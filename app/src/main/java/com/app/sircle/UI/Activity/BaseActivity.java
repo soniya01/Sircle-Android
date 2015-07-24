@@ -5,15 +5,24 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SlidingPaneLayout;
 import android.view.View;
 
 import com.app.sircle.R;
+import com.app.sircle.UI.Fragment.DocumentFragment;
 import com.app.sircle.UI.Fragment.HomeFragment;
+import com.app.sircle.UI.Fragment.LinksFragment;
+import com.app.sircle.UI.Fragment.NewsLetterFragment;
+import com.app.sircle.UI.Fragment.NotificationFragment;
+import com.app.sircle.UI.Fragment.PhotosFragment;
+import com.app.sircle.UI.Fragment.SettingsFragment;
+import com.app.sircle.UI.Fragment.VideoFragment;
 import com.app.sircle.UI.SlidingPane.SlidingPaneFragment;
 import com.app.sircle.UI.SlidingPane.SlidingPaneInterface;
+import com.app.sircle.Utility.Common;
 
 import java.lang.reflect.Field;
 
@@ -27,6 +36,7 @@ public class BaseActivity extends Activity implements  SlidingPaneInterface, Sli
     private Handler handler;
     private Fragment fragmentToLoad = null;
     private SlidingPaneLayout slidingPan;
+    private Intent nonFragment ;
 
     private static void loadFragment(Context context, Fragment fragment) {
 
@@ -150,36 +160,50 @@ public class BaseActivity extends Activity implements  SlidingPaneInterface, Sli
                 fragmentToLoad = new HomeFragment();
                 break;
             case 1:
-                //fragmentToLoad = new HomeFragment();
+                fragmentToLoad = new HomeFragment();
                 break;
             case 2:
-                //fragmentToLoad = new BreweriesFragment();
+                fragmentToLoad = new PhotosFragment();
                 break;
             case 3:
-                //fragmentToLoad = new RestaurantsFragment();
+                fragmentToLoad = new NotificationFragment();
                 break;
             case 4:
-                //fragmentToLoad = new FestivalScheduleFragment();
+                fragmentToLoad = new NewsLetterFragment();
                 break;
             case 5:
-                //fragmentToLoad = new MapFragment();
+                fragmentToLoad = new DocumentFragment();
                 break;
             case 6:
-                //fragmentToLoad = new PeoplesChoiceFragment();
+                fragmentToLoad = new VideoFragment();
                 break;
             case 7:
-               // fragmentToLoad = new SponsorsFragment();
+                fragmentToLoad = new LinksFragment();
                 break;
             case 8:
-               // fragmentToLoad = new FAQFragment();
+                fragmentToLoad = new SettingsFragment();
                 break;
+            case 9:
+                fragmentToLoad = null;
+                // support email clickable
+                //nonFragment = new Intent(this, )
+                finish();
+                Common.sendEmailToSupport(this);
+                break;
+            case 10:
+                // add sign out functionality and show LoginScreen
+                fragmentToLoad = null;
+                finish();
             default:
                 break;
         }
         // setTitle(moduleTitles[index]);
 
-        handler = new Handler();
-        loadFragment(BaseActivity.this, fragmentToLoad);
+        if (fragmentToLoad != null){
+            handler = new Handler();
+            loadFragment(BaseActivity.this, fragmentToLoad);
+
+        }
         handler.post(new Runnable() {
 
             @Override
@@ -188,6 +212,9 @@ public class BaseActivity extends Activity implements  SlidingPaneInterface, Sli
             }
         });
 
+
     }
+
+
 
 }
