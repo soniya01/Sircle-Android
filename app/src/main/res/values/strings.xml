@@ -48,4 +48,8 @@
     <!-- Photos Fragment-->
     <string name="fragment_photos_title">Photos</string>
 
+    <!-- video fragment-->
+    <string name="fragment_video_title">Video</string>
+    <string name="fragment_video_video_source_label_demmy_text">Youtube</string>
+
 </resources>
