@@ -52,4 +52,13 @@
     <string name="fragment_video_title">Video</string>
     <string name="fragment_video_video_source_label_demmy_text">Youtube</string>
 
+
+
+    <string name="title_activity_pdfviewer">PDFViewer</string>
+
+    <!-- NewsLetter fragment -->
+    <string name="fragment_newsletter_title">NewsLetter</string>
+
+
+
 </resources>

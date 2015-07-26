@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.app.sircle"
     android:versionCode="1"
-    android:versionName="1.0"
-    package="com.app.sircle" >
-
+    android:versionName="1.0" >
 
     <application
         android:allowBackup="true"
@@ -19,13 +18,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".UI.Activity.BaseActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".UI.Activity.LoginScreen"
-            android:screenOrientation="portrait"/>
-
+        <activity
+            android:name=".UI.Activity.BaseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activity.LoginScreen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activity.PDFViewer"
+            android:label="@string/title_activity_pdfviewer" >
+        </activity>
     </application>
 
 </manifest>
