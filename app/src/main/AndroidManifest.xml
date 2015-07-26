@@ -4,7 +4,6 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -30,6 +29,8 @@
         <activity
             android:name=".UI.Activity.VideoActivity"
             android:label="@string/title_activity_video" >
+            android:name=".UI.Activity.PDFViewer"
+            android:label="@string/title_activity_pdfviewer" >
         </activity>
     </application>
 
