@@ -215,6 +215,8 @@ public class BaseActivity extends Activity implements  SlidingPaneInterface, Sli
 
     }
 
+    @Override
+    public void onBackPressed() {
 
-
+    }
 }
