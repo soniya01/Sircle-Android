@@ -118,7 +118,7 @@ public class PDFViewer extends Activity {
                 mProgressDialog.dismiss();
 
                 File pdfFile = new File(Environment.getExternalStorageDirectory() + "/Sircle/" + fileName);  // -> filename
-                if(pdfFile.exists()) {
+                if(pdfFile.exists() && pdfFile.length() != 0) {
                     pdfView.fromFile(pdfFile).defaultPage(1).load();
                 }
 

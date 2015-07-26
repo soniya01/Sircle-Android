@@ -43,7 +43,7 @@ public class VideoFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                // open video playing activity
                 Intent videoActivity = new Intent(getActivity(), VideoActivity.class);
-                videoActivity.putExtra("videoUrl",videoList.get(position).toString());
+                videoActivity.putExtra("videoUrl",videoList.get(position).videoEmbedURL.toString());
                 startActivity(videoActivity);
             }
         });

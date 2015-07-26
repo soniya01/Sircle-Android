@@ -25,6 +25,7 @@ public class FileDownloader {
             HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
             //urlConnection.setRequestMethod("GET");
             //urlConnection.setDoOutput(true);
+            urlConnection.setConnectTimeout(10000);
             urlConnection.connect();
 
             InputStream inputStream = urlConnection.getInputStream();

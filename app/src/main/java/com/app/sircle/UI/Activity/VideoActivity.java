@@ -17,6 +17,7 @@ import android.widget.VideoView;
 
 import com.app.sircle.R;
 import com.app.sircle.Utility.Common;
+import com.app.sircle.Utility.Constants;
 
 public class VideoActivity extends Activity implements MediaPlayer.OnCompletionListener, MediaPlayer.OnPreparedListener, View.OnTouchListener{
 
@@ -39,11 +40,13 @@ public class VideoActivity extends Activity implements MediaPlayer.OnCompletionL
         if (Common.isConnectingToInternet(this)){
             checkIfVideoIsPlaying(savedInstanceState);
 
-            playVideo();
+
+           // playVideo();
 
             videoView.start();
         } else {
             // display no net connectivity message
+            Toast.makeText(VideoActivity.this, Constants.NO_NET_CONNECTIVITY_MESSAGE, Toast.LENGTH_SHORT).show();
             finish();
         }
 
@@ -132,7 +135,15 @@ public class VideoActivity extends Activity implements MediaPlayer.OnCompletionL
     @Override
     protected void onPause() {
         super.onPause();
-        stopPlaying();
+        //stopPlaying();
+        videoView.stopPlayback();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //stopPlaying();
+        videoView.stopPlayback();
+        finish();
     }
 
     /**
