@@ -1,5 +1,7 @@
 package com.app.sircle.DownLoader;
 
+import android.widget.Toast;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -40,6 +42,9 @@ public class FileDownloader {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        }catch (Exception e){
+            //Toast.makeText().show();
             e.printStackTrace();
         }
     }
