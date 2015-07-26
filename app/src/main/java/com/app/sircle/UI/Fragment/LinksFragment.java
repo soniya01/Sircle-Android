@@ -9,9 +9,7 @@ import android.view.ViewGroup;
 
 import com.app.sircle.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class LinksFragment extends Fragment {
 
 

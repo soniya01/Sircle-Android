@@ -1,23 +1,29 @@
 package com.app.sircle.UI.Activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.app.sircle.R;
+import com.app.sircle.Utility.Common;
 
 public class VideoActivity extends Activity implements MediaPlayer.OnCompletionListener, MediaPlayer.OnPreparedListener, View.OnTouchListener{
 
     String videoUrl = "";
     private VideoView videoView;
     private boolean isPlaying = false;
+    private Uri uriYouTube;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,15 +36,55 @@ public class VideoActivity extends Activity implements MediaPlayer.OnCompletionL
         videoView.setOnPreparedListener(this);
         videoView.setOnTouchListener(this);
 
-        playVideo();
+        if (Common.isConnectingToInternet(this)){
+            checkIfVideoIsPlaying(savedInstanceState);
 
-        videoView.start();
+            playVideo();
+
+            videoView.start();
+        } else {
+            // display no net connectivity message
+            finish();
+        }
+
+
+    }
+
+    /**
+     * checks if video was already started
+     *
+     * @param savedInstanceState
+     */
+    public void checkIfVideoIsPlaying(Bundle savedInstanceState){
+        if (savedInstanceState != null) {
+            int loc = savedInstanceState.getInt("Loc");
+            Log.i("Location: ", loc + "");
+            uriYouTube = Uri.parse(savedInstanceState.getString("url"));
+            videoView.setVideoURI(uriYouTube);
+            videoView.seekTo(loc);
+            videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    Log.v("onPrepared", "ok");
+                    mp.start();
+                }
+            });
+        } else {
+            RSAsyncTask asyncTask = new RSAsyncTask();
+            asyncTask.execute(videoUrl);
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("Loc", videoView.getCurrentPosition());
+        outState.putString("url", uriYouTube.toString());
     }
 
     @Override
     public void onCompletion(MediaPlayer mp) {
         //finish();
-
     }
 
     @Override
@@ -53,17 +99,72 @@ public class VideoActivity extends Activity implements MediaPlayer.OnCompletionL
         return false;
     }
 
+    /**
+     * start playing the video
+     * @param url
+     */
+    public void startPlaying(String url){
+        uriYouTube = Uri.parse(url);
+        videoView.setVideoURI(uriYouTube);
+        videoView.start();
+    }
+
+    /**
+     * stop playing the video
+     */
     public void stopPlaying(){
         videoView.stopPlayback();
         this.finish();
     }
 
+    /**
+     * check if video is playing if so then pause it else play it
+     */
     public void playVideo(){
 
         if (isPlaying) {
             stopPlaying();
         } else {
-            videoView.setVideoURI(Uri.parse(videoUrl));
+            startPlaying(videoUrl);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopPlaying();
+    }
+
+    /**
+     * class to fetch the video and play it simultaneously
+     */
+    public class RSAsyncTask extends AsyncTask<String, Void, String> {
+        ProgressDialog progressDialog;
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String response = "";
+            try{
+                String url = params[0];
+                response = Common.getUrlVideoRTSP(url);
+            }catch (Exception e){
+                Toast.makeText(VideoActivity.this, "Sorry! There was trouble playing this video. PLease check your net connection", Toast.LENGTH_SHORT).show();
+                VideoActivity.this.finish();
+            }
+
+            return response;
+
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            startPlaying(result);
         }
     }
 }
