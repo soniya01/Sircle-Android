@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.VideoActivity;
 import com.app.sircle.UI.Adapter.VideoListViewAdapter;
 import com.app.sircle.UI.Model.Video;
+import com.app.sircle.UI.SlidingPane.SlidingPaneInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,7 @@ public class VideoFragment extends Fragment {
     private ListView videoListView;
     private VideoListViewAdapter videoListViewAdapter;
     private List<Video> videoList = new ArrayList<Video>();
+    private ImageButton drawerImageButton;
 
 
     @Override
@@ -32,9 +35,19 @@ public class VideoFragment extends Fragment {
         View viewFragment = inflater.inflate(R.layout.fragment_video,
                 null, true);
 
+        drawerImageButton = (ImageButton) viewFragment.findViewById(R.id.fragment_home_drawer_icon);
+
+        drawerImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((SlidingPaneInterface) getActivity()).tappedDrawerIcon();
+            }
+        });
+
         populateDummyData();
 
         videoListView = (ListView)viewFragment.findViewById(R.id.fragment_video_list_view);
+
         videoListViewAdapter = new VideoListViewAdapter(getActivity(), videoList);
 
         videoListView.setAdapter(videoListViewAdapter);
@@ -43,7 +56,7 @@ public class VideoFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                // open video playing activity
                 Intent videoActivity = new Intent(getActivity(), VideoActivity.class);
-                videoActivity.putExtra("videoUrl",videoList.get(position).videoEmbedURL.toString());
+                videoActivity.putExtra("videoUrl", videoList.get(position).videoEmbedURL.toString());
                 startActivity(videoActivity);
             }
         });

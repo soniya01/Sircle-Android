@@ -5,11 +5,8 @@ import android.app.ProgressDialog;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -39,8 +36,6 @@ public class VideoActivity extends Activity implements MediaPlayer.OnCompletionL
 
         if (Common.isConnectingToInternet(this)){
             checkIfVideoIsPlaying(savedInstanceState);
-
-
            // playVideo();
 
             videoView.start();
@@ -49,7 +44,6 @@ public class VideoActivity extends Activity implements MediaPlayer.OnCompletionL
             Toast.makeText(VideoActivity.this, Constants.NO_NET_CONNECTIVITY_MESSAGE, Toast.LENGTH_SHORT).show();
             finish();
         }
-
 
     }
 

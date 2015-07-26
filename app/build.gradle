@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.app.sircle"
-        minSdkVersion 16
+        minSdkVersion 14
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -26,4 +26,5 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.google.android.gms:play-services:7.5.0'
     compile 'com.joanzapata.pdfview:android-pdfview:1.0.4@aar'
+    compile 'com.balysv:material-ripple:1.0.2'
 }

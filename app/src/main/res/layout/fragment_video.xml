@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@android:color/white"
     tools:context="com.app.sircle.UI.Fragment.VideoFragment">
 
     <RelativeLayout
@@ -41,13 +42,14 @@
         android:id="@+id/fragment_video_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:cacheColorHint="@android:color/white"
         android:overScrollMode="never"
         android:scrollbars="none"
+        android:listSelector="@android:color/transparent"
+        android:background="?android:attr/selectableItemBackground"
         android:dividerHeight="0dp">
 
     </ListView>
-
-
 
 
 </LinearLayout>
