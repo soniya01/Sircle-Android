@@ -27,9 +27,9 @@
             android:name=".UI.Activity.LoginScreen"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UI.Activity.VideoActivity"
-            android:label="@string/title_activity_video" >
-            android:name=".UI.Activity.PDFViewer"
+            android:name=".UI.Activity.VideoActivity" />
+
+        <activity android:name=".UI.Activity.PDFViewer"
             android:label="@string/title_activity_pdfviewer" >
         </activity>
     </application>
