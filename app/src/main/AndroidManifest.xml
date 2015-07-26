@@ -4,6 +4,12 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <!-- Network State Permissions -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -25,7 +31,9 @@
             android:name=".UI.Activity.LoginScreen"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UI.Activity.PDFViewer"
+            android:name=".UI.Activity.VideoActivity" />
+
+        <activity android:name=".UI.Activity.PDFViewer"
             android:label="@string/title_activity_pdfviewer" >
         </activity>
     </application>

@@ -10,9 +10,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.app.sircle.DownLoader.FileDownloader;
 import com.app.sircle.R;
+import com.app.sircle.Utility.Constants;
 import com.joanzapata.pdfview.PDFView;
 
 import java.io.File;
@@ -52,19 +54,15 @@ public class PDFViewer extends Activity {
 
     public void view(String url)
     {
-
-
         Uri uri = Uri.parse(url);
         String fileName = uri.getLastPathSegment();
 
         File pdfFile = new File(Environment.getExternalStorageDirectory() + "/Sircle/" + fileName);  // -> filename
-        if(pdfFile.exists())
-        {
+        long len = pdfFile.length();
+        if(pdfFile.exists() && pdfFile.canRead() && pdfFile.length() != 0) {
             pdfView.fromFile(pdfFile).defaultPage(1).load();
-
         }
-        else
-        {
+        else {
             download("http://fzs.sve-mo.ba/sites/default/files/dokumenti-vijesti/sample.pdf");
         }
 
@@ -89,10 +87,13 @@ public class PDFViewer extends Activity {
 
             try{
                 pdfFile.createNewFile();
+                FileDownloader.downloadFile(fileUrl, pdfFile);
             }catch (IOException e){
                 e.printStackTrace();
+            }catch (Exception e){
+                Toast.makeText(PDFViewer.this, Constants.NO_NET_CONNECTIVITY_MESSAGE, Toast.LENGTH_SHORT).show();
             }
-            FileDownloader.downloadFile(fileUrl, pdfFile);
+
             return null;
         }
 
@@ -109,7 +110,7 @@ public class PDFViewer extends Activity {
         @Override
         protected void onPostExecute(Void result) {
             //  progressDialog.dismiss();
-            if (result != null) {
+            if (result == null) {
 
             }
             else
@@ -117,7 +118,7 @@ public class PDFViewer extends Activity {
                 mProgressDialog.dismiss();
 
                 File pdfFile = new File(Environment.getExternalStorageDirectory() + "/Sircle/" + fileName);  // -> filename
-                if(pdfFile.exists()) {
+                if(pdfFile.exists() && pdfFile.length() != 0) {
                     pdfView.fromFile(pdfFile).defaultPage(1).load();
                 }
 

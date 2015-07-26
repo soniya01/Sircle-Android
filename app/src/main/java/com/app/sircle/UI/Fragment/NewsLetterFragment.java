@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ import com.app.sircle.R;
 import com.app.sircle.UI.Activity.PDFViewer;
 import com.app.sircle.UI.Adapter.NewsLettersViewAdapter;
 import com.app.sircle.UI.Model.NewsLetter;
+import com.app.sircle.UI.SlidingPane.SlidingPaneInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +27,7 @@ public class NewsLetterFragment extends Fragment {
     private ListView newsLetterListView;
     private NewsLettersViewAdapter newsLetterListViewAdapter;
     private List<NewsLetter> newsLetterList = new ArrayList<NewsLetter>();
-
+    private ImageButton drawerImageButton;
 
 
     @Override
@@ -34,6 +36,15 @@ public class NewsLetterFragment extends Fragment {
 
         View viewFragment = inflater.inflate(R.layout.fragment_news_letter,
                 null, true);
+
+        drawerImageButton = (ImageButton) viewFragment.findViewById(R.id.fragment_home_drawer_icon);
+
+        drawerImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((SlidingPaneInterface) getActivity()).tappedDrawerIcon();
+            }
+        });
 
         populateDummyData();
 

@@ -1,5 +1,7 @@
 package com.app.sircle.DownLoader;
 
+import android.widget.Toast;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -23,6 +25,7 @@ public class FileDownloader {
             HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
             //urlConnection.setRequestMethod("GET");
             //urlConnection.setDoOutput(true);
+            urlConnection.setConnectTimeout(10000);
             urlConnection.connect();
 
             InputStream inputStream = urlConnection.getInputStream();
@@ -40,6 +43,9 @@ public class FileDownloader {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        }catch (Exception e){
+            //Toast.makeText().show();
             e.printStackTrace();
         }
     }
