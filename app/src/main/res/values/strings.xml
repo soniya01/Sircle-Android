@@ -57,7 +57,7 @@
     <string name="title_activity_pdfviewer">PDFViewer</string>
 
     <!-- NewsLetter fragment -->
-    <string name="fragment_newsletter_title">NewsLetter</string>
+    <string name="fragment_news_letter_title">NewsLetter</string>
 
 
 

@@ -27,7 +27,7 @@ tools:context="com.app.sircle.UI.Fragment.NewsLetterFragment">
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:textSize="@dimen/fragment_home_title_size"
-        android:text="@string/fragment_newsletter_title"
+       android:text="@string/fragment_news_letter_title"
         android:textColor="@android:color/black"
         />
 
