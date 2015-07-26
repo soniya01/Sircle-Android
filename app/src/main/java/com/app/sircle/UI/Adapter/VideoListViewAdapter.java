@@ -71,7 +71,6 @@ public class VideoListViewAdapter extends BaseAdapter {
                 .into(viewHolder.videoImageView, new Callback() {
                     @Override
                     public void onSuccess() {
-                        //imageViewMap.invalidate();
 
                     }
 
@@ -96,7 +95,6 @@ public class VideoListViewAdapter extends BaseAdapter {
 
             }
             videoThumbnailLink = Constants.YOUTUBE_VIDEO_BASE_IMAGE_URL+videoThumbnailLink+Constants.YOUTUBE_VIDEO_BASE_IMAGE_FILE_URL;
-
         }
 
         return videoThumbnailLink;

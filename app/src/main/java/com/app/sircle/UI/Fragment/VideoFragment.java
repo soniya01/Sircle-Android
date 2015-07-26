@@ -2,6 +2,7 @@ package com.app.sircle.UI.Fragment;
 
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.app.sircle.R;
+import com.app.sircle.UI.Activity.VideoActivity;
 import com.app.sircle.UI.Adapter.VideoListViewAdapter;
 import com.app.sircle.UI.Model.Video;
 
@@ -39,10 +41,12 @@ public class VideoFragment extends Fragment {
         videoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+               // open video playing activity
+                Intent videoActivity = new Intent(getActivity(), VideoActivity.class);
+                videoActivity.putExtra("videoUrl",videoList.get(position).toString());
+                startActivity(videoActivity);
             }
         });
-
 
         return viewFragment;
     }

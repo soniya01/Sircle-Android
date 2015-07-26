@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.app.sircle"
     android:versionCode="1"
-    android:versionName="1.0"
-    package="com.app.sircle" >
+    android:versionName="1.0" >
 
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -19,13 +21,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".UI.Activity.BaseActivity"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".UI.Activity.LoginScreen"
-            android:screenOrientation="portrait"/>
-
+        <activity
+            android:name=".UI.Activity.BaseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activity.LoginScreen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activity.VideoActivity"
+            android:label="@string/title_activity_video" >
+        </activity>
     </application>
 
 </manifest>
