@@ -61,7 +61,7 @@ public class VideoListViewAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        String videoUrl = "https://www.youtube.com/watch?v=1uTVK2dXTUk";
+        String videoUrl = "https://www.youtube.com/watch?v=cdgQpa1pUUE";
 
         String videoThumbnailUrl = extractYoutubeThumbnail(videoUrl);
         viewHolder.videoSourceLabel.setText("Youtube");
