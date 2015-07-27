@@ -59,6 +59,9 @@
     <!-- NewsLetter fragment -->
     <string name="fragment_news_letter_title">NewsLetter</string>
 
+    <!-- NewsLetter fragment -->
+    <string name="fragment_documents_title">Documents</string>
+
 
 
 </resources>
