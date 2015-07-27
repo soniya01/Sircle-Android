@@ -55,7 +55,7 @@ public class LoginScreen extends Activity {
                     editor.putString(Constants.LOGIN_PASSWORD_PREFS_KEY, passwordEditText.getText().toString());
 
                     // give access to the app features
-                    Intent homeIntent = new Intent(LoginScreen.this, BaseActivity.class);
+                    Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);
                     startActivity(homeIntent);
 
                 }

@@ -61,6 +61,7 @@
 
     <!-- NewsLetter fragment -->
     <string name="fragment_documents_title">Documents</string>
+    <string name="title_activity_settings">SettingsActivity</string>
 
 
 
