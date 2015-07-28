@@ -60,6 +60,10 @@
     <string name="fragment_news_letter_title">NewsLetter</string>
     <string name="title_activity_alnum_details">AlnumDetailsActivity</string>
 
+    <!-- NewsLetter fragment -->
+    <string name="fragment_documents_title">Documents</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
 
 
 </resources>
