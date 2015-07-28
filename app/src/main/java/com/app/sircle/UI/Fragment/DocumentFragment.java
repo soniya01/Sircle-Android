@@ -21,39 +21,21 @@ import com.app.sircle.UI.SlidingPane.SlidingPaneInterface;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class DocumentFragment extends Fragment {
 
     private ListView newsLetterListView;
     private NewsLettersViewAdapter newsLetterListViewAdapter;
     private List<NewsLetter> newsLetterList = new ArrayList<NewsLetter>();
-    private ImageButton drawerImageButton;
-
-
-    public DocumentFragment() {
-        // Required empty public constructor
-    }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       // return inflater.inflate(R.layout.fragment_document, container, false);
 
         View viewFragment = inflater.inflate(R.layout.fragment_document,
                 null, true);
-
-        drawerImageButton = (ImageButton) viewFragment.findViewById(R.id.fragment_home_drawer_icon);
-
-        drawerImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((SlidingPaneInterface) getActivity()).tappedDrawerIcon();
-            }
-        });
 
         populateDummyData();
 

@@ -5,33 +5,6 @@
     android:orientation="vertical"
     tools:context="com.app.sircle.UI.Fragment.DocumentFragment">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white">
-
-        <ImageButton
-            android:id="@+id/fragment_home_drawer_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/description_image_default"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:padding="10dp"
-            android:src="@android:drawable/ic_menu_slideshow" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:textSize="@dimen/fragment_home_title_size"
-            android:text="@string/fragment_documents_title"
-            android:textColor="@android:color/black"
-            />
-
-    </RelativeLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

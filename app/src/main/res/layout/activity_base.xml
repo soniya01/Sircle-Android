@@ -18,6 +18,7 @@
         android:layout_gravity="left|start"
         android:overScrollMode="never"
         android:scrollbars="none"
+        android:divider="@android:color/white"
         android:dividerHeight="0dp"
         android:listSelector="@android:color/transparent"
         android:background="?android:attr/selectableItemBackground"/>

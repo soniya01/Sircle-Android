@@ -19,6 +19,7 @@ public class SlidingPaneAdapter extends ArrayAdapter<String>{
     private final Context context;
     private final String[] values;
     private Integer selectedIndex;
+    private int[] menuIcons = {R.drawable.home, R.drawable.calendar, R.drawable.account, R.drawable.account, R.drawable.newspaper, R.drawable.file,R.drawable.video, R.drawable.link_variant, R.drawable.settings, R.drawable.email, R.drawable.logout};
 
     public SlidingPaneAdapter(Context context, String[] values) {
         super(context, R.layout.listview_sliding_pane_row, values);
@@ -27,9 +28,9 @@ public class SlidingPaneAdapter extends ArrayAdapter<String>{
         this.selectedIndex = 0;
     }
 
-    public Integer getSelectedIndex() {
-        return selectedIndex;
-    }
+//    public Integer getSelectedIndex() {
+//        return selectedIndex;
+//    }
 
     public void setSelectedIndex(Integer selectedIndex) {
         this.selectedIndex = selectedIndex;
@@ -38,6 +39,9 @@ public class SlidingPaneAdapter extends ArrayAdapter<String>{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        TextView textView;
+        ImageView imageView;
+
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
@@ -45,17 +49,18 @@ public class SlidingPaneAdapter extends ArrayAdapter<String>{
                     parent, false);
         }
 
-        TextView textView = (TextView) convertView.findViewById(R.id.sliding_pane_text_module_name);
+        textView = (TextView) convertView.findViewById(R.id.sliding_pane_text_module_name);
         textView.setText(values[position]);
 
-        ImageView imageView = (ImageView) convertView.findViewById(R.id.sliding_pane_module_image_view);
-        View selectedView = convertView.findViewById(R.id.sliding_pane_row_selected_view);
+        imageView = (ImageView) convertView.findViewById(R.id.sliding_pane_module_image_view);
+        imageView.setImageResource(menuIcons[position]);
+        //View selectedView = convertView.findViewById(R.id.sliding_pane_row_selected_view);
 
-        if (getSelectedIndex() == position){
-            selectedView.setVisibility(View.VISIBLE);
-        }else {
-            selectedView.setVisibility(View.GONE);
-        }
+//        if (getSelectedIndex() == position){
+//            selectedView.setVisibility(View.VISIBLE);
+//        }else {
+//            selectedView.setVisibility(View.GONE);
+//        }
 
         //Typeface fontDeclarationRegular = Typeface.createFromAsset(context.getAssets(), Constants.Font_DeclarationRegular);
         //textView.setTypeface(fontDeclarationRegular);
