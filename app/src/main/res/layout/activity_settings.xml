@@ -2,10 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#bebebe"
     android:orientation="vertical" >
 
     <TextView android:layout_width="fill_parent"
         android:id="@+id/notificationsGroupText"
+        android:background="#ffffff"
         android:layout_height="wrap_content" android:padding="10dp"
         android:text="Notification Groups" android:textSize="20sp" />
 
@@ -13,8 +15,11 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="#ffffff"
         android:id="@+id/layoutSelectAll"
         android:layout_below="@+id/notificationsGroupText"
+        android:layout_marginTop="5dp"
+        android:padding="20dp"
         >
 
 
@@ -39,12 +44,15 @@
     <ListView android:id="@+id/notificationsGroupListView" android:layout_width="fill_parent"
         android:layout_height="fill_parent" android:layout_below="@+id/layoutSelectAll"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="#ffffff"
         android:layout_above="@+id/saveGroups"/>
     <Button
         android:id="@+id/saveGroups"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:background="#ffffff"
         android:text="Save" />
 
 </RelativeLayout>
