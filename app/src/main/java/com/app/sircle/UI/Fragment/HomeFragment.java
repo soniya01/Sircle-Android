@@ -18,7 +18,6 @@ import com.app.sircle.UI.SlidingPane.SlidingPaneInterface;
  */
 public class HomeFragment extends Fragment {
 
-    private ImageButton drawerImageButton;
     private TextView emailLabel;
 
     @Override
@@ -26,15 +25,6 @@ public class HomeFragment extends Fragment {
 
         View viewFragment = inflater.inflate(R.layout.fragment_home,
                 null, true);
-
-        drawerImageButton = (ImageButton) viewFragment.findViewById(R.id.fragment_home_drawer_icon);
-
-        drawerImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((SlidingPaneInterface) getActivity()).tappedDrawerIcon();
-            }
-        });
 
         emailLabel = (TextView)viewFragment.findViewById(R.id.activity_login_email_address_label);
         // underlines the email address

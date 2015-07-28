@@ -34,7 +34,6 @@ public class VideoFragment extends Fragment {
     private ListView videoListView;
     private VideoListViewAdapter videoListViewAdapter;
     private List<Video> videoList = new ArrayList<Video>();
-    private ImageButton drawerImageButton;
 
 
     @Override
@@ -42,15 +41,6 @@ public class VideoFragment extends Fragment {
                              Bundle savedInstanceState) {
         View viewFragment = inflater.inflate(R.layout.fragment_video,
                 null, true);
-
-        drawerImageButton = (ImageButton) viewFragment.findViewById(R.id.fragment_home_drawer_icon);
-
-        drawerImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((SlidingPaneInterface) getActivity()).tappedDrawerIcon();
-            }
-        });
 
         populateDummyData();
 

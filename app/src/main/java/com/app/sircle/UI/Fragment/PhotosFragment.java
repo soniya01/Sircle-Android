@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
@@ -22,8 +23,6 @@ import java.util.List;
  */
 public class PhotosFragment extends Fragment {
 
-
-    private ImageButton drawerImageButton;
     private ListView albumListView;
     private PhotosListViewAdapter photosListViewAdapter;
     private List<Photo> photos = new ArrayList<Photo>();
@@ -33,20 +32,19 @@ public class PhotosFragment extends Fragment {
 
         View viewFragment = inflater.inflate(R.layout.fragment_photos, null , true);
 
-        drawerImageButton = (ImageButton) viewFragment.findViewById(R.id.fragment_home_drawer_icon);
-
-        drawerImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((SlidingPaneInterface) getActivity()).tappedDrawerIcon();
-            }
-        });
         populateDummyData();
 
         albumListView = (ListView)viewFragment.findViewById(R.id.fragment_photos_list_view);
         photosListViewAdapter = new PhotosListViewAdapter(getActivity(), photos);
         albumListView.setAdapter(photosListViewAdapter);
         albumListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        albumListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+
         return viewFragment;
     }
 

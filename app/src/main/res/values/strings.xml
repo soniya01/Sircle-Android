@@ -58,6 +58,7 @@
 
     <!-- NewsLetter fragment -->
     <string name="fragment_news_letter_title">NewsLetter</string>
+    <string name="title_activity_alnum_details">AlnumDetailsActivity</string>
 
 
 

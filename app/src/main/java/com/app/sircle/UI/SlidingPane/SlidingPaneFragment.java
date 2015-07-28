@@ -52,11 +52,10 @@ public class SlidingPaneFragment extends Fragment implements AdapterView.OnItemC
                             int position, long id) {
         listViewSlidingPane.setItemChecked(position, true);
         refreshSlidingPaneListView(position);
-        ((SlidingPanDelegate) getActivity())
-                .didSelectListViewItemAtIndex(position);
+       // ((SlidingPanDelegate) getActivity()).didSelectListViewItemAtIndex(position);
     }
 
-    public interface SlidingPanDelegate {
-        public void didSelectListViewItemAtIndex(Integer index);
-    }
+//    public interface SlidingPanDelegate {
+//        public void didSelectListViewItemAtIndex(Integer index);
+//    }
 }

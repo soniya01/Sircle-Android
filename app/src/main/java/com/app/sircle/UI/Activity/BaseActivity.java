@@ -6,10 +6,17 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.widget.SlidingPaneLayout;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.app.sircle.R;
 import com.app.sircle.UI.Fragment.DocumentFragment;
@@ -20,14 +27,11 @@ import com.app.sircle.UI.Fragment.NotificationFragment;
 import com.app.sircle.UI.Fragment.PhotosFragment;
 import com.app.sircle.UI.Fragment.SettingsFragment;
 import com.app.sircle.UI.Fragment.VideoFragment;
-import com.app.sircle.UI.SlidingPane.SlidingPaneFragment;
-import com.app.sircle.UI.SlidingPane.SlidingPaneInterface;
+import com.app.sircle.UI.SlidingPane.SlidingPaneAdapter;
 import com.app.sircle.Utility.Common;
 
-import java.lang.reflect.Field;
 
-
-public class BaseActivity extends Activity implements  SlidingPaneInterface, SlidingPaneFragment.SlidingPanDelegate{
+public class BaseActivity extends ActionBarActivity {
 
     private final static String SHOULD_SELECT_LIST_VIEW_ITEM = "shouldSelectListViewItem";
     private final static String SELECTED_MODULE = "selectedModuleIndex";
@@ -35,10 +39,13 @@ public class BaseActivity extends Activity implements  SlidingPaneInterface, Sli
     private boolean shouldSelectListViewItem = true;
     private Handler handler;
     private Fragment fragmentToLoad = null;
-    private SlidingPaneLayout slidingPan;
+    private ListView mDrawerList;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
     private Intent nonFragment ;
+    private String[] menuList;
 
-    private static void loadFragment(Context context, Fragment fragment) {
+    private void loadFragment(Context context, Fragment fragment) {
 
         FragmentManager fragmentManager = ((Activity) context)
                 .getFragmentManager();
@@ -47,10 +54,15 @@ public class BaseActivity extends Activity implements  SlidingPaneInterface, Sli
         if (fragment != null) {
 
             transaction.replace(R.id.main_layout_container, fragment);
+
         }
         transaction.commit();
         fragmentManager.executePendingTransactions();
 
+        mDrawerList.setItemChecked(selectedModuleIndex, true);
+        mDrawerList.setSelection(selectedModuleIndex);
+        setTitle(menuList[selectedModuleIndex]);
+        mDrawerLayout.closeDrawer(mDrawerList);
 
     }
 
@@ -81,67 +93,85 @@ public class BaseActivity extends Activity implements  SlidingPaneInterface, Sli
 
         setContentView(R.layout.activity_base);
 
-        this.slidingPan = (SlidingPaneLayout) findViewById(R.id.slidingPane);
+        mDrawerList = (ListView)findViewById(R.id.main_menu_listview);
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        setupDrawer();
 
-        //setSlidingPaneGapWidth(this.slidingPan, 50);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
-        this.slidingPan.setPanelSlideListener(new PaneListener());
+        menuList = getResources().getStringArray(
+                R.array.array_module_name);
 
-        //Load the first fragment (Home) for the first time
-        if (shouldSelectListViewItem == true) {
-            this.didSelectListViewItemAtIndex(0);
-            this.slidingPan.openPane();
+        SlidingPaneAdapter adapter = new SlidingPaneAdapter(this,menuList);
+        mDrawerList.setAdapter(adapter);
+
+        if (shouldSelectListViewItem){
+            didSelectListViewItemAtIndex(0);
+            mDrawerList.setItemChecked(0, true);
+            mDrawerList.setSelection(0);
         }
+
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+           @Override
+           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               selectedModuleIndex = position;
+               mDrawerList.setItemChecked(position, true);
+               mDrawerList.setSelection(position);
+               BaseActivity.this.didSelectListViewItemAtIndex(position);
+
+           }
+       });
 
     }
 
-    //SlidingPaneInterface method
+    private void setupDrawer() {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.app_name, R.string.app_name) {
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                getSupportActionBar().setTitle(menuList[selectedModuleIndex]);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+    }
 
     @Override
-    public void tappedDrawerIcon() {
-        slidingPan.openPane();
+    public void setTitle(CharSequence title) {
+        super.setTitle(title);
     }
 
     /**
-     * Sets gaps to be keep between pane and child view
-     *
-     * @param slidingPan
-     * @param gapWidth
+     * When using the ActionBarDrawerToggle, you must call it during
+     * onPostCreate() and onConfigurationChanged()...
      */
-    private void setSlidingPaneGapWidth(SlidingPaneLayout slidingPan, int gapWidth) {
-        try {
-            Field slidingPaneGapWidth = SlidingPaneLayout.class.getDeclaredField("mOverhangSize");
-            slidingPaneGapWidth.setAccessible(true);
-            slidingPaneGapWidth.setInt(slidingPan, gapWidth);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
 
-    // SlidingPaneLayout Listener
-    private class PaneListener implements SlidingPaneLayout.PanelSlideListener {
-
-        @Override
-        public void onPanelClosed(View view) {
-
-        }
-
-        @Override
-        public void onPanelOpened(View view) {
-
-        }
-
-        @Override
-        public void onPanelSlide(View view, float arg1) {
-        }
-    }
-
-    /**
-     * *** Sliding Pane Fragment *****
-     */
     @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Pass any configuration change to the drawer toggls
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+
     public void didSelectListViewItemAtIndex(Integer index) {
         // To avoid loading same fragment again
 
@@ -151,7 +181,7 @@ public class BaseActivity extends Activity implements  SlidingPaneInterface, Sli
         // after it is ready
         switch (index) {
             case 0:
-                // Not loading any fragment for breaking new as it is already
+                // Not loading any fragmentas it is already
                 // added
                 // in the layout
                 // In this case fragmentToLoad = null and the previous fragment
@@ -186,12 +216,12 @@ public class BaseActivity extends Activity implements  SlidingPaneInterface, Sli
             case 9:
                 fragmentToLoad = null;
                 // support email clickable
-                //nonFragment = new Intent(this, )
-                finish();
+                mDrawerLayout.closeDrawer(mDrawerList);
                 Common.sendEmailToSupport(this);
                 break;
             case 10:
                 // add sign out functionality and show LoginScreen
+                mDrawerLayout.closeDrawer(mDrawerList);
                 fragmentToLoad = null;
                 finish();
             default:
@@ -199,7 +229,7 @@ public class BaseActivity extends Activity implements  SlidingPaneInterface, Sli
         }
         // setTitle(moduleTitles[index]);
 
-        if (fragmentToLoad != null){
+        if (fragmentToLoad != null) {
             handler = new Handler();
             loadFragment(BaseActivity.this, fragmentToLoad);
 
@@ -208,11 +238,41 @@ public class BaseActivity extends Activity implements  SlidingPaneInterface, Sli
 
             @Override
             public void run() {
-                slidingPan.closePane();
+               // slidingPan.closePane();
             }
         });
 
 
+    }
+
+    /* Called whenever we call invalidateOptionsMenu() */
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // If the nav drawer is open, hide action items related to the content view
+        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+        menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
+        // Activate the navigation drawer toggle
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

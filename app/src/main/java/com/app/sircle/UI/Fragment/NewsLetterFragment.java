@@ -27,8 +27,6 @@ public class NewsLetterFragment extends Fragment {
     private ListView newsLetterListView;
     private NewsLettersViewAdapter newsLetterListViewAdapter;
     private List<NewsLetter> newsLetterList = new ArrayList<NewsLetter>();
-    private ImageButton drawerImageButton;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,15 +34,6 @@ public class NewsLetterFragment extends Fragment {
 
         View viewFragment = inflater.inflate(R.layout.fragment_news_letter,
                 null, true);
-
-        drawerImageButton = (ImageButton) viewFragment.findViewById(R.id.fragment_home_drawer_icon);
-
-        drawerImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((SlidingPaneInterface) getActivity()).tappedDrawerIcon();
-            }
-        });
 
         populateDummyData();
 
