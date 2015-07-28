@@ -37,10 +37,10 @@
         </activity>
         <activity
             android:name=".UI.Activity.AlbumDetailsActivity"
-            android:label="@string/title_activity_alnum_details" >
+             />
         <activity
             android:name=".UI.Activity.SettingsActivity"
-            android:label="@string/title_activity_settings" >
+             >
         </activity>
     </application>
 
