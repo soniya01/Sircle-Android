@@ -2,8 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_light"
-    android:gravity="center_horizontal"
+    android:background="@drawable/login_background_light"
+
+
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -36,14 +37,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_width="78dp"
+                    android:layout_height="106dp"
                     android:layout_gravity="center_horizontal"
                     android:contentDescription="@string/description_image_default"
-                    android:src="@drawable/ic_cast_dark" />
+                    android:src="@drawable/splashscreenimage" />
 
-                <TextView
+              <!--  <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -51,13 +54,13 @@
                     android:text="@string/activity_login_title"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold" /> -->
 
                 <!-- Username view-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="60dp"
                     android:background="@drawable/login_border"
                     android:orientation="horizontal">
 
@@ -67,12 +70,12 @@
                         android:background="@android:color/transparent"
                         android:contentDescription="@string/description_image_default"
                         android:padding="10dp"
-                        android:src="@android:drawable/ic_menu_add" />
+                        android:src="@drawable/account" />
 
-                    <View
+                 <!--   <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
-                        android:background="@android:color/darker_gray" />
+                        android:background="@android:color/darker_gray" /> -->
 
 
                     <AutoCompleteTextView
@@ -105,13 +108,13 @@
                         android:background="@android:color/transparent"
                         android:contentDescription="@string/description_image_default"
                         android:padding="10dp"
-                        android:src="@android:drawable/ic_menu_add" />
+                        android:src="@drawable/lock" />
 
-                    <View
+                  <!--  <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:layout_margin="2dp"
-                        android:background="@android:color/darker_gray" />
+                        android:background="@android:color/darker_gray" /> -->
 
 
                     <EditText
@@ -139,6 +142,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:background="#9A32CD"
                     android:text="@string/action_sign_in"
                     android:textColor="@android:color/white"
                     android:textStyle="bold" />
@@ -147,7 +151,7 @@
 
             <!-- View below login button-->
 
-            <RelativeLayout
+           <!-- <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
@@ -197,7 +201,7 @@
 
                 </LinearLayout>
 
-            </RelativeLayout>
+            </RelativeLayout> -->
 
         </LinearLayout>
 

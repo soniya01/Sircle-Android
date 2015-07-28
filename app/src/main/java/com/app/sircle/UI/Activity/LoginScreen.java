@@ -23,21 +23,21 @@ public class LoginScreen extends Activity {
     private EditText passwordEditText;
     private AutoCompleteTextView usernameField;
     private SharedPreferences loginSharedPrefs;
-    private TextView supportLabel;
+   // private TextView supportLabel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        supportLabel = (TextView)findViewById(R.id.activity_login_email_address_label);
+      //  supportLabel = (TextView)findViewById(R.id.activity_login_email_address_label);
         passwordEditText = (EditText)findViewById(R.id.activity_login_password_edittext);
         usernameField = (AutoCompleteTextView)findViewById(R.id.activity_login_email_text_view);
 
         // underlines the email address
         SpannableString content = new SpannableString(getResources().getString(R.string.activity_login_email_address).toString());
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-        supportLabel.setText(content);
+        //supportLabel.setText(content);
 
 
         loginButton = (Button)findViewById(R.id.email_sign_in_button);

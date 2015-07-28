@@ -52,6 +52,7 @@ public class SettingsActivity extends Activity {
                     // give access to the app features
                     Intent homeIntent = new Intent(SettingsActivity.this, BaseActivity.class);
                     startActivity(homeIntent);
+                finish();
 
                 }
 
