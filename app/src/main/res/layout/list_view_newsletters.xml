@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
+        android:paddingRight="10dp"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -29,7 +30,7 @@
                 android:id="@+id/pdfTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_toRightOf="@+id/pdfImage"
                 android:text="Sample pdf"
                 android:textColor="@android:color/black" />
@@ -39,8 +40,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
                 android:padding="10dp"
+                android:textSize="@dimen/photos_row_day_label_size"
                 android:text="Wed 27 July 2015" />
 
             <TextView
@@ -49,7 +52,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="30dp"
+                android:textSize="@dimen/photos_row_day_label_size"
                 android:padding="10dp"
                 android:text="11:00" />
 

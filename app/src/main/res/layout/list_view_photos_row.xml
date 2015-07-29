@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:background="@android:color/white"
         android:orientation="vertical"
-        android:padding="15dp">
+        android:padding="10dp">
 
 
         <RelativeLayout
@@ -37,7 +37,8 @@
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/photos_row_album_image"
                 android:layout_toRightOf="@id/photos_row_album_image"
-                android:padding="15dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
                 android:text="Album1"
                 android:textColor="@android:color/black"
                 android:textSize="14sp" />
@@ -49,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/photos_row_album_label_name"
                 android:layout_toRightOf="@id/photos_row_album_image"
+                android:layout_marginTop="10dp"
                 android:paddingLeft="20dp">
 
                 <ImageView
