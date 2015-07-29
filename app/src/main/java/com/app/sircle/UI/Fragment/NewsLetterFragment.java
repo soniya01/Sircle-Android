@@ -68,5 +68,8 @@ public class NewsLetterFragment extends Fragment {
         newsLetterList.add(newsLetter);
         newsLetterList.add(newsLetter);
         newsLetterList.add(newsLetter);
+        newsLetterList.add(newsLetter);
+        newsLetterList.add(newsLetter);
+        newsLetterList.add(newsLetter);
     }
 }

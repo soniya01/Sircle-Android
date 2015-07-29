@@ -1,4 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,8 +21,19 @@
 
     </ListView>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:backgroundTint="#9A32CD"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        app:borderWidth="0dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="30dp"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        android:src="@android:drawable/ic_input_add" />
 
-
-
-</LinearLayout>
+</RelativeLayout>
 

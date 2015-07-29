@@ -83,6 +83,9 @@ public class VideoFragment extends Fragment {
         videoList.add(video);
         videoList.add(video);
         videoList.add(video);
+        videoList.add(video);
+        videoList.add(video);
+        videoList.add(video);
     }
 
     private boolean canResolveIntent(Intent intent) {

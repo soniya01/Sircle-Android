@@ -11,6 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/white"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -19,33 +20,37 @@
 
             <ImageView
                 android:id="@+id/pdfImage"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:padding="10dp"
                 android:src="@drawable/pdficon" />
 
             <TextView
                 android:id="@+id/pdfTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:layout_toRightOf="@+id/pdfImage"
-                android:text="PDF Title" />
+                android:text="Sample pdf"
+                android:textColor="@android:color/black" />
 
             <TextView
                 android:id="@+id/pdfDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/pdfImage"
-                android:text="Wednesday 27 May 2015" />
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:text="Wed 27 July 2015" />
 
             <TextView
                 android:id="@+id/pdfTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="40dp"
+                android:padding="10dp"
                 android:text="11:00" />
 
         </RelativeLayout>

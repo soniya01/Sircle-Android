@@ -9,28 +9,23 @@
     app:mrl_rippleHover="true"
     app:mrl_rippleOverlay="true">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
-        android:orientation="vertical"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
         android:paddingTop="10dp">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
-            android:layout_marginTop="15dp">
 
             <TextView
                 android:id="@+id/photos_row_album_label_day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:text="Wednesday 22 July 2015"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:padding="10dp"
+                android:text="Wed 22 July 2015"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="@dimen/photos_row_day_label_size" />
 
@@ -40,26 +35,33 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
+                android:layout_below="@id/photos_row_album_label_day"
+                android:paddingRight="10dp"
                 android:text="12.45"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="@dimen/photos_row_time_label_size" />
 
-        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/fragment_video_image_view"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/description_image_default"
+            android:src="@android:drawable/dialog_holo_dark_frame" />
 
         <TextView
             android:id="@+id/fragment_video_source_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/fragment_video_image_view"
             android:text="@string/fragment_video_video_source_label_demmy_text"
-            android:textColor="@android:color/darker_gray" />
+            android:textColor="@android:color/black" />
 
-        <ImageView
-            android:id="@+id/fragment_video_image_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:contentDescription="@string/description_image_default"
-            android:src="@android:drawable/dialog_holo_dark_frame" />
 
-    </LinearLayout>
+
+    </RelativeLayout>
 </com.balysv.materialripple.MaterialRippleLayout>

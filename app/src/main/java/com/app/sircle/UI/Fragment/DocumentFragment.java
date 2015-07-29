@@ -70,6 +70,9 @@ public class DocumentFragment extends Fragment {
         newsLetterList.add(newsLetter);
         newsLetterList.add(newsLetter);
         newsLetterList.add(newsLetter);
+        newsLetterList.add(newsLetter);
+        newsLetterList.add(newsLetter);
+        newsLetterList.add(newsLetter);
     }
 
 }
