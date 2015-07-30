@@ -1,27 +1,18 @@
 package com.app.sircle.UI.Activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.app.sircle.R;
-import com.app.sircle.UI.Adapter.NewsLettersViewAdapter;
 import com.app.sircle.UI.Adapter.NotificationsGroupAdapter;
-import com.app.sircle.UI.Adapter.VideoListViewAdapter;
-import com.app.sircle.UI.Model.NewsLetter;
+
 import com.app.sircle.UI.Model.NotificationGroups;
-import com.app.sircle.UI.Model.Video;
-import com.app.sircle.Utility.Constants;
 
 import java.util.ArrayList;
 import java.util.List;

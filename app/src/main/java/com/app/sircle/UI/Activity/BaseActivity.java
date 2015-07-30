@@ -7,6 +7,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
@@ -19,6 +20,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.app.sircle.R;
+import com.app.sircle.UI.Fragment.CalendarFragment;
+import com.app.sircle.UI.Fragment.CalendarListFragment;
+import com.app.sircle.UI.Fragment.CalendarMonthFragment;
+import com.app.sircle.UI.Fragment.CalendarTodayFragment;
 import com.app.sircle.UI.Fragment.DocumentFragment;
 import com.app.sircle.UI.Fragment.HomeFragment;
 import com.app.sircle.UI.Fragment.LinksFragment;
@@ -31,7 +36,7 @@ import com.app.sircle.UI.SlidingPane.SlidingPaneAdapter;
 import com.app.sircle.Utility.Common;
 
 
-public class BaseActivity extends ActionBarActivity {
+public class BaseActivity extends ActionBarActivity implements CalendarMonthFragment.OnFragmentInteractionListener,CalendarTodayFragment.OnFragmentInteractionListener,CalendarListFragment.OnFragmentInteractionListener {
 
     private final static String SHOULD_SELECT_LIST_VIEW_ITEM = "shouldSelectListViewItem";
     private final static String SELECTED_MODULE = "selectedModuleIndex";
@@ -190,7 +195,7 @@ public class BaseActivity extends ActionBarActivity {
                 fragmentToLoad = new HomeFragment();
                 break;
             case 1:
-                fragmentToLoad = new HomeFragment();
+                fragmentToLoad = new CalendarFragment();
                 break;
             case 2:
                 fragmentToLoad = new PhotosFragment();
@@ -238,7 +243,7 @@ public class BaseActivity extends ActionBarActivity {
 
             @Override
             public void run() {
-               // slidingPan.closePane();
+                // slidingPan.closePane();
             }
         });
 
@@ -277,6 +282,11 @@ public class BaseActivity extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 }
