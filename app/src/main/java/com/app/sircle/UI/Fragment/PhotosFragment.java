@@ -1,6 +1,7 @@
 package com.app.sircle.UI.Fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,9 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.app.sircle.R;
+import com.app.sircle.UI.Activity.AlbumDetailsActivity;
 import com.app.sircle.UI.Adapter.PhotosListViewAdapter;
+import com.app.sircle.UI.Model.AlbumDetails;
 import com.app.sircle.UI.Model.Photo;
 import com.app.sircle.UI.SlidingPane.SlidingPaneInterface;
 
@@ -26,6 +29,7 @@ public class PhotosFragment extends Fragment {
     private ListView albumListView;
     private PhotosListViewAdapter photosListViewAdapter;
     private List<Photo> photos = new ArrayList<Photo>();
+    private List<AlbumDetails> albumDetailsList = new ArrayList<AlbumDetails>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,6 +45,9 @@ public class PhotosFragment extends Fragment {
         albumListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent albumIntent = new Intent(getActivity(), AlbumDetailsActivity.class);
+                startActivity(albumIntent);
 
             }
         });

@@ -1,5 +1,7 @@
 package com.app.sircle.UI.Model;
 
+import java.util.Date;
+
 /**
  * Created by soniya on 27/07/15.
  */
@@ -8,7 +10,7 @@ public class AlbumDetails {
     public String photoCaption;
     public String photoThumbURL;
     public String photoLargeURL;
-    public String publishDate;
+    public Date publishDate;
 
     public int getPhotoID() {
         return photoID;
@@ -42,11 +44,11 @@ public class AlbumDetails {
         this.photoLargeURL = photoLargeURL;
     }
 
-    public String getPublishDate() {
+    public Date getPublishDate() {
         return publishDate;
     }
 
-    public void setPublishDate(String publishDate) {
+    public void setPublishDate(Date publishDate) {
         this.publishDate = publishDate;
     }
 }
