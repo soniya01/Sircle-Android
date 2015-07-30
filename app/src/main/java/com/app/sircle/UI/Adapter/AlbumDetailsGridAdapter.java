@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.app.sircle.R;
 import com.app.sircle.UI.Model.AlbumDetails;
 
 import java.util.ArrayList;
@@ -49,25 +51,27 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ImageView imageView;
+        ViewHolder viewHolder;
         if (convertView == null) {
-            imageView = new ImageView(mContext);
+            viewHolder = new ViewHolder();
+            convertView = inflater.inflate(R.layout.grid_view_albums,
+                    parent, false);
+            viewHolder.albumImageView = (ImageView) convertView.findViewById(R.id.grid_album_image_view);
+
+            convertView.setTag(viewHolder);
         } else {
-            imageView = (ImageView) convertView;
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
         // get screen dimensions
         //Bitmap image = decodeFile(_filePaths.get(position), 120, 120);
 
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setLayoutParams(new GridView.LayoutParams(120,
-                120));
-        //imageView.setImageBitmap(image);
+        viewHolder.albumImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         // image view click listener
-        imageView.setOnClickListener(new OnImageClickListener(position));
+        viewHolder.albumImageView.setOnClickListener(new OnImageClickListener(position));
 
-        return imageView;
+        return convertView;
     }
 
     class OnImageClickListener implements View.OnClickListener {
@@ -81,12 +85,14 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
 
         @Override
         public void onClick(View v) {
-            // on selecting grid view image
-            // launch full screen activity
-            //Intent i = new Intent(mContext, FullScreenViewActivity.class);
-            //i.putExtra("position", _postion);
+            Toast.makeText(mContext, "image clicked", Toast.LENGTH_SHORT).show();
 
         }
 
+    }
+
+    static class ViewHolder {
+
+        private ImageView albumImageView;
     }
 }
