@@ -29,4 +29,6 @@ dependencies {
     compile 'com.joanzapata.pdfview:android-pdfview:1.0.4@aar'
     compile 'com.balysv:material-ripple:1.0.2'
     compile files('libs/YouTubeAndroidPlayerApi.jar')
+    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
+    compile 'com.roomorama:caldroid:2.1.0'
 }
