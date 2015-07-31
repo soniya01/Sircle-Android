@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="#22c0c0c0">
+
+        <TextView
+            android:id="@+id/albums_image_no_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="1/5"
+            android:padding="10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:textColor="@android:color/darker_gray"/>
+
+        <TextView
+            android:id="@+id/album_image_title_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            android:text="Scenery"/>
+
+        <ImageButton
+            android:id="@+id/album_image_download_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/download_icon"
+            android:layout_gravity="right"
+            android:padding="10dp"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/description_image_default"/>
+
+    </RelativeLayout>
+
+
+    <com.app.sircle.UI.CustomView.TouchImageView
+        android:id="@+id/album_pager_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/scene1"
+        android:contentDescription="@string/description_image_default"
+        android:background="@android:color/transparent"/>
+
+
+</LinearLayout>

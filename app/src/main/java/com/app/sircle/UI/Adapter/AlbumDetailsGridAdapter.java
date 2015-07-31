@@ -2,16 +2,15 @@ package com.app.sircle.UI.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.app.sircle.R;
+import com.app.sircle.UI.Activity.AlbumFullScreenActivity;
 import com.app.sircle.UI.Model.AlbumDetails;
 
 import java.util.ArrayList;
@@ -86,6 +85,9 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
         @Override
         public void onClick(View v) {
             Toast.makeText(mContext, "image clicked", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(mContext, AlbumFullScreenActivity.class);
+            i.putExtra("position", _postion);
+            mContext.startActivity(i);
 
         }
 

@@ -30,18 +30,25 @@
         <activity
             android:name=".UI.Activity.LoginScreen"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.Activity.VideoActivity" />
+
+        <activity android:name=".UI.Activity.VideoActivity"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".UI.Activity.PDFViewer"
-            android:label="@string/title_activity_pdfviewer" >
-        </activity>
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".UI.Activity.AlbumDetailsActivity"
-             />
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".UI.Activity.SettingsActivity"
-             >
-        </activity>
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".UI.Activity.AlbumFullScreenActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>
