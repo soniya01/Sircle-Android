@@ -126,10 +126,10 @@ public class AlbumImagePagerAdapter extends PagerAdapter {
             String fileUrl = strings[0];   // -> http://maven.apache.org/maven-1.x/maven.pdf
 
             try {
-                String extStorageDirectory = Environment.getExternalStorageDirectory().toString() + "/Sircle/Images/%d.jpg"+albumDetailsList.get(position).getPhotoID();
+                String extStorageDirectory = Environment.getExternalStorageDirectory().toString() + "/Sircle/Images/01.jpg";
                 URL url = new URL(fileUrl);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setDoInput(true);
+                //connection.setDoInput(true);
                 connection.connect();
                 InputStream input = connection.getInputStream();
                 Bitmap myBitmap = BitmapFactory.decodeStream(input);
