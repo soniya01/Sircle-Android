@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.AlbumFullScreenActivity;
 import com.app.sircle.UI.Model.AlbumDetails;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +68,20 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
         //Bitmap image = decodeFile(_filePaths.get(position), 120, 120);
 
         viewHolder.albumImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+        Picasso.with(mContext)
+                .load("http://img.youtube.com/vi/GDFUdMvacI0/0.jpg")
+                .into(viewHolder.albumImageView, new Callback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
 
         // image view click listener
         viewHolder.albumImageView.setOnClickListener(new OnImageClickListener(position));

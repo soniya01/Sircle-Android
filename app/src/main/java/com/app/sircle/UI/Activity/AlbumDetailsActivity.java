@@ -36,6 +36,7 @@ public class AlbumDetailsActivity extends Activity {
         AlbumDetails albumDetails = new AlbumDetails();
         albumDetails.setPhotoID(1);
         albumDetails.setPhotoCaption("Nature");
+        albumDetails.setPhotoLargeURL("http://img.youtube.com/vi/aAQy0r_6h2w/0.jpg");
         albumDetails.setPublishDate(new Date());
 
         albumDetailsList.add(albumDetails);
