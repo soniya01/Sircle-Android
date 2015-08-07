@@ -9,6 +9,8 @@
 
     <!-- fragment home-->
     <dimen name="fragment_home_title_size">18sp</dimen>
+    <dimen name="fragment_home_school_title_size">17sp</dimen>
+
 
     <!-- Photos-->
     <dimen name="photos_row_day_label_size">12sp</dimen>

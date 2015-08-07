@@ -2,34 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_light"
+    android:background="@android:color/white"
     android:orientation="vertical">
 
     <!--<RelativeLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@android:color/white">-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@android:color/white">-->
 
-        <!--<ImageButton-->
-            <!--android:id="@+id/fragment_home_drawer_icon"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center_vertical"-->
-            <!--android:background="@android:color/transparent"-->
-            <!--android:contentDescription="@string/description_image_default"-->
-            <!--android:layout_alignParentLeft="true"-->
-            <!--android:layout_alignParentStart="true"-->
-            <!--android:padding="10dp"-->
-            <!--android:src="@android:drawable/ic_menu_slideshow" />-->
+    <!--<ImageButton-->
+    <!--android:id="@+id/fragment_home_drawer_icon"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center_vertical"-->
+    <!--android:background="@android:color/transparent"-->
+    <!--android:contentDescription="@string/description_image_default"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--android:layout_alignParentStart="true"-->
+    <!--android:padding="10dp"-->
+    <!--android:src="@android:drawable/ic_menu_slideshow" />-->
 
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerInParent="true"-->
-            <!--android:textSize="@dimen/fragment_home_title_size"-->
-            <!--android:text="@string/fragment_home_title"-->
-            <!--android:textColor="@android:color/black"-->
-            <!--/>-->
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:textSize="@dimen/fragment_home_title_size"-->
+    <!--android:text="@string/fragment_home_title"-->
+    <!--android:textColor="@android:color/black"-->
+    <!--/>-->
 
 
     <!--</RelativeLayout>-->
@@ -42,58 +42,117 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:contentDescription="@string/description_image_default"
         android:src="@android:drawable/picture_frame" />
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="35dp"
-        android:layout_marginTop="10dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:padding="15dp">
 
-        <TextView
-            android:id="@+id/activity_login_address_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:lineSpacingExtra="1dp"
-            android:text="@string/activity_login_address_text"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/activity_login_address_text_view_size" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/activity_login_email_address_label"
+                android:id="@+id/activity_home_address_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:lineSpacingExtra="1dp"
-                android:text="@string/activity_login_email_address"
-                android:autoLink="email"
-                android:textColor="@android:color/white"
-                android:textColorLink="@android:color/white"
+                android:text="@string/activity_login_address_text"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="@dimen/activity_login_address_text_view_size" />
+
+
+            <TextView
+                android:id="@+id/activity_login_home_number_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:autoLink="phone"
+                android:lineSpacingExtra="1dp"
+                android:text="@string/activity_login_contact_number"
+                android:textColor="@android:color/darker_gray"
+                android:textColorLink="@android:color/darker_gray"
                 android:textSize="@dimen/activity_login_address_text_view_size" />
 
             <TextView
-                android:id="@+id/activity_login_contact_number_label"
+                android:id="@+id/activity_home_email_address_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
+                android:autoLink="email"
                 android:lineSpacingExtra="1dp"
-                android:text="@string/activity_login_contact_number"
+                android:text="@string/activity_login_email_address"
+                android:textColor="@android:color/darker_gray"
+                android:textColorLink="@android:color/darker_gray"
+                android:textSize="@dimen/activity_login_address_text_view_size" />
+
+            <TextView
+                android:id="@+id/activity_home_development_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 android:autoLink="phone"
-                android:textColor="@android:color/white"
-                android:textColorLink="@android:color/white"
+                android:lineSpacingExtra="1dp"
+                android:textStyle="bold"
+                android:text="@string/fragment_home_development_title"
+                android:textColor="#4f4f4f"
+                android:textSize="@dimen/fragment_home_school_title_size" />
+
+            <TextView
+                android:id="@+id/activity_home_school_moto_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:autoLink="phone"
+                android:text="@string/fragment_home_school_moto"
+                android:textColor="@android:color/darker_gray"
                 android:textSize="@dimen/activity_login_address_text_view_size" />
 
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/description_image_default"
+            android:src="@android:drawable/arrow_up_float" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/description_image_default"
+                android:background="@android:color/transparent"
+                android:src="@drawable/social_facebook"
+                android:layout_centerVertical="true"
+                 />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="Powered By Sircle" />
+
+
+        </RelativeLayout>
+
 
     </RelativeLayout>
 

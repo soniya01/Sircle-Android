@@ -103,5 +103,9 @@ View viewFragment = inflater.inflate(R.layout.fragment_calendar, container, fals
 
     }
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        tabs.removeAllViews();
+    }
 }

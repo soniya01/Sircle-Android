@@ -26,7 +26,7 @@ public class HomeFragment extends Fragment {
         View viewFragment = inflater.inflate(R.layout.fragment_home,
                 null, true);
 
-        emailLabel = (TextView)viewFragment.findViewById(R.id.activity_login_email_address_label);
+        emailLabel = (TextView)viewFragment.findViewById(R.id.activity_home_email_address_label);
         // underlines the email address
         SpannableString content = new SpannableString(getResources().getString(R.string.activity_login_email_address).toString());
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
