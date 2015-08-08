@@ -39,12 +39,13 @@
         android:background="@android:color/darker_gray" />
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:scaleType="fitXY"
         android:layout_marginTop="30dp"
         android:contentDescription="@string/description_image_default"
-        android:src="@android:drawable/picture_frame" />
+        android:src="@drawable/school_building" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -121,12 +122,12 @@
         </LinearLayout>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="70dp"
             android:layout_alignParentRight="true"
             android:background="@android:color/transparent"
             android:contentDescription="@string/description_image_default"
-            android:src="@android:drawable/arrow_up_float" />
+            android:src="@drawable/splashscreenimage" />
 
         <RelativeLayout
             android:layout_width="match_parent"

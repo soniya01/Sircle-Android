@@ -66,7 +66,9 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
 
         mDrawerList.setItemChecked(selectedModuleIndex, true);
         mDrawerList.setSelection(selectedModuleIndex);
-        setTitle(menuList[selectedModuleIndex]);
+        if (selectedModuleIndex == 9){
+            setTitle(menuList[0]);
+        }else setTitle(menuList[selectedModuleIndex]);
         mDrawerLayout.closeDrawer(mDrawerList);
 
     }
@@ -219,9 +221,9 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
                 fragmentToLoad = new SettingsFragment();
                 break;
             case 9:
-                fragmentToLoad = null;
+                fragmentToLoad = new HomeFragment();
                 // support email clickable
-                mDrawerLayout.closeDrawer(mDrawerList);
+               // mDrawerLayout.closeDrawer(mDrawerList);
                 Common.sendEmailToSupport(this);
                 break;
             case 10:
@@ -239,13 +241,6 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
             loadFragment(BaseActivity.this, fragmentToLoad);
 
         }
-        handler.post(new Runnable() {
-
-            @Override
-            public void run() {
-                // slidingPan.closePane();
-            }
-        });
 
 
     }
