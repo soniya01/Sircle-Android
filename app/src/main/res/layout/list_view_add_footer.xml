@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/add_button"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Add Album"
+        android:layout_marginTop="20dp"
+        android:background="#9A32CD"
+        android:text="Add Link"
         android:textAllCaps="false"
-        android:textSize="20sp"
         android:textColor="@android:color/white"
-        android:background="#9A32CD"/>
+        android:textSize="20sp" />
 
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.app.sircle.UI.Fragment;
 
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.app.sircle.R;
+import com.app.sircle.UI.Activity.AddNotificationActivity;
 import com.app.sircle.UI.Adapter.NotificationListviewAdapter;
 import com.app.sircle.UI.Model.Notification;
 
@@ -19,9 +21,9 @@ import java.util.List;
 
 public class NotificationFragment extends Fragment {
 
+    public static List<Notification> notificationList = new ArrayList<Notification>();
     private ListView notificationListView;
     private FloatingActionButton floatingActionButton;
-    private List<Notification> notificationList = new ArrayList<Notification>();
     private NotificationListviewAdapter notificationListviewAdapter;
 
     @Override
@@ -30,8 +32,8 @@ public class NotificationFragment extends Fragment {
 
         View viewFragment = inflater.inflate(R.layout.fragment_notification, container, false);
 
-        notificationListView = (ListView)viewFragment.findViewById(R.id.fragment_notification_listview);
-        floatingActionButton = (FloatingActionButton)viewFragment.findViewById(R.id.fab);
+        notificationListView = (ListView) viewFragment.findViewById(R.id.fragment_notification_listview);
+        floatingActionButton = (FloatingActionButton) viewFragment.findViewById(R.id.fab);
 
         populateDummyData();
 
@@ -40,17 +42,19 @@ public class NotificationFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                Intent notifIntent = new Intent(getActivity(), AddNotificationActivity.class);
+                startActivity(notifIntent);
             }
         });
 
         // set up custom listview
-        notificationListviewAdapter = new NotificationListviewAdapter( notificationList, getActivity());
+        notificationListviewAdapter = new NotificationListviewAdapter(notificationList, getActivity());
         notificationListView.setAdapter(notificationListviewAdapter);
 
         return viewFragment;
     }
 
-    public void populateDummyData(){
+    public void populateDummyData() {
 
         Notification notification = new Notification();
         notification.setAnnouncementDesc("Heavy Rains");
@@ -61,8 +65,11 @@ public class NotificationFragment extends Fragment {
         notificationList.add(notification);
         notificationList.add(notification);
         notificationList.add(notification);
-
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        notificationListviewAdapter.notifyDataSetChanged();
+    }
 }
