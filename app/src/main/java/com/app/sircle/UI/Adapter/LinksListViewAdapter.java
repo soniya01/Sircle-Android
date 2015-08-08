@@ -55,8 +55,8 @@ public class LinksListViewAdapter extends BaseAdapter {
                     parent, false);
 
             viewHolder.linksImageView = (ImageView) convertView.findViewById(R.id.links_row_image);
-            viewHolder.linksTitleLabel = (TextView) convertView.findViewById(R.id.links_row_link_label_name);
-            viewHolder.linksLabel = (TextView) convertView.findViewById(R.id.links_row_link_url_label);
+            viewHolder.linksTitleLabel = (TextView) convertView.findViewById(R.id.notification_row_title_label_name);
+            viewHolder.linksLabel = (TextView) convertView.findViewById(R.id.notification_row_desc_label);
             viewHolder.linkDateLabel = (TextView) convertView.findViewById(R.id.links_row_publish_label_day);
             viewHolder.linkTimeLabel = (TextView) convertView.findViewById(R.id.links_row_publish_label_time);
 

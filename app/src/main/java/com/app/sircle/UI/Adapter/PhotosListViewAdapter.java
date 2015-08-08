@@ -54,8 +54,8 @@ public class PhotosListViewAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.list_view_photos_row,
                     parent, false);
             viewHolder.albumImageView = (ImageView) convertView.findViewById(R.id.photos_row_album_image);
-            viewHolder.albumLabelName = (TextView) convertView.findViewById(R.id.links_row_link_label_name);
-            viewHolder.imagesCountLabel = (TextView) convertView.findViewById(R.id.links_row_link_url_label);
+            viewHolder.albumLabelName = (TextView) convertView.findViewById(R.id.notification_row_title_label_name);
+            viewHolder.imagesCountLabel = (TextView) convertView.findViewById(R.id.notification_row_desc_label);
 
             convertView.setTag(viewHolder);
         } else {

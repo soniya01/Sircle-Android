@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
-    android:padding="10dp"
     android:orientation="vertical"
+    android:padding="10dp"
     tools:context="com.app.sircle.UI.Fragment.LinksFragment">
 
     <ListView
@@ -28,7 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_margin="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
         android:src="@android:drawable/ic_input_add"
         app:backgroundTint="#9A32CD"
         app:borderWidth="0dp"

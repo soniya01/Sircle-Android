@@ -21,47 +21,36 @@
             android:layout_height="wrap_content"
             android:background="@android:color/white">
 
-            <ImageView
-                android:id="@+id/links_row_image"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_centerVertical="true"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/description_image_default"
-                android:padding="10dp"
-                android:src="@drawable/links_google" />
 
             <TextView
                 android:id="@+id/notification_row_title_label_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/links_row_image"
-                android:layout_toRightOf="@id/links_row_image"
                 android:paddingLeft="20dp"
                 android:paddingTop="15dp"
-                android:text="Google"
+                android:text="Heavy Rains"
                 android:textStyle="bold"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="14sp" />
+                android:textColor="#505050"
+                android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/notification_row_desc_label"
                 android:layout_below="@id/notification_row_title_label_name"
-                android:layout_toRightOf="@id/links_row_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:paddingLeft="20dp"
+                android:paddingRight="40dp"
                 android:layout_marginTop="10dp"
-                android:text="www.google.com"
-                android:autoLink="web"
-                android:textColor="@android:color/white"
-                android:textSize="12sp" />
+                android:maxLines="3"
+                android:text="Heavy rains closes school today"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="13sp" />
 
 
             <TextView
-                android:id="@+id/links_row_publish_label_day"
+                android:id="@+id/notification_row_publish_label_day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -72,11 +61,11 @@
                 android:textSize="@dimen/photos_row_day_label_size" />
 
             <TextView
-                android:id="@+id/links_row_publish_label_time"
+                android:id="@+id/notification_row_publish_label_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_below="@id/links_row_publish_label_day"
+                android:layout_below="@id/notification_row_publish_label_day"
                 android:paddingRight="10dp"
                 android:paddingTop="5dp"
                 android:text="12.45"

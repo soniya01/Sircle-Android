@@ -32,7 +32,7 @@
                 android:src="@android:drawable/star_big_off" />
 
             <TextView
-                android:id="@+id/links_row_link_label_name"
+                android:id="@+id/notification_row_title_label_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/photos_row_album_image"
@@ -48,7 +48,7 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/links_row_link_label_name"
+                android:layout_below="@id/notification_row_title_label_name"
                 android:layout_toRightOf="@id/photos_row_album_image"
                 android:layout_marginTop="10dp"
                 android:paddingLeft="20dp">
@@ -61,7 +61,7 @@
                     android:src="@drawable/round_button" />
 
                 <TextView
-                    android:id="@+id/links_row_link_url_label"
+                    android:id="@+id/notification_row_desc_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
