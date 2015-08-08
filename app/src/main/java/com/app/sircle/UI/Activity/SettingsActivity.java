@@ -49,21 +49,6 @@ public class SettingsActivity extends Activity {
 
             });
 
-
-
-
-//        newsLetterListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                NewsLetter selectedItem = newsLetterList.get(position);
-//
-//                Toast.makeText(getActivity(), "File downloaded " + selectedItem.pdfUrl, Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(getActivity(), PDFViewer.class);
-//                intent.putExtra("PdfUrl", selectedItem.pdfUrl);
-//                startActivity(intent);
-//            }
-//        });
-
     }
 
     @Override

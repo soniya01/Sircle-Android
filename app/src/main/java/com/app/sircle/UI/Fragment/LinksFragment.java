@@ -1,6 +1,7 @@
 package com.app.sircle.UI.Fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.app.sircle.R;
+import com.app.sircle.UI.Activity.AddLinksActivity;
 import com.app.sircle.UI.Adapter.LinksListViewAdapter;
 import com.app.sircle.UI.Model.Links;
 
@@ -21,7 +23,7 @@ public class LinksFragment extends Fragment {
 
     private ListView linksListView;
     private FloatingActionButton floatingActionButton;
-    private List<Links> linksList = new ArrayList<Links>();
+    public static List<Links> linksList = new ArrayList<Links>();
     private LinksListViewAdapter linksListViewAdapter;
 
     @Override
@@ -42,10 +44,10 @@ public class LinksFragment extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent addLinkIntent = new Intent(getActivity(), AddLinksActivity.class);
+                startActivity(addLinkIntent);
             }
         });
-
         // set up custom listview
         linksListViewAdapter = new LinksListViewAdapter(linksList, getActivity());
         linksListView.setAdapter(linksListViewAdapter);
@@ -74,8 +76,11 @@ public class LinksFragment extends Fragment {
         linksList.add(links1);
         linksList.add(links);
 
-
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        linksListViewAdapter.notifyDataSetChanged();
+    }
 }

@@ -25,7 +25,7 @@ public class NotificationsGroupAdapter extends BaseAdapter {
     public NotificationsGroupAdapter(Context context, List<NotificationGroups> notificationsGroupList) {
         this.context = context;
         this.notificationsGroupList = notificationsGroupList;
-        inflater  = (LayoutInflater) this.context
+        inflater = (LayoutInflater) this.context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -55,12 +55,10 @@ public class NotificationsGroupAdapter extends BaseAdapter {
 
             viewHolder.notificationGroupTitle = (TextView) convertView.findViewById(R.id.notificationGroupTitle);
 
-
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-
 
         viewHolder.notificationGroupTitle.setText(notificationsGroupList.get(position).groupName);
         return convertView;
@@ -68,11 +66,7 @@ public class NotificationsGroupAdapter extends BaseAdapter {
     }
 
 
-
     static class ViewHolder {
-
-
         private TextView notificationGroupTitle;
-
     }
 }

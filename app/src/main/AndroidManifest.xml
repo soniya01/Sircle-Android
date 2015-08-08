@@ -30,25 +30,26 @@
         <activity
             android:name=".UI.Activity.LoginScreen"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".UI.Activity.VideoActivity"
-            android:screenOrientation="portrait"/>
-
+        <activity
+            android:name=".UI.Activity.VideoActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.Activity.PDFViewer"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".UI.Activity.AlbumDetailsActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".UI.Activity.SettingsActivity"
             android:screenOrientation="portrait" />
-
-        <activity android:name=".UI.Activity.AlbumFullScreenActivity"
+        <activity
+            android:name=".UI.Activity.AlbumFullScreenActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".UI.Activity.AddLinksActivity"
+            android:label="@string/title_activity_add_links"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>
