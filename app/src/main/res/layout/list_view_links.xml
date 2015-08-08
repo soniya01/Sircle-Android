@@ -22,64 +22,52 @@
             android:background="@android:color/white">
 
             <ImageView
-                android:id="@+id/photos_row_album_image"
+                android:id="@+id/links_row_image"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:padding="10dp"
                 android:layout_centerVertical="true"
-                android:background="@drawable/custom_border_fill"
+                android:background="@android:color/transparent"
                 android:contentDescription="@string/description_image_default"
-                android:src="@android:drawable/star_big_off" />
+                android:padding="10dp"
+                android:src="@drawable/links_google" />
 
             <TextView
                 android:id="@+id/links_row_link_label_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/photos_row_album_image"
-                android:layout_toRightOf="@id/photos_row_album_image"
-                android:paddingLeft="15dp"
+                android:layout_toEndOf="@id/links_row_image"
+                android:layout_toRightOf="@id/links_row_image"
+                android:paddingLeft="20dp"
                 android:paddingTop="15dp"
-                android:text="Album1"
-                android:textColor="@android:color/black"
+                android:text="Google"
+                android:textStyle="bold"
+                android:textColor="@android:color/darker_gray"
                 android:textSize="14sp" />
 
-
-            <FrameLayout
-
+            <TextView
+                android:id="@+id/links_row_link_url_label"
+                android:layout_below="@id/links_row_link_label_name"
+                android:layout_toRightOf="@id/links_row_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/links_row_link_label_name"
-                android:layout_toRightOf="@id/photos_row_album_image"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingLeft="20dp"
                 android:layout_marginTop="10dp"
-                android:paddingLeft="20dp">
+                android:text="www.google.com"
+                android:autoLink="web"
+                android:textColor="@android:color/white"
+                android:textSize="12sp" />
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/description_image_default"
-                    android:src="@drawable/round_button" />
-
-                <TextView
-                    android:id="@+id/links_row_link_url_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textSize="12sp"
-                    android:textColor="@android:color/white"
-                    android:text="1" />
-
-            </FrameLayout>
 
             <TextView
                 android:id="@+id/links_row_publish_label_day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Wed 22 July 2015"
                 android:layout_alignParentRight="true"
-                android:padding="10dp"
                 android:layout_alignParentTop="true"
+                android:padding="10dp"
+                android:text="Wed 22 July 2015"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="@dimen/photos_row_day_label_size" />
 
@@ -87,10 +75,10 @@
                 android:id="@+id/links_row_publish_label_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/links_row_publish_label_day"
-                android:paddingTop="5dp"
-                android:paddingRight="10dp"
                 android:layout_alignParentRight="true"
+                android:layout_below="@id/links_row_publish_label_day"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
                 android:text="12.45"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="@dimen/photos_row_time_label_size" />
