@@ -1,34 +1,50 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     xmlns:app1="http://schemas.android.com/apk/res-auto"
-    android:layout_height="match_parent" tools:context="com.app.sircle.UI.Fragment.CalendarFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.app.sircle.UI.Fragment.CalendarFragment">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <com.astuetz.PagerSlidingTabStrip
-        android:id="@+id/tabs"
-        android:layout_width="match_parent"
-        android:layout_height="48dip"
-        android:background="@null"
-        app1:pstsShouldExpand="true"
-        app1:pstsDividerPadding="24dp"
-        app1:pstsIndicatorColor="#0000ff"
-        app1:pstsUnderlineColor="@null"
-        app1:pstsDividerColor="@null"
-        app1:pstsUnderlineHeight="0dp"
-        app1:pstsIndicatorHeight="4dp"
-        app1:pstsScrollOffset="120dp"
-        />
+        <com.astuetz.PagerSlidingTabStrip
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="48dip"
+            android:background="@null"
+            app1:pstsDividerColor="@null"
+            app1:pstsDividerPadding="24dp"
+            app1:pstsIndicatorColor="#0000ff"
+            app1:pstsIndicatorHeight="4dp"
+            app1:pstsScrollOffset="120dp"
+            app1:pstsShouldExpand="true"
+            app1:pstsUnderlineColor="@null"
+            app1:pstsUnderlineHeight="0dp" />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/tabs"
-        tools:context=".LoginActivity" />
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tabs"
+            tools:context=".LoginActivity" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="20dp"
+            android:src="@android:drawable/ic_input_add"
+            app1:backgroundTint="#9A32CD"
+            app1:borderWidth="0dp"
+            app1:elevation="12dp"
+            app1:pressedTranslationZ="12dp" />
 
     </RelativeLayout>
 

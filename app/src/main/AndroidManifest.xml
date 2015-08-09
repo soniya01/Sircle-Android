@@ -53,6 +53,11 @@
         <activity
             android:name=".UI.Activity.AddNotificationActivity"
             android:label="@string/title_activity_add_notification"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".UI.Activity.AddAlbumActivity"
+            android:label="@string/title_activity_add_album"
             android:screenOrientation="portrait">
         </activity>
     </application>

@@ -27,6 +27,7 @@ public class DocumentFragment extends Fragment {
     private ListView newsLetterListView;
     private NewsLettersViewAdapter newsLetterListViewAdapter;
     private List<NewsLetter> newsLetterList = new ArrayList<NewsLetter>();
+    private View footerView;
 
 
     @Override
@@ -36,10 +37,12 @@ public class DocumentFragment extends Fragment {
 
         View viewFragment = inflater.inflate(R.layout.fragment_document,
                 null, true);
+        footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
 
         populateDummyData();
 
         newsLetterListView = (ListView)viewFragment.findViewById(R.id.fragment_news_list_view);
+        newsLetterListView.addFooterView(footerView);
         newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), newsLetterList);
 
         newsLetterListView.setAdapter(newsLetterListViewAdapter);

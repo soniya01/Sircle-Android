@@ -23,14 +23,14 @@
                 android:id="@+id/pdfImage"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:padding="10dp"
+                android:padding="15dp"
                 android:src="@drawable/pdficon" />
 
             <TextView
                 android:id="@+id/pdfTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_toRightOf="@+id/pdfImage"
                 android:text="Sample pdf"
                 android:textColor="@android:color/black" />
@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:padding="10dp"
                 android:textSize="@dimen/photos_row_day_label_size"

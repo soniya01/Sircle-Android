@@ -54,7 +54,7 @@ public class AddLinksActivity extends ActionBarActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (URLUtil.isValidUrl(desc.getText().toString()) && (title.getText().toString() != null) || title.getText().toString().trim().equals("")) {
+                if (URLUtil.isValidUrl(desc.getText().toString()) && (title.getText().toString() != null) || !title.getText().toString().trim().equals("")) {
                     Toast.makeText(AddLinksActivity.this, "Added new link ", Toast.LENGTH_SHORT).show();
                     Links links = new Links();
                     links.setLinkTitle(title.getText().toString());

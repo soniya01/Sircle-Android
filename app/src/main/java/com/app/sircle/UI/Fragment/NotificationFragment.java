@@ -25,6 +25,7 @@ public class NotificationFragment extends Fragment {
     private ListView notificationListView;
     private FloatingActionButton floatingActionButton;
     private NotificationListviewAdapter notificationListviewAdapter;
+    private View footerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,7 +36,14 @@ public class NotificationFragment extends Fragment {
         notificationListView = (ListView) viewFragment.findViewById(R.id.fragment_notification_listview);
         floatingActionButton = (FloatingActionButton) viewFragment.findViewById(R.id.fab);
 
+        footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
+        notificationListView.addFooterView(footerView);
+
         populateDummyData();
+
+        // set up custom listview
+        notificationListviewAdapter = new NotificationListviewAdapter(notificationList, getActivity());
+        notificationListView.setAdapter(notificationListviewAdapter);
 
         // add button on click to open respective view - only for admin
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -46,10 +54,6 @@ public class NotificationFragment extends Fragment {
                 startActivity(notifIntent);
             }
         });
-
-        // set up custom listview
-        notificationListviewAdapter = new NotificationListviewAdapter(notificationList, getActivity());
-        notificationListView.setAdapter(notificationListviewAdapter);
 
         return viewFragment;
     }

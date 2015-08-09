@@ -1,7 +1,10 @@
 package com.app.sircle.UI.Activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.view.View;
 import android.widget.GridView;
 
 import com.app.sircle.R;
@@ -17,6 +20,7 @@ public class AlbumDetailsActivity extends Activity {
     private GridView albumGridView;
     private AlbumDetailsGridAdapter albumDetailsGridAdapter;
     private List<AlbumDetails> albumDetailsList = new ArrayList<AlbumDetails>();
+    private FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +30,17 @@ public class AlbumDetailsActivity extends Activity {
         populateDummyData();
 
         albumGridView = (GridView)findViewById(R.id.album_details_grid_view);
+        floatingActionButton = (FloatingActionButton)findViewById(R.id.fab);
         albumDetailsGridAdapter = new AlbumDetailsGridAdapter(this, albumDetailsList);
         albumGridView.setAdapter(albumDetailsGridAdapter);
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent albumIntent = new Intent(AlbumDetailsActivity.this, AddAlbumActivity.class);
+                startActivity(albumIntent);
+            }
+        });
 
     }
 

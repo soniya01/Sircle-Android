@@ -25,6 +25,7 @@ public class LinksFragment extends Fragment {
     private FloatingActionButton floatingActionButton;
     public static List<Links> linksList = new ArrayList<Links>();
     private LinksListViewAdapter linksListViewAdapter;
+    private View footerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,8 +36,8 @@ public class LinksFragment extends Fragment {
         linksListView = (ListView)viewFragment.findViewById(R.id.fragment_links_listview);
         floatingActionButton = (FloatingActionButton)viewFragment.findViewById(R.id.fab);
 
-        View view = (View)viewFragment.findViewById(R.id.blank_space);
-       // linksListView.addFooterView(view);
+        footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
+        linksListView.addFooterView(footerView);
 
         populateDummyData();
 

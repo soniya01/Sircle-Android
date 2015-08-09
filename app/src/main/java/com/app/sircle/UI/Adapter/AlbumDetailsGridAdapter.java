@@ -24,6 +24,7 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
     private Context mContext;
     private List<AlbumDetails> albumDetailsList = new ArrayList<AlbumDetails>();
     private LayoutInflater inflater;
+    private View footerView;
 
     public AlbumDetailsGridAdapter(Context mContext, List<AlbumDetails> albums) {
         this.mContext = mContext;
@@ -34,7 +35,7 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return albumDetailsList.size();
+        return albumDetailsList.size() + 1;
     }
 
     @Override
@@ -60,6 +61,11 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
+        }
+
+        if (position == albumDetailsList.size()){
+            footerView  = View.inflate(mContext, R.layout.list_view_padding_footer, null);
+            return footerView;
         }
 
         // get screen dimensions

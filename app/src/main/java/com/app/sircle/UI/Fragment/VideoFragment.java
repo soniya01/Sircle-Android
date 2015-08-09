@@ -27,14 +27,13 @@ import java.util.List;
 
 public class VideoFragment extends Fragment {
 
-
     private static final int REQ_START_STANDALONE_PLAYER = 1;
     private static final int REQ_RESOLVE_SERVICE_MISSING = 2;
 
     private ListView videoListView;
     private VideoListViewAdapter videoListViewAdapter;
     private List<Video> videoList = new ArrayList<Video>();
-
+    private View footerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,16 +45,15 @@ public class VideoFragment extends Fragment {
 
         videoListView = (ListView)viewFragment.findViewById(R.id.fragment_video_list_view);
 
+        footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
+        videoListView.addFooterView(footerView);
+
         videoListViewAdapter = new VideoListViewAdapter(getActivity(), videoList);
 
         videoListView.setAdapter(videoListViewAdapter);
         videoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               // open video playing activity
-               // Intent videoActivity = new Intent(getActivity(), VideoActivity.class);
-               // videoActivity.putExtra("videoUrl", videoList.get(position).videoEmbedURL.toString());
-               // startActivity(videoActivity);
 
              Intent  intent = YouTubeStandalonePlayer.createVideoIntent(
                         getActivity(), DeveloperKey.DEVELOPER_KEY, "cdgQpa1pUUE", 0, false, false);

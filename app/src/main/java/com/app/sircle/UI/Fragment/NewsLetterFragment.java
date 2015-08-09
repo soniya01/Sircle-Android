@@ -27,6 +27,7 @@ public class NewsLetterFragment extends Fragment {
     private ListView newsLetterListView;
     private NewsLettersViewAdapter newsLetterListViewAdapter;
     private List<NewsLetter> newsLetterList = new ArrayList<NewsLetter>();
+    private View footerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +40,9 @@ public class NewsLetterFragment extends Fragment {
 
         newsLetterListView = (ListView)viewFragment.findViewById(R.id.fragment_news_list_view);
         newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), newsLetterList);
+
+        footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
+        newsLetterListView.addFooterView(footerView);
 
         newsLetterListView.setAdapter(newsLetterListViewAdapter);
         newsLetterListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

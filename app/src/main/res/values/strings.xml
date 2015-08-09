@@ -64,5 +64,8 @@
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_add_links">        Add   Links</string>
     <string name="title_activity_add_notification">  Add  Notification</string>
+    <string name="title_activity_add_album">New Album</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>

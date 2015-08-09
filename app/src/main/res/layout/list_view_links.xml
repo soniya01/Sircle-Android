@@ -83,7 +83,6 @@
                 android:textColor="@android:color/darker_gray"
                 android:textSize="@dimen/photos_row_time_label_size" />
 
-
         </RelativeLayout>
 
     </LinearLayout>
