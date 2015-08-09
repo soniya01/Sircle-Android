@@ -18,19 +18,13 @@ import com.app.sircle.UI.Model.NotificationGroups;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class SettingsFragment extends Fragment {
 
 
     private ListView notificationListView;
     private NotificationsGroupAdapter notificationsGroupAdapter;
     private List<NotificationGroups> notificationGroupList = new ArrayList<NotificationGroups>();
-
-    public SettingsFragment() {
-        // Required empty public constructor
-    }
 
 
     @Override
@@ -52,9 +46,7 @@ public class SettingsFragment extends Fragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
+                
             }
 
         });

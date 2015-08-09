@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -42,12 +41,10 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
     private final static String SELECTED_MODULE = "selectedModuleIndex";
     private static Integer selectedModuleIndex;
     private boolean shouldSelectListViewItem = true;
-    private Handler handler;
     private Fragment fragmentToLoad = null;
     private ListView mDrawerList;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
-    private Intent nonFragment ;
     private String[] menuList;
 
     private void loadFragment(Context context, Fragment fragment) {
@@ -188,7 +185,7 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
         // after it is ready
         switch (index) {
             case 0:
-                // Not loading any fragmentas it is already
+                // Not loading any fragment as it is already
                 // added
                 // in the layout
                 // In this case fragmentToLoad = null and the previous fragment
@@ -224,7 +221,6 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
             case 9:
                 fragmentToLoad = new HomeFragment();
                 // support email clickable
-               // mDrawerLayout.closeDrawer(mDrawerList);
                 Common.sendEmailToSupport(this);
                 break;
             case 10:
@@ -235,14 +231,11 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
             default:
                 break;
         }
-        // setTitle(moduleTitles[index]);
 
         if (fragmentToLoad != null) {
-            handler = new Handler();
             loadFragment(BaseActivity.this, fragmentToLoad);
 
         }
-
 
     }
 

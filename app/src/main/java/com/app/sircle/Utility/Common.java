@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.util.Log;
 
 import com.app.sircle.R;
@@ -26,18 +27,22 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 public class Common {
 
+    /**
+     * send email to support team for queries
+     * @param context
+     */
     public static void sendEmailToSupport(Context context){
         String to = context.getResources().getString(R.string.activity_login_email_address);
-        Intent intentEmail = new Intent(Intent.ACTION_SEND);
-        intentEmail.putExtra(Intent.EXTRA_EMAIL, new String[]{ to });
+        Intent intentEmail = new Intent(Intent.ACTION_SENDTO);
         intentEmail.putExtra(Intent.EXTRA_SUBJECT, " ");
-        intentEmail.setType("message/rfc822");
+        intentEmail.setData(Uri.parse("mailto:"+to));
+        //intentEmail.setType("message/rfc822");
         context.startActivity(Intent.createChooser(intentEmail,
                 "Choose an email provider :"));
     }
 
     /**
-     * fecthes string to download and play the video
+     * fetches string to download and play the video
      * @param urlYoutube
      * @return
      */
