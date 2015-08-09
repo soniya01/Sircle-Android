@@ -17,8 +17,12 @@ import android.view.ViewGroup;
 
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.AddLinksActivity;
+import com.app.sircle.UI.Activity.EventActivity;
 import com.app.sircle.UI.Activity.EventsListActivity;
+import com.app.sircle.UI.Activity.HolidayActivity;
+import com.app.sircle.UI.Activity.SchoolHolidayActivity;
 import com.astuetz.PagerSlidingTabStrip;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.util.List;
 import java.util.Vector;
@@ -29,6 +33,7 @@ public class CalendarFragment extends Fragment {
     private PagerSlidingTabStrip tabs;
     private ViewPager pager;
     private MyPagerAdapter adapter;
+    FloatingActionsMenu menuMultipleActions =  null;
 
 
 
@@ -47,6 +52,45 @@ public class CalendarFragment extends Fragment {
 
         tabs = (PagerSlidingTabStrip) viewFragment.findViewById(R.id.tabs);
         pager = (ViewPager) viewFragment.findViewById(R.id.pager);
+
+
+         menuMultipleActions = (FloatingActionsMenu)viewFragment.findViewById(R.id.multiple_actions);
+
+        final com.getbase.floatingactionbutton.FloatingActionButton actionHoliday = (com.getbase.floatingactionbutton.FloatingActionButton)viewFragment.findViewById(R.id.actionHoliday);
+        actionHoliday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                menuMultipleActions.collapseImmediately();
+                Intent addLinkIntent = new Intent(getActivity(), HolidayActivity.class);
+                startActivity(addLinkIntent);
+            }
+        });
+
+        final com.getbase.floatingactionbutton.FloatingActionButton actionEvent = (com.getbase.floatingactionbutton.FloatingActionButton)viewFragment.findViewById(R.id.actionEvent);
+        actionEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                menuMultipleActions.collapseImmediately();
+                Intent addLinkIntent = new Intent(getActivity(), EventActivity.class);
+                startActivity(addLinkIntent);
+            }
+        });
+
+
+        final com.getbase.floatingactionbutton.FloatingActionButton actionSchoolHoliday = (com.getbase.floatingactionbutton.FloatingActionButton)viewFragment.findViewById(R.id.actionSchoolHoliday);
+        actionSchoolHoliday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                menuMultipleActions.collapseImmediately();
+                Intent addLinkIntent = new Intent(getActivity(), SchoolHolidayActivity.class);
+                startActivity(addLinkIntent);
+            }
+        });
+
+
+
+
+
         List<android.support.v4.app.Fragment> fragments = new Vector<android.support.v4.app.Fragment>();
         fragments.add(android.support.v4.app.Fragment.instantiate(getActivity(), CalendarMonthFragment.class.getName()));
         fragments.add(android.support.v4.app.Fragment.instantiate(getActivity(), CalendarListFragment.class.getName()));

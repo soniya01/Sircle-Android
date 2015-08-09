@@ -64,6 +64,18 @@
             android:name=".UI.Activity.EventsListActivity"
             android:label="@string/title_activity_events_list" >
         </activity>
+        <activity
+            android:name=".UI.Activity.HolidayActivity"
+            android:label="@string/title_activity_holiday" >
+        </activity>
+        <activity
+            android:name=".UI.Activity.SchoolHolidayActivity"
+            android:label="@string/title_activity_school_holiday" >
+        </activity>
+        <activity
+            android:name=".UI.Activity.EventActivity"
+            android:label="@string/title_activity_event" >
+        </activity>
     </application>
 
 </manifest>
