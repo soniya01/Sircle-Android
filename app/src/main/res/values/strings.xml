@@ -69,6 +69,9 @@
 
     <string name="title_activity_events_list">Events</string>
     <string name="title_activity_add_photo_tabbed">AddPhotoTabbedActivity</string>
+    <string name="title_activity_holiday">Holiday</string>
+    <string name="title_activity_school_holiday">School Holiday</string>
+    <string name="title_activity_event">Event</string>
 
 
 </resources>
