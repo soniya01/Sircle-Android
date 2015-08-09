@@ -7,8 +7,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.app.sircle.R;
+import com.app.sircle.UI.Adapter.CalendarMonthListAdapter;
+import com.app.sircle.UI.Model.CalendarMonthlyListData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +26,13 @@ import com.app.sircle.R;
  * create an instance of this fragment.
  */
 public class CalendarListFragment extends Fragment {
+
+
+    private ListView calendarMonthListView;
+    private CalendarMonthListAdapter calendarMonthListViewAdapter;
+    private List<CalendarMonthlyListData> calendarMonthList = new ArrayList<CalendarMonthlyListData>();
+    private View footerView;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -65,7 +79,30 @@ public class CalendarListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calendar_list, container, false);
+//        return inflater.inflate(R.layout.fragment_calendar_list, container, false);
+
+
+        View viewFragment = inflater.inflate(R.layout.fragment_calendar_list,
+                null, true);
+
+        populateDummyData();
+
+        calendarMonthListView = (ListView)viewFragment.findViewById(R.id.fragment_month_list_view);
+        calendarMonthListViewAdapter = new CalendarMonthListAdapter(getActivity(), calendarMonthList);
+
+        footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
+         calendarMonthListView.addFooterView(footerView);
+
+        calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
+        calendarMonthListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+
+
+        return viewFragment;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -105,6 +142,22 @@ public class CalendarListFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+    }
+
+    public void populateDummyData(){
+        CalendarMonthlyListData calendarmonthlyData = new CalendarMonthlyListData();
+
+        calendarmonthlyData.setEventTitle("PDF SAMPLE");
+        calendarmonthlyData.setEventDate("Wednesday 27 May 2015");
+        calendarmonthlyData.setEventTime("11:00");
+
+        calendarMonthList.add(calendarmonthlyData);
+        calendarMonthList.add(calendarmonthlyData);
+        calendarMonthList.add(calendarmonthlyData);
+        calendarMonthList.add(calendarmonthlyData);
+        calendarMonthList.add(calendarmonthlyData);
+        calendarMonthList.add(calendarmonthlyData);
+        calendarMonthList.add(calendarmonthlyData);
     }
 
 }

@@ -58,7 +58,11 @@
         <activity
             android:name=".UI.Activity.AddAlbumActivity"
             android:label="@string/title_activity_add_album"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".UI.Activity.EventsListActivity"
+            android:label="@string/title_activity_events_list" >
         </activity>
     </application>
 

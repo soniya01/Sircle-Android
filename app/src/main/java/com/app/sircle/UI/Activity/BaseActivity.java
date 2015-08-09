@@ -198,6 +198,7 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
                 break;
             case 1:
                 fragmentToLoad = new CalendarFragment();
+
                 break;
             case 2:
                 fragmentToLoad = new PhotosFragment();
@@ -251,6 +252,7 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
         // If the nav drawer is open, hide action items related to the content view
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
         menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -258,6 +260,7 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+       // myMenuItem = menu.getItem(0);
         return true;
     }
 

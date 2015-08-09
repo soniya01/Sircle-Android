@@ -2,9 +2,11 @@ package com.app.sircle.UI.Fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -14,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.app.sircle.R;
+import com.app.sircle.UI.Activity.AddLinksActivity;
+import com.app.sircle.UI.Activity.EventsListActivity;
 import com.astuetz.PagerSlidingTabStrip;
 
 import java.util.List;
@@ -27,6 +31,7 @@ public class CalendarFragment extends Fragment {
     private MyPagerAdapter adapter;
 
 
+
     public CalendarFragment() {
         // Required empty public constructor
     }
@@ -38,15 +43,14 @@ public class CalendarFragment extends Fragment {
         // Inflate the layout for this fragment
 
 
-View viewFragment = inflater.inflate(R.layout.fragment_calendar, container, false);
+        View viewFragment = inflater.inflate(R.layout.fragment_calendar, container, false);
 
         tabs = (PagerSlidingTabStrip) viewFragment.findViewById(R.id.tabs);
         pager = (ViewPager) viewFragment.findViewById(R.id.pager);
-
         List<android.support.v4.app.Fragment> fragments = new Vector<android.support.v4.app.Fragment>();
         fragments.add(android.support.v4.app.Fragment.instantiate(getActivity(), CalendarMonthFragment.class.getName()));
-        fragments.add(android.support.v4.app.Fragment.instantiate(getActivity(), CalendarTodayFragment.class.getName()));
         fragments.add(android.support.v4.app.Fragment.instantiate(getActivity(), CalendarListFragment.class.getName()));
+        fragments.add(android.support.v4.app.Fragment.instantiate(getActivity(), CalendarTodayFragment.class.getName()));
 
        // Context mycontext = getActivity();
         FragmentActivity myContext = (FragmentActivity)getActivity();
@@ -74,7 +78,7 @@ View viewFragment = inflater.inflate(R.layout.fragment_calendar, container, fals
 //        fragments.add(Fragment.instantiate(this, Tab1Fragment.class.getName()));
 //        fragments.add(Fragment.instantiate(this, Tab2Fragment.class.getName()));
 
-        private final String[] TITLES = { "Month", "Today" ,"List"};
+        private final String[] TITLES = { "Month", "List" ,"Term"};
 
         private List<android.support.v4.app.Fragment> fragments;
         /**

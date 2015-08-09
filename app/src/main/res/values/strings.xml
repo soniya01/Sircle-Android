@@ -66,6 +66,7 @@
     <string name="title_activity_add_notification">  Add  Notification</string>
     <string name="title_activity_add_album">New Album</string>
 
-    <string name="hello_world">Hello world!</string>
+
+    <string name="title_activity_events_list">Events</string>
 
 </resources>
