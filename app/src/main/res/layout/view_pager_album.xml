@@ -46,11 +46,11 @@
             android:padding="10dp"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/albums_image_no_label"
-            android:text="Its a small scene. vc vbvb vbvb vvbv vbvb vbvb vbv"
+            android:text="Its a small scene."
             android:maxLines="3"
             android:maxLength="100"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
     </RelativeLayout>
 
