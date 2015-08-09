@@ -1,57 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@android:color/white">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:background="#22c0c0c0">
-
-        <TextView
-            android:id="@+id/albums_image_no_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="1/5"
-            android:padding="10dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:textColor="@android:color/darker_gray"/>
-
-        <TextView
-            android:id="@+id/album_image_title_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="18sp"
-            android:layout_centerInParent="true"
-            android:text="Scenery"/>
-
-        <ImageButton
-            android:id="@+id/album_image_download_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/download_icon"
-            android:layout_gravity="right"
-            android:padding="10dp"
-            android:layout_alignParentRight="true"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/description_image_default"/>
-
-    </RelativeLayout>
+    android:background="@android:color/white"
+    android:padding="10dp">
 
 
     <com.app.sircle.UI.CustomView.TouchImageView
         android:id="@+id/album_pager_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/scene1"
+        android:layout_height="400dp"
+        android:background="@android:color/transparent"
         android:contentDescription="@string/description_image_default"
-        android:background="@android:color/transparent"/>
+        android:src="@drawable/scene1" />
 
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/albums_image_no_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/round_button"
+            android:padding="10dp"
+            android:text="1/5"
+            android:textColor="@android:color/white"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/album_image_title_label"
+            android:background="#9A32CD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/albums_image_no_label"
+            android:text="Its a small scene. vc vbvb vbvb vvbv vbvb vbvb vbv"
+            android:maxLines="3"
+            android:maxLength="100"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="30dp"
+        android:layout_above="@id/container"
+        android:background="@android:color/darker_gray" />
+
+
+</RelativeLayout>

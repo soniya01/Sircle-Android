@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.sircle.R;
@@ -17,9 +18,6 @@ import com.app.sircle.UI.Model.AlbumDetails;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by soniya on 31/07/15.
- */
 public class AlbumImagePagerAdapter extends PagerAdapter {
 
     private Context context;
@@ -41,14 +39,14 @@ public class AlbumImagePagerAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == ((LinearLayout) object);
+        return view == ((RelativeLayout) object);
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
 
         TouchImageView photoImageView;
-        ImageButton download;
+        //ImageButton download;
         TextView titleLabel, countLabel;
 
         layoutInflater = (LayoutInflater) context
@@ -57,18 +55,11 @@ public class AlbumImagePagerAdapter extends PagerAdapter {
                 false);
 
         photoImageView = (TouchImageView) viewLayout.findViewById(R.id.album_pager_image);
-        download = (ImageButton) viewLayout.findViewById(R.id.album_image_download_button);
+       // download = (ImageButton) viewLayout.findViewById(R.id.album_image_download_button);
         titleLabel = (TextView)viewLayout.findViewById(R.id.album_image_title_label);
         countLabel = (TextView)viewLayout.findViewById(R.id.albums_image_no_label);
 
         countLabel.setText((position+1)+"/"+albumDetailsList.size());
-
-        download.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: code to download image to gallery
-            }
-        });
 
         ((ViewPager) container).addView(viewLayout);
 
@@ -77,6 +68,6 @@ public class AlbumImagePagerAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        ((ViewPager) container).removeView((LinearLayout) object);
+        ((ViewPager) container).removeView((RelativeLayout) object);
     }
 }
