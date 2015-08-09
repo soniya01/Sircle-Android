@@ -68,5 +68,7 @@
 
 
     <string name="title_activity_events_list">Events</string>
+    <string name="title_activity_add_photo_tabbed">AddPhotoTabbedActivity</string>
+
 
 </resources>

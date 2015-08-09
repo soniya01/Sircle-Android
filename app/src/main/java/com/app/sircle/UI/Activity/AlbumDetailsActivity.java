@@ -37,7 +37,7 @@ public class AlbumDetailsActivity extends Activity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent albumIntent = new Intent(AlbumDetailsActivity.this, AddAlbumActivity.class);
+                Intent albumIntent = new Intent(AlbumDetailsActivity.this, AddPhotoTabbedActivity.class);
                 startActivity(albumIntent);
             }
         });

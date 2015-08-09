@@ -64,6 +64,10 @@
             android:name=".UI.Activity.EventsListActivity"
             android:label="@string/title_activity_events_list" >
         </activity>
+        <activity
+            android:name=".UI.Activity.AddPhotoTabbedActivity"
+            android:label="@string/title_activity_add_photo_tabbed" >
+        </activity>
     </application>
 
 </manifest>

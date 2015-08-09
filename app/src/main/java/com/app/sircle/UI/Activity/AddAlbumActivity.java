@@ -1,5 +1,6 @@
 package com.app.sircle.UI.Activity;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -50,7 +51,9 @@ public class AddAlbumActivity extends ActionBarActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent tabIntent = new Intent(AddAlbumActivity.this, AddPhotoTabbedActivity.class);
+                startActivity(tabIntent);
+               // finish();
             }
         });
     }
