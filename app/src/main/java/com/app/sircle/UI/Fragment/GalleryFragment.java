@@ -12,6 +12,7 @@ import android.widget.GridView;
 import com.app.sircle.DownLoader.ImageManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.AddSelectedPhoto;
+import com.app.sircle.UI.Activity.BaseActivity;
 import com.app.sircle.UI.Adapter.CamerarollAdapter;
 import com.app.sircle.UI.Model.ImageData;
 
@@ -49,5 +50,19 @@ public class GalleryFragment extends android.support.v4.app.Fragment {
         return viewFragment;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (BaseActivity.jumpToFragment){
+            getActivity().finish();
+//            Intent base = new Intent(getActivity(), BaseActivity.class);
+//            startActivity(base);
+        }
+
+    }
 }

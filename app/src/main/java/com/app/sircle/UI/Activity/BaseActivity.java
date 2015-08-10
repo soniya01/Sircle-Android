@@ -75,7 +75,10 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
     protected void onResume() {
         super.onResume();
         if (jumpToFragment)
+        {
+            jumpToFragment = false;
             this.didSelectListViewItemAtIndex(2);
+        }
 
     }
 

@@ -98,4 +98,12 @@ public class AddAlbumActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (BaseActivity.jumpToFragment)
+            finish();
+
+    }
 }

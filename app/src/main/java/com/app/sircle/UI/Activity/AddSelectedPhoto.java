@@ -49,7 +49,7 @@ public class AddSelectedPhoto extends ActionBarActivity {
                 //TODO: post the photos and albums created to the server
                 String descText = desc.getText().toString();
                 BaseActivity.jumpToFragment = true;
-                finish();finish();
+                finish();
             }
         });
     }
