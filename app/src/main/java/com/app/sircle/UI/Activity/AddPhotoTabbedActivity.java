@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTabHost;
 
 import com.app.sircle.R;
 import com.app.sircle.UI.Fragment.CameraFragment;
+import com.app.sircle.UI.Fragment.GalleryFragment;
 
 public class AddPhotoTabbedActivity extends FragmentActivity {
 
@@ -20,7 +21,7 @@ public class AddPhotoTabbedActivity extends FragmentActivity {
         mTabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
 
         mTabHost.addTab(mTabHost.newTabSpec("tab1").setIndicator("Tab 1", null),CameraFragment.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("tab2").setIndicator("Tab 2", null), CameraFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("tab2").setIndicator("Tab 2", null), GalleryFragment.class, null);
     }
 
     @Override

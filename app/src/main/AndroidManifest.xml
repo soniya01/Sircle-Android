@@ -66,7 +66,13 @@
         </activity>
         <activity
             android:name=".UI.Activity.AddPhotoTabbedActivity"
-            android:label="@string/title_activity_add_photo_tabbed" >
+            android:label="@string/title_activity_add_photo_tabbed"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".UI.Activity.AddSelectedPhoto"
+            android:label="@string/title_activity_add_selected_photo"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 
