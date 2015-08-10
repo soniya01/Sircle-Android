@@ -29,6 +29,7 @@ public class GalleryFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         View viewFragment = inflater.inflate(R.layout.fragment_gallery, container, false);
         gridViewCameraImages = (GridView)viewFragment.findViewById(R.id.camera_roll_grid_view);
 

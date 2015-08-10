@@ -17,12 +17,17 @@ public class AddPhotoTabbedActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_photo_tabbed);
+
+
+        //getActionBar().setDisplayShowHomeEnabled(true);
+        //getActionBar().setDisplayHomeAsUpEnabled(true);
         mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
 
         mTabHost.addTab(mTabHost.newTabSpec("tab1").setIndicator("Tab 1", null),CameraFragment.class, null);
         mTabHost.addTab(mTabHost.newTabSpec("tab2").setIndicator("Tab 2", null), GalleryFragment.class, null);
     }
+
 
     @Override
     public void onBackPressed() {

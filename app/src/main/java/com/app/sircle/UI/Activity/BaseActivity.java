@@ -39,13 +39,14 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
 
     private final static String SHOULD_SELECT_LIST_VIEW_ITEM = "shouldSelectListViewItem";
     private final static String SELECTED_MODULE = "selectedModuleIndex";
-    private static Integer selectedModuleIndex;
+    public static Integer selectedModuleIndex;
     private boolean shouldSelectListViewItem = true;
     private Fragment fragmentToLoad = null;
     private ListView mDrawerList;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private String[] menuList;
+    public static boolean jumpToFragment;
 
     private void loadFragment(Context context, Fragment fragment) {
 
@@ -73,6 +74,8 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
     @Override
     protected void onResume() {
         super.onResume();
+        if (jumpToFragment)
+            this.didSelectListViewItemAtIndex(2);
 
     }
 

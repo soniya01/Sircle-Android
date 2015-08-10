@@ -1,6 +1,7 @@
 package com.app.sircle.UI.Fragment;
 
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.app.sircle.R;
+import com.app.sircle.UI.Activity.AddSelectedPhoto;
 import com.app.sircle.UI.CustomView.CameraPreview;
 import com.app.sircle.UI.Model.ImageData;
 
@@ -46,7 +48,6 @@ public class CameraFragment extends Fragment implements View.OnClickListener{
     //to store the image data of the clicked image
     public static byte[] imageData;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -54,8 +55,6 @@ public class CameraFragment extends Fragment implements View.OnClickListener{
         View viewFragment = inflater.inflate(R.layout.fragment_camera, container, false);
         setupViews(viewFragment);
         return viewFragment;
-
-
     }
 
     // Linking the id to their views
@@ -66,7 +65,6 @@ public class CameraFragment extends Fragment implements View.OnClickListener{
         checkBoxToggleFlash = (CheckBox) view.findViewById(R.id.cam_checkbox_toggle_flash);
         imageButtonClickPhoto = (ImageButton) view.findViewById(R.id.cam_image_button_snap);
 
-
         imageButtonSwitchCamera.setOnClickListener(this);
         imageButtonClickPhoto.setOnClickListener(this);
 
@@ -76,7 +74,6 @@ public class CameraFragment extends Fragment implements View.OnClickListener{
                 toggleFlash(isChecked);
             }
         });
-
 
     }
 
@@ -189,9 +186,9 @@ public class CameraFragment extends Fragment implements View.OnClickListener{
         public void onPictureTaken(byte[] data, Camera camera) {
             enableButtons(true);
             imageData = data;
-           // Intent intent = new Intent(getActivity(), EditImageActivity.class);
-           // intent.putExtra(INTENT_EXTRA_BACK_CAMERA_SHOWN, backCameraShown);
-            //startActivity(intent);
+            Intent intent = new Intent(getActivity(), AddSelectedPhoto.class);
+            intent.putExtra(INTENT_EXTRA_BACK_CAMERA_SHOWN, backCameraShown);
+            startActivity(intent);
         }
     };
 

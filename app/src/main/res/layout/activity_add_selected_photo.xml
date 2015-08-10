@@ -11,9 +11,11 @@
 
     <ImageView
         android:id="@+id/activity_add_new_photo_image"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_width="350dp"
+        android:layout_height="250dp"
         android:layout_marginTop="20dp"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/description_image_default" />
 
     <EditText
