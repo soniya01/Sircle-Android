@@ -73,6 +73,19 @@
             android:name=".UI.Activity.AddSelectedPhoto"
             android:label="@string/title_activity_add_selected_photo"
             android:screenOrientation="portrait">
+            </activity>
+
+          <activity
+            android:name=".UI.Activity.HolidayActivity"
+            android:label="@string/title_activity_holiday" >
+        </activity>
+        <activity
+            android:name=".UI.Activity.SchoolHolidayActivity"
+            android:label="@string/title_activity_school_holiday" >
+        </activity>
+        <activity
+            android:name=".UI.Activity.EventActivity"
+            android:label="@string/title_activity_event" >
         </activity>
     </application>
 
