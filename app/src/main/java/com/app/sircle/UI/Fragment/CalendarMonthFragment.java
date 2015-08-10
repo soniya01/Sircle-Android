@@ -1,6 +1,7 @@
 package com.app.sircle.UI.Fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -10,12 +11,18 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.app.sircle.R;
+import com.app.sircle.UI.Activity.AddLinksActivity;
+import com.app.sircle.UI.Activity.EventsListActivity;
 import com.roomorama.caldroid.CaldroidFragment;
+import com.roomorama.caldroid.CaldroidListener;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -79,6 +86,41 @@ public class CalendarMonthFragment extends Fragment {
         args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
         args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
         caldroidFragment.setArguments(args);
+
+
+        String myFormat = "MM/dd/yy"; //In which you need put here
+      final  SimpleDateFormat formatter = new SimpleDateFormat(myFormat, Locale.US);
+
+        final CaldroidListener listener = new CaldroidListener() {
+
+            @Override
+            public void onSelectDate(Date date, View view) {
+              //  Toast.makeText(getActivity().getApplicationContext(), formatter.format(date), Toast.LENGTH_SHORT).show();
+                Intent addLinkIntent = new Intent(getActivity(), EventsListActivity.class);
+                startActivity(addLinkIntent);
+
+            }
+
+            @Override
+            public void onChangeMonth(int month, int year) {
+                String text = "month: " + month + " year: " + year;
+              //  Toast.makeText(getActivity().getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onLongClickDate(Date date, View view) {
+               // Toast.makeText(getActivity().getApplicationContext(), "Long click " + formatter.format(date), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCaldroidViewCreated() {
+               // Toast.makeText(getActivity().getApplicationContext(),"Caldroid view is created",Toast.LENGTH_SHORT).show();
+            }
+
+        };
+
+        caldroidFragment.setCaldroidListener(listener);
+
 
         FragmentActivity myContext = (FragmentActivity)getActivity();
 
