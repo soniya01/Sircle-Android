@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.GridView;
 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class AlbumDetailsActivity extends Activity {
+public class AlbumDetailsActivity extends ActionBarActivity {
 
     private GridView albumGridView;
     private AlbumDetailsGridAdapter albumDetailsGridAdapter;
@@ -28,6 +29,9 @@ public class AlbumDetailsActivity extends Activity {
         setContentView(R.layout.activity_album_details);
 
         populateDummyData();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         albumGridView = (GridView)findViewById(R.id.album_details_grid_view);
         floatingActionButton = (FloatingActionButton)findViewById(R.id.fab);
