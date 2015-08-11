@@ -60,8 +60,6 @@ public class GalleryFragment extends android.support.v4.app.Fragment {
         super.onResume();
         if (BaseActivity.jumpToFragment){
             getActivity().finish();
-//            Intent base = new Intent(getActivity(), BaseActivity.class);
-//            startActivity(base);
         }
 
     }

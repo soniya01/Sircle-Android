@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.AddSelectedPhoto;
+import com.app.sircle.UI.Activity.BaseActivity;
 import com.app.sircle.UI.CustomView.CameraPreview;
 import com.app.sircle.UI.Model.ImageData;
 
@@ -221,9 +222,20 @@ public class CameraFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onResume() {
         super.onResume();
+        if (BaseActivity.jumpToFragment){
+            getActivity().finish();
+        }
         imageData = null;
         toggleFlashButtonVisibility(View.VISIBLE);
         showBackCamera();
         enableButtons(true);
+
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        releaseCamera();
+    }
+
 }

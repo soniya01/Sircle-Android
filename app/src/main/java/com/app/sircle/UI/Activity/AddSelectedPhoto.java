@@ -14,6 +14,7 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.app.sircle.DownLoader.ImageManager;
 import com.app.sircle.R;
@@ -127,7 +128,7 @@ public class AddSelectedPhoto extends ActionBarActivity {
             ImageManager instance = ImageManager.getInstance();
             Bitmap bitmap = null;
             if (data == null) {
-                    bitmap = instance.decodeSampledBitmapFromByteArray(CameraFragment.imageData, 350, 250);
+                    bitmap = instance.decodeSampledBitmapFromByteArray(CameraFragment.imageData, 400, 400);
 
 
                 if (backCameraShown) {
@@ -138,7 +139,7 @@ public class AddSelectedPhoto extends ActionBarActivity {
                 }
                 bitmap = resizeBitMapForDisplay(bitmap);
             } else {
-                bitmap = instance.decodeSampledBitmapFromImageData(data, 350, 250);
+                bitmap = instance.decodeSampledBitmapFromImageData(data, 400, 400);
                 try {
                     bitmap = resizeGalleryImage(bitmap);
                 }catch (Exception e){
@@ -237,9 +238,11 @@ public class AddSelectedPhoto extends ActionBarActivity {
 //                } else {
                     // Scale to preview size
 
-            bitmap = Bitmap.createScaledBitmap(bitmap, (int) ((float) bitmapWidth * ((float) 350 / (float) bitmapHeight)),250, true);
+            bitmap = Bitmap.createScaledBitmap(bitmap, (int) ((float) bitmapWidth * ((float) 900 / (float) bitmapHeight)),600, true);
+//            bitmap = Bitmap.createScaledBitmap(bitmap, (int) ((float) bitmapWidth * ((float) BREW_CAM_PREVIEW_HEIGHT / (float) bitmapHeight)),
+//                    BREW_CAM_PREVIEW_HEIGHT, true);
 
-            bitmap = Bitmap.createBitmap(bitmap, (int) (((float) bitmap.getWidth() - (float) imageViewWidth) / 2.0f), 0, imageViewWidth, imageViewHeight);
+            bitmap = Bitmap.createBitmap(bitmap, (int) (((float) bitmap.getWidth() - (float) imageViewWidth) / 2.0f), 0, 600, 600);
                // }
            // }
             return bitmap;
