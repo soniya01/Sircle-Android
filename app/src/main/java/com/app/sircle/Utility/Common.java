@@ -19,6 +19,7 @@ import org.w3c.dom.NodeList;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -139,6 +140,50 @@ public class Common {
                     }
         }
         return false;
+    }
+
+    /**
+     * Creates an empty object for specified class
+     *
+     * @param queryingClass - Name of the class to create object
+     * @return object for the class
+     */
+    public static Object createObjectForClass(Class queryingClass) {
+        Class theClass = null;
+        Object object = null;
+
+        try {
+            theClass = Class.forName(queryingClass.getName());
+            object = theClass.newInstance();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException ex) {
+            ex.printStackTrace();
+        } catch (IllegalAccessException ex) {
+            ex.printStackTrace();
+        }
+        return object;
+    }
+
+    /**
+     * Concatenate arrays to form a single array
+     *
+     * @param first - first array
+     * @param rest  - Remaining arras
+     * @return a single array
+     */
+    public static <T> T[] concatArrays(T[] first, T[]... rest) {
+        int totalLength = first.length;
+        for (T[] array : rest) {
+            totalLength += array.length;
+        }
+        T[] result = Arrays.copyOf(first, totalLength);
+        int offset = first.length;
+        for (T[] array : rest) {
+            System.arraycopy(array, 0, result, offset, array.length);
+            offset += array.length;
+        }
+        return result;
     }
 
 }

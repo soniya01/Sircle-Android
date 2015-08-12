@@ -13,8 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.app.sircle.Manager.LoginManager;
 import com.app.sircle.R;
+import com.app.sircle.Utility.AppError;
 import com.app.sircle.Utility.Constants;
+
+import java.util.HashMap;
 
 
 public class LoginScreen extends Activity {
@@ -54,9 +58,26 @@ public class LoginScreen extends Activity {
                     editor.putString(Constants.LOGIN_USERNAME_PREFS_KEY, usernameField.getText().toString());
                     editor.putString(Constants.LOGIN_PASSWORD_PREFS_KEY, passwordEditText.getText().toString());
 
-                    // give access to the app features
-                    Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);
-                    startActivity(homeIntent);
+                    HashMap<String, String> loginMap = new HashMap<String, String>();
+                    loginMap.put("loginId",usernameField.getText().toString());
+                    loginMap.put("pwd",passwordEditText.getText().toString());
+                    loginMap.put("regId", Constants.GCM_REG_ID);
+
+                    LoginManager.getSharedInstance().login(loginMap, new LoginManager.LoginManagerListener() {
+                        @Override
+                        public void onCompletion(AppError error) {
+                            if (error.getErrorCode() == 0) {
+                                // give access to the app features
+                                Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);
+                                startActivity(homeIntent);
+                            }else {
+                                usernameField.setText("");
+                                passwordEditText.setText("");
+                            }
+                        }
+                    });
+
+
 
                 }
 
