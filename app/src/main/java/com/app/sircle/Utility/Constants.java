@@ -16,6 +16,13 @@ public class Constants {
     public static final String GCM_REG_ID = "id";
     public static final String BASE_URL = "http://demo.snaptech.in/";
     public static final String LOGIN_API_PATH = "user/user_get";
+    public static final String EVENTS_GET_ALL_TERMS_API_PATH = "rest_api/terms/format/json";
+    public static final String EVENTS_GET_MONTH_WISE_API_PATH ="/user/group_and_month_wise_event/format/json";
+    public static final String EVENTS_GET_ALL_EVENTS_API_PATH ="user/user_allevents/";
+    public static final String EVENTS_GET_CATEGORY_API_PATH = "rest_api/event_categories/format/json";
+    public static final String EVENTS_GET_DETAILS_API_PATH = "/rest_api/event_detail/{Eventid}/format/json";
+    public static final String EVENTS_DELETE_API_PATH = "/user/delete_event/";
+    public static final String EVENTS_ADD_NEW_EVENT_API_PATH = "user/new_event";
 
 }
 
