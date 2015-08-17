@@ -18,7 +18,6 @@ public class LoginService {
         retrofitImplementation.executePostWithURL(Constants.LOGIN_API_PATH, null, params, null, new WebServiceListener() {
             @Override
             public void onCompletion(Object response, AppError error) {
-                //ArrayList<IHHAPI_Alert> alertArrayList = (ArrayList<IHHAPI_Alert>) response;
                 getLoginResponseWebServiceListener.onCompletion( error);
             }
         });

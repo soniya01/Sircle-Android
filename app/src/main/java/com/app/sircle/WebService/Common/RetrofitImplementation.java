@@ -19,8 +19,11 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.http.Body;
 import retrofit.http.GET;
+import retrofit.http.Multipart;
 import retrofit.http.POST;
 import retrofit.http.PUT;
+import retrofit.http.Part;
+import retrofit.mime.TypedFile;
 
 /**
  * Created by soniya on 3/30/15.
@@ -147,7 +150,11 @@ public class RetrofitImplementation implements WebServiceProtocol{
                 appError.setErrorMessage(error.getLocalizedMessage());
 
                 // Send empty object
-                webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
+                if (responseClass != null){
+                    webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
+                }else {
+                    webserviceListener.onCompletion(null, appError);
+                }
             }
         });
 
@@ -199,11 +206,53 @@ public class RetrofitImplementation implements WebServiceProtocol{
                 appError.setErrorMessage(error.getLocalizedMessage());
 
                 // Send empty object
-                webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
+                if (responseClass != null){
+                    webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
+                }else {
+                    webserviceListener.onCompletion(null, appError);
+                }
             }
         });
     }
 
+    @Override
+    public void executeUploadImageWithURL(final String url, final HashMap<String, String> params, final TypedFile typedFile, final Class responseClass, final WebServiceListener webserviceListener) {
+
+        this.generator = new UrlGenerator(params, url);
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setEndpoint(this.baseURL + this.generator.subUrl )
+                .setRequestInterceptor(new RequestInterceptor() {
+                    @Override
+                    public void intercept(RequestFacade request) {
+                        //request.addHeader(Constants.AUTHORIZATION, SignInManager.getSharedInstance().sessionId);
+                    }
+                })
+                .build();
+
+        WebserviceApi uploadImageService = restAdapter.create(WebserviceApi.class);
+
+        uploadImageService.uploadImage(typedFile, new Callback<JsonElement>() {
+            @Override
+            public void success(JsonElement jsonElement, Response response) {
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+                AppError appError = new AppError();
+                appError.setErrorCode(getRetrofitErrorcode(error));
+                appError.setErrorMessage(error.getLocalizedMessage());
+
+                // Send empty object
+                if (responseClass != null){
+                    webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
+                }else {
+                    webserviceListener.onCompletion(null, appError);
+                }
+            }
+        });
+    }
 
     /**
      * Interface for the post , get and put request server api calls
@@ -220,6 +269,10 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
         @PUT("/")
         void put(@Body Object requestObject, Callback<JsonElement> callback);
+
+        @Multipart
+        @POST("/")
+        void uploadImage(@Part("data") TypedFile image, Callback<JsonElement> cb);
 
     }
 
