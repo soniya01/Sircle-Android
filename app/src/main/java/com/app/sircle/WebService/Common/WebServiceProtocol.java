@@ -1,9 +1,6 @@
 package com.app.sircle.WebService.Common;
 
-import com.inhandhealth.patient.WebService.Common.WebServiceListener;
-
 import java.util.HashMap;
-import java.util.Objects;
 
 
 /**

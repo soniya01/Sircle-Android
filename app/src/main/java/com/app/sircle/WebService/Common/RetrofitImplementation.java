@@ -91,7 +91,12 @@ public class RetrofitImplementation implements WebServiceProtocol{
                 appError.setErrorMessage(error.getLocalizedMessage());
 
                 // Send empty object
-                webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
+                if (responseClass != null){
+                    webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
+                }else {
+                    webserviceListener.onCompletion(null, appError);
+                }
+
             }
         });
     }

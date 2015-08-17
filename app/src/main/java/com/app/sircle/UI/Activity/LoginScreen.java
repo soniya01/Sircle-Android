@@ -12,6 +12,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.sircle.Manager.LoginManager;
 import com.app.sircle.R;
@@ -43,7 +44,6 @@ public class LoginScreen extends Activity {
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         //supportLabel.setText(content);
 
-
         loginButton = (Button)findViewById(R.id.email_sign_in_button);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +53,6 @@ public class LoginScreen extends Activity {
                 if (usernameField.getText().toString().equals(null) || passwordEditText.getText().toString().equals(null) || usernameField.getText().toString().equals("") || passwordEditText.getText().toString().equals("")){
 
                 }else {
-
                     // save username and password
                     editor.putString(Constants.LOGIN_USERNAME_PREFS_KEY, usernameField.getText().toString());
                     editor.putString(Constants.LOGIN_PASSWORD_PREFS_KEY, passwordEditText.getText().toString());
@@ -73,14 +72,12 @@ public class LoginScreen extends Activity {
                             }else {
                                 usernameField.setText("");
                                 passwordEditText.setText("");
+                                Toast.makeText(LoginScreen.this, "Sorry! Invalid credentials", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
 
-
-
                 }
-
             }
         });
     }
