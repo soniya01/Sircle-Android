@@ -15,7 +15,7 @@ public class LoginService {
     public static void login(HashMap<String, String> params, final GetLoginResponseWebServiceListener getLoginResponseWebServiceListener){
 
         RetrofitImplementation retrofitImplementation = new RetrofitImplementation();
-        retrofitImplementation.executePostWithURL(Constants.LOGIN_API_PATH, null, params, null, new WebServiceListener() {
+        retrofitImplementation.executePostWithURL(Constants.LOGIN_API_PATH, null, params,LoginResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object response, AppError error) {
                 getLoginResponseWebServiceListener.onCompletion( error);

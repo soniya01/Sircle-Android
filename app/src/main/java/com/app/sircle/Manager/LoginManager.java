@@ -10,7 +10,6 @@ import java.util.HashMap;
  */
 public class LoginManager {
 
-    //public  ArrayList<> alertsArray = new ArrayList<IHHAPI_Alert>();
     private static LoginManager sharedInstance;
     private LoginManager(){
 

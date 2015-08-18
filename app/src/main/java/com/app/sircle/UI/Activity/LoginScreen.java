@@ -67,6 +67,7 @@ public class LoginScreen extends Activity {
                         public void onCompletion(AppError error) {
                             if (error.getErrorCode() == 0) {
                                 // give access to the app features
+                                Toast.makeText(LoginScreen.this, "User logged in successfully", Toast.LENGTH_SHORT).show();
                                 Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);
                                 startActivity(homeIntent);
                             }else {

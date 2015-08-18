@@ -40,6 +40,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
     public void executePostWithURL(final String url,final HashMap<String,String> params, Object requestObject,final Class responseClass, final WebServiceListener webserviceListener) {
         // Setup Adapter for Rest Operations
         this.generator = new UrlGenerator(params, url);
+        Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
 
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint(this.baseURL + this.generator.subUrl)
@@ -54,6 +55,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
 //                        }
                     }
                 })
+                .setConverter(new GsonCustomConverter(gson))
                 .build();
 
         WebserviceApi postWebservice = restAdapter.create(WebserviceApi.class);
@@ -65,7 +67,10 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
                 // Get Json Response and Parse it to get response in UPPER_CAMEL_CASE
 
-                if (!jsonElement.isJsonNull() ){
+                if (response != null && response.getStatus() == 200){
+                    webserviceListener.onCompletion(response, new AppError());
+                }
+                else if (!jsonElement.isJsonNull() ){
 
                     Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
 
