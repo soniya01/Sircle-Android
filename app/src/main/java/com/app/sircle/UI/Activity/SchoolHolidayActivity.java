@@ -143,15 +143,15 @@ public class SchoolHolidayActivity extends ActionBarActivity {
     public void populateDummyData() {
 
         NotificationGroups n1 = new NotificationGroups();
-        n1.setGroupName("Group 1");
+        n1.setName("Group 1");
 
         notificationGroupList.add(n1);
 
         groupNames.add("All");
-        groupNames.add(notificationGroupList.get(0).getGroupName());
+        groupNames.add(notificationGroupList.get(0).getName());
         groupNames.add("Group 2");
-        groupNames.add(notificationGroupList.get(0).getGroupName());
-        groupNames.add(notificationGroupList.get(0).getGroupName());
-        groupNames.add(notificationGroupList.get(0).getGroupName());
+        groupNames.add(notificationGroupList.get(0).getName());
+        groupNames.add(notificationGroupList.get(0).getName());
+        groupNames.add(notificationGroupList.get(0).getName());
     }
 }

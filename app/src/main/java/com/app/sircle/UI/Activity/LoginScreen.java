@@ -49,13 +49,15 @@ public class LoginScreen extends Activity {
             @Override
             public void onClick(View v) {
                loginSharedPrefs = LoginScreen.this.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = loginSharedPrefs.edit();
-                if (usernameField.getText().toString().equals(null) || passwordEditText.getText().toString().equals(null) || usernameField.getText().toString().equals("") || passwordEditText.getText().toString().equals("")){
+                final SharedPreferences.Editor editor = loginSharedPrefs.edit();
+                if (!loginSharedPrefs.getString(Constants.LOGIN_USERNAME_PREFS_KEY,"").equals("") || !loginSharedPrefs.getString(Constants.LOGIN_PASSWORD_PREFS_KEY, "").equals("") ){
+
+                    Toast.makeText(LoginScreen.this, "User already logged in", Toast.LENGTH_SHORT).show();
+                    Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);
+                    startActivity(homeIntent);
 
                 }else {
                     // save username and password
-                    editor.putString(Constants.LOGIN_USERNAME_PREFS_KEY, usernameField.getText().toString());
-                    editor.putString(Constants.LOGIN_PASSWORD_PREFS_KEY, passwordEditText.getText().toString());
 
                     HashMap<String, String> loginMap = new HashMap<String, String>();
                     loginMap.put("loginId",usernameField.getText().toString());
@@ -67,6 +69,9 @@ public class LoginScreen extends Activity {
                         public void onCompletion(AppError error) {
                             if (error.getErrorCode() == 0) {
                                 // give access to the app features
+                                editor.putString(Constants.LOGIN_USERNAME_PREFS_KEY, usernameField.getText().toString());
+                                editor.putString(Constants.LOGIN_PASSWORD_PREFS_KEY, passwordEditText.getText().toString());
+
                                 Toast.makeText(LoginScreen.this, "User logged in successfully", Toast.LENGTH_SHORT).show();
                                 Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);
                                 startActivity(homeIntent);

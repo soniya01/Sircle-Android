@@ -1,7 +1,6 @@
 package com.app.sircle.UI.Fragment;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.app.sircle.R;
-import com.app.sircle.UI.Activity.BaseActivity;
 import com.app.sircle.UI.Adapter.NotificationsGroupAdapter;
 import com.app.sircle.UI.Model.NotificationGroups;
 
@@ -59,7 +57,7 @@ public class SettingsFragment extends Fragment {
     public void populateDummyData(){
 
         NotificationGroups n1 = new NotificationGroups();
-        n1.setGroupName("Group 1");
+        n1.setName("Group 1");
 
         notificationGroupList.add(n1);
         notificationGroupList.add(n1);

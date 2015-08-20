@@ -8,11 +8,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Adapter.NotificationsGroupAdapter;
 
 import com.app.sircle.UI.Model.NotificationGroups;
+import com.app.sircle.Utility.AppError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,12 +31,11 @@ public class SettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        populateDummyData();
-
         notificationListView = (ListView) findViewById(R.id.notificationsGroupListView);
-        notificationsGroupAdapter = new NotificationsGroupAdapter(this, notificationGroupList);
+        populateDummyData();
+        //notificationsGroupAdapter = new NotificationsGroupAdapter(this, notificationGroupList);
 
-        notificationListView.setAdapter(notificationsGroupAdapter);
+        //notificationListView.setAdapter(notificationsGroupAdapter);
         Button saveButton = (Button)findViewById(R.id.saveGroups);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,20 +75,62 @@ public class SettingsActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     public void populateDummyData(){
 
-        NotificationGroups n1 = new NotificationGroups();
-        n1.setGroupName("Group 1");
+        NotificationManager.getSharedInstance().getAllGroups(new NotificationManager.GroupsManagerListener() {
+            @Override
+            public void onCompletion(List<NotificationGroups> notificationGroupsList, AppError error) {
 
-        notificationGroupList.add(n1);
-        notificationGroupList.add(n1);
-        notificationGroupList.add(n1);
-        notificationGroupList.add(n1);
-        notificationGroupList.add(n1);
-        notificationGroupList.add(n1);
-        notificationGroupList.add(n1);
-        notificationGroupList.add(n1);
+                if (error == null || error.getErrorCode() == AppError.NO_ERROR ){
+                    if (notificationGroupsList == null ){
 
+                        if (SettingsActivity.this.notificationGroupList.size() > 0){
+                            SettingsActivity.this.notificationGroupList.clear();
+                            SettingsActivity.this.notificationGroupList.addAll(notificationGroupsList);
+                            notificationsGroupAdapter.notifyDataSetChanged();
+
+                        }else {
+                            SettingsActivity.this.notificationGroupList.clear();
+                            SettingsActivity.this.notificationGroupList.addAll(notificationGroupsList);
+                            notificationsGroupAdapter = new NotificationsGroupAdapter(SettingsActivity.this, notificationGroupList);
+                            notificationListView.setAdapter(notificationsGroupAdapter);
+                        }
+
+
+                        Toast.makeText(SettingsActivity.this, "Groups fetched",Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(SettingsActivity.this, "Sorry no groups data available",Toast.LENGTH_SHORT).show();
+                    }
+
+                }else {
+                    Toast.makeText(SettingsActivity.this, "Sorry some problem occured",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+//
+//        NotificationGroups n1 = new NotificationGroups();
+//        n1.setName("Group 1");
+//
+//        notificationGroupList.add(n1);
+//        notificationGroupList.add(n1);
+//        notificationGroupList.add(n1);
+//        notificationGroupList.add(n1);
+//        notificationGroupList.add(n1);
+//        notificationGroupList.add(n1);
+//        notificationGroupList.add(n1);
+//        notificationGroupList.add(n1);
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
 
     }
 }

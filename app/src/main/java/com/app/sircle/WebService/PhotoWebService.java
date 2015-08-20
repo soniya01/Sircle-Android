@@ -43,11 +43,16 @@ public class PhotoWebService {
         });
     }
 
-    public void getPhotos(HashMap object, GetPhotoWebServiceListener getPhotoWebServiceListener){
+    public void getPhotos(HashMap object, final GetPhotoWebServiceListener getPhotoWebServiceListener){
        retrofitImplementation.executeGetWithURL(Constants.PHOTOS_GET_API_PATH, object, null, AlbumDetails.class, new WebServiceListener() {
            @Override
            public void onCompletion(Object response, AppError error) {
                albumDetailsList = (ArrayList<AlbumDetails>) response;
+               if (error.getErrorCode() == AppError.NO_ERROR || error == null){
+                   getPhotoWebServiceListener.onCompletion(albumDetailsList, new AppError());
+               }else {
+                   getPhotoWebServiceListener.onCompletion(albumDetailsList, error);
+               }
            }
        });
     }

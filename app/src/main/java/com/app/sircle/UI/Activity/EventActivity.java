@@ -1,6 +1,5 @@
 package com.app.sircle.UI.Activity;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
@@ -11,19 +10,14 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.URLUtil;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.app.sircle.R;
-import com.app.sircle.UI.Fragment.LinksFragment;
-import com.app.sircle.UI.Model.Links;
 import com.app.sircle.UI.Model.NotificationGroups;
 
 import java.util.ArrayList;
@@ -159,16 +153,16 @@ public class EventActivity extends ActionBarActivity {
     public void populateDummyData() {
 
         NotificationGroups n1 = new NotificationGroups();
-        n1.setGroupName("Group 1");
+        n1.setName("Group 1");
 
         notificationGroupList.add(n1);
 
         groupNames.add("All");
-        groupNames.add(notificationGroupList.get(0).getGroupName());
+        groupNames.add(notificationGroupList.get(0).getName());
         groupNames.add("Group 2");
-        groupNames.add(notificationGroupList.get(0).getGroupName());
-        groupNames.add(notificationGroupList.get(0).getGroupName());
-        groupNames.add(notificationGroupList.get(0).getGroupName());
+        groupNames.add(notificationGroupList.get(0).getName());
+        groupNames.add(notificationGroupList.get(0).getName());
+        groupNames.add(notificationGroupList.get(0).getName());
     }
 
 

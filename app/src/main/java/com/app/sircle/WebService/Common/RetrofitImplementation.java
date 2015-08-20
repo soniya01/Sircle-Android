@@ -120,7 +120,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                 .setRequestInterceptor(new RequestInterceptor() {
                     @Override
                     public void intercept(RequestFacade request) {
-                       // request.addHeader(Constants.AUTHORIZATION, SignInManager.getSharedInstance().sessionId);
+
                     }
                 })
                 .build();

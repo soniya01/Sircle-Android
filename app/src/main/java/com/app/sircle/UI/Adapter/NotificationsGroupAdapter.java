@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.app.sircle.R;
-import com.app.sircle.UI.Model.NewsLetter;
 import com.app.sircle.UI.Model.NotificationGroups;
 
 import java.util.ArrayList;
@@ -60,7 +59,7 @@ public class NotificationsGroupAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.notificationGroupTitle.setText(notificationsGroupList.get(position).groupName);
+        viewHolder.notificationGroupTitle.setText(notificationsGroupList.get(position).name);
         return convertView;
 
     }
