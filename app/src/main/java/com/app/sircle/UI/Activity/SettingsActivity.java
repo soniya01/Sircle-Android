@@ -87,7 +87,7 @@ public class SettingsActivity extends Activity {
             public void onCompletion(List<NotificationGroups> notificationGroupsList, AppError error) {
 
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR ){
-                    if (notificationGroupsList == null ){
+                    if (notificationGroupsList != null ){
 
                         if (SettingsActivity.this.notificationGroupList.size() > 0){
                             SettingsActivity.this.notificationGroupList.clear();
