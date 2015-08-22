@@ -101,7 +101,6 @@ public class SettingsActivity extends Activity {
                             notificationListView.setAdapter(notificationsGroupAdapter);
                         }
 
-
                         Toast.makeText(SettingsActivity.this, "Groups fetched",Toast.LENGTH_SHORT).show();
                     }else {
                         Toast.makeText(SettingsActivity.this, "Sorry no groups data available",Toast.LENGTH_SHORT).show();

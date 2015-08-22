@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.app.sircle.Manager.PhotoManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.AddAlbumActivity;
 import com.app.sircle.UI.Activity.AlbumDetailsActivity;
@@ -18,9 +19,11 @@ import com.app.sircle.UI.Adapter.PhotosListViewAdapter;
 import com.app.sircle.UI.Model.AlbumDetails;
 import com.app.sircle.UI.Model.Photo;
 import com.app.sircle.UI.SlidingPane.SlidingPaneInterface;
+import com.app.sircle.Utility.AppError;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -40,12 +43,12 @@ public class PhotosFragment extends Fragment {
 
         View viewFragment = inflater.inflate(R.layout.fragment_photos, null , true);
 
-        populateDummyData();
-
         albumListView = (ListView)viewFragment.findViewById(R.id.fragment_photos_list_view);
-        floatingActionButton = (FloatingActionButton)viewFragment.findViewById(R.id.fab);
         photosListViewAdapter = new PhotosListViewAdapter(getActivity(), photos);
         albumListView.setAdapter(photosListViewAdapter);
+        populateDummyData();
+
+        floatingActionButton = (FloatingActionButton)viewFragment.findViewById(R.id.fab);
         albumListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         albumListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -72,20 +75,41 @@ public class PhotosFragment extends Fragment {
         return viewFragment;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     private void populateDummyData() {
 
-        Photo photo = new Photo();
-        photo.setAlbumID(1);
-        photo.setAlbumTitle("Sports Day");
-        photo.setAlbumCoverImageURL("http://img.youtube.com/vi/GDFUdMvacI0/0.jpg");
-        photo.setNumberOfPhotos(5);
-        photo.setPublishDate(new Date());
+        HashMap map = new HashMap();
+        map.put("regId", "id");
+        map.put("groupId", "1");
+        map.put("val", "val");
 
-        photos.add(photo);
-        photos.add(photo);
-        photos.add(photo);
-        photos.add(photo);
-        photos.add(photo);
+        PhotoManager.getSharedInstance().getAlbums(map, new PhotoManager.GetAlbumsManagerListener() {
+            @Override
+            public void onCompletion(List<Photo> photos, AppError error) {
+                if (photos != null){
+                    if (photos.size() > 0){
+                        PhotosFragment.this.photos.addAll(photos);
+                    }
+                }
+            }
+        });
+
+//        Photo photo = new Photo();
+//        photo.setAlbumID(1);
+//        photo.setAlbumTitle("Sports Day");
+//        photo.setAlbumCoverImageURL("http://img.youtube.com/vi/GDFUdMvacI0/0.jpg");
+//        photo.setNumberOfPhotos(5);
+//        photo.setPublishDate(new Date());
+//
+//        photos.add(photo);
+//        photos.add(photo);
+//        photos.add(photo);
+//        photos.add(photo);
+//        photos.add(photo);
 
     }
 

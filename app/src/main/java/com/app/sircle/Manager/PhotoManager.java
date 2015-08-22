@@ -1,6 +1,7 @@
 package com.app.sircle.Manager;
 
 import com.app.sircle.UI.Model.AlbumDetails;
+import com.app.sircle.UI.Model.Photo;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.WebService.PhotoWebService;
 
@@ -28,12 +29,12 @@ public class PhotoManager  {
         return sharedInstance;
     }
 
-    public void addNewAlbum(HashMap requestObject, final PhotoManagerListener photoManagerListener){
+    public void addNewAlbum(HashMap requestObject, final AddPhotoManagerListener addPhotoManagerListener){
 
-        PhotoWebService.getSharedInstance().addAlbum(requestObject, new PhotoWebService.PhotoWebServiceListener() {
+        PhotoWebService.getSharedInstance().addAlbum(requestObject, new PhotoWebService.AddPhotoWebServiceListener() {
             @Override
-            public void onCompletion(AppError error) {
-                photoManagerListener.onCompletion(error);
+            public void onCompletion(Photo photo, AppError error) {
+                addPhotoManagerListener.onCompletion(photo, error);
             }
         });
     }
@@ -47,12 +48,30 @@ public class PhotoManager  {
         });
     }
 
+    public void getAlbums(HashMap params, final GetAlbumsManagerListener albumsManagerListener){
+        PhotoWebService.getSharedInstance().getAlbums(params, new PhotoWebService.GetAlbumWebServiceListener() {
+            @Override
+            public void onCompletion(List<Photo> photos, AppError error) {
+                albumsManagerListener.onCompletion(photos, new AppError());
+            }
+        });
+    }
+
+    public interface AddPhotoManagerListener{
+        public void onCompletion(Photo photo, AppError error);
+    }
+
+
     public interface PhotoManagerListener{
         public void onCompletion(AppError error);
     }
 
     public interface GetPhotosManagerListener{
         public void onCompletion(List<AlbumDetails> albumDetailsList, AppError error);
+    }
+
+    public interface GetAlbumsManagerListener{
+        public void onCompletion(List<Photo> photos, AppError error);
     }
 
 

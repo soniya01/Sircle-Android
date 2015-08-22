@@ -28,7 +28,8 @@ public class Constants {
     public static final String PHOTOS_ADD_NEW_ALBUM_API_PATH ="user/add_album";
     public static final String PHOTOS_GET_API_PATH ="rest_api/photos/{id1}/format/json";
     public static final String PHOTOS_ADD_PHOTO_TO_ALBUM_API_PATH ="user/uploadImage";
-    //public static final String PHOTOS_ADD_NEW_ALBUM_API_PATH ="user/add_album";
+    public static final String PHOTOS_ADD_NEW_LINK_API_PATH ="user/add_links/format/json";
+    public static final String PHOTOS_GET_ALBUM_API_PATH ="user/album_group/format/json";
 
 }
 

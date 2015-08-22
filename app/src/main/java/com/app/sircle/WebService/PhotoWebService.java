@@ -33,12 +33,13 @@ public class PhotoWebService {
         return sharedInstance;
     }
 
-    public void addAlbum(HashMap object, final PhotoWebServiceListener photoWebServiceListener){
+    public void addAlbum(HashMap object, final AddPhotoWebServiceListener addPhotoWebServiceListener){
 
         retrofitImplementation.executePostWithURL(Constants.PHOTOS_ADD_NEW_ALBUM_API_PATH, object, null, null, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
-                photoWebServiceListener.onCompletion(error);
+                Photo photo = (Photo)responseObject;
+                addPhotoWebServiceListener.onCompletion(photo, error);
             }
         });
     }
@@ -48,18 +49,39 @@ public class PhotoWebService {
            @Override
            public void onCompletion(Object response, AppError error) {
                albumDetailsList = (ArrayList<AlbumDetails>) response;
-               if (error.getErrorCode() == AppError.NO_ERROR || error == null){
+               if (error.getErrorCode() == AppError.NO_ERROR || error == null) {
                    getPhotoWebServiceListener.onCompletion(albumDetailsList, new AppError());
-               }else {
+               } else {
                    getPhotoWebServiceListener.onCompletion(albumDetailsList, error);
                }
            }
        });
     }
 
+    public void getAlbums(HashMap object, final GetAlbumWebServiceListener getAlbumWebServiceListener){
+        retrofitImplementation.executeGetWithURL(Constants.PHOTOS_GET_ALBUM_API_PATH, object, null, Photo.class, new WebServiceListener() {
+            @Override
+            public void onCompletion(Object responseObject, AppError error) {
+                List<Photo> photo = (ArrayList<Photo>) responseObject;
+                if (error.getErrorCode() == AppError.NO_ERROR || error == null) {
+                    getAlbumWebServiceListener.onCompletion(photo, new AppError());
+                } else {
+                    getAlbumWebServiceListener.onCompletion(photo, error);
+                }
+            }
+        });
+    }
+
+    public interface AddPhotoWebServiceListener{
+        public void onCompletion(Photo photo, AppError error);
+    }
 
     public interface PhotoWebServiceListener{
         public void onCompletion(AppError error);
+    }
+
+    public interface GetAlbumWebServiceListener{
+        public void onCompletion(List<Photo> photos, AppError error);
     }
 
     public interface GetPhotoWebServiceListener{
