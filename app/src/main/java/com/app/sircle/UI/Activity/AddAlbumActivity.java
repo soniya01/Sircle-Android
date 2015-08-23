@@ -65,18 +65,17 @@ public class AddAlbumActivity extends ActionBarActivity {
         NotificationManager.getSharedInstance().getAllGroups(new NotificationManager.GroupsManagerListener() {
             @Override
             public void onCompletion(List<NotificationGroups> notificationGroupsList, AppError error) {
-                if (error == null || error.getErrorCode() ==AppError.NO_ERROR){
+                if (error == null || error.getErrorCode() == AppError.NO_ERROR){
                     if (notificationGroupsList != null) {
                         if (notificationGroupsList.size() > 0) {
                             AddAlbumActivity.this.notificationGroupList.clear();
                             AddAlbumActivity.this.notificationGroupList.addAll(notificationGroupsList);
+                            getGroupNames();
                         }
                     }
                 }else {
                     Toast.makeText(AddAlbumActivity.this, error.getErrorMessage(), Toast.LENGTH_SHORT).show();
                 }
-
-
             }
         });
 
@@ -91,6 +90,13 @@ public class AddAlbumActivity extends ActionBarActivity {
         groupNames.add(notificationGroupList.get(0).getName());
         groupNames.add(notificationGroupList.get(0).getName());
         groupNames.add(notificationGroupList.get(0).getName());
+    }
+
+    public List<String> getGroupNames() {
+        for (NotificationGroups group : this.notificationGroupList){
+            groupNames.add(group.getName());
+        }
+        return groupNames;
     }
 
     @Override
