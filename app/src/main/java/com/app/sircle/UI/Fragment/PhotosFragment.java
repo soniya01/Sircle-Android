@@ -2,6 +2,7 @@ package com.app.sircle.UI.Fragment;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
@@ -10,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.app.sircle.Manager.PhotoManager;
 import com.app.sircle.R;
@@ -37,15 +41,16 @@ public class PhotosFragment extends Fragment {
     private List<AlbumDetails> albumDetailsList = new ArrayList<AlbumDetails>();
     private View footerView;
     private FloatingActionButton floatingActionButton;
+    private View viewFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View viewFragment = inflater.inflate(R.layout.fragment_photos, null , true);
+        viewFragment = inflater.inflate(R.layout.fragment_photos, null , true);
 
         albumListView = (ListView)viewFragment.findViewById(R.id.fragment_photos_list_view);
-        photosListViewAdapter = new PhotosListViewAdapter(getActivity(), photos);
-        albumListView.setAdapter(photosListViewAdapter);
+       // photosListViewAdapter = new PhotosListViewAdapter(getActivity(), photos);
+        //albumListView.setAdapter(photosListViewAdapter);
         populateDummyData();
 
         floatingActionButton = (FloatingActionButton)viewFragment.findViewById(R.id.fab);
@@ -66,6 +71,8 @@ public class PhotosFragment extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO: add album api call
+
                 Intent albumIntent = new Intent(getActivity(), AddAlbumActivity.class);
                 startActivity(albumIntent);
 
@@ -82,6 +89,13 @@ public class PhotosFragment extends Fragment {
 
     private void populateDummyData() {
 
+        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
+        progressBar.setIndeterminate(true);
+        progressBar.setVisibility(View.VISIBLE);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100,100);
+        params.addRule(RelativeLayout.CENTER_IN_PARENT);
+        ((RelativeLayout)viewFragment).addView(progressBar, params);
+
         HashMap map = new HashMap();
         map.put("regId", "id");
         map.put("groupId", "1");
@@ -90,11 +104,27 @@ public class PhotosFragment extends Fragment {
         PhotoManager.getSharedInstance().getAlbums(map, new PhotoManager.GetAlbumsManagerListener() {
             @Override
             public void onCompletion(List<Photo> photos, AppError error) {
+                progressBar.setVisibility(View.GONE);
                 if (photos != null){
                     if (photos.size() > 0){
+                        PhotosFragment.this.photos.clear();
                         PhotosFragment.this.photos.addAll(photos);
+                        if (PhotosFragment.this.photos.size() >0){
+                            photosListViewAdapter.notifyDataSetChanged();
+                        }else {
+                            photosListViewAdapter = new PhotosListViewAdapter(getActivity(), photos);
+                            albumListView.setAdapter(photosListViewAdapter);
+                        }
+                    }
+                }else {
+                    if (photos == null){
+                        Toast.makeText(getActivity(), "Sorry no data available", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
+
             }
         });
 

@@ -10,9 +10,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Model.NotificationGroups;
+import com.app.sircle.Utility.AppError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +62,23 @@ public class AddAlbumActivity extends ActionBarActivity {
     }
 
     public void populateDummyData() {
+        NotificationManager.getSharedInstance().getAllGroups(new NotificationManager.GroupsManagerListener() {
+            @Override
+            public void onCompletion(List<NotificationGroups> notificationGroupsList, AppError error) {
+                if (error == null || error.getErrorCode() ==AppError.NO_ERROR){
+                    if (notificationGroupsList != null) {
+                        if (notificationGroupsList.size() > 0) {
+                            AddAlbumActivity.this.notificationGroupList.clear();
+                            AddAlbumActivity.this.notificationGroupList.addAll(notificationGroupsList);
+                        }
+                    }
+                }else {
+                    Toast.makeText(AddAlbumActivity.this, error.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+        });
 
         NotificationGroups n1 = new NotificationGroups();
         n1.setName("Group 1");
