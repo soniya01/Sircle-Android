@@ -1,5 +1,6 @@
 package com.app.sircle.Manager;
 
+import com.app.sircle.UI.Model.Notification;
 import com.app.sircle.UI.Model.NotificationGroups;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.WebService.Notificationservice;
@@ -25,8 +26,13 @@ public class NotificationManager {
         return sharedInstance;
     }
 
-    public void getAllNotifications(HashMap object, NotificationManagerListener notificationManagerListener){
-
+    public void getAllNotifications(HashMap object, final NotificationManagerListener notificationManagerListener){
+            Notificationservice.getSharedInstance().getAllNotifications(object, new Notificationservice.NotificationServiceListener() {
+                @Override
+                public void onCompletion(List<Notification> notificationList, AppError error) {
+                    notificationManagerListener.onCompletion(notificationList, error);
+                }
+            });
     }
 
     public void getAllGroups(final GroupsManagerListener groupsManagerListener){
@@ -48,6 +54,6 @@ public class NotificationManager {
     }
 
     public interface NotificationManagerListener{
-        public void onCompletion(AppError error);
+        public void onCompletion(List<Notification> notifications, AppError error);
     }
 }

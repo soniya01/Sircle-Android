@@ -10,12 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.AddNotificationActivity;
 import com.app.sircle.UI.Adapter.NotificationListviewAdapter;
 import com.app.sircle.UI.Model.Notification;
+import com.app.sircle.Utility.AppError;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -42,8 +45,7 @@ public class NotificationFragment extends Fragment {
         populateDummyData();
 
         // set up custom listview
-        notificationListviewAdapter = new NotificationListviewAdapter(notificationList, getActivity());
-        notificationListView.setAdapter(notificationListviewAdapter);
+
 
         // add button on click to open respective view - only for admin
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +62,19 @@ public class NotificationFragment extends Fragment {
 
     public void populateDummyData() {
 
+        HashMap object = new HashMap();
+        object.put("regId", "id");
+        object.put("groupId",1);
+        object.put("val", "val");
+
+        NotificationManager.getSharedInstance().getAllNotifications(object, new NotificationManager.NotificationManagerListener() {
+            @Override
+            public void onCompletion(List<Notification> notifications, AppError error) {
+                notificationListviewAdapter = new NotificationListviewAdapter(notifications, getActivity());
+                notificationListView.setAdapter(notificationListviewAdapter);
+            }
+        });
+
         Notification notification = new Notification();
         notification.setAnnouncementDesc("Heavy Rains");
         notification.setAnnouncementTitle("Due to heavy rains school will be closed today");
@@ -74,6 +89,6 @@ public class NotificationFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        notificationListviewAdapter.notifyDataSetChanged();
+        //notificationListviewAdapter.notifyDataSetChanged();
     }
 }

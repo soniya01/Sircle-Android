@@ -41,4 +41,5 @@ public class DocumentManager {
     public interface GetNewsManagerListener{
         public void onCompletion(List<NewsLetter> newsLetters, AppError error);
     }
+
 }
