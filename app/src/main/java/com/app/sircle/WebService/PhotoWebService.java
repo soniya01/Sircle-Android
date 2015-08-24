@@ -59,7 +59,7 @@ public class PhotoWebService {
     }
 
     public void getAlbums(HashMap object, final GetAlbumWebServiceListener getAlbumWebServiceListener){
-        retrofitImplementation.executeGetWithURL(Constants.PHOTOS_GET_ALBUM_API_PATH, null, null, PhotoResponse.class, new WebServiceListener() {
+        retrofitImplementation.executeGetWithURL(Constants.PHOTOS_GET_ALBUM_API_PATH, object, null, PhotoResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
                 List<Photo> photo = (ArrayList<Photo>) responseObject;

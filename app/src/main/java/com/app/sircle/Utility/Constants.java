@@ -31,5 +31,8 @@ public class Constants {
     public static final String PHOTOS_ADD_NEW_LINK_API_PATH ="user/add_links/format/json";
     public static final String PHOTOS_GET_ALBUM_API_PATH ="user/album_group/format/json";
 
+    public static final String NEWSLETTERS_GET_API_PATH ="user/newsletter_group/format/json";
+    public static final String DOCUMENTS_GET_API_PATH ="user/docs_group/format/json";
+
 }
 

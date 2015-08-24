@@ -12,13 +12,16 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.app.sircle.Manager.DocumentManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.PDFViewer;
 import com.app.sircle.UI.Adapter.NewsLettersViewAdapter;
 import com.app.sircle.UI.Model.NewsLetter;
 import com.app.sircle.UI.SlidingPane.SlidingPaneInterface;
+import com.app.sircle.Utility.AppError;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -35,16 +38,14 @@ public class NewsLetterFragment extends Fragment {
 
         View viewFragment = inflater.inflate(R.layout.fragment_news_letter,
                 null, true);
+        newsLetterListView = (ListView)viewFragment.findViewById(R.id.fragment_news_list_view);
 
         populateDummyData();
-
-        newsLetterListView = (ListView)viewFragment.findViewById(R.id.fragment_news_list_view);
-        newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), newsLetterList);
 
         footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
         newsLetterListView.addFooterView(footerView);
 
-        newsLetterListView.setAdapter(newsLetterListViewAdapter);
+
         newsLetterListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -62,18 +63,32 @@ public class NewsLetterFragment extends Fragment {
     }
 
     public void populateDummyData(){
-        NewsLetter newsLetter = new NewsLetter();
-        newsLetter.setPdfURL("http://fzs.sve-mo.ba/sites/default/files/dokumenti-vijesti/sample.pdf");
-        newsLetter.setPdfTitle("PDF SAMPLE");
-        newsLetter.setPdfDate("Wednesday 27 May 2015");
-        newsLetter.setPdfTime("11:00");
 
-        newsLetterList.add(newsLetter);
-        newsLetterList.add(newsLetter);
-        newsLetterList.add(newsLetter);
-        newsLetterList.add(newsLetter);
-        newsLetterList.add(newsLetter);
-        newsLetterList.add(newsLetter);
-        newsLetterList.add(newsLetter);
+        HashMap object = new HashMap();
+        object.put("regId", "id");
+        object.put("groupId",1);
+        object.put("val", "val");
+
+        DocumentManager.getSharedInstance().getAllNewsLetters(object, new DocumentManager.GetNewsManagerListener() {
+            @Override
+            public void onCompletion(List<NewsLetter> newsLetters, AppError error) {
+
+                newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), newsLetters);
+                newsLetterListView.setAdapter(newsLetterListViewAdapter);
+            }
+        });
+//        NewsLetter newsLetter = new NewsLetter();
+//        newsLetter.setPdfURL("http://fzs.sve-mo.ba/sites/default/files/dokumenti-vijesti/sample.pdf");
+//        newsLetter.setPdfTitle("PDF SAMPLE");
+//        newsLetter.setPdfDate("Wednesday 27 May 2015");
+//        newsLetter.setPdfTime("11:00");
+//
+//        newsLetterList.add(newsLetter);
+//        newsLetterList.add(newsLetter);
+//        newsLetterList.add(newsLetter);
+//        newsLetterList.add(newsLetter);
+//        newsLetterList.add(newsLetter);
+//        newsLetterList.add(newsLetter);
+//        newsLetterList.add(newsLetter);
     }
 }

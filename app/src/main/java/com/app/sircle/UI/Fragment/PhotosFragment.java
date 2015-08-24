@@ -98,7 +98,7 @@ public class PhotosFragment extends Fragment {
 
         HashMap map = new HashMap();
         map.put("regId", "id");
-        map.put("groupId", "1");
+        map.put("id", "1");
         map.put("val", "val");
 
         PhotoManager.getSharedInstance().getAlbums(map, new PhotoManager.GetAlbumsManagerListener() {
