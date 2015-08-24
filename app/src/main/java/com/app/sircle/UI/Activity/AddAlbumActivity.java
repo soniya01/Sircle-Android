@@ -28,6 +28,7 @@ public class AddAlbumActivity extends ActionBarActivity {
     private List<NotificationGroups> notificationGroupList = new ArrayList<NotificationGroups>();
     private List<String> groupNames = new ArrayList<String>();
     private Button addButton;
+    ArrayAdapter<String> arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +48,6 @@ public class AddAlbumActivity extends ActionBarActivity {
 
         populateDummyData();
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, android.R.id.text1, groupNames);
-        addListView.setAdapter(arrayAdapter);
         addListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -67,11 +66,23 @@ public class AddAlbumActivity extends ActionBarActivity {
             public void onCompletion(List<NotificationGroups> notificationGroupsList, AppError error) {
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR){
                     if (notificationGroupsList != null) {
+
                         if (notificationGroupsList.size() > 0) {
-                            AddAlbumActivity.this.notificationGroupList.clear();
-                            AddAlbumActivity.this.notificationGroupList.addAll(notificationGroupsList);
-                            getGroupNames();
+                            if(AddAlbumActivity.this.groupNames.size() == 0 || AddAlbumActivity.this.groupNames == null){
+                                AddAlbumActivity.this.notificationGroupList.clear();
+                                AddAlbumActivity.this.notificationGroupList.addAll(notificationGroupsList);
+                                getGroupNames();
+                                arrayAdapter = new ArrayAdapter<String>(AddAlbumActivity.this, android.R.layout.simple_list_item_multiple_choice, android.R.id.text1, groupNames);
+                                addListView.setAdapter(arrayAdapter);
+                            }else {
+                                AddAlbumActivity.this.notificationGroupList.clear();
+                                AddAlbumActivity.this.notificationGroupList.addAll(notificationGroupsList);
+                                getGroupNames();
+                                arrayAdapter.notifyDataSetChanged();
+                            }
                         }
+                    }else {
+                        Toast.makeText(AddAlbumActivity.this, "Sorry no data available", Toast.LENGTH_SHORT).show();
                     }
                 }else {
                     Toast.makeText(AddAlbumActivity.this, error.getErrorMessage(), Toast.LENGTH_SHORT).show();
@@ -79,17 +90,17 @@ public class AddAlbumActivity extends ActionBarActivity {
             }
         });
 
-        NotificationGroups n1 = new NotificationGroups();
-        n1.setName("Group 1");
-
-        notificationGroupList.add(n1);
-
-        groupNames.add("All");
-        groupNames.add(notificationGroupList.get(0).getName());
-        groupNames.add("Group 2");
-        groupNames.add(notificationGroupList.get(0).getName());
-        groupNames.add(notificationGroupList.get(0).getName());
-        groupNames.add(notificationGroupList.get(0).getName());
+//        NotificationGroups n1 = new NotificationGroups();
+//        n1.setName("Group 1");
+//
+//        notificationGroupList.add(n1);
+//
+//        groupNames.add("All");
+//        groupNames.add(notificationGroupList.get(0).getName());
+//        groupNames.add("Group 2");
+//        groupNames.add(notificationGroupList.get(0).getName());
+//        groupNames.add(notificationGroupList.get(0).getName());
+//        groupNames.add(notificationGroupList.get(0).getName());
     }
 
     public List<String> getGroupNames() {

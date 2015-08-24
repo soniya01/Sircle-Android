@@ -114,6 +114,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
         // Setup Adapter for Rest Operations
 
         this.generator = new UrlGenerator(params, url);
+        Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
 
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint(this.baseURL + this.generator.subUrl)
@@ -123,6 +124,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
                     }
                 })
+                .setConverter(new GsonCustomConverter(gson))
                 .build();
 
         WebserviceApi getWebservice = restAdapter.create(WebserviceApi.class);
