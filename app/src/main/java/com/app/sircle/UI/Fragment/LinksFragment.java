@@ -9,13 +9,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.app.sircle.Manager.LinksManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.AddLinksActivity;
 import com.app.sircle.UI.Adapter.LinksListViewAdapter;
 import com.app.sircle.UI.Model.Links;
+import com.app.sircle.Utility.AppError;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -23,7 +27,7 @@ public class LinksFragment extends Fragment {
 
     private ListView linksListView;
     private FloatingActionButton floatingActionButton;
-    public static List<Links> linksList = new ArrayList<Links>();
+    public  List<Links> linksList = new ArrayList<Links>();
     private LinksListViewAdapter linksListViewAdapter;
     private View footerView;
 
@@ -58,30 +62,63 @@ public class LinksFragment extends Fragment {
 
 
     private void populateDummyData(){
-        Links links = new Links();
-        links.setLink("www.google.co.in");
-        links.setLinkTitle("Google");
 
-        linksList.add(links);
+        HashMap object = new HashMap();
+        object.put("regId", "id");
+        object.put("groupId",1);
+        object.put("val", "val");
 
-        Links links1 = new Links();
-        links1.setLink("www.facebook.com");
-        links1.setLinkTitle("Facebook");
+        LinksManager.getSharedInstance().getAllLinks(object, new LinksManager.LinksManagerListener() {
+            @Override
+            public void onCompletion(List<Links> linksList, AppError error) {
+                if (error == null || error.getErrorCode() == AppError.NO_ERROR){
+                    if (linksList.size() > 0){
+                        if (LinksFragment.this.linksList.size() == 0){
+                            LinksFragment.this.linksList = linksList;
+                            linksListViewAdapter = new LinksListViewAdapter( LinksFragment.this.linksList, getActivity());
+                            linksListView.setAdapter(linksListViewAdapter);
+                        }else {
+                            LinksFragment.this.linksList = linksList;
+                            linksListViewAdapter.notifyDataSetChanged();
+                        }
+                    }else {
+                        Toast.makeText(getActivity(), "Sorry no data available",Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
-        linksList.add(links1);
-        linksList.add(links);
-        linksList.add(links1);
-        linksList.add(links);
-        linksList.add(links1);
-        linksList.add(links);
-        linksList.add(links1);
-        linksList.add(links);
+
+
+//        Links links = new Links();
+//        links.setLink("www.google.co.in");
+//        links.setLinkTitle("Google");
+//
+//        linksList.add(links);
+//
+//        Links links1 = new Links();
+//        links1.setLink("www.facebook.com");
+//        links1.setLinkTitle("Facebook");
+//
+//        linksList.add(links1);
+//        linksList.add(links);
+//        linksList.add(links1);
+//        linksList.add(links);
+//        linksList.add(links1);
+//        linksList.add(links);
+//        linksList.add(links1);
+//        linksList.add(links);
 
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        linksListViewAdapter.notifyDataSetChanged();
+        if (LinksFragment.this.linksList.size() > 0){
+            linksListViewAdapter.notifyDataSetChanged();
+        }
+
     }
 }

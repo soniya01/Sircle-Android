@@ -34,6 +34,8 @@ public class Constants {
     public static final String NEWSLETTERS_GET_API_PATH ="user/newsletter_group/format/json";
     public static final String DOCUMENTS_GET_API_PATH ="user/docs_group/format/json";
     public static final String NOTIFICATION_GET_API  ="user/notifications_group/format/json";
+    public static final String LINKS_GET_ALL_API  ="user/links_group/format/json";
+    public static final String VIDEOS_GET_ALL_API  = "user/videos_group/format/json";
 
 }
 
