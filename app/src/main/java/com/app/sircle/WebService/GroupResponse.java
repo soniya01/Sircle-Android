@@ -10,23 +10,32 @@ import java.util.List;
  */
 public class GroupResponse {
 
-    public int code;
-    public List<NotificationGroups> message = new ArrayList<NotificationGroups>();
+    public int status;
+    public List<NotificationGroups> data = new ArrayList<NotificationGroups>();
+    public String message;
 
 
-    public int getCode() {
-        return code;
+    public int getStatus() {
+        return status;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
-    public List<NotificationGroups> getMessage() {
+    public List<NotificationGroups> getData() {
+        return data;
+    }
+
+    public void setData(List<NotificationGroups> data) {
+        this.data = data;
+    }
+
+    public String getMessage() {
         return message;
     }
 
-    public void setMessage(List<NotificationGroups> message) {
+    public void setMessage(String message) {
         this.message = message;
     }
 

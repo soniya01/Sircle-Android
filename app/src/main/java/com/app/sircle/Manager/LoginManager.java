@@ -1,6 +1,7 @@
 package com.app.sircle.Manager;
 
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.WebService.LoginResponse;
 import com.app.sircle.WebService.LoginService;
 
 import java.util.HashMap;
@@ -11,6 +12,8 @@ import java.util.HashMap;
 public class LoginManager {
 
     private static LoginManager sharedInstance;
+    public static String accessToken;
+    public long expiresIn;
     private LoginManager(){
 
     }
@@ -27,8 +30,8 @@ public class LoginManager {
 
         LoginService.login(params, new LoginService.GetLoginResponseWebServiceListener() {
             @Override
-            public void onCompletion(AppError error) {
-                loginManagerListener.onCompletion(error);
+            public void onCompletion(LoginResponse response, AppError error) {
+                loginManagerListener.onCompletion(response, error);
             }
         });
     }
@@ -36,6 +39,6 @@ public class LoginManager {
 
     public interface LoginManagerListener{
 
-        public void onCompletion(AppError error);
+        public void onCompletion(LoginResponse response, AppError error);
     }
 }

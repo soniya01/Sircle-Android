@@ -4,23 +4,24 @@ package com.app.sircle.WebService;
  * Created by soniya on 18/08/15.
  */
 public class LoginResponse {
-    public int userTypeId;
+
+    public UserData data;
     public String message;
-    public boolean status;
+    public int status;
 
-    public int getUserTypeId() {
-        return userTypeId;
+    public UserData getUserData() {
+        return data;
     }
 
-    public void setUserTypeId(int userTypeId) {
-        this.userTypeId = userTypeId;
+    public void setUserData(UserData data) {
+        this.data = data;
     }
 
-    public boolean isStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 

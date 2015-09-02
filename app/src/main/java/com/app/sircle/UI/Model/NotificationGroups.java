@@ -1,14 +1,22 @@
 package com.app.sircle.UI.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 /**
  * Created by mosesafonso on 28/07/15.
  */
 public class NotificationGroups {
+
+    @SerializedName("group_name")
     public String name;
+
+    @SerializedName("group_id")
     public String id;
-    //public Date created_on;
+
+    public boolean active;
+
 
     public String getId() {
         return id;
@@ -18,14 +26,6 @@ public class NotificationGroups {
         this.id = id;
     }
 
-//    public Date getCreatedDate() {
-//        return created_on;
-//    }
-//
-//    public void setCreatedDate(Date date) {
-//        this.created_on = date;
-//    }
-
     public String getName() {
         return name;
     }
@@ -34,5 +34,11 @@ public class NotificationGroups {
         this.name = name;
     }
 
+    public boolean isActive() {
+        return active;
+    }
 
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }

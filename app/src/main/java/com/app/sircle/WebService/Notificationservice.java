@@ -16,7 +16,7 @@ import java.util.List;
  * Created by soniya on 20/08/15.
  */
 public class Notificationservice {
-    public static List<NotificationGroups> notificationGroupsList = new ArrayList<NotificationGroups>();
+    //public static List<NotificationGroups> notificationGroupsList = new ArrayList<NotificationGroups>();
     private static Notificationservice sharedInstance;
     private static RetrofitImplementation retrofitImplementation;
 
@@ -37,11 +37,11 @@ public class Notificationservice {
             @Override
             public void onCompletion(Object response, AppError error) {
                 if (response != null){
-                    notificationGroupsList = (ArrayList<NotificationGroups>) ((GroupResponse)response).getMessage();
+                   // notificationGroupsList = (ArrayList<NotificationGroups>) ((GroupResponse)response).getMessage();
                     if (error.getErrorCode() == AppError.NO_ERROR || error == null){
-                        groupsServiceListener.onCompletion(notificationGroupsList, new AppError());
+                        groupsServiceListener.onCompletion((GroupResponse)response, new AppError());
                     }
-                    groupsServiceListener.onCompletion(notificationGroupsList, error);
+                    groupsServiceListener.onCompletion((GroupResponse)response, error);
                 }else {
                     groupsServiceListener.onCompletion(null, error);
                 }
@@ -65,7 +65,7 @@ public class Notificationservice {
     }
 
     public interface GroupsServiceListener{
-        public void onCompletion(List<NotificationGroups> notificationGroupsList, AppError error);
+        public void onCompletion(GroupResponse groupResponse, AppError error);
     }
 
 

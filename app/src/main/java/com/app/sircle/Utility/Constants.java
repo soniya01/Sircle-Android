@@ -14,7 +14,8 @@ public class Constants {
     public static final String YOUTUBE_VIDEO_BASE_IMAGE_FILE_URL = "/0.jpg";
 
     public static final String GCM_REG_ID = "id";
-    public static final String BASE_URL = "http://demo.snaptech.in/";
+    public static final String BASE_URL = "http://52.3.172.189/testapi/";
+    //public static final String BASE_URL = "http://demo.snaptech.in/";
     public static final String LOGIN_API_PATH = "user/user_get/";
     public static final String EVENTS_GET_ALL_TERMS_API_PATH = "rest_api/terms/format/json";
     public static final String EVENTS_GET_MONTH_WISE_API_PATH ="/user/group_and_month_wise_event/format/json";

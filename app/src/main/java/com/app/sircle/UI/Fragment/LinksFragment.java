@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -56,6 +57,17 @@ public class LinksFragment extends Fragment {
         // set up custom listview
         linksListViewAdapter = new LinksListViewAdapter(linksList, getActivity());
         linksListView.setAdapter(linksListViewAdapter);
+        linksListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
 
         return viewFragment;
     }

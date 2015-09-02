@@ -3,6 +3,7 @@ package com.app.sircle.Manager;
 import com.app.sircle.UI.Model.Notification;
 import com.app.sircle.UI.Model.NotificationGroups;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.WebService.GroupResponse;
 import com.app.sircle.WebService.Notificationservice;
 
 import java.util.HashMap;
@@ -38,11 +39,11 @@ public class NotificationManager {
     public void getAllGroups(final GroupsManagerListener groupsManagerListener){
         Notificationservice.getSharedInstance().getAllGroups(new Notificationservice.GroupsServiceListener() {
             @Override
-            public void onCompletion(List<NotificationGroups> notificationGroupsList, AppError error) {
+            public void onCompletion(GroupResponse groupResponse, AppError error) {
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR){
-                    groupsManagerListener.onCompletion(notificationGroupsList, new AppError());
+                    groupsManagerListener.onCompletion(groupResponse, new AppError());
                 }
-                groupsManagerListener.onCompletion(notificationGroupsList, error);
+                groupsManagerListener.onCompletion(groupResponse, error);
             }
         });
 
@@ -50,7 +51,7 @@ public class NotificationManager {
 
 
     public interface GroupsManagerListener{
-        public void onCompletion(List<NotificationGroups> notificationGroupsList, AppError error);
+        public void onCompletion(GroupResponse groupResponse, AppError error);
     }
 
     public interface NotificationManagerListener{

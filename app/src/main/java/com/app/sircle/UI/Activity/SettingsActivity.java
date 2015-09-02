@@ -16,6 +16,7 @@ import com.app.sircle.UI.Adapter.NotificationsGroupAdapter;
 
 import com.app.sircle.UI.Model.NotificationGroups;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.WebService.GroupResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,30 +85,30 @@ public class SettingsActivity extends Activity {
 
         NotificationManager.getSharedInstance().getAllGroups(new NotificationManager.GroupsManagerListener() {
             @Override
-            public void onCompletion(List<NotificationGroups> notificationGroupsList, AppError error) {
+            public void onCompletion(GroupResponse response, AppError error) {
 
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR ){
-                    if (notificationGroupsList != null ){
+                    if (response.getData() != null ){
 
                         if (SettingsActivity.this.notificationGroupList.size() > 0){
                             SettingsActivity.this.notificationGroupList.clear();
-                            SettingsActivity.this.notificationGroupList.addAll(notificationGroupsList);
+                            SettingsActivity.this.notificationGroupList.addAll(response.getData());
                             notificationsGroupAdapter.notifyDataSetChanged();
 
                         }else {
                             SettingsActivity.this.notificationGroupList.clear();
-                            SettingsActivity.this.notificationGroupList.addAll(notificationGroupsList);
+                            SettingsActivity.this.notificationGroupList.addAll(response.getData());
                             notificationsGroupAdapter = new NotificationsGroupAdapter(SettingsActivity.this, notificationGroupList);
                             notificationListView.setAdapter(notificationsGroupAdapter);
                         }
 
-                        Toast.makeText(SettingsActivity.this, "Groups fetched",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SettingsActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
                     }else {
-                        Toast.makeText(SettingsActivity.this, "Sorry no groups data available",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SettingsActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
                     }
 
                 }else {
-                    Toast.makeText(SettingsActivity.this, "Sorry some problem occured",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SettingsActivity.this, "Sorry some problem occurred",Toast.LENGTH_SHORT).show();
                 }
 
             }

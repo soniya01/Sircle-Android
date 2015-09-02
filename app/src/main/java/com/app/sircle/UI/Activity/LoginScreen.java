@@ -18,7 +18,9 @@ import com.app.sircle.Manager.LoginManager;
 import com.app.sircle.R;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.Utility.Constants;
+import com.app.sircle.WebService.LoginResponse;
 
+import java.util.Date;
 import java.util.HashMap;
 
 
@@ -28,7 +30,9 @@ public class LoginScreen extends Activity {
     private EditText passwordEditText;
     private AutoCompleteTextView usernameField;
     private SharedPreferences loginSharedPrefs;
-   // private TextView supportLabel;
+    private Date sessionExpiryDate;
+    private LoginResponse loginData;
+    private String accessToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +54,7 @@ public class LoginScreen extends Activity {
             public void onClick(View v) {
                loginSharedPrefs = LoginScreen.this.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
                 final SharedPreferences.Editor editor = loginSharedPrefs.edit();
-                if (!loginSharedPrefs.getString(Constants.LOGIN_USERNAME_PREFS_KEY,"").equals("") || !loginSharedPrefs.getString(Constants.LOGIN_PASSWORD_PREFS_KEY, "").equals("") ){
+                if (!loginSharedPrefs.getString(Constants.LOGIN_USERNAME_PREFS_KEY,"").equals("")  ){
 
                     Toast.makeText(LoginScreen.this, "User already logged in", Toast.LENGTH_SHORT).show();
                     Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);
@@ -66,13 +70,16 @@ public class LoginScreen extends Activity {
 
                     LoginManager.getSharedInstance().login(loginMap, new LoginManager.LoginManagerListener() {
                         @Override
-                        public void onCompletion(AppError error) {
-                            if (error.getErrorCode() == 0) {
+                        public void onCompletion(LoginResponse response, AppError error) {
+                            if (error.getErrorCode() == 0 && response.getUserData() != null) {
                                 // give access to the app features
-                                editor.putString(Constants.LOGIN_USERNAME_PREFS_KEY, usernameField.getText().toString());
+                                sessionExpiryDate = new Date();
+
+                                LoginManager.accessToken = response.getUserData().getOauth().getAccessToken();
+                                editor.putString(Constants.LOGIN_USERNAME_PREFS_KEY, response.getUserData().getOauth().getAccessToken());
                                 editor.putString(Constants.LOGIN_PASSWORD_PREFS_KEY, passwordEditText.getText().toString());
 
-                                Toast.makeText(LoginScreen.this, "User logged in successfully", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                                 Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);
                                 startActivity(homeIntent);
                             }else {

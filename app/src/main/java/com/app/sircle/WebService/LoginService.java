@@ -15,16 +15,17 @@ public class LoginService {
     public static void login(HashMap<String, String> params, final GetLoginResponseWebServiceListener getLoginResponseWebServiceListener){
 
         RetrofitImplementation retrofitImplementation = new RetrofitImplementation();
-        retrofitImplementation.executePostWithURL(Constants.LOGIN_API_PATH, null, params,LoginResponse.class, new WebServiceListener() {
+        retrofitImplementation.executePostWithURL(Constants.LOGIN_API_PATH, params, null,LoginResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object response, AppError error) {
-                getLoginResponseWebServiceListener.onCompletion( error);
+                LoginResponse loginResponse = (LoginResponse)response;
+                getLoginResponseWebServiceListener.onCompletion(loginResponse, error);
             }
         });
     }
 
     public interface GetLoginResponseWebServiceListener{
 
-        public void onCompletion(AppError error);
+        public void onCompletion(LoginResponse loginResponse, AppError error);
     }
 }

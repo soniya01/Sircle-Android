@@ -16,6 +16,7 @@ import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Model.NotificationGroups;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.WebService.GroupResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,26 +64,26 @@ public class AddAlbumActivity extends ActionBarActivity {
     public void populateDummyData() {
         NotificationManager.getSharedInstance().getAllGroups(new NotificationManager.GroupsManagerListener() {
             @Override
-            public void onCompletion(List<NotificationGroups> notificationGroupsList, AppError error) {
+            public void onCompletion(GroupResponse response, AppError error) {
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR){
-                    if (notificationGroupsList != null) {
+                    if (response.getData() != null) {
 
-                        if (notificationGroupsList.size() > 0) {
+                        if (response.getData().size() > 0) {
                             if(AddAlbumActivity.this.groupNames.size() == 0 || AddAlbumActivity.this.groupNames == null){
                                 AddAlbumActivity.this.notificationGroupList.clear();
-                                AddAlbumActivity.this.notificationGroupList.addAll(notificationGroupsList);
+                                AddAlbumActivity.this.notificationGroupList.addAll(response.getData());
                                 getGroupNames();
                                 arrayAdapter = new ArrayAdapter<String>(AddAlbumActivity.this, android.R.layout.simple_list_item_multiple_choice, android.R.id.text1, groupNames);
                                 addListView.setAdapter(arrayAdapter);
                             }else {
                                 AddAlbumActivity.this.notificationGroupList.clear();
-                                AddAlbumActivity.this.notificationGroupList.addAll(notificationGroupsList);
+                                AddAlbumActivity.this.notificationGroupList.addAll(response.getData());
                                 getGroupNames();
                                 arrayAdapter.notifyDataSetChanged();
                             }
                         }
                     }else {
-                        Toast.makeText(AddAlbumActivity.this, "Sorry no data available", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddAlbumActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }else {
                     Toast.makeText(AddAlbumActivity.this, error.getErrorMessage(), Toast.LENGTH_SHORT).show();
