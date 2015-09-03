@@ -24,7 +24,7 @@ public class Constants {
     public static final String EVENTS_GET_DETAILS_API_PATH = "/rest_api/event_detail/{Eventid}/format/json";
     public static final String EVENTS_DELETE_API_PATH = "/user/delete_event/";
     public static final String EVENTS_ADD_NEW_EVENT_API_PATH = "user/new_event";
-    public static final String NOTIFICATION_GET_ALL_GROUPS = "rest_api/groups/format/json";
+    public static final String NOTIFICATION_GET_ALL_GROUPS = "user/user_groups_new";//"rest_api/groups/format/json";
 
     public static final String PHOTOS_ADD_NEW_ALBUM_API_PATH ="user/add_album";
     public static final String PHOTOS_GET_API_PATH ="rest_api/photos/{id1}/format/json";

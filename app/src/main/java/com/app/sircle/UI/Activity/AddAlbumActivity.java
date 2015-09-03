@@ -16,9 +16,11 @@ import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Model.NotificationGroups;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.Utility.Constants;
 import com.app.sircle.WebService.GroupResponse;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class AddAlbumActivity extends ActionBarActivity {
@@ -62,7 +64,9 @@ public class AddAlbumActivity extends ActionBarActivity {
     }
 
     public void populateDummyData() {
-        NotificationManager.getSharedInstance().getAllGroups(new NotificationManager.GroupsManagerListener() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("regId", Constants.GCM_REG_ID);
+        NotificationManager.getSharedInstance().getAllGroups(map,new NotificationManager.GroupsManagerListener() {
             @Override
             public void onCompletion(GroupResponse response, AppError error) {
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR){

@@ -16,9 +16,11 @@ import com.app.sircle.UI.Adapter.NotificationsGroupAdapter;
 
 import com.app.sircle.UI.Model.NotificationGroups;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.Utility.Constants;
 import com.app.sircle.WebService.GroupResponse;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class SettingsActivity extends Activity {
@@ -83,12 +85,14 @@ public class SettingsActivity extends Activity {
 
     public void populateDummyData(){
 
-        NotificationManager.getSharedInstance().getAllGroups(new NotificationManager.GroupsManagerListener() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("regId", Constants.GCM_REG_ID);
+        NotificationManager.getSharedInstance().getAllGroups(map, new NotificationManager.GroupsManagerListener() {
             @Override
             public void onCompletion(GroupResponse response, AppError error) {
 
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR ){
-                    if (response.getData() != null ){
+                    if (response != null ){
 
                         if (SettingsActivity.this.notificationGroupList.size() > 0){
                             SettingsActivity.this.notificationGroupList.clear();
@@ -104,11 +108,11 @@ public class SettingsActivity extends Activity {
 
                         Toast.makeText(SettingsActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
                     }else {
-                        Toast.makeText(SettingsActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(SettingsActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
                     }
 
                 }else {
-                    Toast.makeText(SettingsActivity.this, "Sorry some problem occurred",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SettingsActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
                 }
 
             }

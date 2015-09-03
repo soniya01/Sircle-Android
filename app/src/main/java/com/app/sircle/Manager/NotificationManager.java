@@ -36,8 +36,8 @@ public class NotificationManager {
             });
     }
 
-    public void getAllGroups(final GroupsManagerListener groupsManagerListener){
-        Notificationservice.getSharedInstance().getAllGroups(new Notificationservice.GroupsServiceListener() {
+    public void getAllGroups(HashMap map, final GroupsManagerListener groupsManagerListener){
+        Notificationservice.getSharedInstance().getAllGroups(map, new Notificationservice.GroupsServiceListener() {
             @Override
             public void onCompletion(GroupResponse groupResponse, AppError error) {
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR){

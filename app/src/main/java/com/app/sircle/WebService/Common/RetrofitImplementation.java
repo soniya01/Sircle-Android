@@ -30,6 +30,7 @@ import retrofit.http.Multipart;
 import retrofit.http.POST;
 import retrofit.http.PUT;
 import retrofit.http.Part;
+import retrofit.http.QueryMap;
 import retrofit.mime.TypedFile;
 
 /**
@@ -163,15 +164,15 @@ public class RetrofitImplementation implements WebServiceProtocol{
     }
 
 
-    public void executeGetWithURL(  String url, final HashMap<String,String> params, Object requestObject,final Class responseClass, final WebServiceListener webserviceListener) {
+    public void executeGetWithURL(  String url, final HashMap<String,String> params,final Object requestObject,final Class responseClass, final WebServiceListener webserviceListener) {
         // Setup Adapter for Rest Operations
 
         this.generator = new UrlGenerator(params, url);
         Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
 
-        final OkHttpClient okHttpClient = new OkHttpClient();
-        okHttpClient.setReadTimeout(60, TimeUnit.SECONDS);
-        okHttpClient.setConnectTimeout(60, TimeUnit.SECONDS);
+//        final OkHttpClient okHttpClient = new OkHttpClient();
+//        okHttpClient.setReadTimeout(60, TimeUnit.SECONDS);
+//        okHttpClient.setConnectTimeout(60, TimeUnit.SECONDS);
 
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint(this.baseURL + this.generator.subUrl)
@@ -179,6 +180,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     @Override
                     public void intercept(RequestFacade request) {
                         request.addHeader("Authorization", LoginManager.accessToken);
+                        //request.addQueryParam(params.get("regId"),"idghy");
                     }
                 })
                 .setConverter(new GsonCustomConverter(gson))
@@ -186,7 +188,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
         WebserviceApi getWebservice = restAdapter.create(WebserviceApi.class);
 
-        getWebservice.get( new Callback<JsonElement>() {
+        getWebservice.get(params, new Callback<JsonElement>() {
             @Override
             public void success(JsonElement jsonElement, Response response) {
 
@@ -334,7 +336,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
 
         @GET("/")
-        void get(Callback<JsonElement> callback);
+        void get(@QueryMap HashMap<String, String> params, Callback<JsonElement> callback);
 
 
         @PUT("/")

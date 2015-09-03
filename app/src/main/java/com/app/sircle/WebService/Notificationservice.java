@@ -32,8 +32,8 @@ public class Notificationservice {
         return sharedInstance;
     }
 
-    public void getAllGroups(final GroupsServiceListener groupsServiceListener){
-        retrofitImplementation.executeGetWithURL(Constants.NOTIFICATION_GET_ALL_GROUPS, null, null, GroupResponse.class, new WebServiceListener() {
+    public void getAllGroups(HashMap map,final GroupsServiceListener groupsServiceListener){
+        retrofitImplementation.executeGetWithURL(Constants.NOTIFICATION_GET_ALL_GROUPS, map , null, GroupResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object response, AppError error) {
                 if (response != null){
@@ -51,7 +51,7 @@ public class Notificationservice {
     }
 
     public void getAllNotifications(HashMap object, final NotificationServiceListener notificationServiceListener){
-        retrofitImplementation.executeGetWithURL(Constants.NOTIFICATION_GET_API, null, object, NotificationResponse.class, new WebServiceListener() {
+        retrofitImplementation.executeGetWithURL(Constants.NOTIFICATION_GET_API, object, null, NotificationResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
                 List<Notification> notifications = ((NotificationResponse) responseObject).message;

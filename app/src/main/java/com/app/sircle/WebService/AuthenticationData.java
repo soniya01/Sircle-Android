@@ -13,7 +13,7 @@ public class AuthenticationData {
     public String accessToken;
 
     @SerializedName("expires_in")
-    public Date expiresIn;
+    public int expiresIn;
 
     @SerializedName("token_type")
     public String tokenType;
@@ -31,11 +31,11 @@ public class AuthenticationData {
         this.accessToken = accessToken;
     }
 
-    public Date getExpiresIn() {
+    public int getExpiresIn() {
         return expiresIn;
     }
 
-    public void setExpiresIn(Date expiresIn) {
+    public void setExpiresIn(int expiresIn) {
         this.expiresIn = expiresIn;
     }
 
