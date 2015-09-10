@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Adapter.NotificationsGroupAdapter;
 
+import com.app.sircle.UI.Model.Notification;
 import com.app.sircle.UI.Model.NotificationGroups;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.Utility.Constants;
@@ -28,6 +30,7 @@ public class SettingsActivity extends Activity {
     private ListView notificationListView;
     private NotificationsGroupAdapter notificationsGroupAdapter;
     private List<NotificationGroups> notificationGroupList = new ArrayList<NotificationGroups>();
+    private CheckBox allCheckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,7 @@ public class SettingsActivity extends Activity {
         setContentView(R.layout.activity_settings);
 
         notificationListView = (ListView) findViewById(R.id.notificationsGroupListView);
+        allCheckBox = (CheckBox) findViewById(R.id.checkAll);
         populateDummyData();
         //notificationsGroupAdapter = new NotificationsGroupAdapter(this, notificationGroupList);
 
@@ -44,7 +48,7 @@ public class SettingsActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-
+                //NotificationManager.getSharedInstance()
                     // give access to the app features
                     Intent homeIntent = new Intent(SettingsActivity.this, BaseActivity.class);
                     startActivity(homeIntent);
@@ -91,45 +95,49 @@ public class SettingsActivity extends Activity {
             @Override
             public void onCompletion(GroupResponse response, AppError error) {
 
-                if (error == null || error.getErrorCode() == AppError.NO_ERROR ){
-                    if (response != null ){
+                if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
+                    if (response != null) {
 
-                        if (SettingsActivity.this.notificationGroupList.size() > 0){
+                        if (SettingsActivity.this.notificationGroupList.size() > 0) {
                             SettingsActivity.this.notificationGroupList.clear();
                             SettingsActivity.this.notificationGroupList.addAll(response.getData());
                             notificationsGroupAdapter.notifyDataSetChanged();
+                            // update group notifictaion for all groups
+                            updateAllGroup();
 
-                        }else {
+                        } else {
                             SettingsActivity.this.notificationGroupList.clear();
                             SettingsActivity.this.notificationGroupList.addAll(response.getData());
                             notificationsGroupAdapter = new NotificationsGroupAdapter(SettingsActivity.this, notificationGroupList);
                             notificationListView.setAdapter(notificationsGroupAdapter);
                         }
 
-                        Toast.makeText(SettingsActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
-                    }else {
+                        Toast.makeText(SettingsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                    } else {
                         //Toast.makeText(SettingsActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
                     }
 
-                }else {
-                    Toast.makeText(SettingsActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(SettingsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
-//
-//        NotificationGroups n1 = new NotificationGroups();
-//        n1.setName("Group 1");
-//
-//        notificationGroupList.add(n1);
-//        notificationGroupList.add(n1);
-//        notificationGroupList.add(n1);
-//        notificationGroupList.add(n1);
-//        notificationGroupList.add(n1);
-//        notificationGroupList.add(n1);
-//        notificationGroupList.add(n1);
-//        notificationGroupList.add(n1);
 
+    }
+
+    public void updateAllGroup(){
+        HashMap map = new HashMap();
+        map.put("regId", Constants.GCM_REG_ID);
+        map.put("val","1");
+        NotificationManager.getSharedInstance().updateAllGroupsNotification(map, new NotificationManager.GroupsManagerListener() {
+            @Override
+            public void onCompletion(GroupResponse groupResponse, AppError error) {
+                if (error == null){
+
+                }
+            }
+        });
 
     }
 

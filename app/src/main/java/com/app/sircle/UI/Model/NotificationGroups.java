@@ -15,7 +15,7 @@ public class NotificationGroups {
     @SerializedName("group_id")
     public String id;
 
-    public boolean active;
+    public int active;
 
 
     public String getId() {
@@ -34,11 +34,11 @@ public class NotificationGroups {
         this.name = name;
     }
 
-    public boolean isActive() {
+    public int getActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(int active) {
         this.active = active;
     }
 }

@@ -33,11 +33,11 @@ public class Notificationservice {
     }
 
     public void getAllGroups(HashMap map,final GroupsServiceListener groupsServiceListener){
-        retrofitImplementation.executeGetWithURL(Constants.NOTIFICATION_GET_ALL_GROUPS, map , null, GroupResponse.class, new WebServiceListener() {
+        retrofitImplementation.executePostWithURL(Constants.NOTIFICATION_GET_ALL_GROUPS, null, map, GroupResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object response, AppError error) {
                 if (response != null){
-                   // notificationGroupsList = (ArrayList<NotificationGroups>) ((GroupResponse)response).getMessage();
+                    // notificationGroupsList = (ArrayList<NotificationGroups>) ((GroupResponse)response).getMessage();
                     if (error.getErrorCode() == AppError.NO_ERROR || error == null){
                         groupsServiceListener.onCompletion((GroupResponse)response, new AppError());
                     }
@@ -45,7 +45,6 @@ public class Notificationservice {
                 }else {
                     groupsServiceListener.onCompletion(null, error);
                 }
-
             }
         });
     }
@@ -56,6 +55,23 @@ public class Notificationservice {
             public void onCompletion(Object responseObject, AppError error) {
                 List<Notification> notifications = ((NotificationResponse) responseObject).message;
                 notificationServiceListener.onCompletion(notifications, error);
+            }
+        });
+    }
+
+    public void updateAllGroups(HashMap object, final  GroupsServiceListener groupsServiceListener){
+        retrofitImplementation.executePostWithURL(Constants.NOTIFICATION_GET_ALL_GROUPS, object, null, GroupResponse.class, new WebServiceListener() {
+            @Override
+            public void onCompletion(Object response, AppError error) {
+                if (response != null){
+                    // notificationGroupsList = (ArrayList<NotificationGroups>) ((GroupResponse)response).getMessage();
+                    if (error.getErrorCode() == AppError.NO_ERROR || error == null){
+                        groupsServiceListener.onCompletion((GroupResponse)response, new AppError());
+                    }
+                    groupsServiceListener.onCompletion((GroupResponse)response, error);
+                }else {
+                    groupsServiceListener.onCompletion(null, error);
+                }
             }
         });
     }

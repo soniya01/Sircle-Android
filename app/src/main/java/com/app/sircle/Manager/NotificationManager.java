@@ -40,13 +40,25 @@ public class NotificationManager {
         Notificationservice.getSharedInstance().getAllGroups(map, new Notificationservice.GroupsServiceListener() {
             @Override
             public void onCompletion(GroupResponse groupResponse, AppError error) {
-                if (error == null || error.getErrorCode() == AppError.NO_ERROR){
+                if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                     groupsManagerListener.onCompletion(groupResponse, new AppError());
                 }
                 groupsManagerListener.onCompletion(groupResponse, error);
             }
         });
 
+    }
+
+    public void updateAllGroupsNotification(HashMap map, final GroupsManagerListener groupsManagerListener){
+        Notificationservice.getSharedInstance().updateAllGroups(map, new Notificationservice.GroupsServiceListener() {
+            @Override
+            public void onCompletion(GroupResponse groupResponse, AppError error) {
+                if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
+                    groupsManagerListener.onCompletion(groupResponse, new AppError());
+                }
+                groupsManagerListener.onCompletion(groupResponse, error);
+            }
+        });
     }
 
 

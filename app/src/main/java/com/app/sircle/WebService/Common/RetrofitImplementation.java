@@ -1,5 +1,7 @@
 package com.app.sircle.WebService.Common;
 
+import android.widget.Switch;
+
 import com.app.sircle.Manager.LoginManager;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.Utility.Common;
@@ -42,7 +44,39 @@ public class RetrofitImplementation implements WebServiceProtocol{
     private String baseURL = Constants.BASE_URL;
     public UrlGenerator generator;
     private static final  HashMap<String,String> urlParams = new HashMap<>();
+    private Callback<JsonElement> jsonElementCallback;
 
+    public RetrofitImplementation() {
+//        jsonElementCallback = new Callback<JsonElement>() {
+//            @Override
+//            public void success(JsonElement jsonElement, Response response) {
+//                if (!jsonElement.isJsonNull() ){
+//
+//                    Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
+//
+//                    if (responseClass != null){
+//                        Object object = Common.createObjectForClass(responseClass);
+//
+//                        if (jsonElement.isJsonArray()){
+//                            Type collectionType = new TypeToken<Collection<Object>>(){}.getType();
+//                            Collection<Object> data = gson.fromJson(jsonElement, collectionType);
+//                            webserviceListener.onCompletion(data, new AppError());
+//                        } else {
+//                            object = gson.fromJson(jsonElement, responseClass);
+//                            webserviceListener.onCompletion(object, new AppError());
+//                        }
+//                    }
+//
+//                }
+//                webserviceListener.onCompletion(null, new AppError());
+//            }
+//
+//            @Override
+//            public void failure(RetrofitError error) {
+//
+//            }
+//        };
+    }
 
     @Override
     public void executePostWithURL(final String url,final HashMap<String,String> params, Object requestObject,final Class responseClass, final WebServiceListener webserviceListener) {
@@ -56,12 +90,9 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     @Override
                     public void intercept(RequestFacade request) {
 
-//                        if (responseClass != IHHAPI_Session.class) {
-//                            request.addHeader(Constants.AUTHORIZATION, SignInManager.getSharedInstance().sessionId);
-//                        }
-//                        for (String key : params.keySet()) {
-//                            request.addPathParam(key, params.get(key).toString());
-//                        }
+                        if (responseClass != LoginResponse.class) {
+                            request.addHeader("Authorization", LoginManager.accessToken);
+                        }
                     }
                 })
                 .setConverter(new GsonCustomConverter(gson))
@@ -69,98 +100,139 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
         WebserviceApi postWebservice = restAdapter.create(WebserviceApi.class);
 
-        if (responseClass == LoginResponse.class){
-            postWebservice.login(params.get("loginId"), params.get("pwd"), params.get("regId"), new Callback<JsonElement>() {
-                @Override
-                public void success(JsonElement jsonElement, Response response) {
+        switch (url){
+            case Constants.LOGIN_API_PATH:
+                postWebservice.login(params.get("loginId"), params.get("pwd"), params.get("regId"), new Callback<JsonElement>() {
+                    @Override
+                    public void success(JsonElement jsonElement, Response response) {
 
-                    if (!jsonElement.isJsonNull() ){
+                        if (!jsonElement.isJsonNull() ){
 
-                        Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
+                            Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
 
-                        if (responseClass != null){
-                            Object object = Common.createObjectForClass(responseClass);
+                            if (responseClass != null){
+                                Object object = Common.createObjectForClass(responseClass);
 
-                            if (jsonElement.isJsonArray()){
-                                Type collectionType = new TypeToken<Collection<Object>>(){}.getType();
-                                Collection<Object> data = gson.fromJson(jsonElement, collectionType);
-                                webserviceListener.onCompletion(data, new AppError());
-                            } else {
-                                object = gson.fromJson(jsonElement, responseClass);
-                                webserviceListener.onCompletion(object, new AppError());
+                                if (jsonElement.isJsonArray()){
+                                    Type collectionType = new TypeToken<Collection<Object>>(){}.getType();
+                                    Collection<Object> data = gson.fromJson(jsonElement, collectionType);
+                                    webserviceListener.onCompletion(data, new AppError());
+                                } else {
+                                    object = gson.fromJson(jsonElement, responseClass);
+                                    webserviceListener.onCompletion(object, new AppError());
+                                }
                             }
+
                         }
-
+                        webserviceListener.onCompletion(null, new AppError());
                     }
-                    webserviceListener.onCompletion(null, new AppError());
-                }
 
-                @Override
-                public void failure(RetrofitError error) {
-                    AppError appError = new AppError();
-                    appError.setErrorCode(getRetrofitErrorcode(error));
-                    appError.setErrorMessage(error.getLocalizedMessage());
+                    @Override
+                    public void failure(RetrofitError error) {
+                        AppError appError = new AppError();
+                        appError.setErrorCode(getRetrofitErrorcode(error));
+                        appError.setErrorMessage(error.getLocalizedMessage());
 
-                    // Send empty object
-                    if (responseClass != null){
-                        webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
-                    }else {
-                        webserviceListener.onCompletion(null, appError);
-                    }
-                }
-            });
-        }else {
-            // Post Request
-            postWebservice.post(requestObject, new Callback<JsonElement>() {
-                @Override
-                public void success(JsonElement jsonElement, Response response) {
-
-                    // Get Json Response and Parse it to get response in UPPER_CAMEL_CASE
-
-//                if (response != null && response.getStatus() == 200){
-//                    webserviceListener.onCompletion(response, new AppError());
-//                }
-//                else
-                    if (!jsonElement.isJsonNull() ){
-
-                        Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
-
+                        // Send empty object
                         if (responseClass != null){
-                            Object object = Common.createObjectForClass(responseClass);
-
-                            if (jsonElement.isJsonArray()){
-                                Type collectionType = new TypeToken<Collection<Object>>(){}.getType();
-                                Collection<Object> data = gson.fromJson(jsonElement, collectionType);
-                                webserviceListener.onCompletion(data, new AppError());
-                            } else {
-                                object = gson.fromJson(jsonElement, responseClass);
-                                webserviceListener.onCompletion(object, new AppError());
-                            }
+                            webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
+                        }else {
+                            webserviceListener.onCompletion(null, appError);
                         }
-
                     }
-                    webserviceListener.onCompletion(null, new AppError());
-                }
+                });
+                break;
 
-                @Override
-                public void failure(RetrofitError error) {
+            case Constants.NOTIFICATION_GET_ALL_GROUPS:
+                postWebservice.postWithRegId(Constants.GCM_REG_ID, new Callback<JsonElement>() {
+                    @Override
+                    public void success(JsonElement jsonElement, Response response) {
 
-                    AppError appError = new AppError();
-                    appError.setErrorCode(getRetrofitErrorcode(error));
-                    appError.setErrorMessage(error.getLocalizedMessage());
+                        // Get Json Response and Parse it to get response in UPPER_CAMEL_CASE
+                        if (!jsonElement.isJsonNull()) {
 
-                    // Send empty object
-                    if (responseClass != null){
-                        webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
-                    }else {
-                        webserviceListener.onCompletion(null, appError);
+                            Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
+
+                            if (responseClass != null) {
+                                Object object = Common.createObjectForClass(responseClass);
+
+                                if (jsonElement.isJsonArray()) {
+                                    Type collectionType = new TypeToken<Collection<Object>>() {
+                                    }.getType();
+                                    Collection<Object> data = gson.fromJson(jsonElement, collectionType);
+                                    webserviceListener.onCompletion(data, new AppError());
+                                } else {
+                                    object = gson.fromJson(jsonElement, responseClass);
+                                    webserviceListener.onCompletion(object, new AppError());
+                                }
+                            }
+
+                        }
+                        webserviceListener.onCompletion(null, new AppError());
                     }
 
-                }
-            });
+                    @Override
+                    public void failure(RetrofitError error) {
+
+                        AppError appError = new AppError();
+                        appError.setErrorCode(getRetrofitErrorcode(error));
+                        appError.setErrorMessage(error.getLocalizedMessage());
+
+                        // Send empty object
+                        if (responseClass != null) {
+                            webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
+                        } else {
+                            webserviceListener.onCompletion(null, appError);
+                        }
+                    }
+                });
+
+                break;
+
+            case Constants.GROUP_UPDATE_ALL_NOTIFICATION:
+                Integer val = Integer.parseInt(params.get("val"));
+                postWebservice.postWithRegIdAndVal(params.get("regId"), val, new Callback<JsonElement>() {
+                    @Override
+                    public void success(JsonElement jsonElement, Response response) {
+                        // Get Json Response and Parse it to get response in UPPER_CAMEL_CASE
+                        if (!jsonElement.isJsonNull()) {
+
+                            Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
+
+                            if (responseClass != null) {
+                                Object object = Common.createObjectForClass(responseClass);
+
+                                if (jsonElement.isJsonArray()) {
+                                    Type collectionType = new TypeToken<Collection<Object>>() {
+                                    }.getType();
+                                    Collection<Object> data = gson.fromJson(jsonElement, collectionType);
+                                    webserviceListener.onCompletion(data, new AppError());
+                                } else {
+                                    object = gson.fromJson(jsonElement, responseClass);
+                                    webserviceListener.onCompletion(object, new AppError());
+                                }
+                            }
+
+                        }
+                        webserviceListener.onCompletion(null, new AppError());
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        AppError appError = new AppError();
+                        appError.setErrorCode(getRetrofitErrorcode(error));
+                        appError.setErrorMessage(error.getLocalizedMessage());
+
+                        // Send empty object
+                        if (responseClass != null) {
+                            webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
+                        } else {
+                            webserviceListener.onCompletion(null, appError);
+                        }
+                    }
+                });
+                break;
         }
-
-
     }
 
 
@@ -325,14 +397,19 @@ public class RetrofitImplementation implements WebServiceProtocol{
      */
     private interface WebserviceApi {
 
-        //@Headers({ "Content-Type: application/x-www-form-urlencoded"})
 
         @FormUrlEncoded
         @POST("/")
         void login(@Field("loginId") String loginId, @Field("pwd") String password, @Field("regId") String regId, Callback<JsonElement> callback);
 
+        @FormUrlEncoded
         @POST("/")
-        void post(@Body Object requestObject, Callback<JsonElement> callback);
+        void postWithRegId(@Field("regId") String regId, Callback<JsonElement> callback);
+
+
+        @FormUrlEncoded
+        @POST("/")
+        void postWithRegIdAndVal(@Field("regId") String regId, @Field("val") int subscribeVal, Callback<JsonElement> callback);
 
 
         @GET("/")
