@@ -106,8 +106,8 @@ public class SettingsActivity extends Activity {
                             updateAllGroup();
 
                         } else {
-                            SettingsActivity.this.notificationGroupList.clear();
-                            SettingsActivity.this.notificationGroupList.addAll(response.getData());
+                            //SettingsActivity.this.notificationGroupList.clear();
+                            //SettingsActivity.this.notificationGroupList.addAll(response.getData());
                             notificationsGroupAdapter = new NotificationsGroupAdapter(SettingsActivity.this, notificationGroupList);
                             notificationListView.setAdapter(notificationsGroupAdapter);
                         }
@@ -133,12 +133,11 @@ public class SettingsActivity extends Activity {
         NotificationManager.getSharedInstance().updateAllGroupsNotification(map, new NotificationManager.GroupsManagerListener() {
             @Override
             public void onCompletion(GroupResponse groupResponse, AppError error) {
-                if (error == null){
+                if (error == null || groupResponse != null){
 
                 }
             }
         });
-
     }
 
     @Override

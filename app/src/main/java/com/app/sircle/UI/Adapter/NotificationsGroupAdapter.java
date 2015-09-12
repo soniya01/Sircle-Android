@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.app.sircle.R;
@@ -53,6 +54,7 @@ public class NotificationsGroupAdapter extends BaseAdapter {
                     parent, false);
 
             viewHolder.notificationGroupTitle = (TextView) convertView.findViewById(R.id.notificationGroupTitle);
+            viewHolder.checkBox = (CheckBox)convertView.findViewById(R.id.checkItem);
 
             convertView.setTag(viewHolder);
         } else {
@@ -60,6 +62,9 @@ public class NotificationsGroupAdapter extends BaseAdapter {
         }
 
         viewHolder.notificationGroupTitle.setText(notificationsGroupList.get(position).name);
+        if (notificationsGroupList.get(position).getActive() == 1)
+        viewHolder.checkBox.setChecked(true);
+        else viewHolder.checkBox.setChecked(false);
         return convertView;
 
     }
@@ -67,5 +72,6 @@ public class NotificationsGroupAdapter extends BaseAdapter {
 
     static class ViewHolder {
         private TextView notificationGroupTitle;
+        private CheckBox checkBox;
     }
 }
