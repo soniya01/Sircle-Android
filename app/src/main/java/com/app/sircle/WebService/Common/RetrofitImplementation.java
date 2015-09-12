@@ -190,8 +190,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                 break;
 
             case Constants.GROUP_UPDATE_ALL_NOTIFICATION:
-                Integer val = Integer.parseInt(params.get("val"));
-                postWebservice.postWithRegIdAndVal(params.get("regId"), val, new Callback<JsonElement>() {
+                postWebservice.postWithRegIdAndVal(params.get("regId"), params.get("val"), new Callback<JsonElement>() {
                     @Override
                     public void success(JsonElement jsonElement, Response response) {
                         // Get Json Response and Parse it to get response in UPPER_CAMEL_CASE
@@ -232,6 +231,46 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     }
                 });
                 break;
+            case Constants.GROUP_UPDATE_NOTIFICATION:
+                postWebservice.postWithRegIdAndGrpId(params.get("regId"), params.get("val"), params.get("groupId"), new Callback<JsonElement>() {
+                    @Override
+                    public void success(JsonElement jsonElement, Response response) {
+                        if (!jsonElement.isJsonNull()) {
+
+                            Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
+
+                            if (responseClass != null) {
+                                Object object = Common.createObjectForClass(responseClass);
+
+                                if (jsonElement.isJsonArray()) {
+                                    Type collectionType = new TypeToken<Collection<Object>>() {
+                                    }.getType();
+                                    Collection<Object> data = gson.fromJson(jsonElement, collectionType);
+                                    webserviceListener.onCompletion(data, new AppError());
+                                } else {
+                                    object = gson.fromJson(jsonElement, responseClass);
+                                    webserviceListener.onCompletion(object, new AppError());
+                                }
+                            }
+                        }
+                        webserviceListener.onCompletion(null, new AppError());
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        AppError appError = new AppError();
+                        appError.setErrorCode(getRetrofitErrorcode(error));
+                        appError.setErrorMessage(error.getLocalizedMessage());
+
+                        // Send empty object
+                        if (responseClass != null) {
+                            webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
+                        } else {
+                            webserviceListener.onCompletion(null, appError);
+                        }
+                    }
+                });
+                break;
         }
     }
 
@@ -252,7 +291,6 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     @Override
                     public void intercept(RequestFacade request) {
                         request.addHeader("Authorization", LoginManager.accessToken);
-                        //request.addQueryParam(params.get("regId"),"idghy");
                     }
                 })
                 .setConverter(new GsonCustomConverter(gson))
@@ -409,8 +447,11 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
         @FormUrlEncoded
         @POST("/")
-        void postWithRegIdAndVal(@Field("regId") String regId, @Field("val") int subscribeVal, Callback<JsonElement> callback);
+        void postWithRegIdAndVal(@Field("regId") String regId, @Field("val") String subscribeVal, Callback<JsonElement> callback);
 
+        @FormUrlEncoded
+        @POST("/")
+        void postWithRegIdAndGrpId(@Field("regId") String regId, @Field("val") String subscribeVal, @Field("groupId") String groupId, Callback<JsonElement> callback);
 
         @GET("/")
         void get(@QueryMap HashMap<String, String> params, Callback<JsonElement> callback);

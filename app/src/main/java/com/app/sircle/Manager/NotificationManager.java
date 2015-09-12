@@ -61,6 +61,18 @@ public class NotificationManager {
         });
     }
 
+    public void updateGroupNotification(HashMap map, final GroupsManagerListener groupsManagerListener){
+       Notificationservice.getSharedInstance().updateGroupNot(map, new Notificationservice.GroupsServiceListener() {
+           @Override
+           public void onCompletion(GroupResponse groupResponse, AppError error) {
+               if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
+                   groupsManagerListener.onCompletion(groupResponse, new AppError());
+               }
+               groupsManagerListener.onCompletion(groupResponse, error);
+           }
+       });
+    }
+
 
     public interface GroupsManagerListener{
         public void onCompletion(GroupResponse groupResponse, AppError error);

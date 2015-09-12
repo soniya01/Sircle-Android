@@ -63,15 +63,30 @@ public class Notificationservice {
         retrofitImplementation.executePostWithURL(Constants.NOTIFICATION_GET_ALL_GROUPS, object, null, GroupResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object response, AppError error) {
-                if (response != null){
+                if (response != null) {
                     // notificationGroupsList = (ArrayList<NotificationGroups>) ((GroupResponse)response).getMessage();
-                    if (error.getErrorCode() == AppError.NO_ERROR || error == null){
-                        groupsServiceListener.onCompletion((GroupResponse)response, new AppError());
+                    if (error.getErrorCode() == AppError.NO_ERROR || error == null) {
+                        groupsServiceListener.onCompletion((GroupResponse) response, new AppError());
                     }
-                    groupsServiceListener.onCompletion((GroupResponse)response, error);
-                }else {
+                    groupsServiceListener.onCompletion((GroupResponse) response, error);
+                } else {
                     groupsServiceListener.onCompletion(null, error);
                 }
+            }
+        });
+    }
+
+    public void updateGroupNot(HashMap object, final  GroupsServiceListener groupsServiceListener){
+        retrofitImplementation.executePostWithURL(Constants.GROUP_UPDATE_NOTIFICATION, object, null, GroupResponse.class, new WebServiceListener() {
+            @Override
+            public void onCompletion(Object response, AppError error) {
+                if (response != null) {
+                    if (error.getErrorCode() == AppError.NO_ERROR || error == null) {
+                        groupsServiceListener.onCompletion((GroupResponse) response, new AppError());
+                    }
+                    groupsServiceListener.onCompletion((GroupResponse) response, error);
+                } else {
+                    groupsServiceListener.onCompletion(null, error);}
             }
         });
     }

@@ -6,12 +6,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Model.NotificationGroups;
+import com.app.sircle.Utility.AppError;
+import com.app.sircle.Utility.Constants;
+import com.app.sircle.WebService.GroupResponse;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -45,9 +52,9 @@ public class NotificationsGroupAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
-        ViewHolder viewHolder;
+        final ViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = inflater.inflate(R.layout.notifications_settings_list_item,
@@ -65,6 +72,31 @@ public class NotificationsGroupAdapter extends BaseAdapter {
         if (notificationsGroupList.get(position).getActive() == 1)
         viewHolder.checkBox.setChecked(true);
         else viewHolder.checkBox.setChecked(false);
+
+        viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
+
+                int status =  isChecked ? 1 : 0;
+                HashMap map = new HashMap();
+                map.put("regId", Constants.GCM_REG_ID);
+                map.put("val",status);
+                map.put("groupId",notificationsGroupList.get(position).getId());
+                NotificationManager.getSharedInstance().updateGroupNotification(map, new NotificationManager.GroupsManagerListener() {
+                    @Override
+                    public void onCompletion(GroupResponse groupResponse, AppError error) {
+                        if (error == null && groupResponse != null){
+                            if (groupResponse.getData().get(0).getActive() == 1){
+                                viewHolder.checkBox.setChecked(true);
+                            }
+                        }else {
+                            viewHolder.checkBox.setChecked(false);
+                            Toast.makeText(context,groupResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
         return convertView;
 
     }
