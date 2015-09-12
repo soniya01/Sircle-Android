@@ -1,6 +1,7 @@
 package com.app.sircle.UI.Activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,6 +34,8 @@ public class LoginScreen extends Activity {
     private Date sessionExpiryDate;
     private LoginResponse loginData;
     private String accessToken;
+    ProgressDialog ringProgressDialog;
+    // private TextView supportLabel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +51,21 @@ public class LoginScreen extends Activity {
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         //supportLabel.setText(content);
 
+
         loginButton = (Button)findViewById(R.id.email_sign_in_button);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                // Progress Dialog Ring/Loader
+                ringProgressDialog = ProgressDialog.show(LoginScreen.this, "", "Signing In", true);
+
                loginSharedPrefs = LoginScreen.this.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
                 final SharedPreferences.Editor editor = loginSharedPrefs.edit();
-                if (!loginSharedPrefs.getString(Constants.LOGIN_USERNAME_PREFS_KEY,"").equals("")  ){
 
+                if (!loginSharedPrefs.getString(Constants.LOGIN_USERNAME_PREFS_KEY,"").equals("") || !loginSharedPrefs.getString(Constants.LOGIN_PASSWORD_PREFS_KEY, "").equals("") ){
+                    ringProgressDialog.dismiss();
                     Toast.makeText(LoginScreen.this, "User already logged in", Toast.LENGTH_SHORT).show();
                     Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);
                     startActivity(homeIntent);
@@ -84,11 +94,11 @@ public class LoginScreen extends Activity {
                                     Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);
                                     startActivity(homeIntent);
                                 }
-
                             }else {
                                 usernameField.setText("");
                                 passwordEditText.setText("");
-                                Toast.makeText(LoginScreen.this, "Sorry! Invalid credentials", Toast.LENGTH_SHORT).show();
+                                ringProgressDialog.dismiss();
+                                Toast.makeText(LoginScreen.this, response.getMessage, Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
