@@ -59,7 +59,7 @@ public class AddLinksActivity extends ActionBarActivity {
                     Links links = new Links();
                     links.setLinkTitle(title.getText().toString());
                     links.setLink(desc.getText().toString());
-                    LinksFragment.linksList.add(links);
+                    //LinksFragment.linksList.add(links);
                     finish();
                 } else {
                     desc.setText("");

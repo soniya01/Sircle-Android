@@ -8,9 +8,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.app.sircle.Manager.EventManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Adapter.CalendarMonthListAdapter;
 import com.app.sircle.UI.Model.CalendarMonthlyListData;
+import com.app.sircle.UI.Model.Event;
+import com.app.sircle.Utility.AppError;
+import com.app.sircle.WebService.EventData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +24,7 @@ public class EventsListActivity extends ActionBarActivity {
 
     private ListView calendarMonthListView;
     private CalendarMonthListAdapter calendarMonthListViewAdapter;
-    private List<CalendarMonthlyListData> calendarMonthList = new ArrayList<CalendarMonthlyListData>();
+    private List<Event> calendarMonthList = new ArrayList<Event>();
     private View footerView;
 
     @Override
@@ -82,12 +86,17 @@ public class EventsListActivity extends ActionBarActivity {
         calendarmonthlyData.setEventDate("Wednesday 27 May 2015");
         calendarmonthlyData.setEventTime("11:00");
 
-        calendarMonthList.add(calendarmonthlyData);
-        calendarMonthList.add(calendarmonthlyData);
-        calendarMonthList.add(calendarmonthlyData);
-        calendarMonthList.add(calendarmonthlyData);
-        calendarMonthList.add(calendarmonthlyData);
-        calendarMonthList.add(calendarmonthlyData);
-        calendarMonthList.add(calendarmonthlyData);
+        EventManager.getSharedInstance().getEventsMonthWise(null, new EventManager.GetMonthwiseEventsManagerListener() {
+            @Override
+            public void onCompletion(EventData data, AppError error) {
+                if (error == null && data != null) {
+                    calendarMonthList.addAll(data.getEvents());
+                    calendarMonthListViewAdapter = new CalendarMonthListAdapter(EventsListActivity.this, calendarMonthList);
+                    calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
+                } else {
+                    calendarMonthListViewAdapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 }

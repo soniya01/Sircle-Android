@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Event {
 
-    public String[] id;
+    public String id;
 
     @SerializedName("unq_id")
     public String uniqueId;
@@ -31,11 +31,11 @@ public class Event {
     @SerializedName("end_time")
     public String endTime;
 
-    public String[] getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(String[] id) {
+    public void setId(String id) {
         this.id = id;
     }
 

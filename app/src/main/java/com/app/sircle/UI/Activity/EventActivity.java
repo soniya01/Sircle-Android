@@ -74,7 +74,6 @@ public class EventActivity extends ActionBarActivity {
                 // TODO Auto-generated method stub
                 String names[] = {"Arts", "Sports", "Excursion", "Academics", "Performance", "Other"};
 
-
                 final AlertDialog.Builder alertDialog = new AlertDialog.Builder(EventActivity.this);
                 LayoutInflater inflater = getLayoutInflater();
                 View convertView = (View) inflater.inflate(R.layout.dialog_list_view, null);
