@@ -3,6 +3,8 @@ package com.app.sircle.WebService;
 import com.app.sircle.UI.Model.Event;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by soniya on 14/09/15.
  */
@@ -15,7 +17,7 @@ public class EventData {
     public int totalRecords;
 
     public int page;
-    public Event events;
+    public List<Event> events;
 
 
     public int getPageRecords() {
@@ -42,11 +44,11 @@ public class EventData {
         this.page = page;
     }
 
-    public Event getEvent() {
+    public List<Event> getEvents() {
         return events;
     }
 
-    public void setEvent(Event event) {
-        this.events = event;
+    public void setEvents(List<Event> events) {
+        this.events = events;
     }
 }

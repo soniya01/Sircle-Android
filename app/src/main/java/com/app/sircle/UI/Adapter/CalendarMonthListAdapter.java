@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.app.sircle.R;
 import com.app.sircle.UI.Model.CalendarMonthlyListData;
+import com.app.sircle.UI.Model.Event;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +19,10 @@ import java.util.List;
  */
 public class CalendarMonthListAdapter extends BaseAdapter {
     private Context context;
-    private List<CalendarMonthlyListData> calendarMonthList = new ArrayList<CalendarMonthlyListData>();
+    private List<Event> calendarMonthList = new ArrayList<Event>();
     private LayoutInflater inflater;
 
-    public CalendarMonthListAdapter(Context context, List<CalendarMonthlyListData> calendarMonthList) {
+    public CalendarMonthListAdapter(Context context, List<Event> calendarMonthList) {
         this.context = context;
         this.calendarMonthList = calendarMonthList;
         inflater  = (LayoutInflater) this.context
@@ -60,16 +61,15 @@ public class CalendarMonthListAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        // viewHolder.videoSourceLabel.setText("Youtube");
-        return convertView;
 
+        viewHolder.eventTitleLabel.setText(calendarMonthList.get(position).getTitle());
+        viewHolder.eventDateLabel.setText(calendarMonthList.get(position).getStartDate());
+        viewHolder.eventTimeLabel.setText(calendarMonthList.get(position).getStartTime());
+
+        return convertView;
     }
 
-
-
     static class ViewHolder {
-
-
         private TextView eventTitleLabel;
         private TextView eventDateLabel;
         private TextView eventTimeLabel;
