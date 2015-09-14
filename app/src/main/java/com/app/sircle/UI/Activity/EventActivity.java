@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.app.sircle.Manager.EventManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Model.CalendarMonthlyListData;
+import com.app.sircle.UI.Model.EventCategory;
 import com.app.sircle.UI.Model.NotificationGroups;
 import com.app.sircle.Utility.AppError;
 
@@ -71,7 +72,7 @@ public class EventActivity extends ActionBarActivity {
         selectCategoryButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                String names[] = {"Arts", "Sports", "Excursion", "Academics","Performance","Other"};
+                String names[] = {"Arts", "Sports", "Excursion", "Academics", "Performance", "Other"};
 
 
                 final AlertDialog.Builder alertDialog = new AlertDialog.Builder(EventActivity.this);
@@ -80,10 +81,10 @@ public class EventActivity extends ActionBarActivity {
                 alertDialog.setView(convertView);
                 alertDialog.setTitle("Select Category");
                 ListView lv = (ListView) convertView.findViewById(R.id.listView1);
-               // ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, names);
-               // lv.setAdapter(adapter);
+                // ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, names);
+                // lv.setAdapter(adapter);
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
-                        android.R.layout.simple_list_item_1, names
+                        android.R.layout.simple_list_item_1, eventCategory
                 ) {
                     @Override
                     public View getView(int position, View convertView, ViewGroup parent) {
@@ -95,7 +96,7 @@ public class EventActivity extends ActionBarActivity {
                 };
 
                 lv.setAdapter(adapter);
-              //  alertDialog.show();
+                //  alertDialog.show();
 
                 alert = alertDialog.show();
 
@@ -146,11 +147,22 @@ public class EventActivity extends ActionBarActivity {
 
     public void populateDummyData() {
 
-        // get event category
-        EventManager.getSharedInstance().getEventCategory(new EventManager.GetMonthwiseEventsManagerListener() {
-            @Override
-            public void onCompletion(List<CalendarMonthlyListData> eventsList, AppError error) {
+        // get group names call to be added
 
+        // get event category
+        EventManager.getSharedInstance().getEventCategory(new EventManager.GetEventsCategoryManagerListener() {
+            @Override
+            public void onCompletion(List<EventCategory> eventCategoryList, AppError error) {
+                if (error == null && eventCategoryList != null){
+                    if (eventCategoryList.size() > 0){
+                        for (EventCategory eventCategory : eventCategoryList){
+                            EventActivity.this.eventCategory.add(eventCategory.getCategory());
+                        }
+                    }
+                }else {
+
+                }
+                //EventActivity.this.eventCategory.addAll(eventCategoryList);
             }
         });
         NotificationGroups n1 = new NotificationGroups();
