@@ -88,9 +88,6 @@ public class CalendarFragment extends Fragment {
         });
 
 
-
-
-
         List<android.support.v4.app.Fragment> fragments = new Vector<android.support.v4.app.Fragment>();
         fragments.add(android.support.v4.app.Fragment.instantiate(getActivity(), CalendarMonthFragment.class.getName()));
         fragments.add(android.support.v4.app.Fragment.instantiate(getActivity(), CalendarListFragment.class.getName()));

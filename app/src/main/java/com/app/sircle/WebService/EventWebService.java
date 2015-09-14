@@ -1,6 +1,7 @@
 package com.app.sircle.WebService;
 
 import com.app.sircle.UI.Model.CalendarMonthlyListData;
+import com.app.sircle.UI.Model.EventCategory;
 import com.app.sircle.UI.Model.Terms;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.Utility.Constants;
@@ -53,40 +54,40 @@ public class EventWebService {
         retrofitImplementation.executeGetWithURL(Constants.EVENTS_GET_MONTH_WISE_API_PATH, null, object, CalendarMonthlyListData.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
-                List<CalendarMonthlyListData> eventList = (ArrayList<CalendarMonthlyListData>) responseObject;
-                if (error.getErrorCode() == AppError.NO_ERROR){
-                    getMonthwiseEventsServiceListener.onCompletion(eventList, new AppError());
+                if (error.getErrorCode() == AppError.NO_ERROR && responseObject != null){
+                    EventData eventData = ((EventDataReponse)responseObject).getEventData();
+                    getMonthwiseEventsServiceListener.onCompletion(eventData, new AppError());
                 }else {
-                    getMonthwiseEventsServiceListener.onCompletion(eventList, error);
+                    getMonthwiseEventsServiceListener.onCompletion(null, error);
                 }
             }
         });
     }
 
     public void getCalendarEvents(HashMap object, final GetMonthwiseEventsServiceListener getMonthwiseEventsServiceListener){
-        retrofitImplementation.executeGetWithURL(Constants.EVENTS_GET_ALL_EVENTS_API_PATH, null, object, CalendarMonthlyListData.class, new WebServiceListener() {
+        retrofitImplementation.executeGetWithURL(Constants.EVENTS_GET_ALL_EVENTS_API_PATH, null, object, EventDataReponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
-                List<CalendarMonthlyListData> eventList = (ArrayList<CalendarMonthlyListData>) responseObject;
-                if (error.getErrorCode() == AppError.NO_ERROR){
-                    getMonthwiseEventsServiceListener.onCompletion(eventList, new AppError());
+                if (error.getErrorCode() == AppError.NO_ERROR && responseObject != null){
+                    EventData eventData = ((EventDataReponse)responseObject).getEventData();
+                    getMonthwiseEventsServiceListener.onCompletion(eventData, new AppError());
                 }else {
-                    getMonthwiseEventsServiceListener.onCompletion(eventList, error);
+                    getMonthwiseEventsServiceListener.onCompletion(null, error);
                 }
             }
         });
     }
 
-    public void getAllEventCategory( final GetMonthwiseEventsServiceListener getMonthwiseEventsServiceListener){
-        retrofitImplementation.executeGetWithURL(Constants.EVENTS_GET_CATEGORY_API_PATH, null, null, CalendarMonthlyListData.class, new WebServiceListener() {
+    public void getAllEventCategory( final GetEventsCategoryServiceListener getEventsCategoryServiceListener){
+        retrofitImplementation.executeGetWithURL(Constants.EVENTS_GET_CATEGORY_API_PATH, null, null, CategoryResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
                 //TODO: decide what will be the eventcategory data
-                List<CalendarMonthlyListData> eventList = (ArrayList<CalendarMonthlyListData>) responseObject;
-                if (error.getErrorCode() == AppError.NO_ERROR){
-                    getMonthwiseEventsServiceListener.onCompletion(eventList, new AppError());
+                if (error.getErrorCode() == AppError.NO_ERROR && responseObject != null){
+                    List<EventCategory> eventList = (ArrayList<EventCategory>) (((CategoryResponse)responseObject).getData());
+                    getEventsCategoryServiceListener.onCompletion(eventList, new AppError());
                 }else {
-                    getMonthwiseEventsServiceListener.onCompletion(eventList, error);
+                    getEventsCategoryServiceListener.onCompletion(null, error);
                 }
             }
         });
@@ -109,6 +110,10 @@ public class EventWebService {
 
     public interface GetMonthwiseEventsServiceListener{
 
-        public void onCompletion(List<CalendarMonthlyListData> eventList, AppError error);
+        public void onCompletion(EventData data, AppError error);
+    }
+
+    public interface GetEventsCategoryServiceListener{
+        public void onCompletion(List<EventCategory> eventCategoryList, AppError error);
     }
 }

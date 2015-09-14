@@ -12,8 +12,6 @@ public class CalendarMonthlyListData {
     public String eventTime;
 
 
-
-
     public String getEventTitle() {
         return eventTitle;
     }

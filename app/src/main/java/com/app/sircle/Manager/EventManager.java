@@ -1,8 +1,9 @@
 package com.app.sircle.Manager;
 
-import com.app.sircle.UI.Model.CalendarMonthlyListData;
+import com.app.sircle.UI.Model.EventCategory;
 import com.app.sircle.UI.Model.Terms;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.WebService.EventData;
 import com.app.sircle.WebService.EventWebService;
 
 import java.util.ArrayList;
@@ -32,10 +33,10 @@ public class EventManager {
         EventWebService.getSharedInstance().getAllTerms(map, new EventWebService.GetAllTermsServiceListener() {
             @Override
             public void onCompletion(List<Terms> termsList, AppError error) {
-                if (error.getErrorCode() == AppError.NO_ERROR){
+                if (error.getErrorCode() == AppError.NO_ERROR) {
 
                     getAllTermsManagerListener.onCompletion(termsList, new AppError());
-                }else {
+                } else {
                     getAllTermsManagerListener.onCompletion(termsList, error);
                 }
             }
@@ -46,11 +47,12 @@ public class EventManager {
 
         EventWebService.getSharedInstance().getMonthWiseEvents(requestObject, new EventWebService.GetMonthwiseEventsServiceListener() {
             @Override
-            public void onCompletion(List<CalendarMonthlyListData> eventList, AppError error) {
+            public void onCompletion(EventData data, AppError error) {
                 if (error.getErrorCode() == AppError.NO_ERROR) {
-                    getMonthwiseEventsManagerListener.onCompletion(eventList, new AppError());
+                    getMonthwiseEventsManagerListener.onCompletion(data, new AppError());
+                } else {
+                    getMonthwiseEventsManagerListener.onCompletion(data, error);
                 }
-                getMonthwiseEventsManagerListener.onCompletion(eventList, error);
             }
         });
     }
@@ -59,24 +61,25 @@ public class EventManager {
 
         EventWebService.getSharedInstance().getCalendarEvents(requestObject, new EventWebService.GetMonthwiseEventsServiceListener() {
             @Override
-            public void onCompletion(List<CalendarMonthlyListData> eventList, AppError error) {
+            public void onCompletion(EventData data, AppError error) {
                 if (error.getErrorCode() == AppError.NO_ERROR) {
-                    getMonthwiseEventsManagerListener.onCompletion(eventList, new AppError());
+                    getMonthwiseEventsManagerListener.onCompletion(data, new AppError());
+                }else {
+                    getMonthwiseEventsManagerListener.onCompletion(data, error);
                 }
-                getMonthwiseEventsManagerListener.onCompletion(eventList, error);
             }
         });
     }
 
-    public void getEventCategory(final GetMonthwiseEventsManagerListener getMonthwiseEventsManagerListener){
-        EventWebService.getSharedInstance().getAllEventCategory(new EventWebService.GetMonthwiseEventsServiceListener() {
+    public void getEventCategory(final GetEventsCategoryManagerListener getEventsCategoryManagerListener){
+        EventWebService.getSharedInstance().getAllEventCategory(new EventWebService.GetEventsCategoryServiceListener() {
             @Override
-            public void onCompletion(List<CalendarMonthlyListData> eventList, AppError error) {
-                //TODO: decide EventCategory data and create a model for same
-                if (error.getErrorCode() == AppError.NO_ERROR) {
-                    getMonthwiseEventsManagerListener.onCompletion(eventList, new AppError());
+            public void onCompletion(List<EventCategory> eventCategoryList, AppError error) {
+                if (error.getErrorCode() == AppError.NO_ERROR && eventCategoryList != null) {
+                    getEventsCategoryManagerListener.onCompletion(eventCategoryList, new AppError());
+                }else {
+                    getEventsCategoryManagerListener.onCompletion(null, error);
                 }
-                getMonthwiseEventsManagerListener.onCompletion(eventList, error);
             }
         });
     }
@@ -91,6 +94,10 @@ public class EventManager {
     }
 
     public interface GetMonthwiseEventsManagerListener{
-        public void onCompletion(List<CalendarMonthlyListData> eventsList, AppError error);
+        public void onCompletion(EventData data, AppError error);
+    }
+
+    public interface GetEventsCategoryManagerListener{
+        public void onCompletion(List<EventCategory> eventCategoryList, AppError error);
     }
 }

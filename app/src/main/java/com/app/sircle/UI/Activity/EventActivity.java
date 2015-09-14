@@ -17,8 +17,11 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.app.sircle.Manager.EventManager;
 import com.app.sircle.R;
+import com.app.sircle.UI.Model.CalendarMonthlyListData;
 import com.app.sircle.UI.Model.NotificationGroups;
+import com.app.sircle.Utility.AppError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,19 +30,16 @@ public class EventActivity extends ActionBarActivity {
 
     AlertDialog alert;
     Button selectCategoryButton;
-
-
     private ListView addListView;
     private List<NotificationGroups> notificationGroupList = new ArrayList<NotificationGroups>();
     private List<String> groupNames = new ArrayList<String>();
+    private List<String> eventCategory = new ArrayList<>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
-
-
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -64,12 +64,6 @@ public class EventActivity extends ActionBarActivity {
                 return false;
             }
         });
-
-
-
-
-
-
 
 
         selectCategoryButton = (Button) findViewById(R.id.selectCategoryButton);
@@ -152,6 +146,13 @@ public class EventActivity extends ActionBarActivity {
 
     public void populateDummyData() {
 
+        // get event category
+        EventManager.getSharedInstance().getEventCategory(new EventManager.GetMonthwiseEventsManagerListener() {
+            @Override
+            public void onCompletion(List<CalendarMonthlyListData> eventsList, AppError error) {
+
+            }
+        });
         NotificationGroups n1 = new NotificationGroups();
         n1.setName("Group 1");
 
