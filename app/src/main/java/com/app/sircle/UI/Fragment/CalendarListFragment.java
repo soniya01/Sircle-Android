@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.app.sircle.Manager.EventManager;
 import com.app.sircle.R;
@@ -16,9 +17,11 @@ import com.app.sircle.UI.Adapter.CalendarMonthListAdapter;
 import com.app.sircle.UI.Model.CalendarMonthlyListData;
 import com.app.sircle.UI.Model.Event;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.Utility.Constants;
 import com.app.sircle.WebService.EventData;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -146,16 +149,30 @@ public class CalendarListFragment extends Fragment {
         calendarmonthlyData.setEventTitle("PDF SAMPLE");
         calendarmonthlyData.setEventDate("Wednesday 27 May 2015");
         calendarmonthlyData.setEventTime("11:00");
+        HashMap map = new HashMap();
+        map.put("regId", Constants.GCM_REG_ID);
+        map.put("page",1);
+        map.put("groupId",1);
 
-        EventManager.getSharedInstance().getAllEvents(null, new EventManager.GetMonthwiseEventsManagerListener() {
+        EventManager.getSharedInstance().getAllEvents(map, new EventManager.GetMonthwiseEventsManagerListener() {
             @Override
             public void onCompletion(EventData data, AppError error) {
-                if (error == null && data != null) {
-                    calendarMonthList.addAll(data.getEvents());
-                    calendarMonthListViewAdapter = new CalendarMonthListAdapter(getActivity(), calendarMonthList);
-                    calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
+                if (error.getErrorCode() == 0 && data != null) {
+                    if (data.getEvents().size() > 0){
+                        if (calendarMonthList.size() > 0){
+                            calendarMonthList.clear();
+                            calendarMonthList.addAll(data.getEvents());
+                            calendarMonthListViewAdapter.notifyDataSetChanged();
+
+                        }else {
+                            calendarMonthList.addAll(data.getEvents());
+                            calendarMonthListViewAdapter = new CalendarMonthListAdapter(getActivity(), calendarMonthList);
+                            calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
+                        }
+                    }
                 } else {
-                    calendarMonthListViewAdapter.notifyDataSetChanged();
+                    Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                    //calendarMonthListViewAdapter.notifyDataSetChanged();
                 }
             }
         });

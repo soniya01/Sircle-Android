@@ -92,6 +92,9 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
                         if (responseClass != LoginResponse.class) {
                             request.addHeader("Authorization", LoginManager.accessToken);
+                            for (String key : params.keySet()){
+                                request.addQueryParam(key, params.get(key));
+                            }
                         }
                     }
                 })
@@ -144,7 +147,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                 break;
 
             case Constants.NOTIFICATION_GET_ALL_GROUPS:
-                postWebservice.postWithRegId(Constants.GCM_REG_ID, new Callback<JsonElement>() {
+                postWebservice.post(requestObject, new Callback<JsonElement>() {
                     @Override
                     public void success(JsonElement jsonElement, Response response) {
 
@@ -286,11 +289,17 @@ public class RetrofitImplementation implements WebServiceProtocol{
 //        okHttpClient.setConnectTimeout(60, TimeUnit.SECONDS);
 
         RestAdapter restAdapter = new RestAdapter.Builder()
-                .setEndpoint(this.baseURL + this.generator.subUrl)
+                .setEndpoint(this.baseURL + url)
                 .setRequestInterceptor(new RequestInterceptor() {
                     @Override
                     public void intercept(RequestFacade request) {
                         request.addHeader("Authorization", LoginManager.accessToken);
+                        if (params != null){
+                            for (String key : params.keySet()){
+                                request.addQueryParam(key, String.valueOf(params.get(key)));
+                            }
+                        }
+
                     }
                 })
                 .setConverter(new GsonCustomConverter(gson))
@@ -396,7 +405,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
         this.generator = new UrlGenerator(params, url);
         RestAdapter restAdapter = new RestAdapter.Builder()
-                .setEndpoint(this.baseURL + this.generator.subUrl )
+                .setEndpoint(this.baseURL + this.generator.subUrl)
                 .setRequestInterceptor(new RequestInterceptor() {
                     @Override
                     public void intercept(RequestFacade request) {
@@ -452,6 +461,9 @@ public class RetrofitImplementation implements WebServiceProtocol{
         @FormUrlEncoded
         @POST("/")
         void postWithRegIdAndGrpId(@Field("regId") String regId, @Field("val") String subscribeVal, @Field("groupId") String groupId, Callback<JsonElement> callback);
+
+        @POST("/")
+        void post(@Body Object request, Callback<JsonElement> callback);
 
         @GET("/")
         void get(@QueryMap HashMap<String, String> params, Callback<JsonElement> callback);

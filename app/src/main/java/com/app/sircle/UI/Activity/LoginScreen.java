@@ -81,11 +81,11 @@ public class LoginScreen extends Activity {
                     LoginManager.getSharedInstance().login(loginMap, new LoginManager.LoginManagerListener() {
                         @Override
                         public void onCompletion(LoginResponse response, AppError error) {
+                            ringProgressDialog.dismiss();
                             if (error.getErrorCode() == 0) {
                                 // give access to the app features
                                 if (response != null){
                                     sessionExpiryDate = new Date();
-
                                     LoginManager.accessToken = response.getUserData().getOauth().getAccessToken();
                                     editor.putString(Constants.LOGIN_USERNAME_PREFS_KEY, response.getUserData().getOauth().getAccessToken());
                                     editor.putString(Constants.LOGIN_PASSWORD_PREFS_KEY, passwordEditText.getText().toString());
@@ -97,8 +97,8 @@ public class LoginScreen extends Activity {
                             }else {
                                 usernameField.setText("");
                                 passwordEditText.setText("");
-                                ringProgressDialog.dismiss();
                                 Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+
                             }
                         }
                     });

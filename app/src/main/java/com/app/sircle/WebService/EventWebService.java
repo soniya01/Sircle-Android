@@ -65,7 +65,7 @@ public class EventWebService {
     }
 
     public void getCalendarEvents(HashMap object, final GetMonthwiseEventsServiceListener getMonthwiseEventsServiceListener){
-        retrofitImplementation.executeGetWithURL(Constants.EVENTS_GET_ALL_EVENTS_API_PATH, null, object, EventDataReponse.class, new WebServiceListener() {
+        retrofitImplementation.executeGetWithURL(Constants.EVENTS_GET_ALL_EVENTS_API_PATH, object, null, EventDataReponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
                 if (error.getErrorCode() == AppError.NO_ERROR && responseObject != null){

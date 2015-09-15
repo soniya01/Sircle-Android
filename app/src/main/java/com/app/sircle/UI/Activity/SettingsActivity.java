@@ -107,7 +107,7 @@ public class SettingsActivity extends Activity {
 
                         } else {
                             //SettingsActivity.this.notificationGroupList.clear();
-                            //SettingsActivity.this.notificationGroupList.addAll(response.getData());
+                            SettingsActivity.this.notificationGroupList.addAll(response.getData());
                             notificationsGroupAdapter = new NotificationsGroupAdapter(SettingsActivity.this, notificationGroupList);
                             notificationListView.setAdapter(notificationsGroupAdapter);
                         }
