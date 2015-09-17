@@ -85,19 +85,31 @@ public class LoginScreen extends Activity {
                             if (error.getErrorCode() == 0) {
                                 // give access to the app features
                                 if (response != null){
-                                    sessionExpiryDate = new Date();
-                                    LoginManager.accessToken = response.getUserData().getOauth().getAccessToken();
-                                    editor.putString(Constants.LOGIN_USERNAME_PREFS_KEY, response.getUserData().getOauth().getAccessToken());
-                                    editor.putString(Constants.LOGIN_PASSWORD_PREFS_KEY, passwordEditText.getText().toString());
+                                    if (response.getStatus() == 200)
+                                    {
+                                        sessionExpiryDate = new Date();
+                                        LoginManager.accessToken = response.getUserData().getOauth().getAccessToken();//  //getOauth().getAccessToken();
+                                        editor.putString(Constants.LOGIN_USERNAME_PREFS_KEY, response.getUserData().getOauth().getAccessToken());
+                                        editor.putString(Constants.LOGIN_PASSWORD_PREFS_KEY, passwordEditText.getText().toString());
 
+                                        Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                                        Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);
+                                        startActivity(homeIntent);
+                                    }else {
+                                        usernameField.setText("");
+                                        passwordEditText.setText("");
+                                        Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }else {
+                                    usernameField.setText("");
+                                    passwordEditText.setText("");
                                     Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
-                                    Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);
-                                    startActivity(homeIntent);
                                 }
                             }else {
                                 usernameField.setText("");
                                 passwordEditText.setText("");
-                                Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginScreen.this, "Check internet connectivity", Toast.LENGTH_SHORT).show();
 
                             }
                         }

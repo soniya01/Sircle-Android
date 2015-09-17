@@ -103,7 +103,7 @@ public class SettingsActivity extends Activity {
                             SettingsActivity.this.notificationGroupList.addAll(response.getData());
                             notificationsGroupAdapter.notifyDataSetChanged();
                             // update group notifictaion for all groups
-                            updateAllGroup();
+                            //updateAllGroup();
 
                         } else {
                             //SettingsActivity.this.notificationGroupList.clear();

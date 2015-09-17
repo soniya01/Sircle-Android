@@ -76,7 +76,7 @@ public class Notificationservice {
     }
 
     public void updateAllGroups(HashMap object, final  GroupsServiceListener groupsServiceListener){
-        retrofitImplementation.executePostWithURL(Constants.NOTIFICATION_GET_ALL_GROUPS, object, null, GroupResponse.class, new WebServiceListener() {
+        retrofitImplementation.executePostWithURL(Constants.GROUP_UPDATE_ALL_NOTIFICATION, object, null, GroupResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object response, AppError error) {
                 if (response != null) {

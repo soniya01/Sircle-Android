@@ -10,6 +10,8 @@ import com.app.sircle.WebService.LoginResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.okhttp.OkHttpClient;
 
@@ -121,13 +123,23 @@ public class RetrofitImplementation implements WebServiceProtocol{
                                     Collection<Object> data = gson.fromJson(jsonElement, collectionType);
                                     webserviceListener.onCompletion(data, new AppError());
                                 } else {
-                                    object = gson.fromJson(jsonElement, responseClass);
-                                    webserviceListener.onCompletion(object, new AppError());
+                                    // parsing jsonelement if unauthorised
+                                    JsonObject jobject = jsonElement.getAsJsonObject();
+                                    jobject = jobject.getAsJsonObject("data");
+                                    if (jobject == null){
+                                        // responseClass =
+                                        webserviceListener.onCompletion(null, new AppError());
+                                    }else {
+                                        object = gson.fromJson(jsonElement, responseClass);
+                                        webserviceListener.onCompletion(object, new AppError());
+                                    }
+                                    //object = gson.fromJson(jsonElement, responseClass);
+                                    //webserviceListener.onCompletion(object, new AppError());
                                 }
                             }
 
                         }
-                        webserviceListener.onCompletion(null, new AppError());
+                        //webserviceListener.onCompletion(null, new AppError());
                     }
 
                     @Override
@@ -171,7 +183,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                             }
 
                         }
-                        webserviceListener.onCompletion(null, new AppError());
+                       // webserviceListener.onCompletion(null, new AppError());
                     }
 
                     @Override
@@ -216,7 +228,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                             }
 
                         }
-                        webserviceListener.onCompletion(null, new AppError());
+                       // webserviceListener.onCompletion(null, new AppError());
                     }
 
                     @Override
@@ -256,7 +268,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                                 }
                             }
                         }
-                        webserviceListener.onCompletion(null, new AppError());
+                        //webserviceListener.onCompletion(null, new AppError());
                     }
 
                     @Override
@@ -320,11 +332,12 @@ public class RetrofitImplementation implements WebServiceProtocol{
                         Collection<Object> data = gson.fromJson(jsonElement, collectionType);
                         webserviceListener.onCompletion(data, new AppError());
                     }else {
+
                         object = gson.fromJson(jsonElement, responseClass);
                         webserviceListener.onCompletion(object, new AppError());
                     }
                 }
-                webserviceListener.onCompletion(null, new AppError());
+               // webserviceListener.onCompletion(null, new AppError());
             }
 
             @Override
@@ -380,7 +393,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                         webserviceListener.onCompletion(object, new AppError());
                     }
                 }
-                webserviceListener.onCompletion(null, new AppError());
+                //webserviceListener.onCompletion(null, new AppError());
             }
 
             @Override

@@ -77,24 +77,24 @@ public class NotificationsGroupAdapter extends BaseAdapter {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
 
-                int status =  isChecked ? 1 : 0;
-                HashMap map = new HashMap();
-                map.put("regId", Constants.GCM_REG_ID);
-                map.put("val",status);
-                map.put("groupId",notificationsGroupList.get(position).getId());
-                NotificationManager.getSharedInstance().updateGroupNotification(map, new NotificationManager.GroupsManagerListener() {
-                    @Override
-                    public void onCompletion(GroupResponse groupResponse, AppError error) {
-                        if (error == null && groupResponse != null){
-                            if (groupResponse.getData().get(0).getActive() == 1){
-                                viewHolder.checkBox.setChecked(true);
-                            }
-                        }else {
-                            viewHolder.checkBox.setChecked(false);
-                            Toast.makeText(context,groupResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+//                int status =  isChecked ? 1 : 0;
+//                HashMap map = new HashMap();
+//                map.put("regId", Constants.GCM_REG_ID);
+//                map.put("val",String.valueOf(status));
+//                map.put("groupId",notificationsGroupList.get(position).getId());
+//                NotificationManager.getSharedInstance().updateGroupNotification(map, new NotificationManager.GroupsManagerListener() {
+//                    @Override
+//                    public void onCompletion(GroupResponse groupResponse, AppError error) {
+//                        if (error == null && groupResponse != null){
+//                            if (groupResponse.getData().get(0).getActive() == 1){
+//                                viewHolder.checkBox.setChecked(true);
+//                            }
+//                        }else {
+//                            viewHolder.checkBox.setChecked(false);
+//                            Toast.makeText(context,groupResponse.getMessage(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
             }
         });
         return convertView;
