@@ -10,12 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.app.sircle.Manager.EventManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Adapter.CalendarMonthListAdapter;
 import com.app.sircle.UI.Adapter.TermsAdapter;
 import com.app.sircle.UI.Model.CalendarMonthlyListData;
 import com.app.sircle.UI.Model.Terms;
+import com.app.sircle.Utility.AppError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,15 +89,13 @@ public class CalendarTodayFragment extends Fragment {
         View viewFragment = inflater.inflate(R.layout.fragment_calendar_today,
                 null, true);
 
-        populateDummyData();
-
         termsListView = (ListView)viewFragment.findViewById(R.id.fragment_term_list_view);
-        termsListViewAdapter = new TermsAdapter(getActivity(), termsList);
+
+        populateDummyData();
 
         // footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
         // calendarMonthListView.addFooterView(footerView);
 
-        termsListView.setAdapter(termsListViewAdapter);
         termsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -146,14 +147,50 @@ public class CalendarTodayFragment extends Fragment {
     }
 
     public void populateDummyData(){
-        Terms  termsData = new Terms();
 
-        termsData.setTermTitle("Term 1");
-        termsData.setTermStartDate("Wednesday 27 May 2015");
-        termsData.setTermEndDate("Wednesday 27 May 2015");
+        EventManager.getSharedInstance().getAllTerms(null, new EventManager.GetAllTermsManagerListener() {
+            @Override
+            public void onCompletion(List<Terms> termsList, AppError error) {
 
-        termsList.add(termsData);
-        termsList.add(termsData);
+                if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
+                    if (termsList.size() > 0) {
+
+                        if (CalendarTodayFragment.this.termsList.size() > 0) {
+                            CalendarTodayFragment.this.termsList.clear();
+                            CalendarTodayFragment.this.termsList.addAll(termsList);
+                            termsListViewAdapter.notifyDataSetChanged();
+                            // update group notifictaion for all groups
+                            //updateAllGroup();
+
+                        } else {
+                            //SettingsActivity.this.notificationGroupList.clear();
+                            CalendarTodayFragment.this.termsList.addAll(termsList);
+                            termsListViewAdapter = new TermsAdapter(getActivity(), termsList);
+                            termsListView.setAdapter(termsListViewAdapter);
+                        }
+
+                       // Toast.makeText(CalendarTodayFragment.this, "", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), "Sorry no terms data found",Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+                    Toast.makeText(getActivity(), "Error occurred", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+
+
+//        Terms  termsData = new Terms();
+//
+//        termsData.setTermTitle("Term 1");
+//        termsData.setTermStartDate("Wednesday 27 May 2015");
+//        termsData.setTermEndDate("Wednesday 27 May 2015");
+//
+//        termsList.add(termsData);
+//        termsList.add(termsData);
         //termsList.add(termsData);
         //termsList.add(termsData);
         //termsList.add(termsData);

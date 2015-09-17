@@ -24,6 +24,7 @@ import com.app.sircle.UI.Model.AlbumDetails;
 import com.app.sircle.UI.Model.Photo;
 import com.app.sircle.UI.SlidingPane.SlidingPaneInterface;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.WebService.PhotoResponse;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -98,33 +99,35 @@ public class PhotosFragment extends Fragment {
 
         HashMap map = new HashMap();
         map.put("regId", "id");
-        map.put("id", "1");
-        map.put("val", "val");
+        map.put("groupId", "1");
+        map.put("page",1);
 
         PhotoManager.getSharedInstance().getAlbums(map, new PhotoManager.GetAlbumsManagerListener() {
             @Override
-            public void onCompletion(List<Photo> photos, AppError error) {
+            public void onCompletion(PhotoResponse response, AppError error) {
                 progressBar.setVisibility(View.GONE);
-                if (photos != null){
-                    if (photos.size() > 0){
-                        PhotosFragment.this.photos.clear();
-                        PhotosFragment.this.photos.addAll(photos);
-                        if (PhotosFragment.this.photos.size() >0){
-                            photosListViewAdapter.notifyDataSetChanged();
-                        }else {
-                            photosListViewAdapter = new PhotosListViewAdapter(getActivity(), photos);
-                            albumListView.setAdapter(photosListViewAdapter);
-                        }
-                    }
-                }else {
-                    if (photos == null){
-                        Toast.makeText(getActivity(), "Sorry no data available", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
+                if (response != null) {
+                    if (response.getStatus() == 200) {
+                        if (response.getData().getAlbums().size() > 0) {
 
+                            if (PhotosFragment.this.photos.size() > 0) {
+                                PhotosFragment.this.photos.clear();
+                                PhotosFragment.this.photos.addAll(response.getData().getAlbums());
+                                photosListViewAdapter.notifyDataSetChanged();
+                            } else {
+                                PhotosFragment.this.photos.addAll(response.getData().getAlbums());
+                                photosListViewAdapter = new PhotosListViewAdapter(getActivity(), photos);
+                                albumListView.setAdapter(photosListViewAdapter);
+                            }
+                        }
+                    } else {
+                            Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }else {
+                    Toast.makeText(getActivity(), "Check internet connectivity", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

@@ -16,15 +16,21 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.sircle.Manager.EventManager;
+import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
+import com.app.sircle.UI.Adapter.NotificationsGroupAdapter;
 import com.app.sircle.UI.Model.CalendarMonthlyListData;
 import com.app.sircle.UI.Model.EventCategory;
 import com.app.sircle.UI.Model.NotificationGroups;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.Utility.Constants;
+import com.app.sircle.WebService.GroupResponse;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class EventActivity extends ActionBarActivity {
@@ -35,6 +41,8 @@ public class EventActivity extends ActionBarActivity {
     private List<NotificationGroups> notificationGroupList = new ArrayList<NotificationGroups>();
     private List<String> groupNames = new ArrayList<String>();
     private List<String> eventCategory = new ArrayList<>();
+    private NotificationsGroupAdapter notificationsGroupAdapter;
+    private ListView categoryListView;
 
 
     @Override
@@ -51,8 +59,7 @@ public class EventActivity extends ActionBarActivity {
 
         populateDummyData();
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, android.R.id.text1, groupNames);
-        addListView.setAdapter(arrayAdapter);
+
         addListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
 
@@ -72,14 +79,14 @@ public class EventActivity extends ActionBarActivity {
         selectCategoryButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                String names[] = {"Arts", "Sports", "Excursion", "Academics", "Performance", "Other"};
+                //String names[] = {"Arts", "Sports", "Excursion", "Academics", "Performance", "Other"};
 
                 final AlertDialog.Builder alertDialog = new AlertDialog.Builder(EventActivity.this);
                 LayoutInflater inflater = getLayoutInflater();
                 View convertView = (View) inflater.inflate(R.layout.dialog_list_view, null);
                 alertDialog.setView(convertView);
                 alertDialog.setTitle("Select Category");
-                ListView lv = (ListView) convertView.findViewById(R.id.listView1);
+                categoryListView = (ListView) convertView.findViewById(R.id.listView1);
                 // ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, names);
                 // lv.setAdapter(adapter);
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
@@ -94,13 +101,13 @@ public class EventActivity extends ActionBarActivity {
                     }
                 };
 
-                lv.setAdapter(adapter);
+                categoryListView.setAdapter(adapter);
                 //  alertDialog.show();
 
                 alert = alertDialog.show();
 
 
-                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                categoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
 
                     public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -164,17 +171,56 @@ public class EventActivity extends ActionBarActivity {
                 //EventActivity.this.eventCategory.addAll(eventCategoryList);
             }
         });
-        NotificationGroups n1 = new NotificationGroups();
-        n1.setName("Group 1");
 
-        notificationGroupList.add(n1);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("regId", Constants.GCM_REG_ID);
+        NotificationManager.getSharedInstance().getAllGroups(map, new NotificationManager.GroupsManagerListener() {
+            @Override
+            public void onCompletion(GroupResponse response, AppError error) {
 
-        groupNames.add("All");
-        groupNames.add(notificationGroupList.get(0).getName());
-        groupNames.add("Group 2");
-        groupNames.add(notificationGroupList.get(0).getName());
-        groupNames.add(notificationGroupList.get(0).getName());
-        groupNames.add(notificationGroupList.get(0).getName());
+                if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
+                    if (response != null) {
+
+                        if (EventActivity.this.notificationGroupList.size() > 0) {
+                            EventActivity.this.notificationGroupList.clear();
+                            EventActivity.this.notificationGroupList.addAll(response.getData());
+                            notificationsGroupAdapter.notifyDataSetChanged();
+                            // update group notifictaion for all groups
+                            //updateAllGroup();
+
+                        } else {
+                            //SettingsActivity.this.notificationGroupList.clear();
+                            EventActivity.this.notificationGroupList.addAll(response.getData());
+                            notificationsGroupAdapter = new NotificationsGroupAdapter(EventActivity.this, notificationGroupList);
+                            addListView.setAdapter(notificationsGroupAdapter);
+
+                        }
+
+                        Toast.makeText(EventActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        //Toast.makeText(SettingsActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+                    Toast.makeText(EventActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+
+
+//        NotificationGroups n1 = new NotificationGroups();
+//        n1.setName("Group 1");
+//
+//        notificationGroupList.add(n1);
+//
+//        groupNames.add("All");
+//        groupNames.add(notificationGroupList.get(0).getName());
+//        groupNames.add("Group 2");
+//        groupNames.add(notificationGroupList.get(0).getName());
+//        groupNames.add(notificationGroupList.get(0).getName());
+//        groupNames.add(notificationGroupList.get(0).getName());
     }
 
 

@@ -62,7 +62,10 @@ public class TermsAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        // viewHolder.videoSourceLabel.setText("Youtube");
+        viewHolder.termsTitleLabel.setText(termsList.get(position).getTermTitle());
+        viewHolder.termsStartDateLabel.setText(termsList.get(position).getTermStartDate());
+        viewHolder.termsEndDateLabel.setText(termsList.get(position).getTermEndDate());
+
         return convertView;
 
     }

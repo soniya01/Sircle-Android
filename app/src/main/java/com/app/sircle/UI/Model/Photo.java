@@ -1,5 +1,7 @@
 package com.app.sircle.UI.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 /**
@@ -7,11 +9,26 @@ import java.util.Date;
  */
 public class Photo {
 
+    @SerializedName("id")
     public int albumID;
+
+    @SerializedName("name")
     public String albumTitle;
+
+    @SerializedName("album_display_name")
+    public String albumDisplayName;
+
+    @SerializedName("filecount")
     public int numberOfPhotos;
+
+    @SerializedName("cover_image")
     public String albumCoverImageURL;
-    public Date publishDate;
+
+    @SerializedName("created_on")
+    public String publishDate;
+
+    @SerializedName("time_string")
+    public String time;
 
     public int getAlbumID() {
         return albumID;
@@ -45,11 +62,27 @@ public class Photo {
         this.albumCoverImageURL = albumCoverImageURL;
     }
 
-    public Date getPublishDate() {
+    public String getPublishDate() {
         return publishDate;
     }
 
-    public void setPublishDate(Date publishDate) {
+    public void setPublishDate(String publishDate) {
         this.publishDate = publishDate;
+    }
+
+    public String getAlbumDisplayName() {
+        return albumDisplayName;
+    }
+
+    public void setAlbumDisplayName(String albumDisplayName) {
+        this.albumDisplayName = albumDisplayName;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

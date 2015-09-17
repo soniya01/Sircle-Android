@@ -3,6 +3,7 @@ package com.app.sircle.Manager;
 import com.app.sircle.UI.Model.AlbumDetails;
 import com.app.sircle.UI.Model.Photo;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.WebService.PhotoResponse;
 import com.app.sircle.WebService.PhotoWebService;
 
 import java.util.ArrayList;
@@ -51,8 +52,8 @@ public class PhotoManager  {
     public void getAlbums(HashMap params, final GetAlbumsManagerListener albumsManagerListener){
         PhotoWebService.getSharedInstance().getAlbums(params, new PhotoWebService.GetAlbumWebServiceListener() {
             @Override
-            public void onCompletion(List<Photo> photos, AppError error) {
-                albumsManagerListener.onCompletion(photos, new AppError());
+            public void onCompletion(PhotoResponse response, AppError error) {
+                albumsManagerListener.onCompletion(response, new AppError());
             }
         });
     }
@@ -71,7 +72,7 @@ public class PhotoManager  {
     }
 
     public interface GetAlbumsManagerListener{
-        public void onCompletion(List<Photo> photos, AppError error);
+        public void onCompletion(PhotoResponse response, AppError error);
     }
 
 

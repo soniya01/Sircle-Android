@@ -1,18 +1,17 @@
 package com.app.sircle.WebService;
 
-import com.app.sircle.UI.Model.Photo;
+import com.app.sircle.UI.Model.Links;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by soniya on 24/08/15.
+ * Created by soniya on 18/09/15.
  */
-public class PhotoResponse {
-
+public class LinksResponse {
     public int status;
     public String message;
-    public PhotoResponseData data;
+    public LinksResponseData data ;
 
     public int getStatus() {
         return status;
@@ -30,11 +29,11 @@ public class PhotoResponse {
         this.message = message;
     }
 
-    public PhotoResponseData getData() {
+    public LinksResponseData getData() {
         return data;
     }
 
-    public void setData(PhotoResponseData data) {
+    public void setData(LinksResponseData data) {
         this.data = data;
     }
 }

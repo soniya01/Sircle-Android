@@ -62,11 +62,10 @@ public class PhotoWebService {
         retrofitImplementation.executeGetWithURL(Constants.PHOTOS_GET_ALBUM_API_PATH, object, null, PhotoResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
-                List<Photo> photo = (ArrayList<Photo>) responseObject;
                 if (error.getErrorCode() == AppError.NO_ERROR || error == null) {
-                    getAlbumWebServiceListener.onCompletion(photo, new AppError());
+                    getAlbumWebServiceListener.onCompletion((PhotoResponse)responseObject, new AppError());
                 } else {
-                    getAlbumWebServiceListener.onCompletion(photo, error);
+                    getAlbumWebServiceListener.onCompletion((PhotoResponse)responseObject, error);
                 }
             }
         });
@@ -81,7 +80,7 @@ public class PhotoWebService {
     }
 
     public interface GetAlbumWebServiceListener{
-        public void onCompletion(List<Photo> photos, AppError error);
+        public void onCompletion(PhotoResponse photoResponse, AppError error);
     }
 
     public interface GetPhotoWebServiceListener{

@@ -18,6 +18,7 @@ import com.app.sircle.UI.Activity.AddLinksActivity;
 import com.app.sircle.UI.Adapter.LinksListViewAdapter;
 import com.app.sircle.UI.Model.Links;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.WebService.LinksResponseData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,25 +78,28 @@ public class LinksFragment extends Fragment {
 
         HashMap object = new HashMap();
         object.put("regId", "id");
-        object.put("groupId",1);
-        object.put("val", "val");
+        object.put("groupId","1");
+        object.put("page", 1);
 
         LinksManager.getSharedInstance().getAllLinks(object, new LinksManager.LinksManagerListener() {
             @Override
-            public void onCompletion(List<Links> linksList, AppError error) {
+            public void onCompletion(LinksResponseData responseData, AppError error) {
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR){
-                    if (linksList.size() > 0){
-                        if (LinksFragment.this.linksList.size() == 0){
-                            LinksFragment.this.linksList = linksList;
-                            linksListViewAdapter = new LinksListViewAdapter( LinksFragment.this.linksList, getActivity());
-                            linksListView.setAdapter(linksListViewAdapter);
+                    if (responseData != null){
+                        if (responseData.getLinks().size() > 0){
+                            if (LinksFragment.this.linksList.size() == 0){
+                                LinksFragment.this.linksList = linksList;
+                                linksListViewAdapter = new LinksListViewAdapter( LinksFragment.this.linksList, getActivity());
+                                linksListView.setAdapter(linksListViewAdapter);
+                            }else {
+                                LinksFragment.this.linksList.addAll(responseData.getLinks());
+                                linksListViewAdapter.notifyDataSetChanged();
+                            }
                         }else {
-                            LinksFragment.this.linksList = linksList;
-                            linksListViewAdapter.notifyDataSetChanged();
+                            Toast.makeText(getActivity(), "Sorry no data available",Toast.LENGTH_SHORT).show();
                         }
-                    }else {
-                        Toast.makeText(getActivity(), "Sorry no data available",Toast.LENGTH_SHORT).show();
                     }
+
                 }else {
                     Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection",Toast.LENGTH_SHORT).show();
                 }

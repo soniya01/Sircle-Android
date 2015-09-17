@@ -1,18 +1,17 @@
 package com.app.sircle.WebService;
 
-import com.app.sircle.UI.Model.Photo;
+import com.app.sircle.UI.Model.Terms;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by soniya on 24/08/15.
+ * Created by soniya on 18/09/15.
  */
-public class PhotoResponse {
-
+public class TermsResponse {
     public int status;
     public String message;
-    public PhotoResponseData data;
+    public List<Terms> data = new ArrayList<Terms>();
 
     public int getStatus() {
         return status;
@@ -30,11 +29,11 @@ public class PhotoResponse {
         this.message = message;
     }
 
-    public PhotoResponseData getData() {
+    public List<Terms> getData() {
         return data;
     }
 
-    public void setData(PhotoResponseData data) {
+    public void setData(List<Terms> data) {
         this.data = data;
     }
 }

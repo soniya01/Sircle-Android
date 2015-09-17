@@ -10,6 +10,31 @@ import java.util.List;
  */
 public class DocumentsResponse {
 
-    public int code;
-    public List<NewsLetter> message = new ArrayList<NewsLetter>();
+    public int status;
+    public String message;
+    public List<NewsLetter> data = new ArrayList<NewsLetter>();
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public List<NewsLetter> getData() {
+        return data;
+    }
+
+    public void setData(List<NewsLetter> data) {
+        this.data = data;
+    }
 }

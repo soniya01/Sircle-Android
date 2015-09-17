@@ -36,7 +36,7 @@ public class DocumentService {
         retrofitImplementation.executeGetWithURL(Constants.NEWSLETTERS_GET_API_PATH, null, object, DocumentsResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
-                List<NewsLetter> newsLetters = ((DocumentsResponse) responseObject).message;
+                List<NewsLetter> newsLetters = ((DocumentsResponse) responseObject).getData();
                 getNewsWebServiceListener.onCompletion(newsLetters, error);
             }
         });

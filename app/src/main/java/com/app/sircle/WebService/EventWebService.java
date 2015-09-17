@@ -35,10 +35,10 @@ public class EventWebService {
 
     public void getAllTerms(HashMap<String, String> map, final GetAllTermsServiceListener getAllTermsServiceListener){
 
-        retrofitImplementation.executeGetWithURL(Constants.EVENTS_GET_ALL_TERMS_API_PATH, map, null, Terms.class, new WebServiceListener() {
+        retrofitImplementation.executeGetWithURL(Constants.EVENTS_GET_ALL_TERMS_API_PATH, null, null, TermsResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
-                termsList = (ArrayList<Terms>) responseObject;
+                termsList = (ArrayList<Terms>) ((TermsResponse)responseObject).getData();
                 if (error.getErrorCode() == AppError.NO_ERROR){
                     getAllTermsServiceListener.onCompletion(termsList, new AppError());
                 }else {
