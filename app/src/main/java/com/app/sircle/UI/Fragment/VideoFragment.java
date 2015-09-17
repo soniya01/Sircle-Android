@@ -52,8 +52,6 @@ public class VideoFragment extends Fragment {
 
         footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
         videoListView.addFooterView(footerView);
-        videoListViewAdapter = new VideoListViewAdapter(getActivity(), videoList);
-        videoListView.setAdapter(videoListViewAdapter);
 
         populateDummyData();
 
@@ -92,7 +90,6 @@ public class VideoFragment extends Fragment {
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                     if (response != null){
                         if (response.getData().getVideos().size() > 0){
-                            if (videoList.size() > 0) {
                                 if (VideoFragment.this.videoList.size() == 0) {
                                     VideoFragment.this.videoList.addAll(response.getData().getVideos());
                                     videoListViewAdapter = new VideoListViewAdapter(getActivity(), VideoFragment.this.videoList);
@@ -102,11 +99,10 @@ public class VideoFragment extends Fragment {
                                     VideoFragment.this.videoList.addAll(response.getData().getVideos());
                                     videoListViewAdapter.notifyDataSetChanged();
                                 }
-                            } else {
-                                Toast.makeText(getActivity(), "Sorry no data available", Toast.LENGTH_SHORT).show();
-                            }
 
-                        }
+                        } else {
+                        Toast.makeText(getActivity(), "Sorry no data available", Toast.LENGTH_SHORT).show();
+                    }
                     }
                     else {
                         Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection", Toast.LENGTH_SHORT).show();

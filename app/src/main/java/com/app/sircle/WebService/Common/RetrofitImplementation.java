@@ -3,10 +3,13 @@ package com.app.sircle.WebService.Common;
 import android.widget.Switch;
 
 import com.app.sircle.Manager.LoginManager;
+import com.app.sircle.UI.Model.NotificationGroups;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.Utility.Common;
 import com.app.sircle.Utility.Constants;
+import com.app.sircle.WebService.GroupResponse;
 import com.app.sircle.WebService.LoginResponse;
+import com.app.sircle.WebService.TermsResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -94,7 +97,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
                         if (responseClass != LoginResponse.class) {
                             request.addHeader("Authorization", LoginManager.accessToken);
-                            for (String key : params.keySet()){
+                            for (String key : params.keySet()) {
                                 request.addQueryParam(key, params.get(key));
                             }
                         }
@@ -332,19 +335,21 @@ public class RetrofitImplementation implements WebServiceProtocol{
                         Collection<Object> data = gson.fromJson(jsonElement, collectionType);
                         webserviceListener.onCompletion(data, new AppError());
                     }else {
-
-                        JsonObject jobject = jsonElement.getAsJsonObject();
-                        jobject = jobject.getAsJsonObject("data");
-                        if (jobject == null){
-                            // responseClass =
-                            webserviceListener.onCompletion(null, new AppError());
-                        }else {
+                        if (responseClass == GroupResponse.class || responseClass == TermsResponse.class){
                             object = gson.fromJson(jsonElement, responseClass);
                             webserviceListener.onCompletion(object, new AppError());
+                        }else {
+                            JsonObject jobject = jsonElement.getAsJsonObject();
+                            try {
+                                jobject = jobject.getAsJsonObject("data");
+                                object = gson.fromJson(jsonElement, responseClass);
+                                webserviceListener.onCompletion(object, new AppError());
+                            }catch (Exception e){
+                                webserviceListener.onCompletion(null, new AppError());
+                            }
+
                         }
 
-                        //object = gson.fromJson(jsonElement, responseClass);
-                        //webserviceListener.onCompletion(object, new AppError());
                     }
                 }
                // webserviceListener.onCompletion(null, new AppError());

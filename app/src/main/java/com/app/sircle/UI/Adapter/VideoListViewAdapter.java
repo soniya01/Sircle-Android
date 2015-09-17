@@ -55,16 +55,20 @@ public class VideoListViewAdapter extends BaseAdapter {
                     parent, false);
             viewHolder.videoImageView = (ImageView)convertView.findViewById(R.id.fragment_video_image_view);
             viewHolder.videoSourceLabel = (TextView)convertView.findViewById(R.id.fragment_video_source_label);
+            viewHolder.videoDate = (TextView) convertView.findViewById(R.id.links_row_publish_label_day);
+            viewHolder.videoTime = (TextView) convertView.findViewById(R.id.links_row_publish_label_time);
 
             convertView.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        String videoUrl = "https://www.youtube.com/watch?v=cdgQpa1pUUE";
+        String videoUrl = videoList.get(position).getVideoEmbedURL();//"https://www.youtube.com/watch?v=cdgQpa1pUUE";
 
         String videoThumbnailUrl = extractYoutubeThumbnail(videoUrl);
-        viewHolder.videoSourceLabel.setText("Youtube");
+        viewHolder.videoSourceLabel.setText(videoList.get(position).getName());
+        viewHolder.videoDate.setText(videoList.get(position).getPublishDate());
+        viewHolder.videoTime.setText(videoList.get(position).getTime());
 
         Picasso.with(context)
                 .load(videoThumbnailUrl)
@@ -105,5 +109,6 @@ public class VideoListViewAdapter extends BaseAdapter {
 
         private ImageView videoImageView;
         private TextView videoSourceLabel;
+        private TextView videoDate, videoTime;
     }
 }
