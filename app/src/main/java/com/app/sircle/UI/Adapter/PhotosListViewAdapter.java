@@ -56,6 +56,8 @@ public class PhotosListViewAdapter extends BaseAdapter {
             viewHolder.albumImageView = (ImageView) convertView.findViewById(R.id.photos_row_album_image);
             viewHolder.albumLabelName = (TextView) convertView.findViewById(R.id.notification_row_title_label_name);
             viewHolder.imagesCountLabel = (TextView) convertView.findViewById(R.id.notification_row_desc_label);
+            viewHolder.albumDate = (TextView) convertView.findViewById(R.id.links_row_publish_label_day);
+            viewHolder.albumTime = (TextView) convertView.findViewById(R.id.links_row_publish_label_time);
 
             convertView.setTag(viewHolder);
         } else {
@@ -78,6 +80,8 @@ public class PhotosListViewAdapter extends BaseAdapter {
 
         viewHolder.imagesCountLabel.setText(String.valueOf(photoList.get(position).numberOfPhotos));
         viewHolder.albumLabelName.setText(photoList.get(position).albumTitle);
+        viewHolder.albumDate.setText(photoList.get(position).getPublishDate());
+        viewHolder.albumTime.setText(photoList.get(position).getTime());
 
         return convertView;
     }
@@ -86,5 +90,6 @@ public class PhotosListViewAdapter extends BaseAdapter {
 
         private ImageView albumImageView;
         private TextView albumLabelName, imagesCountLabel;
+        private TextView albumDate, albumTime;
     }
 }

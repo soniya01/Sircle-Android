@@ -333,8 +333,18 @@ public class RetrofitImplementation implements WebServiceProtocol{
                         webserviceListener.onCompletion(data, new AppError());
                     }else {
 
-                        object = gson.fromJson(jsonElement, responseClass);
-                        webserviceListener.onCompletion(object, new AppError());
+                        JsonObject jobject = jsonElement.getAsJsonObject();
+                        jobject = jobject.getAsJsonObject("data");
+                        if (jobject == null){
+                            // responseClass =
+                            webserviceListener.onCompletion(null, new AppError());
+                        }else {
+                            object = gson.fromJson(jsonElement, responseClass);
+                            webserviceListener.onCompletion(object, new AppError());
+                        }
+
+                        //object = gson.fromJson(jsonElement, responseClass);
+                        //webserviceListener.onCompletion(object, new AppError());
                     }
                 }
                // webserviceListener.onCompletion(null, new AppError());

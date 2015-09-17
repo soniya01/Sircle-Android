@@ -2,6 +2,7 @@ package com.app.sircle.Manager;
 
 import com.app.sircle.UI.Model.Video;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.WebService.VideoResponse;
 import com.app.sircle.WebService.VideoWebService;
 
 import java.util.HashMap;
@@ -28,14 +29,14 @@ public class VideoManager {
     public void getAllVideos(HashMap object, final VideoManagerListener videoManagerListener){
         VideoWebService.getSharedInstance().getAllVideos(object, new VideoWebService.VideoWebServiceListener() {
             @Override
-            public void onCompletion(List<Video> videoList, AppError error) {
-                videoManagerListener.onCompletion(videoList, error);
+            public void onCompletion(VideoResponse response, AppError error) {
+                videoManagerListener.onCompletion(response, error);
             }
         });
     }
 
     public interface VideoManagerListener{
-        public void onCompletion(List<Video> videoList, AppError error);
+        public void onCompletion(VideoResponse response, AppError error);
     }
 
 

@@ -18,6 +18,7 @@ import com.app.sircle.UI.Activity.AddLinksActivity;
 import com.app.sircle.UI.Adapter.LinksListViewAdapter;
 import com.app.sircle.UI.Model.Links;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.WebService.LinksResponse;
 import com.app.sircle.WebService.LinksResponseData;
 
 import java.util.ArrayList;
@@ -83,16 +84,16 @@ public class LinksFragment extends Fragment {
 
         LinksManager.getSharedInstance().getAllLinks(object, new LinksManager.LinksManagerListener() {
             @Override
-            public void onCompletion(LinksResponseData responseData, AppError error) {
+            public void onCompletion(LinksResponse response, AppError error) {
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR){
-                    if (responseData != null){
-                        if (responseData.getLinks().size() > 0){
+                    if (response != null){
+                        if (response.getData().getLinks().size() > 0){
                             if (LinksFragment.this.linksList.size() == 0){
                                 LinksFragment.this.linksList = linksList;
                                 linksListViewAdapter = new LinksListViewAdapter( LinksFragment.this.linksList, getActivity());
                                 linksListView.setAdapter(linksListViewAdapter);
                             }else {
-                                LinksFragment.this.linksList.addAll(responseData.getLinks());
+                                LinksFragment.this.linksList.addAll(response.getData().getLinks());
                                 linksListViewAdapter.notifyDataSetChanged();
                             }
                         }else {

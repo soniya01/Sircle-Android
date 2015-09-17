@@ -34,13 +34,13 @@ public class VideoWebService {
         retrofitImplementation.executeGetWithURL(Constants.VIDEOS_GET_ALL_API, object, null, Video.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
-                List<Video> videoList = (ArrayList<Video>) responseObject;
-                videoWebServiceListener.onCompletion(videoList, error);
+                //List<Video> videoList = (ArrayList<Video>) responseObject;
+                videoWebServiceListener.onCompletion((VideoResponse)responseObject, error);
             }
         });
     }
 
     public interface VideoWebServiceListener{
-        public void onCompletion(List<Video> videoList, AppError error);
+        public void onCompletion(VideoResponse response, AppError error);
     }
 }

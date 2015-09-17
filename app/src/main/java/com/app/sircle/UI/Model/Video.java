@@ -1,5 +1,7 @@
 package com.app.sircle.UI.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 /**
@@ -7,18 +9,16 @@ import java.util.Date;
  */
 public class Video {
 
-    public boolean status;
+    public String name;
+
+    @SerializedName("url")
     public String videoEmbedURL;
-    public String videoSource;
-    public Date publishDate;
 
-    public boolean isStatus() {
-        return status;
-    }
+    @SerializedName("time_string")
+    public String time;
 
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
+    @SerializedName("created_on")
+    public String publishDate;
 
     public String getVideoEmbedURL() {
         return videoEmbedURL;
@@ -28,19 +28,28 @@ public class Video {
         this.videoEmbedURL = videoEmbedURL;
     }
 
-    public String getVideoSource() {
-        return videoSource;
+
+    public String getName() {
+        return name;
     }
 
-    public void setVideoSource(String videoSource) {
-        this.videoSource = videoSource;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Date getPublishDate() {
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getPublishDate() {
         return publishDate;
     }
 
-    public void setPublishDate(Date publishDate) {
+    public void setPublishDate(String publishDate) {
         this.publishDate = publishDate;
     }
 }

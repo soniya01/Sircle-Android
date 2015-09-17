@@ -21,6 +21,7 @@ import com.app.sircle.UI.Model.Video;
 import com.app.sircle.UI.SlidingPane.SlidingPaneInterface;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.Utility.DeveloperKey;
+import com.app.sircle.WebService.VideoResponse;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubeStandalonePlayer;
 
@@ -83,27 +84,34 @@ public class VideoFragment extends Fragment {
         HashMap object = new HashMap();
         object.put("regId", "id");
         object.put("groupId",1);
-        object.put("val", "val");
+        object.put("page", 1);
 
         VideoManager.getSharedInstance().getAllVideos(object, new VideoManager.VideoManagerListener() {
             @Override
-            public void onCompletion(List<Video> videoList, AppError error) {
-                if (error == null || error.getErrorCode() == AppError.NO_ERROR){
-                    if (videoList.size() > 0){
-                        if (VideoFragment.this.videoList.size() == 0){
-                            VideoFragment.this.videoList = videoList;
-                            videoListViewAdapter = new VideoListViewAdapter(getActivity(), VideoFragment.this.videoList);
-                            videoListView.setAdapter(videoListViewAdapter);
-                        }else {
-                            VideoFragment.this.videoList = videoList;
-                            videoListViewAdapter.notifyDataSetChanged();
+            public void onCompletion(VideoResponse response, AppError error) {
+                if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
+                    if (response != null){
+                        if (response.getData().getVideos().size() > 0){
+                            if (videoList.size() > 0) {
+                                if (VideoFragment.this.videoList.size() == 0) {
+                                    VideoFragment.this.videoList.addAll(response.getData().getVideos());
+                                    videoListViewAdapter = new VideoListViewAdapter(getActivity(), VideoFragment.this.videoList);
+                                    videoListView.setAdapter(videoListViewAdapter);
+                                } else {
+                                    VideoFragment.this.videoList.clear();
+                                    VideoFragment.this.videoList.addAll(response.getData().getVideos());
+                                    videoListViewAdapter.notifyDataSetChanged();
+                                }
+                            } else {
+                                Toast.makeText(getActivity(), "Sorry no data available", Toast.LENGTH_SHORT).show();
+                            }
+
                         }
-                    }else {
-                        Toast.makeText(getActivity(), "Sorry no data available", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection", Toast.LENGTH_SHORT).show();
                     }
 
-                }else {
-                    Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection",Toast.LENGTH_SHORT).show();
                 }
 
             }

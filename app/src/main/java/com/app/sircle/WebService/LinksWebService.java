@@ -35,8 +35,8 @@ public class LinksWebService {
         retrofitImplementation.executeGetWithURL(Constants.LINKS_GET_ALL_API, null, object, LinksResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
-               LinksResponseData linksResponseData = ((LinksResponse)responseObject).getData();
-                getAllLinksServiceListener.onCompletion(linksResponseData, error);
+              // LinksResponseData linksResponseData = ().getData();
+                getAllLinksServiceListener.onCompletion((LinksResponse)responseObject, error);
             }
         });
     }
@@ -47,7 +47,7 @@ public class LinksWebService {
 
     public interface GetAllLinksServiceListener{
 
-        public void onCompletion(LinksResponseData linksResponseData, AppError error);
+        public void onCompletion(LinksResponse response, AppError error);
     }
 
 }

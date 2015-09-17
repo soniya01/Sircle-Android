@@ -2,6 +2,7 @@ package com.app.sircle.Manager;
 
 import com.app.sircle.UI.Model.Links;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.WebService.LinksResponse;
 import com.app.sircle.WebService.LinksResponseData;
 import com.app.sircle.WebService.LinksWebService;
 
@@ -29,14 +30,14 @@ public class LinksManager {
     public void getAllLinks(HashMap object, final LinksManagerListener linksManagerListener){
         LinksWebService.getSharedInstance().getAllLinks(object, new LinksWebService.GetAllLinksServiceListener() {
             @Override
-            public void onCompletion(LinksResponseData linksResponseData, AppError error) {
-                linksManagerListener.onCompletion(linksResponseData, error);
+            public void onCompletion(LinksResponse response, AppError error) {
+                linksManagerListener.onCompletion(response, error);
             }
         });
     }
 
     public interface LinksManagerListener{
-        public void onCompletion(LinksResponseData linksResponseData, AppError error);
+        public void onCompletion(LinksResponse response, AppError error);
     }
 
     public interface AddLinksManagerListener{
