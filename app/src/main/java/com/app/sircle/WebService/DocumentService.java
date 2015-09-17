@@ -33,17 +33,17 @@ public class DocumentService {
     }
 
     public void getAllNewsLetters(HashMap object, final GetNewsWebServiceListener getNewsWebServiceListener){
-        retrofitImplementation.executeGetWithURL(Constants.NEWSLETTERS_GET_API_PATH, null, object, DocumentsResponse.class, new WebServiceListener() {
+        retrofitImplementation.executeGetWithURL(Constants.NEWSLETTERS_GET_API_PATH, object, null, DocumentsResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
-                List<NewsLetter> newsLetters = ((DocumentsResponse) responseObject).getData();
-                getNewsWebServiceListener.onCompletion(newsLetters, error);
+               // List<NewsLetter> newsLetters = ((DocumentsResponse) responseObject).getData();
+                getNewsWebServiceListener.onCompletion(((DocumentsResponse) responseObject), error);
             }
         });
     }
 
     public interface GetNewsWebServiceListener{
-        public void onCompletion(List<NewsLetter> newsLetters, AppError error);
+        public void onCompletion(DocumentsResponse response, AppError error);
     }
 
 }

@@ -63,32 +63,34 @@ public class VideoListViewAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        String videoUrl = videoList.get(position).getVideoEmbedURL();//"https://www.youtube.com/watch?v=cdgQpa1pUUE";
+        String videoUrl = videoList.get(position).getVideoEmbedURL();//.split("embed/");//"https://www.youtube.com/watch?v=cdgQpa1pUUE";
 
         String videoThumbnailUrl = extractYoutubeThumbnail(videoUrl);
         viewHolder.videoSourceLabel.setText(videoList.get(position).getName());
         viewHolder.videoDate.setText(videoList.get(position).getPublishDate());
         viewHolder.videoTime.setText(videoList.get(position).getTime());
 
-        Picasso.with(context)
-                .load(videoThumbnailUrl)
-                .into(viewHolder.videoImageView, new Callback() {
-                    @Override
-                    public void onSuccess() {
+        if (!videoThumbnailUrl.equals("")){
+            Picasso.with(context)
+                    .load(videoThumbnailUrl)
+                    .into(viewHolder.videoImageView, new Callback() {
+                        @Override
+                        public void onSuccess() {
 
-                    }
+                        }
 
-                    @Override
-                    public void onError() {
-                    }
-                });
+                        @Override
+                        public void onError() {
+                        }
+                    });
+        }
 
         return convertView;
     }
 
     public String extractYoutubeThumbnail(String videoUrl){
 
-        String[] urlParts = videoUrl.split("v=");
+        String[] urlParts = videoUrl.split("embed/");
         String[] videoUrlParams = null;
         String videoThumbnailLink="";
         if (urlParts.length == 2){

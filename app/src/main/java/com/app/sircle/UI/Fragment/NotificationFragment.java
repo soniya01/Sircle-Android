@@ -67,13 +67,13 @@ public class NotificationFragment extends Fragment {
         object.put("groupId",1);
         object.put("val", "val");
 
-        NotificationManager.getSharedInstance().getAllNotifications(object, new NotificationManager.NotificationManagerListener() {
-            @Override
-            public void onCompletion(List<Notification> notifications, AppError error) {
-                notificationListviewAdapter = new NotificationListviewAdapter(notifications, getActivity());
-                notificationListView.setAdapter(notificationListviewAdapter);
-            }
-        });
+//        NotificationManager.getSharedInstance().getAllNotifications(object, new NotificationManager.NotificationManagerListener() {
+//            @Override
+//            public void onCompletion(List<Notification> notifications, AppError error) {
+//                notificationListviewAdapter = new NotificationListviewAdapter(notifications, getActivity());
+//                notificationListView.setAdapter(notificationListviewAdapter);
+//            }
+//        });
 
         Notification notification = new Notification();
         notification.setAnnouncementDesc("Heavy Rains");

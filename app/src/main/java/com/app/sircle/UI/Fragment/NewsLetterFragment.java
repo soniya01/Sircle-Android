@@ -19,6 +19,7 @@ import com.app.sircle.UI.Adapter.NewsLettersViewAdapter;
 import com.app.sircle.UI.Model.NewsLetter;
 import com.app.sircle.UI.SlidingPane.SlidingPaneInterface;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.WebService.DocumentsResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -71,10 +72,30 @@ public class NewsLetterFragment extends Fragment {
 
         DocumentManager.getSharedInstance().getAllNewsLetters(object, new DocumentManager.GetNewsManagerListener() {
             @Override
-            public void onCompletion(List<NewsLetter> newsLetters, AppError error) {
+            public void onCompletion(DocumentsResponse response, AppError error) {
 
-                newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), newsLetters);
-                newsLetterListView.setAdapter(newsLetterListViewAdapter);
+                if (error == null || error.getErrorCode() == AppError.NO_ERROR){
+                    if (response != null){
+                        if (response.getData().getLinks().size() > 0){
+                            if (NewsLetterFragment.this.newsLetterList.size() == 0){
+                                NewsLetterFragment.this.newsLetterList.addAll(response.getData().getLinks());
+                                newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), response.getData().getLinks());
+                                newsLetterListView.setAdapter(newsLetterListViewAdapter);
+                            }else {
+                                NewsLetterFragment.this.newsLetterList.clear();
+                                NewsLetterFragment.this.newsLetterList.addAll(response.getData().getLinks());
+                                newsLetterListViewAdapter.notifyDataSetChanged();
+                            }
+                        }else {
+                            Toast.makeText(getActivity(), "Sorry no data available",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                }else {
+                    Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection",Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
 //        NewsLetter newsLetter = new NewsLetter();

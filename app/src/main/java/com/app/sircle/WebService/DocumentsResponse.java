@@ -12,7 +12,7 @@ public class DocumentsResponse {
 
     public int status;
     public String message;
-    public List<NewsLetter> data = new ArrayList<NewsLetter>();
+    public DocumentResponseData data;
 
     public int getStatus() {
         return status;
@@ -30,11 +30,11 @@ public class DocumentsResponse {
         this.message = message;
     }
 
-    public List<NewsLetter> getData() {
+    public DocumentResponseData getData() {
         return data;
     }
 
-    public void setData(List<NewsLetter> data) {
+    public void setData(DocumentResponseData data) {
         this.data = data;
     }
 }

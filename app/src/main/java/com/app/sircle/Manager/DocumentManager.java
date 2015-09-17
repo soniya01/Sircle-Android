@@ -3,6 +3,7 @@ package com.app.sircle.Manager;
 import com.app.sircle.UI.Model.NewsLetter;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.WebService.DocumentService;
+import com.app.sircle.WebService.DocumentsResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,14 +33,14 @@ public class DocumentManager {
     public void getAllNewsLetters(HashMap object, final GetNewsManagerListener getNewsManagerListener){
         DocumentService.getSharedInstance().getAllNewsLetters(object, new DocumentService.GetNewsWebServiceListener() {
             @Override
-            public void onCompletion(List<NewsLetter> newsLetters, AppError error) {
-                getNewsManagerListener.onCompletion(newsLetters, error);
+            public void onCompletion(DocumentsResponse response, AppError error) {
+                getNewsManagerListener.onCompletion(response, error);
             }
         });
     }
 
     public interface GetNewsManagerListener{
-        public void onCompletion(List<NewsLetter> newsLetters, AppError error);
+        public void onCompletion(DocumentsResponse response, AppError error);
     }
 
 }
