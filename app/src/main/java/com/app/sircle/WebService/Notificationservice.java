@@ -68,9 +68,8 @@ public class Notificationservice {
     public void getAllNotifications(HashMap object, final NotificationServiceListener notificationServiceListener){
         retrofitImplementation.executeGetWithURL(Constants.NOTIFICATION_GET_API, object, null, NotificationResponse.class, new WebServiceListener() {
             @Override
-            public void onCompletion(Object responseObject, AppError error) {
-                //List<Notification> notifications = ((NotificationResponse) responseObject).message;
-                notificationServiceListener.onCompletion((NotificationResponse) responseObject, error);
+            public void onCompletion(Object response, AppError error) {
+                notificationServiceListener.onCompletion((NotificationResponse) response, error);
             }
         });
     }
@@ -84,7 +83,7 @@ public class Notificationservice {
                     if (error.getErrorCode() == AppError.NO_ERROR || error == null) {
                         groupsServiceListener.onCompletion((GroupResponse) response, new AppError());
                     }
-                    groupsServiceListener.onCompletion((GroupResponse) response, error);
+                    //groupsServiceListener.onCompletion((GroupResponse) response, error);
                 } else {
                     groupsServiceListener.onCompletion(null, error);
                 }
@@ -109,7 +108,7 @@ public class Notificationservice {
 
 
     public void addNotification(HashMap params, final PostServiceListener postServiceListener){
-        retrofitImplementation.executePostWithURL(Constants.NOTIFICATION_ADD_GROUPS, params, null, PostResponse.class, new WebServiceListener() {
+        retrofitImplementation.executePostWithURL(Constants.NOTIFICATION_ADD_GROUPS, params, params, PostResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
                postServiceListener.onCompletion((PostResponse)responseObject, error);

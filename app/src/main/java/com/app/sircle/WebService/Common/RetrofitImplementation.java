@@ -98,7 +98,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                         if (responseClass != LoginResponse.class) {
                             request.addHeader("Authorization", LoginManager.accessToken);
                             for (String key : params.keySet()) {
-                                request.addQueryParam(key, params.get(key));
+                                request.addEncodedQueryParam(key, params.get(key));
                             }
                         }
                     }
@@ -161,7 +161,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                 });
                 break;
 
-            case Constants.NOTIFICATION_GET_ALL_GROUPS:
+            case Constants.NOTIFICATION_ADD_GROUPS:
                 postWebservice.post(requestObject, new Callback<JsonElement>() {
                     @Override
                     public void success(JsonElement jsonElement, Response response) {

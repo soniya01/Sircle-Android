@@ -97,8 +97,10 @@ public class LinksFragment extends Fragment {
                                 linksListViewAdapter.notifyDataSetChanged();
                             }
                         } else {
-                            Toast.makeText(getActivity(), "Sorry no data available", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                         }
+                    }else {
+                        Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection", Toast.LENGTH_SHORT).show();
                     }
 
                 } else {

@@ -64,10 +64,10 @@ public class LoginScreen extends Activity {
                loginSharedPrefs = LoginScreen.this.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
                 final SharedPreferences.Editor editor = loginSharedPrefs.edit();
 
-                if (!loginSharedPrefs.getString(Constants.LOGIN_USERNAME_PREFS_KEY,"").equals("") || !loginSharedPrefs.getString(Constants.LOGIN_PASSWORD_PREFS_KEY, "").equals("") ){
+                if (LoginManager.accessToken != null){
                     ringProgressDialog.dismiss();
                     Toast.makeText(LoginScreen.this, "User already logged in", Toast.LENGTH_SHORT).show();
-                    Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);
+                    Intent homeIntent = new Intent(LoginScreen.this, BaseActivity.class);
                     startActivity(homeIntent);
 
                 }else {
@@ -89,8 +89,8 @@ public class LoginScreen extends Activity {
                                     {
                                         sessionExpiryDate = new Date();
                                         LoginManager.accessToken = response.getUserData().getOauth().getAccessToken();//  //getOauth().getAccessToken();
-                                        editor.putString(Constants.LOGIN_USERNAME_PREFS_KEY, response.getUserData().getOauth().getAccessToken());
-                                        editor.putString(Constants.LOGIN_PASSWORD_PREFS_KEY, passwordEditText.getText().toString());
+                                        //editor.putString(Constants.LOGIN_USERNAME_PREFS_KEY, response.getUserData().getOauth().getAccessToken());
+                                        //editor.putString(Constants.LOGIN_PASSWORD_PREFS_KEY, passwordEditText.getText().toString());
 
                                         Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                                         Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);

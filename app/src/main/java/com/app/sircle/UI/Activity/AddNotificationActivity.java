@@ -70,14 +70,14 @@ public class AddNotificationActivity extends ActionBarActivity {
                 progressBar.setVisibility(View.VISIBLE);
                 RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
                 layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-                ((LinearLayout)v.getParent()).addView(progressBar, layoutParams);
+                ((LinearLayout)v.getParent().getParent().getParent()).addView(progressBar, layoutParams);
                 if (!desc.getText().toString().trim().equals("") && (title.getText().toString() != null) || !title.getText().toString().trim().equals("")){
                     HashMap params = new HashMap();
                     params.put("subject",title.getText().toString());
                     params.put("msg",desc.getText().toString());
                     params.put("grp","1");
                     // add notification api call
-                    NotificationManager.getSharedInstance().addNotification(null, new NotificationManager.PostManagerListener() {
+                    NotificationManager.getSharedInstance().addNotification(params, new NotificationManager.PostManagerListener() {
                         @Override
                         public void onCompletion(PostResponse postResponse, AppError error) {
                             progressBar.setVisibility(View.GONE);

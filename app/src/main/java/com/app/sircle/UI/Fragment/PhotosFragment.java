@@ -123,26 +123,11 @@ public class PhotosFragment extends Fragment {
                     } else {
                             Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-
-
                 }else {
                     Toast.makeText(getActivity(), "Check internet connectivity", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
-//        Photo photo = new Photo();
-//        photo.setAlbumID(1);
-//        photo.setAlbumTitle("Sports Day");
-//        photo.setAlbumCoverImageURL("http://img.youtube.com/vi/GDFUdMvacI0/0.jpg");
-//        photo.setNumberOfPhotos(5);
-//        photo.setPublishDate(new Date());
-//
-//        photos.add(photo);
-//        photos.add(photo);
-//        photos.add(photo);
-//        photos.add(photo);
-//        photos.add(photo);
 
     }
 
