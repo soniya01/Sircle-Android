@@ -37,15 +37,16 @@
 
             <TextView
                 android:id="@+id/termStartDate"
-                android:layout_alignRight="@+id/termEndDate"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:paddingRight="80dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
                 android:layout_marginRight="20dp"
                 android:maxLines="1"
                 android:text="Start Date"
                 android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="17sp" />
 

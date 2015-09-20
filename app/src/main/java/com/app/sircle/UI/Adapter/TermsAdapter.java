@@ -11,8 +11,11 @@ import com.app.sircle.R;
 import com.app.sircle.UI.Model.CalendarMonthlyListData;
 import com.app.sircle.UI.Model.Terms;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by mosesafonso on 09/08/15.
@@ -63,8 +66,8 @@ public class TermsAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.termsTitleLabel.setText(termsList.get(position).getTermTitle());
-        viewHolder.termsStartDateLabel.setText(termsList.get(position).getTermStartDate());
-        viewHolder.termsEndDateLabel.setText(termsList.get(position).getTermEndDate());
+        viewHolder.termsStartDateLabel.setText(convertDatetoshortformat(termsList.get(position).getTermStartDate().substring(4, 15)));
+         viewHolder.termsEndDateLabel.setText(convertDatetoshortformat(termsList.get(position).getTermEndDate().substring(4,15)));
 
         return convertView;
 
@@ -78,5 +81,23 @@ public class TermsAdapter extends BaseAdapter {
         private TextView termsTitleLabel;
         private TextView termsStartDateLabel;
         private TextView termsEndDateLabel;
+    }
+
+
+    String convertDatetoshortformat(String LongDate)
+    {
+       // String date = "2011/11/12 16:05:06";
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM d yyyy", Locale.US);
+        Date testDate = null;
+        try {
+            testDate = sdf.parse(LongDate);
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+        String shortDate = formatter.format(testDate);
+      System.out.println(".....Date..."+LongDate);
+
+        return shortDate;
     }
 }
