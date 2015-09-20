@@ -96,10 +96,10 @@ public class PhotosFragment extends Fragment {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100,100);
         params.addRule(RelativeLayout.CENTER_IN_PARENT);
         ((RelativeLayout)viewFragment).addView(progressBar, params);
-
+        String[] grpIds = {"1", "2"};
         HashMap map = new HashMap();
         map.put("regId", "id");
-        map.put("groupId", "1");
+        map.put("groupId", "1,2");
         map.put("page",1);
 
         PhotoManager.getSharedInstance().getAlbums(map, new PhotoManager.GetAlbumsManagerListener() {

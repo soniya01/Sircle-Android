@@ -65,12 +65,13 @@ public class NewsLetterFragment extends Fragment {
 
     public void populateDummyData(){
 
-        HashMap object = new HashMap();
-        object.put("regId", "id");
-        object.put("groupId",1);
-        object.put("val", "val");
+        String[] grpIds = {"1", "2"};
+        HashMap map = new HashMap();
+        map.put("regId", "id");
+        map.put("groupId", grpIds);
+        map.put("page", 1);
 
-        DocumentManager.getSharedInstance().getAllNewsLetters(object, new DocumentManager.GetNewsManagerListener() {
+        DocumentManager.getSharedInstance().getAllNewsLetters(map, new DocumentManager.GetNewsManagerListener() {
             @Override
             public void onCompletion(DocumentsResponse response, AppError error) {
 

@@ -33,12 +33,12 @@ public class Constants {
     public static final String PHOTOS_GET_API_PATH ="rest_api/photos/{id1}/format/json";
     public static final String PHOTOS_ADD_PHOTO_TO_ALBUM_API_PATH ="user/uploadImage";
     public static final String PHOTOS_ADD_NEW_LINK_API_PATH ="user/add_links";//"user/add_links/format/json";
-    public static final String PHOTOS_GET_ALBUM_API_PATH ="user/album_group/format/json";
+    public static final String PHOTOS_GET_ALBUM_API_PATH = "user/photos";//"user/album_group/format/json";
 
-    public static final String NEWSLETTERS_GET_API_PATH ="user/newsletter_group/format/json";
-    public static final String DOCUMENTS_GET_API_PATH ="user/docs_group/format/json";
-    public static final String NOTIFICATION_GET_API  ="user/notifications_group/format/json";
-    public static final String LINKS_GET_ALL_API  ="user/links_group/format/json";
+    public static final String NEWSLETTERS_GET_API_PATH = "user/newsletter_group";//"user/newsletter_group/format/json";
+    public static final String DOCUMENTS_GET_API_PATH = "user/docs_group";//"user/docs_group/format/json";
+    public static final String NOTIFICATION_GET_API  = "user/notifications_group";//"user/notifications_group/format/json";
+    public static final String LINKS_GET_ALL_API  = "user/links_group";//"user/links_group/format/json";
     public static final String VIDEOS_GET_ALL_API  = "user/videos_group";//"user/videos_group/format/json";
 
 }
