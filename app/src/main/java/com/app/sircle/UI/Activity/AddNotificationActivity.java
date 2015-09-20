@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -69,7 +70,7 @@ public class AddNotificationActivity extends ActionBarActivity {
                 progressBar.setVisibility(View.VISIBLE);
                 RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
                 layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-                ((RelativeLayout)v.getParent()).addView(progressBar, layoutParams);
+                ((LinearLayout)v.getParent()).addView(progressBar, layoutParams);
                 if (!desc.getText().toString().trim().equals("") && (title.getText().toString() != null) || !title.getText().toString().trim().equals("")){
                     HashMap params = new HashMap();
                     params.put("subject",title.getText().toString());

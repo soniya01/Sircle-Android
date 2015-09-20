@@ -62,8 +62,10 @@ public class NotificationListviewAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.notificationDescLabel.setText(notificationList.get(position).getAnnouncementDesc());
-        viewHolder.notificationTitleLabel.setText(notificationList.get(position).getAnnouncementTitle());
+        viewHolder.notificationDescLabel.setText(notificationList.get(position).getMessage());
+        viewHolder.notificationTitleLabel.setText(notificationList.get(position).getSubject());
+        viewHolder.notificationTimeLabel.setText(notificationList.get(position).getTime());
+        viewHolder.notificationDateLabel.setText(notificationList.get(position).getPublishDate());
 
         return convertView;
     }
