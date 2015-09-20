@@ -1,18 +1,14 @@
 package com.app.sircle.WebService;
 
-import com.app.sircle.UI.Model.Notification;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by soniya on 24/08/15.
+ * Created by soniya on 20/09/15.
  */
-public class NotificationResponse {
-
+public class PostResponse {
     public int status;
     public String message;
-    public NotificationResponseData data;
 
     public int getStatus() {
         return status;
@@ -30,11 +26,4 @@ public class NotificationResponse {
         this.message = message;
     }
 
-    public NotificationResponseData getData() {
-        return data;
-    }
-
-    public void setData(NotificationResponseData data) {
-        this.data = data;
-    }
 }

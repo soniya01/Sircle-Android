@@ -347,9 +347,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                             }catch (Exception e){
                                 webserviceListener.onCompletion(null, new AppError());
                             }
-
                         }
-
                     }
                 }
                // webserviceListener.onCompletion(null, new AppError());

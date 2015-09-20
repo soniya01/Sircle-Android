@@ -9,15 +9,21 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Fragment.NotificationFragment;
 import com.app.sircle.UI.Model.Notification;
 import com.app.sircle.UI.Model.NotificationGroups;
+import com.app.sircle.Utility.AppError;
+import com.app.sircle.WebService.PostResponse;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class AddNotificationActivity extends ActionBarActivity {
@@ -57,14 +63,36 @@ public class AddNotificationActivity extends ActionBarActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!desc.getText().toString().trim().equals("") && (title.getText().toString() != null) || !title.getText().toString().trim().equals("")){
-                    Toast.makeText(AddNotificationActivity.this, "Added new notification", Toast.LENGTH_SHORT).show();
 
-                    Notification notification = new Notification();
-                    notification.setAnnouncementTitle(desc.getText().toString());
-                    notification.setAnnouncementDesc(title.getText().toString());
-                    NotificationFragment.notificationList.add(notification);
-                    finish();
+                final ProgressBar progressBar = new ProgressBar(AddNotificationActivity.this,null,android.R.attr.progressBarStyleLarge);
+                progressBar.setIndeterminate(true);
+                progressBar.setVisibility(View.VISIBLE);
+                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
+                layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+                ((RelativeLayout)v.getParent()).addView(progressBar, layoutParams);
+                if (!desc.getText().toString().trim().equals("") && (title.getText().toString() != null) || !title.getText().toString().trim().equals("")){
+                    HashMap params = new HashMap();
+                    params.put("subject",title.getText().toString());
+                    params.put("msg",desc.getText().toString());
+                    params.put("grp","1");
+                    // add notification api call
+                    NotificationManager.getSharedInstance().addNotification(null, new NotificationManager.PostManagerListener() {
+                        @Override
+                        public void onCompletion(PostResponse postResponse, AppError error) {
+                            progressBar.setVisibility(View.GONE);
+                            if (postResponse != null) {
+                                if (postResponse.getStatus() == 200) {
+                                    Toast.makeText(AddNotificationActivity.this, postResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                    finish();
+                                } else {
+                                    Toast.makeText(AddNotificationActivity.this, postResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(AddNotificationActivity.this, "Check internet connectivity", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
                 }else {
                     desc.setText("");
                     Toast.makeText(AddNotificationActivity.this, "Please enter description", Toast.LENGTH_SHORT).show();

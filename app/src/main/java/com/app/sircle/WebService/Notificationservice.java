@@ -69,8 +69,8 @@ public class Notificationservice {
         retrofitImplementation.executeGetWithURL(Constants.NOTIFICATION_GET_API, object, null, NotificationResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
-                List<Notification> notifications = ((NotificationResponse) responseObject).message;
-                notificationServiceListener.onCompletion(notifications, error);
+                //List<Notification> notifications = ((NotificationResponse) responseObject).message;
+                notificationServiceListener.onCompletion((NotificationResponse) responseObject, error);
             }
         });
     }
@@ -107,12 +107,26 @@ public class Notificationservice {
         });
     }
 
+
+    public void addNotification(HashMap params, final PostServiceListener postServiceListener){
+        retrofitImplementation.executePostWithURL(Constants.NOTIFICATION_ADD_GROUPS, params, null, PostResponse.class, new WebServiceListener() {
+            @Override
+            public void onCompletion(Object responseObject, AppError error) {
+               postServiceListener.onCompletion((PostResponse)responseObject, error);
+            }
+        });
+    }
+
     public interface NotificationServiceListener{
-        public void onCompletion(List<Notification> notificationList, AppError error);
+        public void onCompletion(NotificationResponse response, AppError error);
     }
 
     public interface GroupsServiceListener{
         public void onCompletion(GroupResponse groupResponse, AppError error);
+    }
+
+    public interface PostServiceListener{
+        public void onCompletion(PostResponse postResponse, AppError error);
     }
 
 

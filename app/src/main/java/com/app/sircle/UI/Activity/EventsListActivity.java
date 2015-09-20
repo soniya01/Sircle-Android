@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.app.sircle.Manager.EventManager;
 import com.app.sircle.R;
@@ -14,9 +15,12 @@ import com.app.sircle.UI.Adapter.CalendarMonthListAdapter;
 import com.app.sircle.UI.Model.CalendarMonthlyListData;
 import com.app.sircle.UI.Model.Event;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.Utility.Constants;
 import com.app.sircle.WebService.EventData;
+import com.app.sircle.WebService.EventDataReponse;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class EventsListActivity extends ActionBarActivity {
@@ -26,10 +30,17 @@ public class EventsListActivity extends ActionBarActivity {
     private CalendarMonthListAdapter calendarMonthListViewAdapter;
     private List<Event> calendarMonthList = new ArrayList<Event>();
     private View footerView;
+    private String month="", day="", year="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null){
+            month = getIntent().getStringExtra("month");
+            year = getIntent().getStringExtra("year");
+            day = getIntent().getStringExtra("day");
+        }
         setContentView(R.layout.activity_events_list);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -80,21 +91,37 @@ public class EventsListActivity extends ActionBarActivity {
 
 
     public void populateDummyData(){
-        CalendarMonthlyListData calendarmonthlyData = new CalendarMonthlyListData();
+        HashMap map = new HashMap();
+        map.put("regId", Constants.GCM_REG_ID);
+        map.put("month",month);
+        map.put("year",year);
+        map.put("page", 1);
+        map.put("groupId", 1);
 
-        calendarmonthlyData.setEventTitle("PDF SAMPLE");
-        calendarmonthlyData.setEventDate("Wednesday 27 May 2015");
-        calendarmonthlyData.setEventTime("11:00");
-
-        EventManager.getSharedInstance().getEventsMonthWise(null, new EventManager.GetMonthwiseEventsManagerListener() {
+        EventManager.getSharedInstance().getEventsMonthWise(map, new EventManager.GetMonthwiseEventsManagerListener() {
             @Override
-            public void onCompletion(EventData data, AppError error) {
-                if (error == null && data != null) {
-                    calendarMonthList.addAll(data.getEvents());
-                    calendarMonthListViewAdapter = new CalendarMonthListAdapter(EventsListActivity.this, calendarMonthList);
-                    calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
+            public void onCompletion(EventDataReponse data, AppError error) {
+                if (data != null) {
+                    if (data.getStatus() == 200) {
+                        if (data.getEventData().getEvents().size() > 0) {
+                            if (calendarMonthList.size() > 0) {
+                                calendarMonthList.clear();
+                                calendarMonthList.addAll(data.getEventData().getEvents());
+                                calendarMonthListViewAdapter.notifyDataSetChanged();
+                            } else {
+                                calendarMonthList.addAll(data.getEventData().getEvents());
+                                calendarMonthListViewAdapter = new CalendarMonthListAdapter(EventsListActivity.this, calendarMonthList);
+                                calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
+                            }
+                        } else {
+                            Toast.makeText(EventsListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(EventsListActivity.this, error.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
                 } else {
-                    calendarMonthListViewAdapter.notifyDataSetChanged();
+                    Toast.makeText(EventsListActivity.this, error.getErrorMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

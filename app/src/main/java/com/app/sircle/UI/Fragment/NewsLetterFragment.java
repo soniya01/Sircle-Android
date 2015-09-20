@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.app.sircle.Manager.DocumentManager;
@@ -31,13 +33,13 @@ public class NewsLetterFragment extends Fragment {
     private ListView newsLetterListView;
     private NewsLettersViewAdapter newsLetterListViewAdapter;
     private List<NewsLetter> newsLetterList = new ArrayList<NewsLetter>();
-    private View footerView;
+    private View footerView, viewFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View viewFragment = inflater.inflate(R.layout.fragment_news_letter,
+        viewFragment = inflater.inflate(R.layout.fragment_news_letter,
                 null, true);
         newsLetterListView = (ListView)viewFragment.findViewById(R.id.fragment_news_list_view);
 
@@ -65,6 +67,13 @@ public class NewsLetterFragment extends Fragment {
 
     public void populateDummyData(){
 
+        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
+        progressBar.setIndeterminate(true);
+        progressBar.setVisibility(View.VISIBLE);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
+        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+        ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
+
         String[] grpIds = {"1", "2"};
         HashMap map = new HashMap();
         map.put("regId", "id");
@@ -74,21 +83,25 @@ public class NewsLetterFragment extends Fragment {
         DocumentManager.getSharedInstance().getAllNewsLetters(map, new DocumentManager.GetNewsManagerListener() {
             @Override
             public void onCompletion(DocumentsResponse response, AppError error) {
-
+                progressBar.setVisibility(View.GONE);
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR){
                     if (response != null){
-                        if (response.getData().getLinks().size() > 0){
-                            if (NewsLetterFragment.this.newsLetterList.size() == 0){
-                                NewsLetterFragment.this.newsLetterList.addAll(response.getData().getLinks());
-                                newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), response.getData().getLinks());
-                                newsLetterListView.setAdapter(newsLetterListViewAdapter);
+                        if (response.getStatus() == 200){
+                            if (response.getData().getLinks().size() > 0){
+                                if (NewsLetterFragment.this.newsLetterList.size() == 0){
+                                    NewsLetterFragment.this.newsLetterList.addAll(response.getData().getLinks());
+                                    newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), response.getData().getLinks());
+                                    newsLetterListView.setAdapter(newsLetterListViewAdapter);
+                                }else {
+                                    NewsLetterFragment.this.newsLetterList.clear();
+                                    NewsLetterFragment.this.newsLetterList.addAll(response.getData().getLinks());
+                                    newsLetterListViewAdapter.notifyDataSetChanged();
+                                }
                             }else {
-                                NewsLetterFragment.this.newsLetterList.clear();
-                                NewsLetterFragment.this.newsLetterList.addAll(response.getData().getLinks());
-                                newsLetterListViewAdapter.notifyDataSetChanged();
+                                Toast.makeText(getActivity(), response.getMessage(),Toast.LENGTH_SHORT).show();
                             }
                         }else {
-                            Toast.makeText(getActivity(), "Sorry no data available",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), response.getMessage(),Toast.LENGTH_SHORT).show();
                         }
                     }
 

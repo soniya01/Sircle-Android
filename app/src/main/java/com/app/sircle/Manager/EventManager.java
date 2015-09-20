@@ -4,6 +4,7 @@ import com.app.sircle.UI.Model.EventCategory;
 import com.app.sircle.UI.Model.Terms;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.WebService.EventData;
+import com.app.sircle.WebService.EventDataReponse;
 import com.app.sircle.WebService.EventWebService;
 
 import java.util.ArrayList;
@@ -47,7 +48,7 @@ public class EventManager {
 
         EventWebService.getSharedInstance().getMonthWiseEvents(requestObject, new EventWebService.GetMonthwiseEventsServiceListener() {
             @Override
-            public void onCompletion(EventData data, AppError error) {
+            public void onCompletion(EventDataReponse data, AppError error) {
                 if (error.getErrorCode() == AppError.NO_ERROR) {
                     getMonthwiseEventsManagerListener.onCompletion(data, new AppError());
                 } else {
@@ -61,7 +62,7 @@ public class EventManager {
 
         EventWebService.getSharedInstance().getCalendarEvents(requestObject, new EventWebService.GetMonthwiseEventsServiceListener() {
             @Override
-            public void onCompletion(EventData data, AppError error) {
+            public void onCompletion(EventDataReponse data, AppError error) {
                 if (error.getErrorCode() == AppError.NO_ERROR) {
                     getMonthwiseEventsManagerListener.onCompletion(data, new AppError());
                 }else {
@@ -94,7 +95,7 @@ public class EventManager {
     }
 
     public interface GetMonthwiseEventsManagerListener{
-        public void onCompletion(EventData data, AppError error);
+        public void onCompletion(EventDataReponse data, AppError error);
     }
 
     public interface GetEventsCategoryManagerListener{

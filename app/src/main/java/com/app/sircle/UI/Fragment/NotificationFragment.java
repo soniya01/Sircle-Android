@@ -9,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
@@ -16,6 +19,7 @@ import com.app.sircle.UI.Activity.AddNotificationActivity;
 import com.app.sircle.UI.Adapter.NotificationListviewAdapter;
 import com.app.sircle.UI.Model.Notification;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.WebService.NotificationResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,13 +32,13 @@ public class NotificationFragment extends Fragment {
     private ListView notificationListView;
     private FloatingActionButton floatingActionButton;
     private NotificationListviewAdapter notificationListviewAdapter;
-    private View footerView;
+    private View footerView,viewFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View viewFragment = inflater.inflate(R.layout.fragment_notification, container, false);
+        viewFragment = inflater.inflate(R.layout.fragment_notification, container, false);
 
         notificationListView = (ListView) viewFragment.findViewById(R.id.fragment_notification_listview);
         floatingActionButton = (FloatingActionButton) viewFragment.findViewById(R.id.fab);
@@ -61,29 +65,56 @@ public class NotificationFragment extends Fragment {
     }
 
     public void populateDummyData() {
+        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
+        progressBar.setIndeterminate(true);
+        progressBar.setVisibility(View.VISIBLE);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
+        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+        ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
 
         HashMap object = new HashMap();
         object.put("regId", "id");
         object.put("groupId",1);
         object.put("val", "val");
 
-//        NotificationManager.getSharedInstance().getAllNotifications(object, new NotificationManager.NotificationManagerListener() {
-//            @Override
-//            public void onCompletion(List<Notification> notifications, AppError error) {
-//                notificationListviewAdapter = new NotificationListviewAdapter(notifications, getActivity());
-//                notificationListView.setAdapter(notificationListviewAdapter);
-//            }
-//        });
+        NotificationManager.getSharedInstance().getAllNotifications(object, new NotificationManager.NotificationManagerListener() {
+            @Override
+            public void onCompletion(NotificationResponse data, AppError error) {
+                progressBar.setVisibility(View.GONE);
+                if (data != null) {
+                    if (data.getStatus() == 200){
+                        if (data.getData().getNotifications().size() > 0){
+                            if (notificationList.size() > 0){
+                                notificationList.clear();
+                                notificationList.addAll(data.getData().getNotifications());
+                                notificationListviewAdapter.notifyDataSetChanged();
+                            }else {
+                                notificationList.addAll(data.getData().getNotifications());
+                                notificationListviewAdapter = new NotificationListviewAdapter(notificationList, getActivity());
+                                notificationListView.setAdapter(notificationListviewAdapter);
+                            }
+                        }else {
+                            Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }else {
+                        Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
 
-        Notification notification = new Notification();
-        notification.setAnnouncementDesc("Heavy Rains");
-        notification.setAnnouncementTitle("Due to heavy rains school will be closed today");
+                } else {
+                    Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
-        notificationList.add(notification);
-        notificationList.add(notification);
-        notificationList.add(notification);
-        notificationList.add(notification);
-        notificationList.add(notification);
+//        Notification notification = new Notification();
+//        notification.setAnnouncementDesc("Heavy Rains");
+//        notification.setAnnouncementTitle("Due to heavy rains school will be closed today");
+//
+//        notificationList.add(notification);
+//        notificationList.add(notification);
+//        notificationList.add(notification);
+//        notificationList.add(notification);
+//        notificationList.add(notification);
     }
 
     @Override

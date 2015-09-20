@@ -55,8 +55,8 @@ public class EventWebService {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
                 if (error.getErrorCode() == AppError.NO_ERROR && responseObject != null){
-                    EventData eventData = ((EventDataReponse)responseObject).getEventData();
-                    getMonthwiseEventsServiceListener.onCompletion(eventData, new AppError());
+                   // EventData eventData = ((EventDataReponse)responseObject).getEventData();
+                    getMonthwiseEventsServiceListener.onCompletion((EventDataReponse)responseObject, new AppError());
                 }else {
                     getMonthwiseEventsServiceListener.onCompletion(null, error);
                 }
@@ -69,8 +69,8 @@ public class EventWebService {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
                 if (error.getErrorCode() == AppError.NO_ERROR && responseObject != null){
-                    EventData eventData = ((EventDataReponse)responseObject).getEventData();
-                    getMonthwiseEventsServiceListener.onCompletion(eventData, new AppError());
+                    //EventData eventData = ((EventDataReponse)responseObject).getEventData();
+                    getMonthwiseEventsServiceListener.onCompletion((EventDataReponse)responseObject, new AppError());
                 }else {
                     getMonthwiseEventsServiceListener.onCompletion(null, error);
                 }
@@ -110,7 +110,7 @@ public class EventWebService {
 
     public interface GetMonthwiseEventsServiceListener{
 
-        public void onCompletion(EventData data, AppError error);
+        public void onCompletion(EventDataReponse response, AppError error);
     }
 
     public interface GetEventsCategoryServiceListener{

@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.app.sircle.Manager.VideoManager;
@@ -38,12 +40,12 @@ public class VideoFragment extends Fragment {
     private ListView videoListView;
     private VideoListViewAdapter videoListViewAdapter;
     private List<Video> videoList = new ArrayList<Video>();
-    private View footerView;
+    private View footerView, viewFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View viewFragment = inflater.inflate(R.layout.fragment_video,
+        viewFragment = inflater.inflate(R.layout.fragment_video,
                 null, true);
 
 
@@ -79,6 +81,13 @@ public class VideoFragment extends Fragment {
 
     public void populateDummyData(){
 
+        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
+        progressBar.setIndeterminate(true);
+        progressBar.setVisibility(View.VISIBLE);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
+        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+        ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
+
         HashMap object = new HashMap();
         object.put("regId", "id");
         object.put("groupId",1);
@@ -87,6 +96,7 @@ public class VideoFragment extends Fragment {
         VideoManager.getSharedInstance().getAllVideos(object, new VideoManager.VideoManagerListener() {
             @Override
             public void onCompletion(VideoResponse response, AppError error) {
+                progressBar.setVisibility(View.GONE);
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                     if (response != null){
                         if (response.getData().getVideos().size() > 0){

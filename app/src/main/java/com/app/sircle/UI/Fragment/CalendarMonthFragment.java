@@ -97,6 +97,9 @@ public class CalendarMonthFragment extends Fragment {
             public void onSelectDate(Date date, View view) {
               //  Toast.makeText(getActivity().getApplicationContext(), formatter.format(date), Toast.LENGTH_SHORT).show();
                 Intent addLinkIntent = new Intent(getActivity(), EventsListActivity.class);
+                addLinkIntent.putExtra("month",CaldroidFragment.MONTH);
+                addLinkIntent.putExtra("year",CaldroidFragment.YEAR);
+                addLinkIntent.putExtra("day",date.getDay());
                 startActivity(addLinkIntent);
 
             }
