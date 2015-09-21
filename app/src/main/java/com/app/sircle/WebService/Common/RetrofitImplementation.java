@@ -162,7 +162,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                 break;
 
             case Constants.NOTIFICATION_ADD_GROUPS:
-                postWebservice.post(requestObject, new Callback<JsonElement>() {
+                postWebservice.postNotification(params.get("subject"), params.get("msg"), new Callback<JsonElement>() {
                     @Override
                     public void success(JsonElement jsonElement, Response response) {
 
@@ -184,9 +184,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                                     webserviceListener.onCompletion(object, new AppError());
                                 }
                             }
-
                         }
-                       // webserviceListener.onCompletion(null, new AppError());
                     }
 
                     @Override
@@ -489,7 +487,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
         void postWithRegIdAndGrpId(@Field("regId") String regId, @Field("val") String subscribeVal, @Field("groupId") String groupId, Callback<JsonElement> callback);
 
         @POST("/")
-        void post(@Body Object request, Callback<JsonElement> callback);
+        void postNotification(@Field("subject") String subject, @Field("msg") String msg, Callback<JsonElement> callback);
 
         @GET("/")
         void get(@QueryMap HashMap<String, String> params, Callback<JsonElement> callback);

@@ -9,10 +9,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.Toast;
 
+import com.app.sircle.Manager.PhotoManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Adapter.AlbumDetailsGridAdapter;
+import com.app.sircle.UI.Fragment.PhotosFragment;
 import com.app.sircle.UI.Model.AlbumDetails;
+import com.app.sircle.Utility.AppError;
+import com.app.sircle.WebService.AlbumResponse;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,15 +35,12 @@ public class AlbumDetailsActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_details);
 
-        populateDummyData();
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         albumGridView = (GridView)findViewById(R.id.album_details_grid_view);
         floatingActionButton = (FloatingActionButton)findViewById(R.id.fab);
-        albumDetailsGridAdapter = new AlbumDetailsGridAdapter(this, albumDetailsList);
-        albumGridView.setAdapter(albumDetailsGridAdapter);
+        populateDummyData();
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,18 +54,34 @@ public class AlbumDetailsActivity extends ActionBarActivity {
 
     void populateDummyData(){
 
-        AlbumDetails albumDetails = new AlbumDetails();
-        albumDetails.setPhotoID(1);
-        albumDetails.setPhotoCaption("Nature");
-        albumDetails.setPublishDate(new Date());
+        PhotoManager.getSharedInstance().getImages(null, new PhotoManager.GetPhotosManagerListener() {
+            @Override
+            public void onCompletion(AlbumResponse response, AppError error) {
+                if (response != null){
+                    if (response.getStatus() == 200){
+                        if (response.getData().getPhotos().size() > 0){
+                            if (albumDetailsList.size() > 0){
+                                albumDetailsList.clear();
+                                albumDetailsList.addAll(response.getData().getPhotos());
+                                albumDetailsGridAdapter = new AlbumDetailsGridAdapter(AlbumDetailsActivity.this, albumDetailsList);
+                                albumGridView.setAdapter(albumDetailsGridAdapter);
+                            }else {
+                                albumDetailsList.addAll(response.getData().getPhotos());
+                                albumDetailsGridAdapter.notifyDataSetChanged();
+                            }
 
-        albumDetailsList.add(albumDetails);
-        albumDetailsList.add(albumDetails);
-        albumDetailsList.add(albumDetails);
-        albumDetailsList.add(albumDetails);
-        albumDetailsList.add(albumDetails);
-        albumDetailsList.add(albumDetails);
-        albumDetailsList.add(albumDetails);
+                        }else {
+                            Toast.makeText(AlbumDetailsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    }else {
+                        Toast.makeText(AlbumDetailsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    Toast.makeText(AlbumDetailsActivity.this, "Some problem occurred", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override

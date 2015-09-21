@@ -39,23 +39,11 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
         albumImagePagerAdapter = new AlbumImagePagerAdapter(this, albumDetailsList);
         imageViewPager.setAdapter(albumImagePagerAdapter);
         imageViewPager.setCurrentItem(position);
-
     }
 
     void populateDummyData(){
 
-        AlbumDetails albumDetails = new AlbumDetails();
-        albumDetails.setPhotoID(1);
-        albumDetails.setPhotoCaption("Nature");
-        albumDetails.setPublishDate(new Date());
 
-        albumDetailsList.add(albumDetails);
-        albumDetailsList.add(albumDetails);
-        albumDetailsList.add(albumDetails);
-        albumDetailsList.add(albumDetails);
-        albumDetailsList.add(albumDetails);
-        albumDetailsList.add(albumDetails);
-        albumDetailsList.add(albumDetails);
     }
 
 

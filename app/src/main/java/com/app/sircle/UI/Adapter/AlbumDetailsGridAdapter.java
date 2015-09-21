@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.AlbumFullScreenActivity;
 import com.app.sircle.UI.Model.AlbumDetails;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,9 +47,7 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        if (position < albumDetailsList.size())
-        return albumDetailsList.get(position).getPhotoID();
-        else return albumDetailsList.size()+ 1;
+        return position;
     }
 
     @Override
@@ -71,7 +71,19 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
         }
 
         // get screen dimensions
-        //Bitmap image = decodeFile(_filePaths.get(position), 120, 120);
+        Picasso.with(mContext)
+                .load(albumDetailsList.get(position).getPhotoThumbURL())
+                .into(viewHolder.albumImageView, new Callback() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onError() {
+
+            }
+        });
 
         viewHolder.albumImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
@@ -95,6 +107,8 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
             Toast.makeText(mContext, "image clicked", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(mContext, AlbumFullScreenActivity.class);
             i.putExtra("position", _postion);
+            i.putExtra("url",albumDetailsList.get(_postion).getPhotoLargeURL());
+            i.putExtra("caption",albumDetailsList.get(_postion).getPhotoCaption());
             mContext.startActivity(i);
 
         }

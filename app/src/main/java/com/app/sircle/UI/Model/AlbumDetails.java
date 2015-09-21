@@ -1,24 +1,29 @@
 package com.app.sircle.UI.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 /**
  * Created by soniya on 27/07/15.
  */
 public class AlbumDetails {
-    public int photoID;
+
+    @SerializedName("caption")
     public String photoCaption;
+
+    @SerializedName("thumbnailUrl")
     public String photoThumbURL;
+
+    @SerializedName("url")
     public String photoLargeURL;
-    public Date publishDate;
 
-    public int getPhotoID() {
-        return photoID;
-    }
+    @SerializedName("photo_width")
+    public int photoWidth;
 
-    public void setPhotoID(int photoID) {
-        this.photoID = photoID;
-    }
+    @SerializedName("photo_height")
+    public int photoHeight;
+
 
     public String getPhotoCaption() {
         return photoCaption;
@@ -44,11 +49,19 @@ public class AlbumDetails {
         this.photoLargeURL = photoLargeURL;
     }
 
-    public Date getPublishDate() {
-        return publishDate;
+    public int getPhotoWidth() {
+        return photoWidth;
     }
 
-    public void setPublishDate(Date publishDate) {
-        this.publishDate = publishDate;
+    public void setPhotoWidth(int photoWidth) {
+        this.photoWidth = photoWidth;
+    }
+
+    public int getPhotoHeight() {
+        return photoHeight;
+    }
+
+    public void setPhotoHeight(int photoHeight) {
+        this.photoHeight = photoHeight;
     }
 }
