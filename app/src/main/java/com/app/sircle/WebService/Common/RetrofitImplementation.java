@@ -136,13 +136,9 @@ public class RetrofitImplementation implements WebServiceProtocol{
                                         object = gson.fromJson(jsonElement, responseClass);
                                         webserviceListener.onCompletion(object, new AppError());
                                     }
-                                    //object = gson.fromJson(jsonElement, responseClass);
-                                    //webserviceListener.onCompletion(object, new AppError());
                                 }
                             }
-
                         }
-                        //webserviceListener.onCompletion(null, new AppError());
                     }
 
                     @Override
@@ -162,7 +158,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                 break;
 
             case Constants.NOTIFICATION_ADD_GROUPS:
-                postWebservice.postNotification(params.get("subject"), params.get("msg"), new Callback<JsonElement>() {
+                postWebservice.postNotification(params.get("subject"), params.get("msg"), params.get("grp"), new Callback<JsonElement>() {
                     @Override
                     public void success(JsonElement jsonElement, Response response) {
 
@@ -486,8 +482,9 @@ public class RetrofitImplementation implements WebServiceProtocol{
         @POST("/")
         void postWithRegIdAndGrpId(@Field("regId") String regId, @Field("val") String subscribeVal, @Field("groupId") String groupId, Callback<JsonElement> callback);
 
+        @FormUrlEncoded
         @POST("/")
-        void postNotification(@Field("subject") String subject, @Field("msg") String msg, Callback<JsonElement> callback);
+        void postNotification(@Field("subject") String subject, @Field("msg") String msg, @Field("grp") String grpAray, Callback<JsonElement> callback);
 
         @GET("/")
         void get(@QueryMap HashMap<String, String> params, Callback<JsonElement> callback);

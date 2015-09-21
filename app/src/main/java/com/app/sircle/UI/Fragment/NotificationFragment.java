@@ -45,6 +45,8 @@ public class NotificationFragment extends Fragment {
 
         footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
         notificationListView.addFooterView(footerView);
+        notificationListviewAdapter = new NotificationListviewAdapter(notificationList, getActivity());
+        notificationListView.setAdapter(notificationListviewAdapter);
 
         populateDummyData();
 
@@ -90,8 +92,7 @@ public class NotificationFragment extends Fragment {
                                 notificationListviewAdapter.notifyDataSetChanged();
                             }else {
                                 notificationList.addAll(data.getData().getNotifications());
-                                notificationListviewAdapter = new NotificationListviewAdapter(notificationList, getActivity());
-                                notificationListView.setAdapter(notificationListviewAdapter);
+                                notificationListviewAdapter.notifyDataSetChanged();
                             }
                         }else {
                             Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
@@ -106,15 +107,6 @@ public class NotificationFragment extends Fragment {
             }
         });
 
-//        Notification notification = new Notification();
-//        notification.setAnnouncementDesc("Heavy Rains");
-//        notification.setAnnouncementTitle("Due to heavy rains school will be closed today");
-//
-//        notificationList.add(notification);
-//        notificationList.add(notification);
-//        notificationList.add(notification);
-//        notificationList.add(notification);
-//        notificationList.add(notification);
     }
 
     @Override

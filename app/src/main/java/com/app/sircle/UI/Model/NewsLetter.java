@@ -1,5 +1,7 @@
 package com.app.sircle.UI.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 /**
@@ -8,27 +10,29 @@ import java.util.Date;
 public class NewsLetter {
 
 
-    public String pdfUrl;
-    public String pdfTitle;
+    public String name;
+    @SerializedName("news_file")
+    public String newsFile;
+
+    @SerializedName("created_on")
     public String pdfDate;
+    @SerializedName("time_string")
     public String pdfTime;
 
-
-
-    public String getPdfURL() {
-        return pdfUrl;
+    public String getName() {
+        return name;
     }
 
-    public void setPdfURL(String pdfURL) {
-        this.pdfUrl = pdfURL;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getPdfTitle() {
-        return pdfTitle;
+    public String getNewsFile() {
+        return newsFile;
     }
 
-    public void setPdfTitle(String pdfTitle) {
-        this.pdfTitle = pdfTitle;
+    public void setNewsFile(String newsFile) {
+        this.newsFile = newsFile;
     }
 
     public String getPdfDate() {
@@ -39,12 +43,11 @@ public class NewsLetter {
         this.pdfDate = pdfDate;
     }
 
-
     public String getPdfTime() {
         return pdfTime;
     }
 
-    public void setPdfTime(String pdfTitle) {
+    public void setPdfTime(String pdfTime) {
         this.pdfTime = pdfTime;
     }
 }

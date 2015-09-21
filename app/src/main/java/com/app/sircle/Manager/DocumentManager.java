@@ -39,6 +39,15 @@ public class DocumentManager {
         });
     }
 
+    public void getAllDocs(HashMap object, final GetNewsManagerListener getNewsManagerListener){
+        DocumentService.getSharedInstance().getAllDocs(object, new DocumentService.GetNewsWebServiceListener() {
+            @Override
+            public void onCompletion(DocumentsResponse response, AppError error) {
+                getNewsManagerListener.onCompletion(response, error);
+            }
+        });
+    }
+
     public interface GetNewsManagerListener{
         public void onCompletion(DocumentsResponse response, AppError error);
     }

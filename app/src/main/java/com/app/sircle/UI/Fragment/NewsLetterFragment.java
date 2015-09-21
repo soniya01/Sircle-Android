@@ -54,9 +54,9 @@ public class NewsLetterFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
              NewsLetter selectedItem = newsLetterList.get(position);
 
-                Toast.makeText(getActivity(), "File downloaded " + selectedItem.pdfUrl, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "File downloaded " + selectedItem.getName(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), PDFViewer.class);
-                intent.putExtra("PdfUrl",selectedItem.pdfUrl);
+                intent.putExtra("PdfUrl",selectedItem.getNewsFile());
                 startActivity(intent);
             }
         });
@@ -87,14 +87,14 @@ public class NewsLetterFragment extends Fragment {
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR){
                     if (response != null){
                         if (response.getStatus() == 200){
-                            if (response.getData().getLinks().size() > 0){
+                            if (response.getData().getDocs().size() > 0){
                                 if (NewsLetterFragment.this.newsLetterList.size() == 0){
-                                    NewsLetterFragment.this.newsLetterList.addAll(response.getData().getLinks());
-                                    newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), response.getData().getLinks());
+                                    NewsLetterFragment.this.newsLetterList.addAll(response.getData().getDocs());
+                                    newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), response.getData().getDocs());
                                     newsLetterListView.setAdapter(newsLetterListViewAdapter);
                                 }else {
                                     NewsLetterFragment.this.newsLetterList.clear();
-                                    NewsLetterFragment.this.newsLetterList.addAll(response.getData().getLinks());
+                                    NewsLetterFragment.this.newsLetterList.addAll(response.getData().getDocs());
                                     newsLetterListViewAdapter.notifyDataSetChanged();
                                 }
                             }else {
@@ -108,22 +108,7 @@ public class NewsLetterFragment extends Fragment {
                 }else {
                     Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection",Toast.LENGTH_SHORT).show();
                 }
-
-
             }
         });
-//        NewsLetter newsLetter = new NewsLetter();
-//        newsLetter.setPdfURL("http://fzs.sve-mo.ba/sites/default/files/dokumenti-vijesti/sample.pdf");
-//        newsLetter.setPdfTitle("PDF SAMPLE");
-//        newsLetter.setPdfDate("Wednesday 27 May 2015");
-//        newsLetter.setPdfTime("11:00");
-//
-//        newsLetterList.add(newsLetter);
-//        newsLetterList.add(newsLetter);
-//        newsLetterList.add(newsLetter);
-//        newsLetterList.add(newsLetter);
-//        newsLetterList.add(newsLetter);
-//        newsLetterList.add(newsLetter);
-//        newsLetterList.add(newsLetter);
     }
 }

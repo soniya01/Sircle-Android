@@ -10,15 +10,21 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.app.sircle.Manager.DocumentManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.PDFViewer;
 import com.app.sircle.UI.Adapter.NewsLettersViewAdapter;
 import com.app.sircle.UI.Model.NewsLetter;
 import com.app.sircle.UI.SlidingPane.SlidingPaneInterface;
+import com.app.sircle.Utility.AppError;
+import com.app.sircle.WebService.DocumentsResponse;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -27,7 +33,7 @@ public class DocumentFragment extends Fragment {
     private ListView newsLetterListView;
     private NewsLettersViewAdapter newsLetterListViewAdapter;
     private List<NewsLetter> newsLetterList = new ArrayList<NewsLetter>();
-    private View footerView;
+    private View footerView, viewFragment;
 
 
     @Override
@@ -35,7 +41,7 @@ public class DocumentFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View viewFragment = inflater.inflate(R.layout.fragment_document,
+        viewFragment = inflater.inflate(R.layout.fragment_document,
                 null, true);
         footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
 
@@ -51,9 +57,9 @@ public class DocumentFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 NewsLetter selectedItem = newsLetterList.get(position);
 
-                Toast.makeText(getActivity(), "File downloaded " + selectedItem.pdfUrl, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "File downloaded " + selectedItem.getName(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), PDFViewer.class);
-                intent.putExtra("PdfUrl",selectedItem.pdfUrl);
+                intent.putExtra("PdfUrl",selectedItem.getNewsFile());
                 startActivity(intent);
             }
         });
@@ -63,19 +69,47 @@ public class DocumentFragment extends Fragment {
     }
 
     public void populateDummyData(){
-        NewsLetter newsLetter = new NewsLetter();
-        newsLetter.setPdfURL("http://fzs.sve-mo.ba/sites/default/files/dokumenti-vijesti/sample.pdf");
-        newsLetter.setPdfTitle("PDF SAMPLE");
-        newsLetter.setPdfDate("Wednesday 27 May 2015");
-        newsLetter.setPdfTime("11:00");
+        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
+        progressBar.setIndeterminate(true);
+        progressBar.setVisibility(View.VISIBLE);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
+        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+        ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
 
-        newsLetterList.add(newsLetter);
-        newsLetterList.add(newsLetter);
-        newsLetterList.add(newsLetter);
-        newsLetterList.add(newsLetter);
-        newsLetterList.add(newsLetter);
-        newsLetterList.add(newsLetter);
-        newsLetterList.add(newsLetter);
+        HashMap object = new HashMap();
+        object.put("regId", "id");
+        object.put("groupId",1);
+        object.put("val", "val");
+
+        DocumentManager.getSharedInstance().getAllDocs(object, new DocumentManager.GetNewsManagerListener() {
+            @Override
+            public void onCompletion(DocumentsResponse data, AppError error) {
+                progressBar.setVisibility(View.GONE);
+                if (data != null) {
+                    if (data.getStatus() == 200){
+                        if (data.getData().getDocs().size() > 0){
+                            if (newsLetterList.size() > 0){
+                                newsLetterList.clear();
+                                newsLetterList.addAll(data.getData().getDocs());
+                                newsLetterListViewAdapter.notifyDataSetChanged();
+                            }else {
+                                newsLetterList.addAll(data.getData().getDocs());
+                                newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), newsLetterList);
+                                newsLetterListView.setAdapter(newsLetterListViewAdapter);
+                            }
+                        }else {
+                            Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }else {
+                        Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+                    Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 
 }

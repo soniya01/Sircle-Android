@@ -42,6 +42,15 @@ public class DocumentService {
         });
     }
 
+    public void getAllDocs(HashMap object, final GetNewsWebServiceListener getNewsWebServiceListener){
+        retrofitImplementation.executeGetWithURL(Constants.DOCUMENTS_GET_API_PATH, object, null, DocumentsResponse.class, new WebServiceListener() {
+            @Override
+            public void onCompletion(Object responseObject, AppError error) {
+                getNewsWebServiceListener.onCompletion(((DocumentsResponse) responseObject), error);
+            }
+        });
+    }
+
     public interface GetNewsWebServiceListener{
         public void onCompletion(DocumentsResponse response, AppError error);
     }

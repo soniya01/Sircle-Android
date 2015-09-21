@@ -17,7 +17,9 @@ public class DocumentResponseData {
 
     @SerializedName("page_records")
     public int pageRecords;
-    List<NewsLetter> documents = new ArrayList<NewsLetter>();
+    public List<NewsLetter> documents = new ArrayList<NewsLetter>();
+
+    public List<NewsLetter> newsLetters = new ArrayList<NewsLetter>();
 
     public int getTotalRecords() {
         return totalRecords;
@@ -43,11 +45,20 @@ public class DocumentResponseData {
         this.pageRecords = pageRecords;
     }
 
-    public List<NewsLetter> getLinks() {
+    public List<NewsLetter> getDocs() {
         return documents;
     }
 
-    public void setLinks(List<NewsLetter> links) {
+    public void setDocs(List<NewsLetter> links) {
         this.documents = links;
     }
+
+    public List<NewsLetter> getNewsLetters() {
+        return newsLetters;
+    }
+
+    public void setNewsLetters(List<NewsLetter> newsLetters) {
+        this.newsLetters = newsLetters;
+    }
+
 }
