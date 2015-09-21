@@ -12,7 +12,7 @@ public class AlbumDetails {
     @SerializedName("caption")
     public String photoCaption;
 
-    @SerializedName("thumbnailUrl")
+    @SerializedName("thumburl")
     public String photoThumbURL;
 
     @SerializedName("url")

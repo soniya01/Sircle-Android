@@ -39,7 +39,6 @@ public class PhotosFragment extends Fragment {
     private ListView albumListView;
     private PhotosListViewAdapter photosListViewAdapter;
     private List<Photo> photos = new ArrayList<Photo>();
-    private List<AlbumDetails> albumDetailsList = new ArrayList<AlbumDetails>();
     private View footerView;
     private FloatingActionButton floatingActionButton;
     private View viewFragment;
@@ -61,6 +60,7 @@ public class PhotosFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Intent albumIntent = new Intent(getActivity(), AlbumDetailsActivity.class);
+                albumIntent.putExtra("albumId",photos.get(position).getAlbumID());
                 startActivity(albumIntent);
 
             }

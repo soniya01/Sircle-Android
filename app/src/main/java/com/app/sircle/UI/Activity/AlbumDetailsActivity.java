@@ -21,6 +21,7 @@ import com.app.sircle.WebService.AlbumResponse;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class AlbumDetailsActivity extends ActionBarActivity {
@@ -29,12 +30,16 @@ public class AlbumDetailsActivity extends ActionBarActivity {
     private AlbumDetailsGridAdapter albumDetailsGridAdapter;
     private List<AlbumDetails> albumDetailsList = new ArrayList<AlbumDetails>();
     private FloatingActionButton floatingActionButton;
+    private int albumId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_details);
 
+        if (getIntent() != null){
+            albumId = getIntent().getIntExtra("albumId",0);
+        }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -54,7 +59,11 @@ public class AlbumDetailsActivity extends ActionBarActivity {
 
     void populateDummyData(){
 
-        PhotoManager.getSharedInstance().getImages(null, new PhotoManager.GetPhotosManagerListener() {
+        HashMap params = new HashMap();
+        params.put("album_id",albumId);
+        params.put("page",1);
+
+        PhotoManager.getSharedInstance().getImages(params, new PhotoManager.GetPhotosManagerListener() {
             @Override
             public void onCompletion(AlbumResponse response, AppError error) {
                 if (response != null){
@@ -63,11 +72,11 @@ public class AlbumDetailsActivity extends ActionBarActivity {
                             if (albumDetailsList.size() > 0){
                                 albumDetailsList.clear();
                                 albumDetailsList.addAll(response.getData().getPhotos());
-                                albumDetailsGridAdapter = new AlbumDetailsGridAdapter(AlbumDetailsActivity.this, albumDetailsList);
-                                albumGridView.setAdapter(albumDetailsGridAdapter);
+                                albumDetailsGridAdapter.notifyDataSetChanged();
                             }else {
                                 albumDetailsList.addAll(response.getData().getPhotos());
-                                albumDetailsGridAdapter.notifyDataSetChanged();
+                                albumDetailsGridAdapter = new AlbumDetailsGridAdapter(AlbumDetailsActivity.this, albumDetailsList);
+                                albumGridView.setAdapter(albumDetailsGridAdapter);
                             }
 
                         }else {
