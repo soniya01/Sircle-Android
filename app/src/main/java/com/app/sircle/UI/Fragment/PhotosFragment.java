@@ -62,7 +62,6 @@ public class PhotosFragment extends Fragment {
                 Intent albumIntent = new Intent(getActivity(), AlbumDetailsActivity.class);
                 albumIntent.putExtra("albumId",photos.get(position).getAlbumID());
                 startActivity(albumIntent);
-
             }
         });
 

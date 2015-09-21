@@ -30,16 +30,16 @@ public class EventsListActivity extends ActionBarActivity {
     private CalendarMonthListAdapter calendarMonthListViewAdapter;
     private List<Event> calendarMonthList = new ArrayList<Event>();
     private View footerView;
-    private String month="", day="", year="";
+    private int month, year;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (savedInstanceState != null){
-            month = getIntent().getStringExtra("month");
-            year = getIntent().getStringExtra("year");
-            day = getIntent().getStringExtra("day");
+        if (getIntent() != null){
+            month = getIntent().getIntExtra("month",0);
+            year = getIntent().getIntExtra("year",0);
+            //day = getIntent().getStringExtra("day");
         }
         setContentView(R.layout.activity_events_list);
 
@@ -117,7 +117,7 @@ public class EventsListActivity extends ActionBarActivity {
                             Toast.makeText(EventsListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(EventsListActivity.this, error.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EventsListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
                 } else {

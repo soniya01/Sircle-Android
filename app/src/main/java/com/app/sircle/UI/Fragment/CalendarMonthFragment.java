@@ -41,6 +41,7 @@ public class CalendarMonthFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    public int month, year;
 
     private OnFragmentInteractionListener mListener;
 
@@ -87,6 +88,9 @@ public class CalendarMonthFragment extends Fragment {
         args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
         caldroidFragment.setArguments(args);
 
+        month = cal.get(Calendar.MONTH) + 1;
+        year = cal.get(Calendar.YEAR);
+
 
         String myFormat = "MM/dd/yy"; //In which you need put here
       final  SimpleDateFormat formatter = new SimpleDateFormat(myFormat, Locale.US);
@@ -96,9 +100,10 @@ public class CalendarMonthFragment extends Fragment {
             @Override
             public void onSelectDate(Date date, View view) {
               //  Toast.makeText(getActivity().getApplicationContext(), formatter.format(date), Toast.LENGTH_SHORT).show();
+                //date.
                 Intent addLinkIntent = new Intent(getActivity(), EventsListActivity.class);
-                addLinkIntent.putExtra("month",CaldroidFragment.MONTH);
-                addLinkIntent.putExtra("year",CaldroidFragment.YEAR);
+                addLinkIntent.putExtra("month",month);
+                addLinkIntent.putExtra("year",year);
                 addLinkIntent.putExtra("day",date.getDay());
                 startActivity(addLinkIntent);
 
@@ -107,6 +112,8 @@ public class CalendarMonthFragment extends Fragment {
             @Override
             public void onChangeMonth(int month, int year) {
                 String text = "month: " + month + " year: " + year;
+                CalendarMonthFragment.this.month = month;
+                CalendarMonthFragment.this.year = year;
               //  Toast.makeText(getActivity().getApplicationContext(), text, Toast.LENGTH_SHORT).show();
             }
 
