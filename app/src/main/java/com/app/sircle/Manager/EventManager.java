@@ -5,6 +5,7 @@ import com.app.sircle.UI.Model.Terms;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.WebService.EventData;
 import com.app.sircle.WebService.EventDataReponse;
+import com.app.sircle.WebService.EventDetailResponse;
 import com.app.sircle.WebService.EventWebService;
 
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class EventManager {
             public void onCompletion(EventDataReponse data, AppError error) {
                 if (error.getErrorCode() == AppError.NO_ERROR) {
                     getMonthwiseEventsManagerListener.onCompletion(data, new AppError());
-                }else {
+                } else {
                     getMonthwiseEventsManagerListener.onCompletion(data, error);
                 }
             }
@@ -78,15 +79,24 @@ public class EventManager {
             public void onCompletion(List<EventCategory> eventCategoryList, AppError error) {
                 if (error.getErrorCode() == AppError.NO_ERROR && eventCategoryList != null) {
                     getEventsCategoryManagerListener.onCompletion(eventCategoryList, new AppError());
-                }else {
+                } else {
                     getEventsCategoryManagerListener.onCompletion(null, error);
                 }
             }
         });
     }
 
+    public void getEventDetails(HashMap object, final EventManagerListener eventManagerListener){
+        EventWebService.getSharedInstance().getEventDetails(object, new EventWebService.EventWebServiceListener() {
+            @Override
+            public void onCompletion(EventDetailResponse response, AppError error) {
+                eventManagerListener.onCompletion(response, error);
+            }
+        });
+    }
+
     public interface EventManagerListener{
-        public void onCompletion(AppError error);
+        public void onCompletion(EventDetailResponse eventDetailResponse, AppError error);
     }
 
 

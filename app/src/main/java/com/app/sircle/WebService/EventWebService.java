@@ -93,6 +93,19 @@ public class EventWebService {
         });
     }
 
+    public void getEventDetails(HashMap map, final EventWebServiceListener eventWebServiceListener){
+        retrofitImplementation.executeGetWithURL(Constants.EVENTS_GET_DETAILS_API_PATH, map, null, EventDetailResponse.class, new WebServiceListener() {
+            @Override
+            public void onCompletion(Object responseObject, AppError error) {
+                if (error.getErrorCode() == AppError.NO_ERROR && responseObject != null){
+                    eventWebServiceListener.onCompletion((EventDetailResponse)responseObject, new AppError());
+                }else {
+                    eventWebServiceListener.onCompletion(null, error);
+                }
+            }
+        });
+    }
+
     public void deleteEvent(HashMap requestObject, EventWebServiceListener eventManagerListener){
         //TODO: how to call delete using retrofit
     }
@@ -100,7 +113,7 @@ public class EventWebService {
 
 
     public interface EventWebServiceListener{
-        public void onCompletion(AppError error);
+        public void onCompletion(EventDetailResponse response,AppError error);
     }
 
     public interface GetAllTermsServiceListener{
