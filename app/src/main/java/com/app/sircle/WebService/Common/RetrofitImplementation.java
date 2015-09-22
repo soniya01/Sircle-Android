@@ -322,6 +322,45 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     }
                 });
                 break;
+            case Constants.PHOTOS_ADD_NEW_ALBUM_API_PATH:
+                postWebservice.postAlbum(params.get("albumName"), params.get("grp"), new Callback<JsonElement>() {
+                    @Override
+                    public void success(JsonElement jsonElement, Response response) {
+                        if (!jsonElement.isJsonNull()) {
+
+                            Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
+
+                            if (responseClass != null) {
+                                Object object = Common.createObjectForClass(responseClass);
+
+                                if (jsonElement.isJsonArray()) {
+                                    Type collectionType = new TypeToken<Collection<Object>>() {
+                                    }.getType();
+                                    Collection<Object> data = gson.fromJson(jsonElement, collectionType);
+                                    webserviceListener.onCompletion(data, new AppError());
+                                } else {
+                                    object = gson.fromJson(jsonElement, responseClass);
+                                    webserviceListener.onCompletion(object, new AppError());
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        AppError appError = new AppError();
+                        appError.setErrorCode(getRetrofitErrorcode(error));
+                        appError.setErrorMessage(error.getLocalizedMessage());
+
+                        // Send empty object
+                        if (responseClass != null) {
+                            webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
+                        } else {
+                            webserviceListener.onCompletion(null, appError);
+                        }
+                    }
+                });
+                break;
         }
     }
 
@@ -528,6 +567,10 @@ public class RetrofitImplementation implements WebServiceProtocol{
         @FormUrlEncoded
         @POST("/")
         void postLink(@Field("name") String name, @Field("url") String url, @Field("grp") String grpArray, Callback<JsonElement> callback);
+
+        @FormUrlEncoded
+        @POST("/")
+        void postAlbum(@Field("albumName") String albumName, @Field("grp") String grpArray, Callback<JsonElement> callback);
 
         @GET("/")
         void get(@QueryMap HashMap<String, String> params, Callback<JsonElement> callback);

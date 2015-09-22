@@ -35,11 +35,11 @@ public class PhotoWebService {
 
     public void addAlbum(HashMap object, final AddPhotoWebServiceListener addPhotoWebServiceListener){
 
-        retrofitImplementation.executePostWithURL(Constants.PHOTOS_ADD_NEW_ALBUM_API_PATH, object, null, null, new WebServiceListener() {
+        retrofitImplementation.executePostWithURL(Constants.PHOTOS_ADD_NEW_ALBUM_API_PATH, object, null, AddAlbumResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
-                Photo photo = (Photo)responseObject;
-                addPhotoWebServiceListener.onCompletion(photo, error);
+
+                addPhotoWebServiceListener.onCompletion((AddAlbumResponse)responseObject, error);
             }
         });
     }
@@ -72,7 +72,7 @@ public class PhotoWebService {
     }
 
     public interface AddPhotoWebServiceListener{
-        public void onCompletion(Photo photo, AppError error);
+        public void onCompletion(AddAlbumResponse addAlbumResponse, AppError error);
     }
 
     public interface PhotoWebServiceListener{

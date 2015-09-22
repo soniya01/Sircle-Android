@@ -3,6 +3,7 @@ package com.app.sircle.Manager;
 import com.app.sircle.UI.Model.AlbumDetails;
 import com.app.sircle.UI.Model.Photo;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.WebService.AddAlbumResponse;
 import com.app.sircle.WebService.AlbumResponse;
 import com.app.sircle.WebService.PhotoResponse;
 import com.app.sircle.WebService.PhotoWebService;
@@ -35,8 +36,8 @@ public class PhotoManager  {
 
         PhotoWebService.getSharedInstance().addAlbum(requestObject, new PhotoWebService.AddPhotoWebServiceListener() {
             @Override
-            public void onCompletion(Photo photo, AppError error) {
-                addPhotoManagerListener.onCompletion(photo, error);
+            public void onCompletion(AddAlbumResponse response, AppError error) {
+                addPhotoManagerListener.onCompletion(response, error);
             }
         });
     }
@@ -60,7 +61,7 @@ public class PhotoManager  {
     }
 
     public interface AddPhotoManagerListener{
-        public void onCompletion(Photo photo, AppError error);
+        public void onCompletion(AddAlbumResponse addAlbumResponse, AppError error);
     }
 
 

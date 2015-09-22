@@ -64,7 +64,7 @@ public class AddLinksActivity extends ActionBarActivity {
                     HashMap params = new HashMap();
                     params.put("name", title.getText().toString());
                     params.put("url", desc.getText().toString());
-                    params.put("grp", 1);
+                    params.put("grp", "1");
                     LinksManager.getSharedInstance().addLinks(params, new LinksManager.AddLinksManagerListener() {
                         @Override
                         public void onCompletion(PostResponse response, AppError error) {

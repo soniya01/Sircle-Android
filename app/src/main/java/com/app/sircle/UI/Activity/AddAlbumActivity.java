@@ -13,10 +13,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.app.sircle.Manager.NotificationManager;
+import com.app.sircle.Manager.PhotoManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Model.NotificationGroups;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.Utility.Constants;
+import com.app.sircle.WebService.AddAlbumResponse;
 import com.app.sircle.WebService.GroupResponse;
 
 import java.util.ArrayList;
@@ -66,46 +68,35 @@ public class AddAlbumActivity extends ActionBarActivity {
     public void populateDummyData() {
         HashMap<String, String> map = new HashMap<>();
         map.put("regId", Constants.GCM_REG_ID);
-        NotificationManager.getSharedInstance().getAllGroups(map,new NotificationManager.GroupsManagerListener() {
+        NotificationManager.getSharedInstance().getAllGroups(map, new NotificationManager.GroupsManagerListener() {
             @Override
             public void onCompletion(GroupResponse response, AppError error) {
-                if (error == null || error.getErrorCode() == AppError.NO_ERROR){
+                if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                     if (response.getData() != null) {
 
                         if (response.getData().size() > 0) {
-                            if(AddAlbumActivity.this.groupNames.size() == 0 || AddAlbumActivity.this.groupNames == null){
+                            if (AddAlbumActivity.this.groupNames.size() == 0 || AddAlbumActivity.this.groupNames == null) {
                                 AddAlbumActivity.this.notificationGroupList.clear();
                                 AddAlbumActivity.this.notificationGroupList.addAll(response.getData());
                                 getGroupNames();
                                 arrayAdapter = new ArrayAdapter<String>(AddAlbumActivity.this, android.R.layout.simple_list_item_multiple_choice, android.R.id.text1, groupNames);
                                 addListView.setAdapter(arrayAdapter);
-                            }else {
+                            } else {
                                 AddAlbumActivity.this.notificationGroupList.clear();
                                 AddAlbumActivity.this.notificationGroupList.addAll(response.getData());
                                 getGroupNames();
                                 arrayAdapter.notifyDataSetChanged();
                             }
                         }
-                    }else {
+                    } else {
                         Toast.makeText(AddAlbumActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                }else {
+                } else {
                     Toast.makeText(AddAlbumActivity.this, error.getErrorMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-//        NotificationGroups n1 = new NotificationGroups();
-//        n1.setName("Group 1");
-//
-//        notificationGroupList.add(n1);
-//
-//        groupNames.add("All");
-//        groupNames.add(notificationGroupList.get(0).getName());
-//        groupNames.add("Group 2");
-//        groupNames.add(notificationGroupList.get(0).getName());
-//        groupNames.add(notificationGroupList.get(0).getName());
-//        groupNames.add(notificationGroupList.get(0).getName());
     }
 
     public List<String> getGroupNames() {
@@ -144,8 +135,24 @@ public class AddAlbumActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (BaseActivity.jumpToFragment)
-            finish();
+        if (BaseActivity.jumpToFragment){
+            HashMap params = new HashMap();
+            params.put("albumName",title.getText().toString());
+            params.put("grp","1");
+            PhotoManager.getSharedInstance().addNewAlbum(params, new PhotoManager.AddPhotoManagerListener() {
+                @Override
+                public void onCompletion(AddAlbumResponse response, AppError error) {
+                    if (response != null) {
+                        if (response.getStatus() == 200) {
+                            Toast.makeText(AddAlbumActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    } else {
+                        Toast.makeText(AddAlbumActivity.this, "Some error occured", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
 
     }
-}
+}}
