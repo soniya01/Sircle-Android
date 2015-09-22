@@ -109,26 +109,6 @@ public class LinksFragment extends Fragment {
             }
         });
 
-
-//        Links links = new Links();
-//        links.setLink("www.google.co.in");
-//        links.setLinkTitle("Google");
-//
-//        linksList.add(links);
-//
-//        Links links1 = new Links();
-//        links1.setLink("www.facebook.com");
-//        links1.setLinkTitle("Facebook");
-//
-//        linksList.add(links1);
-//        linksList.add(links);
-//        linksList.add(links1);
-//        linksList.add(links);
-//        linksList.add(links1);
-//        linksList.add(links);
-//        linksList.add(links1);
-//        linksList.add(links);
-
     }
 
     @Override

@@ -32,7 +32,7 @@ public class LinksWebService {
     }
 
     public void getAllLinks(HashMap object, final GetAllLinksServiceListener getAllLinksServiceListener){
-        retrofitImplementation.executeGetWithURL(Constants.LINKS_GET_ALL_API, null, object, LinksResponse.class, new WebServiceListener() {
+        retrofitImplementation.executeGetWithURL(Constants.LINKS_GET_ALL_API, object, null, LinksResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
               // LinksResponseData linksResponseData = ().getData();
@@ -41,8 +41,17 @@ public class LinksWebService {
         });
     }
 
-    public interface EventWebServiceListener{
-        public void onCompletion(AppError error);
+    public void addLinks(HashMap object, final LinkWebServiceListener linkWebServiceListener){
+        retrofitImplementation.executePostWithURL(Constants.ADD_NEW_LINK_API_PATH, object, null, PostResponse.class, new WebServiceListener() {
+            @Override
+            public void onCompletion(Object responseObject, AppError error) {
+                linkWebServiceListener.onCompletion((PostResponse)responseObject, error);
+            }
+        });
+    }
+
+    public interface LinkWebServiceListener{
+        public void onCompletion(PostResponse response, AppError error);
     }
 
     public interface GetAllLinksServiceListener{

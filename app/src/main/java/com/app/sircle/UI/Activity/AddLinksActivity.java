@@ -12,12 +12,17 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.app.sircle.Manager.LinksManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Fragment.LinksFragment;
 import com.app.sircle.UI.Model.Links;
 import com.app.sircle.UI.Model.NotificationGroups;
+import com.app.sircle.Utility.AppError;
+import com.app.sircle.WebService.LinksResponse;
+import com.app.sircle.WebService.PostResponse;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class AddLinksActivity extends ActionBarActivity {
@@ -55,11 +60,23 @@ public class AddLinksActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 if (URLUtil.isValidUrl(desc.getText().toString()) && (title.getText().toString() != null) || !title.getText().toString().trim().equals("")) {
-                    Toast.makeText(AddLinksActivity.this, "Added new link ", Toast.LENGTH_SHORT).show();
-                    Links links = new Links();
-                    links.setLinkTitle(title.getText().toString());
-                    links.setLink(desc.getText().toString());
-                    //LinksFragment.linksList.add(links);
+
+                    HashMap params = new HashMap();
+                    params.put("name", title.getText().toString());
+                    params.put("url", desc.getText().toString());
+                    params.put("grp", 1);
+                    LinksManager.getSharedInstance().addLinks(params, new LinksManager.AddLinksManagerListener() {
+                        @Override
+                        public void onCompletion(PostResponse response, AppError error) {
+                            if (response != null) {
+                                if (response.getStatus() == 200) {
+                                    Toast.makeText(AddLinksActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(AddLinksActivity.this, "Some error occured", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                     finish();
                 } else {
                     desc.setText("");

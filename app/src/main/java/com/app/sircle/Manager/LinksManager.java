@@ -5,6 +5,7 @@ import com.app.sircle.Utility.AppError;
 import com.app.sircle.WebService.LinksResponse;
 import com.app.sircle.WebService.LinksResponseData;
 import com.app.sircle.WebService.LinksWebService;
+import com.app.sircle.WebService.PostResponse;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,11 +37,20 @@ public class LinksManager {
         });
     }
 
+    public void addLinks(HashMap object, final AddLinksManagerListener addLinksManagerListener){
+        LinksWebService.getSharedInstance().addLinks(object, new LinksWebService.LinkWebServiceListener() {
+            @Override
+            public void onCompletion(PostResponse response, AppError error) {
+                addLinksManagerListener.onCompletion(response, error);
+            }
+        });
+    }
+
     public interface LinksManagerListener{
         public void onCompletion(LinksResponse response, AppError error);
     }
 
     public interface AddLinksManagerListener{
-        public void onCompletion(Links links, AppError error);
+        public void onCompletion(PostResponse response, AppError error);
     }
 }

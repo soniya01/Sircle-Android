@@ -23,7 +23,7 @@ public class Constants {
     public static final String EVENTS_GET_MONTH_WISE_API_PATH = "user/group_and_month_wise_event";//"/user/group_and_month_wise_event/format/json";
     public static final String EVENTS_GET_ALL_EVENTS_API_PATH ="user/user_allevents";
     public static final String EVENTS_GET_CATEGORY_API_PATH = "user/event_categories";//"rest_api/event_categories/format/json";
-    public static final String EVENTS_GET_DETAILS_API_PATH = "/rest_api/event_detail/{Eventid}/format/json";
+    public static final String EVENTS_GET_DETAILS_API_PATH ="user/event_details" ;//"/rest_api/event_detail/{Eventid}/format/json";
     public static final String EVENTS_DELETE_API_PATH = "/user/delete_event/";
     public static final String EVENTS_ADD_NEW_EVENT_API_PATH = "user/new_event";
     public static final String NOTIFICATION_GET_ALL_GROUPS = "user/user_groups_new";//"rest_api/groups/format/json";
@@ -32,7 +32,7 @@ public class Constants {
     public static final String PHOTOS_ADD_NEW_ALBUM_API_PATH ="user/add_album";
     public static final String PHOTOS_GET_API_PATH ="user/photos";//"rest_api/photos/{id1}/format/json";
     public static final String PHOTOS_ADD_PHOTO_TO_ALBUM_API_PATH ="user/uploadImage";
-    public static final String PHOTOS_ADD_NEW_LINK_API_PATH ="user/add_links";//"user/add_links/format/json";
+    public static final String ADD_NEW_LINK_API_PATH ="user/add_links";//"user/add_links/format/json";
     public static final String PHOTOS_GET_ALBUM_API_PATH = "user/album_group";//"user/album_group/format/json";
 
     public static final String NEWSLETTERS_GET_API_PATH = "user/newsletter_group";//"user/newsletter_group/format/json";
