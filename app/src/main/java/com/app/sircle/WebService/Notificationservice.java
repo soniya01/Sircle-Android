@@ -74,18 +74,18 @@ public class Notificationservice {
         });
     }
 
-    public void updateAllGroups(HashMap object, final  GroupsServiceListener groupsServiceListener){
+    public void getNotificationCount(HashMap object, final  NotificationCountServiceListener notificationCountServiceListener){
         retrofitImplementation.executePostWithURL(Constants.GROUP_UPDATE_ALL_NOTIFICATION, object, null, GroupResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object response, AppError error) {
                 if (response != null) {
                     // notificationGroupsList = (ArrayList<NotificationGroups>) ((GroupResponse)response).getMessage();
                     if (error.getErrorCode() == AppError.NO_ERROR || error == null) {
-                        groupsServiceListener.onCompletion((GroupResponse) response, new AppError());
+                        notificationCountServiceListener.onCompletion((NotificationCountResponse) response, new AppError());
                     }
                     //groupsServiceListener.onCompletion((GroupResponse) response, error);
                 } else {
-                    groupsServiceListener.onCompletion(null, error);
+                    notificationCountServiceListener.onCompletion(null, error);
                 }
             }
         });
@@ -117,6 +117,10 @@ public class Notificationservice {
 
     public interface NotificationServiceListener{
         public void onCompletion(NotificationResponse response, AppError error);
+    }
+
+    public interface NotificationCountServiceListener{
+        public void onCompletion(NotificationCountResponse response, AppError error);
     }
 
     public interface GroupsServiceListener{

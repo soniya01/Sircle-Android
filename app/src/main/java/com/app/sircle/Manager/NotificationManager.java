@@ -4,6 +4,7 @@ import com.app.sircle.UI.Model.Notification;
 import com.app.sircle.UI.Model.NotificationGroups;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.WebService.GroupResponse;
+import com.app.sircle.WebService.NotificationCountResponse;
 import com.app.sircle.WebService.NotificationResponse;
 import com.app.sircle.WebService.Notificationservice;
 import com.app.sircle.WebService.PostResponse;
@@ -51,14 +52,14 @@ public class NotificationManager {
 
     }
 
-    public void updateAllGroupsNotification(HashMap map, final GroupsManagerListener groupsManagerListener){
-        Notificationservice.getSharedInstance().updateAllGroups(map, new Notificationservice.GroupsServiceListener() {
+    public void getNotificationCount(HashMap map, final NotificationCountManagerListener notificationCountManagerListener){
+        Notificationservice.getSharedInstance().getNotificationCount(map, new Notificationservice.NotificationCountServiceListener() {
             @Override
-            public void onCompletion(GroupResponse groupResponse, AppError error) {
+            public void onCompletion(NotificationCountResponse response, AppError error) {
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
-                    groupsManagerListener.onCompletion(groupResponse, new AppError());
+                    notificationCountManagerListener.onCompletion(response, new AppError());
                 }
-                groupsManagerListener.onCompletion(groupResponse, error);
+                notificationCountManagerListener.onCompletion(response, error);
             }
         });
     }
@@ -96,5 +97,9 @@ public class NotificationManager {
 
     public interface NotificationManagerListener{
         public void onCompletion(NotificationResponse response, AppError error);
+    }
+
+    public interface NotificationCountManagerListener{
+        public void onCompletion(NotificationCountResponse response, AppError error);
     }
 }
