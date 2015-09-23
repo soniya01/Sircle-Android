@@ -18,7 +18,7 @@ public class Constants {
     public static final String LOGIN_API_PATH = "user/user_get/";
     
     public static final String GROUP_UPDATE_ALL_NOTIFICATION = "user/device_group_update_all";
-    public static final String GROUP_UPDATE_NOTIFICATION = "user/device_group_update";
+    public static final String GROUP_UPDATE_NOTIFICATION = "user/device_group_save";
     public static final String EVENTS_GET_ALL_TERMS_API_PATH = "user/get_all_terms";//"rest_api/terms/format/json";
     public static final String EVENTS_GET_MONTH_WISE_API_PATH = "user/group_and_month_wise_event";//"/user/group_and_month_wise_event/format/json";
     public static final String EVENTS_GET_ALL_EVENTS_API_PATH ="user/user_allevents";

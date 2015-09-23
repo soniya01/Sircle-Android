@@ -91,17 +91,16 @@ public class Notificationservice {
         });
     }
 
-    public void updateGroupNot(HashMap object, final  GroupsServiceListener groupsServiceListener){
-        retrofitImplementation.executePostWithURL(Constants.GROUP_UPDATE_NOTIFICATION, object, null, GroupResponse.class, new WebServiceListener() {
+    public void updateGroupNot(HashMap object, final  PostServiceListener postServiceListener){
+        retrofitImplementation.executePostWithURL(Constants.GROUP_UPDATE_NOTIFICATION, object, null, PostResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object response, AppError error) {
                 if (response != null) {
                     if (error.getErrorCode() == AppError.NO_ERROR || error == null) {
-                        groupsServiceListener.onCompletion((GroupResponse) response, new AppError());
+                        postServiceListener.onCompletion((PostResponse) response, new AppError());
                     }
-                    groupsServiceListener.onCompletion((GroupResponse) response, error);
                 } else {
-                    groupsServiceListener.onCompletion(null, error);}
+                    postServiceListener.onCompletion(null, error);}
             }
         });
     }

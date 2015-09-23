@@ -1,6 +1,7 @@
 package com.app.sircle.UI.Activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,6 +21,11 @@ import com.app.sircle.UI.Model.NotificationGroups;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.Utility.Constants;
 import com.app.sircle.WebService.GroupResponse;
+import com.app.sircle.WebService.PostResponse;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,6 +37,7 @@ public class SettingsActivity extends Activity {
     private NotificationsGroupAdapter notificationsGroupAdapter;
     private List<NotificationGroups> notificationGroupList = new ArrayList<NotificationGroups>();
     private CheckBox allCheckBox;
+    ProgressDialog ringProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,19 +47,48 @@ public class SettingsActivity extends Activity {
         notificationListView = (ListView) findViewById(R.id.notificationsGroupListView);
         allCheckBox = (CheckBox) findViewById(R.id.checkAll);
         populateDummyData();
-        //notificationsGroupAdapter = new NotificationsGroupAdapter(this, notificationGroupList);
 
         //notificationListView.setAdapter(notificationsGroupAdapter);
         Button saveButton = (Button)findViewById(R.id.saveGroups);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ringProgressDialog = ProgressDialog.show(SettingsActivity.this, "", "", true);
+                JSONArray arrayObject = new JSONArray();
+                for (int i =0 ; i< notificationGroupList.size(); i++){
+                    try {
+                        JSONObject object = new JSONObject();
+                        object.put("group_id",notificationGroupList.get(i).getId());
+                        object.put("val", notificationGroupList.get(i).getActive());
 
-                //NotificationManager.getSharedInstance()
+                        arrayObject.put(object);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                HashMap map = new HashMap();
+                map.put("regId", Constants.GCM_REG_ID);
+                map.put("groupValString", arrayObject.toString());
+
+
+                NotificationManager.getSharedInstance().updateGroupNotification(map, new NotificationManager.PostManagerListener() {
+                    @Override
+                    public void onCompletion(PostResponse postResponse, AppError error) {
+                        ringProgressDialog.dismiss();
+                        if (postResponse != null) {
+                            Toast.makeText(SettingsActivity.this, postResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                            if (postResponse.getStatus() == 200) {
+                                Intent homeIntent = new Intent(SettingsActivity.this, BaseActivity.class);
+                                startActivity(homeIntent);
+                                //finish();
+                            }
+                        } else {
+                            Toast.makeText(SettingsActivity.this, "some error occurred", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
                     // give access to the app features
-                    Intent homeIntent = new Intent(SettingsActivity.this, BaseActivity.class);
-                    startActivity(homeIntent);
-                finish();
 
                 }
 

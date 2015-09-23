@@ -97,9 +97,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
                         if (responseClass != LoginResponse.class) {
                             request.addHeader("Authorization", LoginManager.accessToken);
-                            for (String key : params.keySet()) {
-                                request.addEncodedQueryParam(key, params.get(key));
-                            }
+
                         }
                     }
                 })
@@ -244,7 +242,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                 });
                 break;
             case Constants.GROUP_UPDATE_NOTIFICATION:
-                postWebservice.postWithRegIdAndGrpId(params.get("regId"), params.get("val"), params.get("groupId"), new Callback<JsonElement>() {
+                postWebservice.postGroupNotification(params.get("regId"), params.get("groupValString"), new Callback<JsonElement>() {
                     @Override
                     public void success(JsonElement jsonElement, Response response) {
                         if (!jsonElement.isJsonNull()) {
@@ -558,7 +556,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
         @FormUrlEncoded
         @POST("/")
-        void postWithRegIdAndGrpId(@Field("regId") String regId, @Field("val") String subscribeVal, @Field("groupId") String groupId, Callback<JsonElement> callback);
+        void postGroupNotification(@Field("regId") String regId, @Field("groupValString") String subscribeVal, Callback<JsonElement> callback);
 
         @FormUrlEncoded
         @POST("/")
