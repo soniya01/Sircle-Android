@@ -18,9 +18,12 @@ import com.app.sircle.UI.Activity.BaseActivity;
 import com.app.sircle.UI.Adapter.NotificationsGroupAdapter;
 import com.app.sircle.UI.Model.NotificationGroups;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.Utility.Constants;
+import com.app.sircle.WebService.GroupResponse;
 import com.app.sircle.WebService.PostResponse;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -81,20 +84,42 @@ public class SettingsFragment extends Fragment {
 
     public void populateDummyData(){
 
-        NotificationGroups n1 = new NotificationGroups();
-        n1.setName("Group 1");
+            HashMap<String, String> map = new HashMap<>();
+            map.put("regId", Constants.GCM_REG_ID);
+            NotificationManager.getSharedInstance().getAllGroups(map, new NotificationManager.GroupsManagerListener() {
+                @Override
+                public void onCompletion(GroupResponse response, AppError error) {
 
-        notificationGroupList.add(n1);
-        notificationGroupList.add(n1);
-        notificationGroupList.add(n1);
-        notificationGroupList.add(n1);
-        notificationGroupList.add(n1);
-        notificationGroupList.add(n1);
-        notificationGroupList.add(n1);
-        notificationGroupList.add(n1);
+                    if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
+                        if (response != null) {
 
+                            if (notificationGroupList.size() > 0) {
+                                notificationGroupList.clear();
+                                notificationGroupList.addAll(response.getData());
+                                notificationsGroupAdapter.notifyDataSetChanged();
+                                // update group notifictaion for all groups
+                                //updateAllGroup();
 
-    }
+                            } else {
+                                //SettingsActivity.this.notificationGroupList.clear();
+                                notificationGroupList.addAll(response.getData());
+                                notificationsGroupAdapter = new NotificationsGroupAdapter(getActivity(), notificationGroupList);
+                                notificationListView.setAdapter(notificationsGroupAdapter);
+                            }
+
+                            Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            //Toast.makeText(SettingsActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
+
+        }
 
 
 }

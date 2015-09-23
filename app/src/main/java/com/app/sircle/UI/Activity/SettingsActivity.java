@@ -162,20 +162,6 @@ public class SettingsActivity extends Activity {
 
     }
 
-    public void updateAllGroup(){
-        HashMap map = new HashMap();
-        map.put("regId", Constants.GCM_REG_ID);
-        map.put("val","1");
-        NotificationManager.getSharedInstance().updateAllGroupsNotification(map, new NotificationManager.GroupsManagerListener() {
-            @Override
-            public void onCompletion(GroupResponse groupResponse, AppError error) {
-                if (error == null || groupResponse != null){
-
-                }
-            }
-        });
-    }
-
     @Override
     public void onBackPressed() {
 
