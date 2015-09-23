@@ -43,6 +43,7 @@ public class EventActivity extends ActionBarActivity {
     private List<String> eventCategory = new ArrayList<>();
     private NotificationsGroupAdapter notificationsGroupAdapter;
     private ListView categoryListView;
+    ArrayAdapter<String> adapter;
 
 
     @Override
@@ -81,6 +82,37 @@ public class EventActivity extends ActionBarActivity {
                 // TODO Auto-generated method stub
                 //String names[] = {"Arts", "Sports", "Excursion", "Academics", "Performance", "Other"};
 
+                EventManager.getSharedInstance().getEventCategory(new EventManager.GetEventsCategoryManagerListener() {
+                    @Override
+                    public void onCompletion(List<EventCategory> eventCategoryList, AppError error) {
+                        if (error == null && eventCategoryList != null){
+                            if (eventCategoryList.size() > 0){
+                                eventCategory.clear();
+                                for (EventCategory eventCategory : eventCategoryList){
+                                    EventActivity.this.eventCategory.add(eventCategory.getCategory());
+                                }
+                                adapter = new ArrayAdapter<String>(getApplicationContext(),
+                                        android.R.layout.simple_list_item_1, eventCategory
+                                ) {
+                                    @Override
+                                    public View getView(int position, View convertView, ViewGroup parent) {
+                                        View view = super.getView(position, convertView, parent);
+                                        TextView text = (TextView) view.findViewById(android.R.id.text1);
+                                        text.setTextColor(Color.BLACK);
+                                        return view;
+                                    }
+                                };
+                                categoryListView.setAdapter(adapter);
+                            }else {
+                                Toast.makeText(EventActivity.this, "No categories found!",Toast.LENGTH_SHORT).show();
+                            }
+                        }else {
+                            Toast.makeText(EventActivity.this, "some error occurred",Toast.LENGTH_SHORT).show();
+                        }
+                        //EventActivity.this.eventCategory.addAll(eventCategoryList);
+                    }
+                });
+
                 final AlertDialog.Builder alertDialog = new AlertDialog.Builder(EventActivity.this);
                 LayoutInflater inflater = getLayoutInflater();
                 View convertView = (View) inflater.inflate(R.layout.dialog_list_view, null);
@@ -89,7 +121,7 @@ public class EventActivity extends ActionBarActivity {
                 categoryListView = (ListView) convertView.findViewById(R.id.listView1);
                 // ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, names);
                 // lv.setAdapter(adapter);
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
+                adapter = new ArrayAdapter<String>(getApplicationContext(),
                         android.R.layout.simple_list_item_1, eventCategory
                 ) {
                     @Override
@@ -100,8 +132,8 @@ public class EventActivity extends ActionBarActivity {
                         return view;
                     }
                 };
-
                 categoryListView.setAdapter(adapter);
+
                 //  alertDialog.show();
 
                 alert = alertDialog.show();
@@ -156,21 +188,6 @@ public class EventActivity extends ActionBarActivity {
         // get group names call to be added
 
         // get event category
-        EventManager.getSharedInstance().getEventCategory(new EventManager.GetEventsCategoryManagerListener() {
-            @Override
-            public void onCompletion(List<EventCategory> eventCategoryList, AppError error) {
-                if (error == null && eventCategoryList != null){
-                    if (eventCategoryList.size() > 0){
-                        for (EventCategory eventCategory : eventCategoryList){
-                            EventActivity.this.eventCategory.add(eventCategory.getCategory());
-                        }
-                    }
-                }else {
-
-                }
-                //EventActivity.this.eventCategory.addAll(eventCategoryList);
-            }
-        });
 
         HashMap<String, String> map = new HashMap<>();
         map.put("regId", Constants.GCM_REG_ID);

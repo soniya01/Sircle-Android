@@ -1,5 +1,7 @@
 package com.app.sircle.UI.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by soniya on 14/09/15.
  */
@@ -7,6 +9,8 @@ public class EventCategory {
 
     public String id;
     public String category;
+
+    @SerializedName("created_on")
     public String createdOn;
 
     public String getId() {

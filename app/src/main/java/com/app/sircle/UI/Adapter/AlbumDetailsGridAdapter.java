@@ -72,7 +72,7 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
 
         // get screen dimensions
         Picasso.with(mContext)
-                .load(albumDetailsList.get(position).getPhotoThumbURL())
+                .load(albumDetailsList.get(position).getPhotoLargeURL())
                 .into(viewHolder.albumImageView, new Callback() {
             @Override
             public void onSuccess() {
