@@ -79,7 +79,7 @@ public class DocumentFragment extends Fragment {
         HashMap object = new HashMap();
         object.put("regId", "id");
         object.put("groupId",1);
-        object.put("val", "val");
+        object.put("page", 1);
 
         DocumentManager.getSharedInstance().getAllDocs(object, new DocumentManager.GetNewsManagerListener() {
             @Override

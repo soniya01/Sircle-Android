@@ -77,7 +77,7 @@ public class NotificationFragment extends Fragment {
         HashMap object = new HashMap();
         object.put("regId", "id");
         object.put("groupId",1);
-        object.put("val", "val");
+        object.put("page", 1);
 
         NotificationManager.getSharedInstance().getAllNotifications(object, new NotificationManager.NotificationManagerListener() {
             @Override

@@ -19,7 +19,7 @@ public class DocumentResponseData {
     public int pageRecords;
     public List<NewsLetter> documents = new ArrayList<NewsLetter>();
 
-    public List<NewsLetter> newsLetters = new ArrayList<NewsLetter>();
+    public List<NewsLetter> newsletters = new ArrayList<NewsLetter>();
 
     public int getTotalRecords() {
         return totalRecords;
@@ -54,11 +54,11 @@ public class DocumentResponseData {
     }
 
     public List<NewsLetter> getNewsLetters() {
-        return newsLetters;
+        return newsletters;
     }
 
     public void setNewsLetters(List<NewsLetter> newsLetters) {
-        this.newsLetters = newsLetters;
+        this.newsletters = newsLetters;
     }
 
 }

@@ -65,7 +65,9 @@ public class NewsLettersViewAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-       // viewHolder.videoSourceLabel.setText("Youtube");
+        viewHolder.pdfTitleLabel.setText(newsLettersList.get(position).getName());
+        viewHolder.pdfDateLabel.setText(newsLettersList.get(position).getPdfDate());
+        viewHolder.pdfTimeLabel.setText(newsLettersList.get(position).getPdfTime());
         return convertView;
 
     }

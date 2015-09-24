@@ -74,10 +74,10 @@ public class NewsLetterFragment extends Fragment {
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
         ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
 
-        String[] grpIds = {"1", "2"};
+       // String[] grpIds = {1, 2};
         HashMap map = new HashMap();
         map.put("regId", "id");
-        map.put("groupId", grpIds);
+        map.put("groupId", 1);
         map.put("page", 1);
 
         DocumentManager.getSharedInstance().getAllNewsLetters(map, new DocumentManager.GetNewsManagerListener() {
@@ -87,7 +87,7 @@ public class NewsLetterFragment extends Fragment {
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR){
                     if (response != null){
                         if (response.getStatus() == 200){
-                            if (response.getData().getDocs().size() > 0){
+                            if (response.getData().getNewsLetters().size() > 0){
                                 if (NewsLetterFragment.this.newsLetterList.size() == 0){
                                     NewsLetterFragment.this.newsLetterList.addAll(response.getData().getDocs());
                                     newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), response.getData().getDocs());

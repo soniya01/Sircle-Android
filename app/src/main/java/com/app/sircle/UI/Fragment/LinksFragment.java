@@ -79,7 +79,7 @@ public class LinksFragment extends Fragment {
         String[] grpIds = {"1", "2"};
         HashMap map = new HashMap();
         map.put("regId", "id");
-        map.put("groupId", grpIds);
+        map.put("groupId", 1);
         map.put("page", 1);
 
         LinksManager.getSharedInstance().getAllLinks(map, new LinksManager.LinksManagerListener() {
