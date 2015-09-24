@@ -13,9 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.app.sircle.Manager.EventManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.AddLinksActivity;
 import com.app.sircle.UI.Activity.EventsListActivity;
+import com.app.sircle.UI.Model.Event;
+import com.app.sircle.Utility.AppError;
+import com.app.sircle.Utility.Constants;
+import com.app.sircle.WebService.EventDataReponse;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
@@ -92,9 +97,8 @@ public class CalendarMonthFragment extends Fragment {
 
         month = cal.get(Calendar.MONTH) + 1;
         year = cal.get(Calendar.YEAR);
-        HashMap dates = new HashMap();
 
-        caldroidFragment.setBackgroundResourceForDates(dates);
+        getCalendarEvents();
 
 
         String myFormat = "MM/dd/yy"; //In which you need put here
@@ -119,6 +123,7 @@ public class CalendarMonthFragment extends Fragment {
                 String text = "month: " + month + " year: " + year;
                 CalendarMonthFragment.this.month = month;
                 CalendarMonthFragment.this.year = year;
+                getCalendarEvents();
               //  Toast.makeText(getActivity().getApplicationContext(), text, Toast.LENGTH_SHORT).show();
             }
 
@@ -185,5 +190,47 @@ public class CalendarMonthFragment extends Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
+
+    public void getCalendarEvents(){
+        HashMap object = new HashMap();
+        object.put("regId", Constants.GCM_REG_ID);
+        object.put("month",month);
+        object.put("year", year);
+        object.put("page", 1);
+        object.put("groupId", 1);
+
+        EventManager.getSharedInstance().getEventsMonthWise(object, new EventManager.GetMonthwiseEventsManagerListener() {
+            @Override
+            public void onCompletion(EventDataReponse data, AppError error) {
+                if (data != null){
+                    if (data.getEventData().getEvents() != null){
+                        if (data.getEventData().getEvents().size() > 0){
+                            HashMap dates = new HashMap();
+                            for (Event event:  data.getEventData().getEvents()){
+                                String dateString = event.getStartDate();
+                                Date date;
+                                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                                try {
+                                    date = new SimpleDateFormat("EEEE dd MMM yyyy")
+                                            .parse(dateString);
+
+
+                                    dates.put(date, android.R.color.holo_blue_light);
+                                    System.out.println("Date ->" + date);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            caldroidFragment.setBackgroundResourceForDates(dates);
+
+                        }else {
+
+                        }
+                    }
+                }
+            }
+        });
+    }
+
 
 }
