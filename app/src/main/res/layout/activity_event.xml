@@ -276,6 +276,7 @@ tools:context="com.app.sircle.UI.Activity.EventActivity">
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="40dp"
+                android:layout_marginBottom="20dp"
                 android:background="#9A32CD"
                 android:text="Add Event"
                 android:textAllCaps="false"

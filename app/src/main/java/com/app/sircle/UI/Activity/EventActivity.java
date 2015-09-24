@@ -27,7 +27,9 @@ import com.app.sircle.UI.Model.EventCategory;
 import com.app.sircle.UI.Model.NotificationGroups;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.Utility.Constants;
+import com.app.sircle.WebService.CategoryResponse;
 import com.app.sircle.WebService.GroupResponse;
+import com.app.sircle.WebService.PostResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,7 +38,7 @@ import java.util.List;
 public class EventActivity extends ActionBarActivity {
 
     AlertDialog alert;
-    Button selectCategoryButton;
+    private Button selectCategoryButton, addButton;
     private ListView addListView;
     private List<NotificationGroups> notificationGroupList = new ArrayList<NotificationGroups>();
     private List<String> groupNames = new ArrayList<String>();
@@ -55,6 +57,7 @@ public class EventActivity extends ActionBarActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         addListView = (ListView) findViewById(R.id.activity_schoolHoliday_list_view);
+        addButton = (Button)findViewById(R.id.add_button);
         setListViewHeightBasedOnChildren(addListView);
 
 
@@ -74,7 +77,27 @@ public class EventActivity extends ActionBarActivity {
             }
         });
 
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HashMap params = new HashMap();
+                params.put("event_type","Event");
 
+                EventManager.getSharedInstance().addEvent(params, new EventManager.AddEventsManagerListener() {
+                    @Override
+                    public void onCompletion(PostResponse response, AppError error) {
+                        if (response != null){
+                            Toast.makeText(EventActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
+                            if (response.getStatus() == 200){
+                                finish();
+                            }
+                        }else {
+                            Toast.makeText(EventActivity.this, "some error occurred",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
         selectCategoryButton = (Button) findViewById(R.id.selectCategoryButton);
 
         selectCategoryButton.setOnClickListener(new View.OnClickListener() {
@@ -84,11 +107,11 @@ public class EventActivity extends ActionBarActivity {
 
                 EventManager.getSharedInstance().getEventCategory(new EventManager.GetEventsCategoryManagerListener() {
                     @Override
-                    public void onCompletion(List<EventCategory> eventCategoryList, AppError error) {
-                        if (error == null && eventCategoryList != null){
-                            if (eventCategoryList.size() > 0){
+                    public void onCompletion(CategoryResponse response, AppError error) {
+                        if (response != null){
+                            if (response.getData().size() > 0){
                                 eventCategory.clear();
-                                for (EventCategory eventCategory : eventCategoryList){
+                                for (EventCategory eventCategory : response.getData()){
                                     EventActivity.this.eventCategory.add(eventCategory.getCategory());
                                 }
                                 adapter = new ArrayAdapter<String>(getApplicationContext(),
@@ -104,7 +127,7 @@ public class EventActivity extends ActionBarActivity {
                                 };
                                 categoryListView.setAdapter(adapter);
                             }else {
-                                Toast.makeText(EventActivity.this, "No categories found!",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(EventActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
                             }
                         }else {
                             Toast.makeText(EventActivity.this, "some error occurred",Toast.LENGTH_SHORT).show();

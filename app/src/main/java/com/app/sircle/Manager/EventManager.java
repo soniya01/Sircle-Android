@@ -3,10 +3,12 @@ package com.app.sircle.Manager;
 import com.app.sircle.UI.Model.EventCategory;
 import com.app.sircle.UI.Model.Terms;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.WebService.CategoryResponse;
 import com.app.sircle.WebService.EventData;
 import com.app.sircle.WebService.EventDataReponse;
 import com.app.sircle.WebService.EventDetailResponse;
 import com.app.sircle.WebService.EventWebService;
+import com.app.sircle.WebService.PostResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -76,11 +78,11 @@ public class EventManager {
     public void getEventCategory(final GetEventsCategoryManagerListener getEventsCategoryManagerListener){
         EventWebService.getSharedInstance().getAllEventCategory(new EventWebService.GetEventsCategoryServiceListener() {
             @Override
-            public void onCompletion(List<EventCategory> eventCategoryList, AppError error) {
-                if (error.getErrorCode() == AppError.NO_ERROR && eventCategoryList != null) {
-                    getEventsCategoryManagerListener.onCompletion(eventCategoryList, new AppError());
+            public void onCompletion(CategoryResponse response, AppError error) {
+                if ( response != null) {
+                    getEventsCategoryManagerListener.onCompletion(response, new AppError());
                 } else {
-                    getEventsCategoryManagerListener.onCompletion(null, error);
+                    getEventsCategoryManagerListener.onCompletion(response, error);
                 }
             }
         });
@@ -99,6 +101,15 @@ public class EventManager {
         public void onCompletion(EventDetailResponse eventDetailResponse, AppError error);
     }
 
+    public void addEvent(HashMap object, final AddEventsManagerListener addEventsManagerListener){
+        EventWebService.getSharedInstance().addEvent(object, new EventWebService.PostWebServiceListener() {
+            @Override
+            public void onCompletion(PostResponse response, AppError error) {
+                addEventsManagerListener.onCompletion(response, error);
+            }
+        });
+    }
+
 
     public interface GetAllTermsManagerListener{
         public void onCompletion(List<Terms> termsList, AppError error);
@@ -109,6 +120,10 @@ public class EventManager {
     }
 
     public interface GetEventsCategoryManagerListener{
-        public void onCompletion(List<EventCategory> eventCategoryList, AppError error);
+        public void onCompletion(CategoryResponse response, AppError error);
+    }
+
+    public interface AddEventsManagerListener{
+        public void onCompletion(PostResponse response, AppError error);
     }
 }

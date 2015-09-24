@@ -33,6 +33,15 @@ public class EventWebService {
         return sharedInstance;
     }
 
+    public void addEvent(HashMap params, final PostWebServiceListener postWebServiceListener){
+        retrofitImplementation.executePostWithURL(Constants.EVENTS_ADD_NEW_EVENT_API_PATH, params, null, PostResponse.class, new WebServiceListener() {
+            @Override
+            public void onCompletion(Object responseObject, AppError error) {
+                postWebServiceListener.onCompletion((PostResponse)responseObject, error);
+            }
+        });
+    }
+
     public void getAllTerms(HashMap<String, String> map, final GetAllTermsServiceListener getAllTermsServiceListener){
 
         retrofitImplementation.executeGetWithURL(Constants.EVENTS_GET_ALL_TERMS_API_PATH, null, null, TermsResponse.class, new WebServiceListener() {
@@ -84,8 +93,8 @@ public class EventWebService {
             public void onCompletion(Object responseObject, AppError error) {
                 //TODO: decide what will be the eventcategory data
                 if (error.getErrorCode() == AppError.NO_ERROR && responseObject != null){
-                    List<EventCategory> eventList = (ArrayList<EventCategory>) (((CategoryResponse)responseObject).getData());
-                    getEventsCategoryServiceListener.onCompletion(eventList, new AppError());
+                    //List<EventCategory> eventList = (ArrayList<EventCategory>) (((CategoryResponse)responseObject).getData());
+                    getEventsCategoryServiceListener.onCompletion((CategoryResponse)responseObject, new AppError());
                 }else {
                     getEventsCategoryServiceListener.onCompletion(null, error);
                 }
@@ -110,7 +119,9 @@ public class EventWebService {
         //TODO: how to call delete using retrofit
     }
 
-
+    public interface PostWebServiceListener{
+        public void onCompletion(PostResponse response,AppError error);
+    }
 
     public interface EventWebServiceListener{
         public void onCompletion(EventDetailResponse response,AppError error);
@@ -127,6 +138,6 @@ public class EventWebService {
     }
 
     public interface GetEventsCategoryServiceListener{
-        public void onCompletion(List<EventCategory> eventCategoryList, AppError error);
+        public void onCompletion(CategoryResponse response, AppError error);
     }
 }
