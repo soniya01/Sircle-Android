@@ -79,11 +79,29 @@ public class EventManager {
         EventWebService.getSharedInstance().getAllEventCategory(new EventWebService.GetEventsCategoryServiceListener() {
             @Override
             public void onCompletion(CategoryResponse response, AppError error) {
-                if ( response != null) {
+                if (response != null) {
                     getEventsCategoryManagerListener.onCompletion(response, new AppError());
                 } else {
                     getEventsCategoryManagerListener.onCompletion(response, error);
                 }
+            }
+        });
+    }
+
+    public void addEvent(HashMap object, final AddEventsManagerListener addEventsManagerListener){
+        EventWebService.getSharedInstance().addEvent(object, new EventWebService.PostWebServiceListener() {
+            @Override
+            public void onCompletion(PostResponse response, AppError error) {
+                addEventsManagerListener.onCompletion(response, error);
+            }
+        });
+    }
+
+    public void deleteEvent(HashMap object, final AddEventsManagerListener addEventsManagerListener){
+        EventWebService.getSharedInstance().deleteEvent(object, new EventWebService.PostWebServiceListener() {
+            @Override
+            public void onCompletion(PostResponse response, AppError error) {
+                addEventsManagerListener.onCompletion(response, error);
             }
         });
     }
@@ -101,14 +119,6 @@ public class EventManager {
         public void onCompletion(EventDetailResponse eventDetailResponse, AppError error);
     }
 
-    public void addEvent(HashMap object, final AddEventsManagerListener addEventsManagerListener){
-        EventWebService.getSharedInstance().addEvent(object, new EventWebService.PostWebServiceListener() {
-            @Override
-            public void onCompletion(PostResponse response, AppError error) {
-                addEventsManagerListener.onCompletion(response, error);
-            }
-        });
-    }
 
 
     public interface GetAllTermsManagerListener{

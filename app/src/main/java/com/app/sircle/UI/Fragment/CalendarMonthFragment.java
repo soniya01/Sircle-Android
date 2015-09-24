@@ -22,6 +22,7 @@ import com.roomorama.caldroid.CaldroidListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 
 /**
@@ -42,6 +43,7 @@ public class CalendarMonthFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     public int month, year;
+    private CaldroidFragment caldroidFragment;
 
     private OnFragmentInteractionListener mListener;
 
@@ -80,7 +82,7 @@ public class CalendarMonthFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        CaldroidFragment caldroidFragment = new CaldroidFragment();
+        caldroidFragment = new CaldroidFragment();
        // caldroidFragment.setMinDate(new Date());
         Bundle args = new Bundle();
         Calendar cal = Calendar.getInstance();
@@ -90,6 +92,9 @@ public class CalendarMonthFragment extends Fragment {
 
         month = cal.get(Calendar.MONTH) + 1;
         year = cal.get(Calendar.YEAR);
+        HashMap dates = new HashMap();
+
+        caldroidFragment.setBackgroundResourceForDates(dates);
 
 
         String myFormat = "MM/dd/yy"; //In which you need put here

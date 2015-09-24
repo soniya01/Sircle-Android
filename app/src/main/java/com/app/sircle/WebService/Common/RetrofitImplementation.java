@@ -405,10 +405,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                         Collection<Object> data = gson.fromJson(jsonElement, collectionType);
                         webserviceListener.onCompletion(data, new AppError());
                     }else {
-                        if (responseClass == GroupResponse.class || responseClass == TermsResponse.class){
-                            object = gson.fromJson(jsonElement, responseClass);
-                            webserviceListener.onCompletion(object, new AppError());
-                        }else {
+
                             JsonObject jobject = jsonElement.getAsJsonObject();
                             try {
                                 jobject = jobject.getAsJsonObject("data");
@@ -418,7 +415,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                                 object = gson.fromJson(jsonElement, responseClass);
                                 webserviceListener.onCompletion(object, new AppError());
                             }
-                        }
+
                     }
                 }
             }

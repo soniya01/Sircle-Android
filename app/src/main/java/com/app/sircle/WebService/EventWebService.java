@@ -115,8 +115,14 @@ public class EventWebService {
         });
     }
 
-    public void deleteEvent(HashMap requestObject, EventWebServiceListener eventManagerListener){
+    public void deleteEvent(HashMap requestObject, final PostWebServiceListener postWebServiceListener){
         //TODO: how to call delete using retrofit
+        retrofitImplementation.executePostWithURL(Constants.EVENTS_DELETE_API_PATH, requestObject, null, PostResponse.class, new WebServiceListener() {
+            @Override
+            public void onCompletion(Object responseObject, AppError error) {
+                postWebServiceListener.onCompletion((PostResponse)responseObject, error);
+            }
+        });
     }
 
     public interface PostWebServiceListener{

@@ -103,19 +103,24 @@ public class EventsListActivity extends ActionBarActivity {
             public void onCompletion(EventDataReponse data, AppError error) {
                 if (data != null) {
                     if (data.getStatus() == 200) {
-                        if (data.getEventData().getEvents().size() > 0) {
-                            if (calendarMonthList.size() > 0) {
-                                calendarMonthList.clear();
-                                calendarMonthList.addAll(data.getEventData().getEvents());
-                                calendarMonthListViewAdapter.notifyDataSetChanged();
+                        if (data.getEventData().getEvents() != null){
+                            if (data.getEventData().getEvents().size() > 0) {
+                                if (calendarMonthList.size() > 0) {
+                                    calendarMonthList.clear();
+                                    calendarMonthList.addAll(data.getEventData().getEvents());
+                                    calendarMonthListViewAdapter.notifyDataSetChanged();
+                                } else {
+                                    calendarMonthList.addAll(data.getEventData().getEvents());
+                                    calendarMonthListViewAdapter = new CalendarMonthListAdapter(EventsListActivity.this, calendarMonthList);
+                                    calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
+                                }
                             } else {
-                                calendarMonthList.addAll(data.getEventData().getEvents());
-                                calendarMonthListViewAdapter = new CalendarMonthListAdapter(EventsListActivity.this, calendarMonthList);
-                                calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
+                                Toast.makeText(EventsListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
                             }
-                        } else {
+                        }else {
                             Toast.makeText(EventsListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
                         }
+
                     } else {
                         Toast.makeText(EventsListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
                     }

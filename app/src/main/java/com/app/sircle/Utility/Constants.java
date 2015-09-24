@@ -28,6 +28,7 @@ public class Constants {
     public static final String EVENTS_ADD_NEW_EVENT_API_PATH = "user/new_event";
     public static final String NOTIFICATION_GET_ALL_GROUPS = "user/user_groups_new";//"rest_api/groups/format/json";
     public static final String NOTIFICATION_ADD_GROUPS = "user/add_notification";
+    public static final String NOTIFICATION_COUNT = "user/get_user_notification_count";
 
     public static final String PHOTOS_ADD_NEW_ALBUM_API_PATH ="user/add_album";
     public static final String PHOTOS_GET_API_PATH ="user/photos";//"rest_api/photos/{id1}/format/json";
