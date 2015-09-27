@@ -103,7 +103,6 @@ public class DocumentFragment extends Fragment {
                     }else {
                         Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-
                 } else {
                     Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
                 }

@@ -9,7 +9,7 @@ public class EventDetailResponse {
     public String message;
     public int status;
 
-    public List<EventDetailResponseData> data;
+    public EventDetailResponseData data;
 
     public String getMessage() {
         return message;
@@ -27,11 +27,11 @@ public class EventDetailResponse {
         this.status = status;
     }
 
-    public List<EventDetailResponseData> getData() {
+    public EventDetailResponseData getData() {
         return data;
     }
 
-    public void setData(List<EventDetailResponseData> data) {
+    public void setData(EventDetailResponseData data) {
         this.data = data;
     }
 }

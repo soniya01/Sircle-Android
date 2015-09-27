@@ -75,6 +75,6 @@
     <string name="title_activity_holiday">Holiday</string>
     <string name="title_activity_school_holiday">School Holiday</string>
     <string name="title_activity_event">Event</string>
-
+    <string name="title_activity_event_detail">View Event</string>
 
 </resources>

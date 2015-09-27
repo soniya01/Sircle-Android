@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <!-- Network State Permissions -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -69,15 +69,14 @@
         <activity
             android:name=".UI.Activity.AddPhotoTabbedActivity"
             android:label="@string/title_activity_add_photo_tabbed"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".UI.Activity.AddSelectedPhoto"
             android:label="@string/title_activity_add_selected_photo"
-            android:screenOrientation="portrait">
-            </activity>
-
-          <activity
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name=".UI.Activity.HolidayActivity"
             android:label="@string/title_activity_holiday" >
         </activity>
@@ -88,6 +87,10 @@
         <activity
             android:name=".UI.Activity.EventActivity"
             android:label="@string/title_activity_event" >
+        </activity>
+        <activity
+            android:name=".UI.Activity.EventDetailActivity"
+            android:label="@string/title_activity_event_detail" >
         </activity>
     </application>
 
