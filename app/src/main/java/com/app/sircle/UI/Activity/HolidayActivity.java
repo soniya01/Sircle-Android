@@ -6,20 +6,27 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.app.sircle.Manager.EventManager;
 import com.app.sircle.R;
+import com.app.sircle.Utility.AppError;
+import com.app.sircle.WebService.PostResponse;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class HolidayActivity extends ActionBarActivity {
 
     Calendar myCalendar;
-    EditText startDateEditText,endDateEditText;
+    EditText startDateEditText,endDateEditText, title;
+    private Button add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +35,35 @@ public class HolidayActivity extends ActionBarActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        add = (Button)findViewById(R.id.add_button);
+        title  = (EditText)findViewById(R.id.holidayEventTitle);
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HashMap params = new HashMap();
+                params.put("event_type","1");
+                //params.put("grp",1);
+                params.put("title",title.getText().toString());
+                params.put("strdate",startDateEditText.getText().toString());
+                params.put("enddate",endDateEditText.getText().toString());
+
+                EventManager.getSharedInstance().addEvent(params, new EventManager.AddEventsManagerListener() {
+                    @Override
+                    public void onCompletion(PostResponse response, AppError error) {
+                        if (response != null){
+                            Toast.makeText(HolidayActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                            if (response.getStatus() == 200){
+                                finish();
+                            }
+                        }else {
+                            Toast.makeText(HolidayActivity.this, "some error occurred",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
 
 
         myCalendar = Calendar.getInstance();

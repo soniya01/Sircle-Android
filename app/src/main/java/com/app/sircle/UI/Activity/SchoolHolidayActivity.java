@@ -11,13 +11,22 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.app.sircle.Manager.EventManager;
+import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
+import com.app.sircle.UI.Adapter.NotificationsGroupAdapter;
 import com.app.sircle.UI.Model.NotificationGroups;
+import com.app.sircle.Utility.AppError;
+import com.app.sircle.Utility.Constants;
+import com.app.sircle.WebService.GroupResponse;
+import com.app.sircle.WebService.PostResponse;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -31,6 +40,7 @@ public class SchoolHolidayActivity extends ActionBarActivity {
     private Button addButton;
     Calendar myCalendar;
     EditText startDateEditText,endDateEditText;
+    private NotificationsGroupAdapter notificationsGroupAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +56,31 @@ public class SchoolHolidayActivity extends ActionBarActivity {
         footerView = View.inflate(this, R.layout.list_view_add_footer, null);
         addButton = (Button) footerView.findViewById(R.id.add_button);
         addButton.setText("Add Event");
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HashMap params = new HashMap();
+                params.put("event_type", "3");
+                params.put("grp",1);
+                params.put("title", title.getText().toString());
+                params.put("strdate", startDateEditText.getText().toString());
+                params.put("enddate", endDateEditText.getText().toString());
+
+                EventManager.getSharedInstance().addEvent(params, new EventManager.AddEventsManagerListener() {
+                    @Override
+                    public void onCompletion(PostResponse response, AppError error) {
+                        if (response != null) {
+                            Toast.makeText(SchoolHolidayActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                            if (response.getStatus() == 200) {
+                                finish();
+                            }
+                        } else {
+                            Toast.makeText(SchoolHolidayActivity.this, "some error occurred", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
         addListView.addFooterView(footerView);
 
         populateDummyData();
@@ -142,16 +177,41 @@ public class SchoolHolidayActivity extends ActionBarActivity {
 
     public void populateDummyData() {
 
-        NotificationGroups n1 = new NotificationGroups();
-        n1.setName("Group 1");
+        HashMap<String, String> map = new HashMap<>();
+        map.put("regId", Constants.GCM_REG_ID);
+        NotificationManager.getSharedInstance().getAllGroups(map, new NotificationManager.GroupsManagerListener() {
+            @Override
+            public void onCompletion(GroupResponse response, AppError error) {
 
-        notificationGroupList.add(n1);
+                if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
+                    if (response != null) {
 
-        groupNames.add("All");
-        groupNames.add(notificationGroupList.get(0).getName());
-        groupNames.add("Group 2");
-        groupNames.add(notificationGroupList.get(0).getName());
-        groupNames.add(notificationGroupList.get(0).getName());
-        groupNames.add(notificationGroupList.get(0).getName());
+                        if (SchoolHolidayActivity.this.notificationGroupList.size() > 0) {
+                            SchoolHolidayActivity.this.notificationGroupList.clear();
+                            SchoolHolidayActivity.this.notificationGroupList.addAll(response.getData());
+                            notificationsGroupAdapter.notifyDataSetChanged();
+                            // update group notifictaion for all groups
+                            //updateAllGroup();
+
+                        } else {
+                            //SettingsActivity.this.notificationGroupList.clear();
+                            SchoolHolidayActivity.this.notificationGroupList.addAll(response.getData());
+                            notificationsGroupAdapter = new NotificationsGroupAdapter(SchoolHolidayActivity.this, notificationGroupList);
+                            addListView.setAdapter(notificationsGroupAdapter);
+
+                        }
+
+                        Toast.makeText(SchoolHolidayActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        //Toast.makeText(SettingsActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+                    Toast.makeText(SchoolHolidayActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
     }
 }

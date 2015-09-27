@@ -21,6 +21,7 @@ import com.squareup.okhttp.OkHttpClient;
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import retrofit.Callback;
@@ -30,6 +31,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.http.Body;
 import retrofit.http.Field;
+import retrofit.http.FieldMap;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.Headers;
@@ -97,6 +99,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
                         if (responseClass != LoginResponse.class) {
                             request.addHeader("Authorization", LoginManager.accessToken);
+
 
                         }
                     }
@@ -359,6 +362,45 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     }
                 });
                 break;
+            case Constants.EVENTS_ADD_NEW_EVENT_API_PATH:
+                postWebservice.postEvents(params, new Callback<JsonElement>() {
+                    @Override
+                    public void success(JsonElement jsonElement, Response response) {
+                        if (!jsonElement.isJsonNull()) {
+
+                            Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
+
+                            if (responseClass != null) {
+                                Object object = Common.createObjectForClass(responseClass);
+
+                                if (jsonElement.isJsonArray()) {
+                                    Type collectionType = new TypeToken<Collection<Object>>() {
+                                    }.getType();
+                                    Collection<Object> data = gson.fromJson(jsonElement, collectionType);
+                                    webserviceListener.onCompletion(data, new AppError());
+                                } else {
+                                    object = gson.fromJson(jsonElement, responseClass);
+                                    webserviceListener.onCompletion(object, new AppError());
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        AppError appError = new AppError();
+                        appError.setErrorCode(getRetrofitErrorcode(error));
+                        appError.setErrorMessage(error.getLocalizedMessage());
+
+                        // Send empty object
+                        if (responseClass != null) {
+                            webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
+                        } else {
+                            webserviceListener.onCompletion(null, appError);
+                        }
+                    }
+                });
+                break;
         }
     }
 
@@ -413,7 +455,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                                 webserviceListener.onCompletion(object, new AppError());
                             }catch (Exception e){
                                 object = gson.fromJson(jsonElement, responseClass);
-                                webserviceListener.onCompletion(object, new AppError());
+                                webserviceListener.onCompletion(null, new AppError());
                             }
 
                     }
@@ -502,17 +544,29 @@ public class RetrofitImplementation implements WebServiceProtocol{
                 .setRequestInterceptor(new RequestInterceptor() {
                     @Override
                     public void intercept(RequestFacade request) {
-                        //request.addHeader(Constants.AUTHORIZATION, SignInManager.getSharedInstance().sessionId);
+                        request.addHeader("Authorization", LoginManager.accessToken);
                     }
                 })
                 .build();
 
         WebserviceApi uploadImageService = restAdapter.create(WebserviceApi.class);
 
-        uploadImageService.uploadImage(typedFile, new Callback<JsonElement>() {
+        uploadImageService.uploadImage(params, typedFile, new Callback<JsonElement>() {
             @Override
             public void success(JsonElement jsonElement, Response response) {
+                if (!jsonElement.isJsonNull()) {
+                    Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
+                    Object object = Common.createObjectForClass(responseClass);
 
+                    if (jsonElement.isJsonArray()){
+                        Type collectionType = new TypeToken<Collection<Object>>(){}.getType();
+                        Collection<Object> data = gson.fromJson(jsonElement, collectionType);
+                        webserviceListener.onCompletion(data, new AppError());
+                    }else {
+                        object = gson.fromJson(jsonElement, responseClass);
+                        webserviceListener.onCompletion(object, new AppError());
+                    }
+                }
             }
 
             @Override
@@ -574,9 +628,13 @@ public class RetrofitImplementation implements WebServiceProtocol{
         @PUT("/")
         void put(@Body Object requestObject, Callback<JsonElement> callback);
 
+        @FormUrlEncoded
+        @POST("/")
+        void postEvents(@FieldMap Map<String, String> names, Callback<JsonElement> callback);
+
         @Multipart
         @POST("/")
-        void uploadImage(@Part("data") TypedFile image, Callback<JsonElement> cb);
+        void uploadImage(@FieldMap Map<String, String> params, @Part("data") TypedFile image, Callback<JsonElement> cb);
 
     }
 

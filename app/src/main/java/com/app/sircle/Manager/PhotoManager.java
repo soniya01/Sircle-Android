@@ -6,6 +6,7 @@ import com.app.sircle.Utility.AppError;
 import com.app.sircle.WebService.AddAlbumResponse;
 import com.app.sircle.WebService.AlbumResponse;
 import com.app.sircle.WebService.PhotoResponse;
+import com.app.sircle.WebService.PhotoUploadResponse;
 import com.app.sircle.WebService.PhotoWebService;
 
 import java.util.ArrayList;
@@ -60,13 +61,22 @@ public class PhotoManager  {
         });
     }
 
+    public void uploadImage(HashMap params, final PhotoManagerListener photoManagerListener){
+        PhotoWebService.getSharedInstance().uploadPhoto(params, new PhotoWebService.PhotoWebServiceListener() {
+            @Override
+            public void onCompletion(PhotoUploadResponse response, AppError error) {
+                photoManagerListener.onCompletion(response, error);
+            }
+        });
+    }
+
     public interface AddPhotoManagerListener{
         public void onCompletion(AddAlbumResponse addAlbumResponse, AppError error);
     }
 
 
     public interface PhotoManagerListener{
-        public void onCompletion(AppError error);
+        public void onCompletion(PhotoUploadResponse response, AppError error);
     }
 
     public interface GetPhotosManagerListener{

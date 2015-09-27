@@ -17,9 +17,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.app.sircle.DownLoader.ImageManager;
+import com.app.sircle.Manager.PhotoManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Fragment.CameraFragment;
 import com.app.sircle.UI.Model.ImageData;
+import com.app.sircle.Utility.AppError;
+import com.app.sircle.WebService.PhotoUploadResponse;
+
+import java.util.HashMap;
 
 public class AddSelectedPhoto extends ActionBarActivity {
 
@@ -29,11 +34,16 @@ public class AddSelectedPhoto extends ActionBarActivity {
     private boolean backCameraShown;
     private int rotationAngle = 90;
     private int rotationAngle_front_camera = 270;
+    private String albumId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_selected_photo);
+
+        if (getIntent().getExtras() != null){
+            albumId = getIntent().getStringExtra("albumId");
+        }
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -50,7 +60,21 @@ public class AddSelectedPhoto extends ActionBarActivity {
                 //TODO: post the photos and albums created to the server
                 String descText = desc.getText().toString();
                 BaseActivity.jumpToFragment = true;
-                finish();
+                HashMap params = new HashMap();
+                params.put("alb_id",albumId);
+                params.put("caption", descText);
+                PhotoManager.getSharedInstance().uploadImage(params, new PhotoManager.PhotoManagerListener() {
+                    @Override
+                    public void onCompletion(PhotoUploadResponse response, AppError error) {
+                        if (response != null) {
+                            if (response.getStatus() == 200) {
+                                finish();
+                            } else {
+
+                            }
+                        }
+                    }
+                });
             }
         });
     }

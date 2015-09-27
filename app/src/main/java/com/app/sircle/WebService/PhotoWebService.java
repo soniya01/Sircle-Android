@@ -48,11 +48,11 @@ public class PhotoWebService {
        retrofitImplementation.executeGetWithURL(Constants.PHOTOS_GET_API_PATH, object, null, AlbumResponse.class, new WebServiceListener() {
            @Override
            public void onCompletion(Object response, AppError error) {
-              // albumDetailsList = (ArrayList<AlbumDetails>) response;
+               // albumDetailsList = (ArrayList<AlbumDetails>) response;
                if (error.getErrorCode() == AppError.NO_ERROR || error == null) {
-                   getPhotoWebServiceListener.onCompletion((AlbumResponse)response, new AppError());
+                   getPhotoWebServiceListener.onCompletion((AlbumResponse) response, new AppError());
                } else {
-                   getPhotoWebServiceListener.onCompletion((AlbumResponse)response, error);
+                   getPhotoWebServiceListener.onCompletion((AlbumResponse) response, error);
                }
            }
        });
@@ -71,12 +71,36 @@ public class PhotoWebService {
         });
     }
 
+    public void uploadPhoto(HashMap params, final PhotoWebServiceListener photoWebServiceListener){
+//        retrofitImplementation.executePostWithURL(Constants.PHOTOS_ADD_PHOTO_TO_ALBUM_API_PATH, params, null, PhotoUploadResponse.class, new WebServiceListener() {
+//            @Override
+//            public void onCompletion(Object responseObject, AppError error) {
+//                if (error.getErrorCode() == AppError.NO_ERROR || error == null) {
+//                    photoWebServiceListener.onCompletion((PhotoUploadResponse)responseObject, new AppError());
+//                } else {
+//                    photoWebServiceListener.onCompletion((PhotoUploadResponse)responseObject, error);
+//                }
+//            }
+//        });
+
+        retrofitImplementation.executeUploadImageWithURL(Constants.PHOTOS_ADD_PHOTO_TO_ALBUM_API_PATH, params, null, PhotoUploadResponse.class, new WebServiceListener() {
+            @Override
+            public void onCompletion(Object responseObject, AppError error) {
+                if (error.getErrorCode() == AppError.NO_ERROR || error == null) {
+                    photoWebServiceListener.onCompletion((PhotoUploadResponse)responseObject, new AppError());
+                } else {
+                    photoWebServiceListener.onCompletion((PhotoUploadResponse)responseObject, error);
+                }
+            }
+        });
+    }
+
     public interface AddPhotoWebServiceListener{
         public void onCompletion(AddAlbumResponse addAlbumResponse, AppError error);
     }
 
     public interface PhotoWebServiceListener{
-        public void onCompletion(AppError error);
+        public void onCompletion(PhotoUploadResponse response, AppError error);
     }
 
     public interface GetAlbumWebServiceListener{

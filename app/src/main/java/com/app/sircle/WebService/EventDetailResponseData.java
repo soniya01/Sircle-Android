@@ -1,22 +1,27 @@
 package com.app.sircle.WebService;
 
+import com.app.sircle.UI.Model.Event;
+
+import java.util.List;
+
 /**
  * Created by soniya on 22/09/15.
  */
 public class EventDetailResponseData {
 
     public String id;
+
     public String eventType;
-    public String eventInfo;
-    public String eventGroups;
-    public String eventRepeats;
-    public String eventRepeatsType;
-    public String eventRepeatDays;
-    public String eventRepeatMonths;
-    public String eventRepeatYears;
-    public String eventRepeatWeeks;
-    public String eventWeekDays;
-    public String eventRepeatsMonthly;
+    public Event eventInfo;
+    public List<EventDetailGroups> eventGroups;
+    public List<EventDetailGroups> eventRepeatsType;
+    public List<EventRepeats> eventRepeats;
+    public List<EventRepeatsDays> eventRepeatDays;
+    public List<EventRepeatsDays> eventRepeatMonths;
+    public List<EventRepeatsDays> eventRepeatYears;
+    public List<EventRepeatsDays> eventRepeatWeeks;
+   // public List<EventRepeatsDays> eventWeekDays;
+    public EventRepeatsMonthly eventRepeatsMonthly;
     public String eventRepeatsWeeklyDys;
 
     //data -> event_id, event_type (Array), event_info (Obj),
@@ -52,83 +57,75 @@ public class EventDetailResponseData {
         this.eventType = eventType;
     }
 
-    public String getEventInfo() {
+    public Event getEventInfo() {
         return eventInfo;
     }
 
-    public void setEventInfo(String eventInfo) {
+    public void setEventInfo(Event eventInfo) {
         this.eventInfo = eventInfo;
     }
 
-    public String getEventGroups() {
+    public List<EventDetailGroups> getEventGroups() {
         return eventGroups;
     }
 
-    public void setEventGroups(String eventGroups) {
+    public void setEventGroups(List<EventDetailGroups> eventGroups) {
         this.eventGroups = eventGroups;
     }
 
-    public String getEventRepeats() {
-        return eventRepeats;
-    }
-
-    public void setEventRepeats(String eventRepeats) {
-        this.eventRepeats = eventRepeats;
-    }
-
-    public String getEventRepeatsType() {
+    public List<EventDetailGroups> getEventRepeatsType() {
         return eventRepeatsType;
     }
 
-    public void setEventRepeatsType(String eventRepeatsType) {
+    public void setEventRepeatsType(List<EventDetailGroups> eventRepeatsType) {
         this.eventRepeatsType = eventRepeatsType;
     }
 
-    public String getEventRepeatDays() {
+    public List<EventRepeats> getEventRepeats() {
+        return eventRepeats;
+    }
+
+    public void setEventRepeats(List<EventRepeats> eventRepeats) {
+        this.eventRepeats = eventRepeats;
+    }
+
+    public List<EventRepeatsDays> getEventRepeatDays() {
         return eventRepeatDays;
     }
 
-    public void setEventRepeatDays(String eventRepeatDays) {
+    public void setEventRepeatDays(List<EventRepeatsDays> eventRepeatDays) {
         this.eventRepeatDays = eventRepeatDays;
     }
 
-    public String getEventRepeatMonths() {
+    public List<EventRepeatsDays> getEventRepeatMonths() {
         return eventRepeatMonths;
     }
 
-    public void setEventRepeatMonths(String eventRepeatMonths) {
+    public void setEventRepeatMonths(List<EventRepeatsDays> eventRepeatMonths) {
         this.eventRepeatMonths = eventRepeatMonths;
     }
 
-    public String getEventRepeatYears() {
+    public List<EventRepeatsDays> getEventRepeatYears() {
         return eventRepeatYears;
     }
 
-    public void setEventRepeatYears(String eventRepeatYears) {
+    public void setEventRepeatYears(List<EventRepeatsDays> eventRepeatYears) {
         this.eventRepeatYears = eventRepeatYears;
     }
 
-    public String getEventRepeatWeeks() {
+    public List<EventRepeatsDays> getEventRepeatWeeks() {
         return eventRepeatWeeks;
     }
 
-    public void setEventRepeatWeeks(String eventRepeatWeeks) {
+    public void setEventRepeatWeeks(List<EventRepeatsDays> eventRepeatWeeks) {
         this.eventRepeatWeeks = eventRepeatWeeks;
     }
 
-    public String getEventWeekDays() {
-        return eventWeekDays;
-    }
-
-    public void setEventWeekDays(String eventWeekDays) {
-        this.eventWeekDays = eventWeekDays;
-    }
-
-    public String getEventRepeatsMonthly() {
+    public EventRepeatsMonthly getEventRepeatsMonthly() {
         return eventRepeatsMonthly;
     }
 
-    public void setEventRepeatsMonthly(String eventRepeatsMonthly) {
+    public void setEventRepeatsMonthly(EventRepeatsMonthly eventRepeatsMonthly) {
         this.eventRepeatsMonthly = eventRepeatsMonthly;
     }
 

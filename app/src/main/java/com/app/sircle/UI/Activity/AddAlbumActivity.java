@@ -58,8 +58,21 @@ public class AddAlbumActivity extends ActionBarActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent tabIntent = new Intent(AddAlbumActivity.this, AddPhotoTabbedActivity.class);
-                startActivity(tabIntent);
+
+                PhotoManager.getSharedInstance().addNewAlbum(null, new PhotoManager.AddPhotoManagerListener() {
+                    @Override
+                    public void onCompletion(AddAlbumResponse addAlbumResponse, AppError error) {
+                        if (addAlbumResponse != null) {
+                            if (addAlbumResponse.getStatus() == 200) {
+
+                                Intent tabIntent = new Intent(AddAlbumActivity.this, AddPhotoTabbedActivity.class);
+                                tabIntent.putExtra("albumId",addAlbumResponse.getData().getAlbumId());
+                                startActivity(tabIntent);
+                            }
+                        }
+                    }
+                });
+
                // finish();
             }
         });

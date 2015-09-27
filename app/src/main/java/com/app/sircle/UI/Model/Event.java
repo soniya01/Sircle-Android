@@ -31,6 +31,13 @@ public class Event {
     @SerializedName("end_time")
     public String endTime;
 
+    public String location;
+
+    @SerializedName("event_category")
+    public String category;
+
+    public String detail;
+
     public String getId() {
         return id;
     }
@@ -102,4 +109,40 @@ public class Event {
     public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+
+//      id: "3"
+//    unq_id: "74c1247e6b139ee7115a6f78be4d2238"
+//    title: "test event"
+//    start_date: "Thursday 26 Mar 2015"
+//    end_date: "Thursday 26 Mar 2015"
+//    start_time: "06:00:00"
+//    end_time: "18:00:00"
+//    location: "malad"
+//    event_category: "Sports"
+//    detail: "sports day"
 }

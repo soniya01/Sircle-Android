@@ -34,4 +34,5 @@ dependencies {
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
     compile 'com.roomorama:caldroid:2.1.0'
     compile 'com.getbase:floatingactionbutton:1.10.0'
+
 }

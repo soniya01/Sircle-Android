@@ -1,7 +1,8 @@
 package com.app.sircle.UI.Activity;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,11 +13,9 @@ import android.widget.Toast;
 import com.app.sircle.Manager.EventManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Adapter.CalendarMonthListAdapter;
-import com.app.sircle.UI.Model.CalendarMonthlyListData;
 import com.app.sircle.UI.Model.Event;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.Utility.Constants;
-import com.app.sircle.WebService.EventData;
 import com.app.sircle.WebService.EventDataReponse;
 
 import java.util.ArrayList;
@@ -58,7 +57,8 @@ public class EventsListActivity extends ActionBarActivity {
         calendarMonthListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Intent detailIntent = new Intent(EventsListActivity.this,EventDetailActivity.class);
+                detailIntent.putExtra("eventId",calendarMonthList.get(position).getId());
             }
         });
     }
