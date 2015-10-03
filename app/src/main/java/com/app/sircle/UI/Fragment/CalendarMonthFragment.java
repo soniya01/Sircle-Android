@@ -211,7 +211,7 @@ public class CalendarMonthFragment extends Fragment {
                                 Date date;
                                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                                 try {
-                                    date = new SimpleDateFormat("EEEE dd MMM yyyy")
+                                    date = new SimpleDateFormat("dd/mm/yyyy")
                                             .parse(dateString);
 
 

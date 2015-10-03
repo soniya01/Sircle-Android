@@ -410,7 +410,6 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
         this.generator = new UrlGenerator(params, url);
         Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
-
 //        final OkHttpClient okHttpClient = new OkHttpClient();
 //        okHttpClient.setReadTimeout(60, TimeUnit.SECONDS);
 //        okHttpClient.setConnectTimeout(60, TimeUnit.SECONDS);
@@ -421,12 +420,13 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     @Override
                     public void intercept(RequestFacade request) {
                         request.addHeader("Authorization", LoginManager.accessToken);
+                        //request.addHeader("Authorization", "3ec8e9ed13ad96b6b979517f5bf34545891f4958");
+
                         if (params != null){
                             for (String key : params.keySet()){
                                 request.addQueryParam(key, String.valueOf(params.get(key)));
                             }
                         }
-
                     }
                 })
                 .setConverter(new GsonCustomConverter(gson))
@@ -455,7 +455,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                                 webserviceListener.onCompletion(object, new AppError());
                             }catch (Exception e){
                                 object = gson.fromJson(jsonElement, responseClass);
-                                webserviceListener.onCompletion(null, new AppError());
+                                webserviceListener.onCompletion(object, new AppError());
                             }
 
                     }

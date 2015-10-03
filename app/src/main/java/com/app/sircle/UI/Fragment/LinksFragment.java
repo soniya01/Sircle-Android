@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,13 +26,14 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class LinksFragment extends Fragment {
+public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     public List<Links> linksList = new ArrayList<Links>();
     private ListView linksListView;
     private FloatingActionButton floatingActionButton;
     private LinksListViewAdapter linksListViewAdapter;
     private View footerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +43,22 @@ public class LinksFragment extends Fragment {
 
         linksListView = (ListView) viewFragment.findViewById(R.id.fragment_links_listview);
         floatingActionButton = (FloatingActionButton) viewFragment.findViewById(R.id.fab);
+        swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(LinksFragment.this);
+
+        /**
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
+        swipeRefreshLayout.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        swipeRefreshLayout.setRefreshing(true);
+
+                                        populateDummyData();
+                                    }
+                                }
+        );
 
         footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
         linksListView.addFooterView(footerView);
@@ -118,5 +136,10 @@ public class LinksFragment extends Fragment {
             linksListViewAdapter.notifyDataSetChanged();
         }
 
+    }
+
+    @Override
+    public void onRefresh() {
+        populateDummyData();
     }
 }
