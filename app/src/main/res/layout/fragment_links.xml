@@ -1,4 +1,4 @@
-<SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipe_refresh_layout"
@@ -38,4 +38,4 @@
         app:elevation="12dp"
         app:pressedTranslationZ="12dp" />
 
-</SwipeRefreshLayout>
+</RelativeLayout>
