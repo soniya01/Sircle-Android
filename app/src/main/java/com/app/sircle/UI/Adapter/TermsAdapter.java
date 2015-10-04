@@ -66,8 +66,8 @@ public class TermsAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.termsTitleLabel.setText(termsList.get(position).getTermTitle());
-        viewHolder.termsStartDateLabel.setText(convertDatetoshortformat(termsList.get(position).getTermStartDate().substring(4, 15)));
-         viewHolder.termsEndDateLabel.setText(convertDatetoshortformat(termsList.get(position).getTermEndDate().substring(4,15)));
+        viewHolder.termsStartDateLabel.setText(termsList.get(position).getTermStartDate().substring(0,10));
+         viewHolder.termsEndDateLabel.setText(termsList.get(position).getTermEndDate().substring(0,10));
 
         return convertView;
 
@@ -84,22 +84,5 @@ public class TermsAdapter extends BaseAdapter {
     }
 
 
-    String convertDatetoshortformat(String LongDate)
-    {
-       // String date = "2011/11/12 16:05:06";
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM d yyyy", Locale.US);
-        String shortDate="";
-        Date testDate = null;
-        try {
-            testDate = sdf.parse(LongDate);
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
-            shortDate = formatter.format(testDate);
-            System.out.println(".....Date..."+LongDate);
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }
 
-
-        return shortDate;
-    }
 }
