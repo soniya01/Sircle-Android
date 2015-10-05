@@ -1,7 +1,9 @@
 package com.app.sircle.WebService;
 
 import com.app.sircle.UI.Model.Event;
+import com.google.gson.annotations.SerializedName;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -9,20 +11,42 @@ import java.util.List;
  */
 public class EventDetailResponseData {
 
+    @SerializedName("event_id")
     public String id;
 
-    public String eventType;
+    @SerializedName("event_type")
+    public EventDetailType eventType;
+
+    @SerializedName("event_info")
     public Event eventInfo;
+
+    @SerializedName("event_groups")
     public List<EventDetailGroups> eventGroups;
+
+    @SerializedName("event_repeats_type")
     public List<EventDetailGroups> eventRepeatsType;
+
+    @SerializedName("event_repeats")
     public List<EventRepeats> eventRepeats;
+
+    @SerializedName("event_repeats_days")
     public List<EventRepeatsDays> eventRepeatDays;
+
+    @SerializedName("event_repeats_months")
     public List<EventRepeatsDays> eventRepeatMonths;
+
+    @SerializedName("event_repeats_years")
     public List<EventRepeatsDays> eventRepeatYears;
+
+    @SerializedName("event_repeats_weeks")
     public List<EventRepeatsDays> eventRepeatWeeks;
    // public List<EventRepeatsDays> eventWeekDays;
-    public EventRepeatsMonthly eventRepeatsMonthly;
-    public String eventRepeatsWeeklyDys;
+
+    @SerializedName("event_repeats_monthly")
+    public List<EventRepeatsMonthly> eventRepeatsMonthly;
+
+    @SerializedName("event_repeats_weekly_dys")
+    public List<EventRepeatsMonthly> eventRepeatsWeeklyDys;
 
     //data -> event_id, event_type (Array), event_info (Obj),
     // event_groups (Array), event_repeats (Array), event_repeats_type (Array),
@@ -49,11 +73,11 @@ public class EventDetailResponseData {
         this.id = id;
     }
 
-    public String getEventType() {
+    public EventDetailType getEventType() {
         return eventType;
     }
 
-    public void setEventType(String eventType) {
+    public void setEventType(EventDetailType eventType) {
         this.eventType = eventType;
     }
 
@@ -121,19 +145,19 @@ public class EventDetailResponseData {
         this.eventRepeatWeeks = eventRepeatWeeks;
     }
 
-    public EventRepeatsMonthly getEventRepeatsMonthly() {
+    public List<EventRepeatsMonthly> getEventRepeatsMonthly() {
         return eventRepeatsMonthly;
     }
 
-    public void setEventRepeatsMonthly(EventRepeatsMonthly eventRepeatsMonthly) {
+    public void setEventRepeatsMonthly(List<EventRepeatsMonthly> eventRepeatsMonthly) {
         this.eventRepeatsMonthly = eventRepeatsMonthly;
     }
 
-    public String getEventRepeatsWeeklyDys() {
+    public List<EventRepeatsMonthly> getEventRepeatsWeeklyDys() {
         return eventRepeatsWeeklyDys;
     }
 
-    public void setEventRepeatsWeeklyDys(String eventRepeatsWeeklyDys) {
+    public void setEventRepeatsWeeklyDys(List<EventRepeatsMonthly> eventRepeatsWeeklyDys) {
         this.eventRepeatsWeeklyDys = eventRepeatsWeeklyDys;
     }
 }

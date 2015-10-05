@@ -47,17 +47,17 @@ public class EventDetailActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(Intent.ACTION_INSERT_OR_EDIT);
-                intent.setType("vnd.android.cursor.item/event");
-
-                intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, eventStartDate);
-                intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,eventEndDate);
-                intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, false);
-                intent.putExtra(CalendarContract.Events.TITLE, eventTitleString);
-                intent.putExtra(CalendarContract.Events.DESCRIPTION, eventDetail);
-                intent.putExtra(CalendarContract.Events.EVENT_LOCATION, eventLocationString);
-                intent.putExtra(CalendarContract.Events.RRULE, "FREQ=YEARLY");
-                startActivity(intent);
+//                Intent intent = new Intent(Intent.ACTION_INSERT_OR_EDIT).setData(CalendarContract.Events.CONTENT_URI);
+//                intent.setType("vnd.android.cursor.item/event");
+//
+//                intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, eventStartDate);
+//                intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,eventEndDate);
+//                intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, false);
+//                intent.putExtra(CalendarContract.Events.TITLE, eventTitleString);
+//                intent.putExtra(CalendarContract.Events.DESCRIPTION, eventDetail);
+//                intent.putExtra(CalendarContract.Events.EVENT_LOCATION, eventLocationString);
+//                intent.putExtra(CalendarContract.Events.RRULE, "FREQ=YEARLY");
+//                startActivity(intent);
                 // Initialize Calendar service with valid OAuth credentials
 //                Calendar service = new Calendar.Builder()
 //                        .setApplicationName("applicationName").build();
