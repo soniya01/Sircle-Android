@@ -27,7 +27,7 @@
     <TextView
         android:id="@+id/event_detail_title"
         android:layout_width="match_parent"
-        android:text="Event date"
+        android:text="Event title"
         android:gravity="center"
         android:padding="10dp"
         android:layout_marginTop="10dp"
@@ -37,7 +37,7 @@
     <TextView
         android:id="@+id/event_detail_category"
         android:layout_width="match_parent"
-        android:text="Event date"
+        android:text="Event category"
         android:gravity="center"
         android:padding="10dp"
         android:layout_marginTop="10dp"
@@ -47,7 +47,7 @@
     <TextView
         android:id="@+id/event_detail_location"
         android:layout_width="match_parent"
-        android:text="Event date"
+        android:text="Event location"
         android:gravity="center"
         android:padding="10dp"
         android:layout_marginTop="10dp"
@@ -57,7 +57,7 @@
     <TextView
         android:id="@+id/event_detail_info"
         android:layout_width="match_parent"
-        android:text="Event date"
+        android:text="Event Info"
         android:gravity="center"
         android:padding="10dp"
         android:layout_marginTop="10dp"
@@ -67,7 +67,7 @@
     <TextView
         android:id="@+id/event_detail_groups"
         android:layout_width="match_parent"
-        android:text="Event date"
+        android:text="Event groups"
         android:gravity="center"
         android:padding="10dp"
         android:layout_marginTop="10dp"
@@ -80,7 +80,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="30dp"
         android:text="SAVE"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:background="#9A32CD"
         android:textColor="@android:color/white"/>
 
@@ -91,7 +91,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:text="DELETE"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:background="#9A32CD"
         android:textColor="@android:color/white"/>
 

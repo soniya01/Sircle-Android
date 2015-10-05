@@ -8,6 +8,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +21,7 @@ import com.app.sircle.WebService.EventDetailGroups;
 import com.app.sircle.WebService.EventDetailResponse;
 import com.app.sircle.WebService.PostResponse;
 
+import java.util.Date;
 import java.util.HashMap;
 
 public class EventDetailActivity extends Activity {
@@ -46,6 +50,18 @@ public class EventDetailActivity extends Activity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Intent intent = new Intent(Intent.ACTION_INSERT);
+                intent.setType("vnd.android.cursor.item/event");
+
+                intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, new Date());
+                intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,new Date());
+                intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
+                intent.putExtra(CalendarContract.Events.TITLE, eventTitleString);
+                intent.putExtra(CalendarContract.Events.DESCRIPTION, eventDetail);
+                intent.putExtra(CalendarContract.Events.EVENT_LOCATION, eventLocationString);
+                intent.putExtra(CalendarContract.Events.RRULE, "FREQ=YEARLY");
+                startActivity(intent);
 
 //                Intent intent = new Intent(Intent.ACTION_INSERT_OR_EDIT).setData(CalendarContract.Events.CONTENT_URI);
 //                intent.setType("vnd.android.cursor.item/event");
@@ -122,6 +138,7 @@ public class EventDetailActivity extends Activity {
     }
 
     public void getEventDetail(){
+
         HashMap params = new HashMap();
         params.put("eid",eventId);
         EventManager.getSharedInstance().getEventDetails(params, new EventManager.EventManagerListener() {

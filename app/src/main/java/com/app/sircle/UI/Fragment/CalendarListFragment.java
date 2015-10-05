@@ -1,6 +1,7 @@
 package com.app.sircle.UI.Fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 
 import com.app.sircle.Manager.EventManager;
 import com.app.sircle.R;
+import com.app.sircle.UI.Activity.EventDetailActivity;
+import com.app.sircle.UI.Activity.EventsListActivity;
 import com.app.sircle.UI.Adapter.CalendarMonthListAdapter;
 import com.app.sircle.UI.Model.CalendarMonthlyListData;
 import com.app.sircle.UI.Model.Event;
@@ -98,7 +101,9 @@ public class CalendarListFragment extends Fragment {
         calendarMonthListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Intent detailIntent = new Intent(getActivity(),EventDetailActivity.class);
+                detailIntent.putExtra("eventId",calendarMonthList.get(position).getId());
+                startActivity(detailIntent);
             }
         });
 
