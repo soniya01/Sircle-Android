@@ -59,6 +59,7 @@ public class EventsListActivity extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent detailIntent = new Intent(EventsListActivity.this,EventDetailActivity.class);
                 detailIntent.putExtra("eventId",calendarMonthList.get(position).getId());
+                startActivity(detailIntent);
             }
         });
     }

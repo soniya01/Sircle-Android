@@ -23,7 +23,7 @@ public class Constants {
     public static final String EVENTS_GET_MONTH_WISE_API_PATH = "user/group_and_month_wise_event";//"/user/group_and_month_wise_event/format/json";
     public static final String EVENTS_GET_ALL_EVENTS_API_PATH ="user/user_allevents";
     public static final String EVENTS_GET_CATEGORY_API_PATH = "user/event_categories";//"rest_api/event_categories/format/json";
-    public static final String EVENTS_GET_DETAILS_API_PATH ="user/event_details" ;//"/rest_api/event_detail/{Eventid}/format/json";
+    public static final String EVENTS_GET_DETAILS_API_PATH ="user/event_detail" ;//"/rest_api/event_detail/{Eventid}/format/json";
     public static final String EVENTS_DELETE_API_PATH = "/user/delete_event/";
     public static final String EVENTS_ADD_NEW_EVENT_API_PATH = "user/new_event";
     public static final String NOTIFICATION_GET_ALL_GROUPS = "user/user_groups_new";//"rest_api/groups/format/json";

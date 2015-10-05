@@ -130,7 +130,8 @@ public class EventDetailActivity extends Activity {
                 if (eventDetailResponse != null){
                     if (eventDetailResponse.getStatus() == 200){
                         if (eventDetailResponse.getData() != null){
-                            String dateString = eventDetailResponse.getData().getEventInfo().getStartDate() + " to " + eventDetailResponse.getData().getEventInfo().getEndDate()
+                            String dateString = "";
+                            dateString = eventDetailResponse.getData().getEventInfo().getStartDate() + " to " + eventDetailResponse.getData().getEventInfo().getEndDate()
                                     + "\n" +eventDetailResponse.getData().getEventInfo().getStartTime() + " to " +eventDetailResponse.getData().getEventInfo().getEndTime();
                             eventTime.setText(dateString);
                             eventInfo.setText(eventDetailResponse.getData().getEventInfo().getDetail());
