@@ -16,6 +16,7 @@ import java.util.List;
  * Created by soniya on 18/08/15.
  */
 public class NotificationManager {
+    public static String[] grpIds;
 
     private static NotificationManager sharedInstance;
 

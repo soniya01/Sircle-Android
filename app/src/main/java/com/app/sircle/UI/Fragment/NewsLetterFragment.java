@@ -89,12 +89,12 @@ public class NewsLetterFragment extends Fragment {
                         if (response.getStatus() == 200){
                             if (response.getData().getNewsLetters().size() > 0){
                                 if (NewsLetterFragment.this.newsLetterList.size() == 0){
-                                    NewsLetterFragment.this.newsLetterList.addAll(response.getData().getDocs());
-                                    newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), response.getData().getDocs());
+                                    NewsLetterFragment.this.newsLetterList.addAll(response.getData().getNewsLetters());
+                                    newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), response.getData().getNewsLetters());
                                     newsLetterListView.setAdapter(newsLetterListViewAdapter);
                                 }else {
                                     NewsLetterFragment.this.newsLetterList.clear();
-                                    NewsLetterFragment.this.newsLetterList.addAll(response.getData().getDocs());
+                                    NewsLetterFragment.this.newsLetterList.addAll(response.getData().getNewsLetters());
                                     newsLetterListViewAdapter.notifyDataSetChanged();
                                 }
                             }else {

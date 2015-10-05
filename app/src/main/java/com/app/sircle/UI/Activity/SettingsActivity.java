@@ -61,11 +61,15 @@ public class SettingsActivity extends Activity {
                         object.put("group_id",notificationGroupList.get(i).getId());
                         object.put("val", notificationGroupList.get(i).getActive());
 
+                        //NotificationManager.grpIds[i] = notificationGroupList.get(i).getId();
+
                         arrayObject.put(object);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
+
+
 
                 HashMap map = new HashMap();
                 map.put("regId", Constants.GCM_REG_ID);
