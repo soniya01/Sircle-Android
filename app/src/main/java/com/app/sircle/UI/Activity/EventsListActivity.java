@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.app.sircle.Manager.EventManager;
+import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Adapter.CalendarMonthListAdapter;
 import com.app.sircle.UI.Model.Event;
@@ -92,12 +93,21 @@ public class EventsListActivity extends ActionBarActivity {
 
 
     public void populateDummyData(){
+
+        String grpIdString = "";
+        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
+            if (i == 0){
+                grpIdString = NotificationManager.grpIds.get(i);
+            }else {
+                grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
+            }
+        }
         HashMap map = new HashMap();
         map.put("regId", Constants.GCM_REG_ID);
         map.put("month",month);
         map.put("year",year);
         map.put("page", 1);
-        map.put("groupId", 1);
+        map.put("groupId", grpIdString);
 
         EventManager.getSharedInstance().getEventsMonthWise(map, new EventManager.GetMonthwiseEventsManagerListener() {
             @Override

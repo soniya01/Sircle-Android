@@ -181,21 +181,6 @@ public class CalendarTodayFragment extends Fragment {
             }
         });
 
-
-
-//        Terms  termsData = new Terms();
-//
-//        termsData.setTermTitle("Term 1");
-//        termsData.setTermStartDate("Wednesday 27 May 2015");
-//        termsData.setTermEndDate("Wednesday 27 May 2015");
-//
-//        termsList.add(termsData);
-//        termsList.add(termsData);
-        //termsList.add(termsData);
-        //termsList.add(termsData);
-        //termsList.add(termsData);
-       // termsList.add(termsData);
-       // termsList.add(termsData);
     }
 
 }

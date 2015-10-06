@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -38,14 +39,27 @@ public class SettingsActivity extends Activity {
     private List<NotificationGroups> notificationGroupList = new ArrayList<NotificationGroups>();
     private CheckBox allCheckBox;
     ProgressDialog ringProgressDialog;
+    public static boolean isAllChecked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        NotificationManager.grpIds.clear();
+        isAllChecked = true;
 
         notificationListView = (ListView) findViewById(R.id.notificationsGroupListView);
         allCheckBox = (CheckBox) findViewById(R.id.checkAll);
+        allCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    isAllChecked = true;
+                }else {
+                    isAllChecked = false;
+                }
+            }
+        });
         populateDummyData();
 
         //notificationListView.setAdapter(notificationsGroupAdapter);

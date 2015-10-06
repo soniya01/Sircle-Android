@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.app.sircle.Manager.EventManager;
+import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.EventDetailActivity;
 import com.app.sircle.UI.Activity.EventsListActivity;
@@ -151,10 +152,18 @@ public class CalendarListFragment extends Fragment {
 
     public void populateDummyData(){
 
+        String grpIdString = "";
+        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
+            if (i == 0){
+                grpIdString = NotificationManager.grpIds.get(i);
+            }else {
+                grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
+            }
+        }
         HashMap map = new HashMap();
         map.put("regId", Constants.GCM_REG_ID);
         map.put("page",1);
-        map.put("groupId",1);
+        map.put("groupId",grpIdString);
 
         EventManager.getSharedInstance().getAllEvents(map, new EventManager.GetMonthwiseEventsManagerListener() {
             @Override

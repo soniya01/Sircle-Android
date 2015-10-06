@@ -59,9 +59,19 @@ public class SchoolHolidayActivity extends ActionBarActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String grpIdString = "";
+                for (int i = 0; i< NotificationManager.grpIds.size(); i++){
+                    if (i == 0){
+                        grpIdString = NotificationManager.grpIds.get(i);
+                    }else {
+                        grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
+                    }
+                }
+
                 HashMap params = new HashMap();
                 params.put("event_type", "3");
-                params.put("grp",1);
+                params.put("grp",grpIdString);
                 params.put("title", title.getText().toString());
                 params.put("strdate", startDateEditText.getText().toString());
                 params.put("enddate", endDateEditText.getText().toString());

@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.Manager.VideoManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.VideoActivity;
@@ -88,9 +89,18 @@ public class VideoFragment extends Fragment {
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
         ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
 
+        String grpIdString = "";
+        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
+            if (i == 0){
+                grpIdString = NotificationManager.grpIds.get(i);
+            }else {
+                grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
+            }
+        }
+
         HashMap object = new HashMap();
         object.put("regId", "id");
-        object.put("groupId",1);
+        object.put("groupId",grpIdString);
         object.put("page", 1);
 
         VideoManager.getSharedInstance().getAllVideos(object, new VideoManager.VideoManagerListener() {

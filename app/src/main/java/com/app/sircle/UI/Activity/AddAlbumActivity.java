@@ -149,9 +149,17 @@ public class AddAlbumActivity extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
         if (BaseActivity.jumpToFragment){
+            String grpIdString = "";
+            for (int i = 0; i< NotificationManager.grpIds.size(); i++){
+                if (i == 0){
+                    grpIdString = NotificationManager.grpIds.get(i);
+                }else {
+                    grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
+                }
+            }
             HashMap params = new HashMap();
             params.put("albumName",title.getText().toString());
-            params.put("grp","1");
+            params.put("grp",grpIdString);
             PhotoManager.getSharedInstance().addNewAlbum(params, new PhotoManager.AddPhotoManagerListener() {
                 @Override
                 public void onCompletion(AddAlbumResponse response, AppError error) {

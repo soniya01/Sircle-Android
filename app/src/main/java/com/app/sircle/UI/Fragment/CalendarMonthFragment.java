@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.app.sircle.Manager.EventManager;
+import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.AddLinksActivity;
 import com.app.sircle.UI.Activity.EventsListActivity;
@@ -192,12 +193,21 @@ public class CalendarMonthFragment extends Fragment {
     }
 
     public void getCalendarEvents(){
+
+        String grpIdString = "";
+        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
+            if (i == 0){
+                grpIdString = NotificationManager.grpIds.get(i);
+            }else {
+                grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
+            }
+        }
         HashMap object = new HashMap();
         object.put("regId", Constants.GCM_REG_ID);
         object.put("month",month);
         object.put("year", year);
         object.put("page", 1);
-        object.put("groupId", 1);
+        object.put("groupId", grpIdString);
 
         EventManager.getSharedInstance().getEventsMonthWise(object, new EventManager.GetMonthwiseEventsManagerListener() {
             @Override

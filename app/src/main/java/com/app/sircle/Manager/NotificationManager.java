@@ -9,6 +9,7 @@ import com.app.sircle.WebService.NotificationResponse;
 import com.app.sircle.WebService.Notificationservice;
 import com.app.sircle.WebService.PostResponse;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
  * Created by soniya on 18/08/15.
  */
 public class NotificationManager {
-    public static String[] grpIds;
+    public static List<String> grpIds = new ArrayList<>();
 
     private static NotificationManager sharedInstance;
 

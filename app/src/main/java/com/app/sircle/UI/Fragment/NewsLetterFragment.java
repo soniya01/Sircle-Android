@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.app.sircle.Manager.DocumentManager;
+import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.PDFViewer;
 import com.app.sircle.UI.Adapter.NewsLettersViewAdapter;
@@ -74,10 +75,18 @@ public class NewsLetterFragment extends Fragment {
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
         ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
 
-       // String[] grpIds = {1, 2};
+        String grpIdString = "";
+        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
+            if (i == 0){
+                grpIdString = NotificationManager.grpIds.get(i);
+            }else {
+                grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
+            }
+        }
+
         HashMap map = new HashMap();
         map.put("regId", "id");
-        map.put("groupId", 1);
+        map.put("groupId", grpIdString);
         map.put("page", 1);
 
         DocumentManager.getSharedInstance().getAllNewsLetters(map, new DocumentManager.GetNewsManagerListener() {

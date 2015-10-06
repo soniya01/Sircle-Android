@@ -1,26 +1,33 @@
 package com.app.sircle.UI.Fragment;
 
 
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.BaseActivity;
+import com.app.sircle.UI.Activity.SettingsActivity;
 import com.app.sircle.UI.Adapter.NotificationsGroupAdapter;
 import com.app.sircle.UI.Model.NotificationGroups;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.Utility.Constants;
 import com.app.sircle.WebService.GroupResponse;
 import com.app.sircle.WebService.PostResponse;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +41,7 @@ public class SettingsFragment extends Fragment {
     private NotificationsGroupAdapter notificationsGroupAdapter;
     private List<NotificationGroups> notificationGroupList = new ArrayList<NotificationGroups>();
     ProgressDialog ringProgressDialog;
+    CheckBox allCheckBox;
 
 
     @Override
@@ -42,8 +50,22 @@ public class SettingsFragment extends Fragment {
         // Inflate the layout for this fragment
        // return inflater.inflate(R.layout.fragment_settings, container, false);
        // activity_settings
-
         View viewFragment = inflater.inflate(R.layout.activity_settings, null , true);
+
+        NotificationManager.grpIds.clear();
+        SettingsActivity.isAllChecked = true;
+
+        allCheckBox = (CheckBox) viewFragment.findViewById(R.id.checkAll);
+        allCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    SettingsActivity.isAllChecked = true;
+                }else {
+                    SettingsActivity.isAllChecked = false;
+                }
+            }
+        });
 
         populateDummyData();
 
@@ -56,7 +78,28 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ringProgressDialog = ProgressDialog.show(getActivity(), "", "", true);
-                NotificationManager.getSharedInstance().updateGroupNotification(null, new NotificationManager.PostManagerListener() {
+                JSONArray arrayObject = new JSONArray();
+                for (int i = 0; i < notificationGroupList.size(); i++) {
+                    try {
+                        JSONObject object = new JSONObject();
+                        object.put("group_id", notificationGroupList.get(i).getId());
+                        object.put("val", notificationGroupList.get(i).getActive());
+
+                        //NotificationManager.grpIds[i] = notificationGroupList.get(i).getId();
+
+                        arrayObject.put(object);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+                HashMap map = new HashMap();
+                map.put("regId", Constants.GCM_REG_ID);
+                map.put("groupValString", arrayObject.toString());
+
+
+                NotificationManager.getSharedInstance().updateGroupNotification(map, new NotificationManager.PostManagerListener() {
                     @Override
                     public void onCompletion(PostResponse postResponse, AppError error) {
                         ringProgressDialog.dismiss();
@@ -72,11 +115,10 @@ public class SettingsFragment extends Fragment {
                         }
                     }
                 });
+                // give access to the app features
 
             }
-
         });
-
         return  viewFragment;
 
     }
@@ -92,24 +134,25 @@ public class SettingsFragment extends Fragment {
 
                     if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                         if (response != null) {
+                            if (response.getStatus() == 200){
+                                if (notificationGroupList.size() > 0) {
+                                    notificationGroupList.clear();
+                                    notificationGroupList.addAll(response.getData());
+                                    notificationsGroupAdapter.notifyDataSetChanged();
+                                    // update group notifictaion for all groups
+                                    //updateAllGroup();
 
-                            if (notificationGroupList.size() > 0) {
-                                notificationGroupList.clear();
-                                notificationGroupList.addAll(response.getData());
-                                notificationsGroupAdapter.notifyDataSetChanged();
-                                // update group notifictaion for all groups
-                                //updateAllGroup();
-
-                            } else {
-                                //SettingsActivity.this.notificationGroupList.clear();
-                                notificationGroupList.addAll(response.getData());
-                                notificationsGroupAdapter = new NotificationsGroupAdapter(getActivity(), notificationGroupList);
-                                notificationListView.setAdapter(notificationsGroupAdapter);
+                                } else {
+                                    //SettingsActivity.this.notificationGroupList.clear();
+                                    notificationGroupList.addAll(response.getData());
+                                    notificationsGroupAdapter = new NotificationsGroupAdapter(getActivity(), notificationGroupList);
+                                    notificationListView.setAdapter(notificationsGroupAdapter);
+                                }
+                            }else {
+                                Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                             }
-
-                            Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                         } else {
-                            //Toast.makeText(SettingsActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Some problem occurred",Toast.LENGTH_SHORT).show();
                         }
 
                     } else {

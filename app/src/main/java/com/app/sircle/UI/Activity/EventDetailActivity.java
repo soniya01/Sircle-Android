@@ -153,14 +153,14 @@ public class EventDetailActivity extends Activity {
                             eventTime.setText(dateString);
                             eventInfo.setText(eventDetailResponse.getData().getEventInfo().getDetail());
                             eventCategory.setText(eventDetailResponse.getData().getEventInfo().getCategory());
-                            eventGroups.setText("Groups: "+eventDetailResponse.getData().getEventGroups());
+                           // eventGroups.setText("Groups: "+eventDetailResponse.getData().getEventGroups());
                             eventLocation.setText("At: " +eventDetailResponse.getData().getEventInfo().getLocation());
                             //eventLocation.setText(eventDetailResponse.getData().get);
+                            String groupString = "";
                             for (EventDetailGroups groups : eventDetailResponse.getData().getEventGroups()){
-                               String groupString = groups.getName() + " ,";
-                                eventGroups.setText("Groups: "+groupString);
-
+                                groupString = groups.getName() + " ,";
                             }
+                            eventGroups.setText("Groups: "+groupString);
                             eventTitle.setText(eventDetailResponse.getData().getEventInfo().getTitle());
 
                             eventLocationString = eventDetailResponse.getData().getEventInfo().getLocation();

@@ -25,8 +25,8 @@ public class AddPhotoTabbedActivity extends ActionBarActivity {
         mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
 
-        mTabHost.addTab(mTabHost.newTabSpec("tab1").setIndicator("Tab 1", null),CameraFragment.class, null);
-        mTabHost.addTab(mTabHost.newTabSpec("tab2").setIndicator("Tab 2", null), GalleryFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("tab1").setIndicator("Click Photo", null),CameraFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("tab2").setIndicator("Pick from Gallery", null), GalleryFragment.class, null);
     }
 
 

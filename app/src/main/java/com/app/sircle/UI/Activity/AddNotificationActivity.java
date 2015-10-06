@@ -17,10 +17,13 @@ import android.widget.Toast;
 
 import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
+import com.app.sircle.UI.Adapter.NotificationsGroupAdapter;
 import com.app.sircle.UI.Fragment.NotificationFragment;
 import com.app.sircle.UI.Model.Notification;
 import com.app.sircle.UI.Model.NotificationGroups;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.Utility.Constants;
+import com.app.sircle.WebService.GroupResponse;
 import com.app.sircle.WebService.PostResponse;
 
 import java.util.ArrayList;
@@ -36,6 +39,7 @@ public class AddNotificationActivity extends ActionBarActivity {
     private List<String> groupNames = new ArrayList<String>();
     private Button addButton;
     private TextView descCountLabel;
+    private NotificationsGroupAdapter notificationsGroupAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,10 +76,19 @@ public class AddNotificationActivity extends ActionBarActivity {
                 layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
                 ((LinearLayout)v.getParent().getParent().getParent()).addView(progressBar, layoutParams);
                 if (!desc.getText().toString().trim().equals("") && (title.getText().toString() != null) || !title.getText().toString().trim().equals("")){
+                    String grpIdString = "";
+                    for (int i = 0; i< NotificationManager.grpIds.size(); i++){
+                        if (i == 0){
+                            grpIdString = NotificationManager.grpIds.get(i);
+                        }else {
+                            grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
+                        }
+                    }
+
                     HashMap params = new HashMap();
                     params.put("subject",title.getText().toString());
                     params.put("msg",desc.getText().toString());
-                    params.put("grp","1");
+                    params.put("grp",grpIdString);
                     // add notification api call
                     NotificationManager.getSharedInstance().addNotification(params, new NotificationManager.PostManagerListener() {
                         @Override
@@ -104,17 +117,40 @@ public class AddNotificationActivity extends ActionBarActivity {
 
     public void populateDummyData(){
 
-        NotificationGroups n1 = new NotificationGroups();
-        n1.setName("Group 1");
+        HashMap<String, String> map = new HashMap<>();
+        map.put("regId", Constants.GCM_REG_ID);
+        NotificationManager.getSharedInstance().getAllGroups(map, new NotificationManager.GroupsManagerListener() {
+            @Override
+            public void onCompletion(GroupResponse response, AppError error) {
 
-        notificationGroupList.add(n1);
+                if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
+                    if (response != null) {
 
-        groupNames.add("All");
-        groupNames.add(notificationGroupList.get(0).getName());
-        groupNames.add("Group 2");
-        groupNames.add(notificationGroupList.get(0).getName());
-        groupNames.add(notificationGroupList.get(0).getName());
-        groupNames.add(notificationGroupList.get(0).getName());
+                        if (AddNotificationActivity.this.notificationGroupList.size() > 0) {
+                            AddNotificationActivity.this.notificationGroupList.clear();
+                            AddNotificationActivity.this.notificationGroupList.addAll(response.getData());
+                            notificationsGroupAdapter.notifyDataSetChanged();
+                            // update group notifictaion for all groups
+                            //updateAllGroup();
+
+                        } else {
+                            //SettingsActivity.this.notificationGroupList.clear();
+                            AddNotificationActivity.this.notificationGroupList.addAll(response.getData());
+                            notificationsGroupAdapter = new NotificationsGroupAdapter(AddNotificationActivity.this, notificationGroupList);
+                            addListView.setAdapter(notificationsGroupAdapter);
+                        }
+
+                        Toast.makeText(AddNotificationActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(AddNotificationActivity.this, "Some problem occurred", Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+                    Toast.makeText(AddNotificationActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
     }
 
     @Override

@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
+import com.app.sircle.UI.Activity.SettingsActivity;
 import com.app.sircle.UI.Model.NotificationGroups;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.Utility.Constants;
@@ -28,6 +29,7 @@ public class NotificationsGroupAdapter extends BaseAdapter {
     private Context context;
     private List<NotificationGroups> notificationsGroupList = new ArrayList<NotificationGroups>();
     private LayoutInflater inflater;
+
 
     public NotificationsGroupAdapter(Context context, List<NotificationGroups> notificationsGroupList) {
         this.context = context;
@@ -68,14 +70,29 @@ public class NotificationsGroupAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
+        viewHolder.checkBox.setTag(position);
+
         viewHolder.notificationGroupTitle.setText(notificationsGroupList.get(position).name);
-        if (notificationsGroupList.get(position).getActive() == 1)
-        viewHolder.checkBox.setChecked(true);
-        else viewHolder.checkBox.setChecked(false);
+        if (SettingsActivity.isAllChecked){
+            viewHolder.checkBox.setChecked(true);
+            NotificationManager.grpIds.add( notificationsGroupList.get(position).getId());
+        }else {
+            if (notificationsGroupList.get(position).getActive() == 1){
+                NotificationManager.grpIds.add( notificationsGroupList.get(position).getId());
+                viewHolder.checkBox.setChecked(true);
+            }
+
+            else viewHolder.checkBox.setChecked(false);
+        }
 
         viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
+
+                int pos = (Integer) buttonView.getTag();
+                NotificationManager.grpIds.add( notificationsGroupList.get(position).getId());
+                int flag = isChecked ? 1 : 0;
+                notificationsGroupList.get(pos).setActive(flag);
 
 //                int status =  isChecked ? 1 : 0;
 //                HashMap map = new HashMap();

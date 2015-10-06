@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.app.sircle.Manager.LinksManager;
+import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.AddLinksActivity;
 import com.app.sircle.UI.Adapter.LinksListViewAdapter;
@@ -94,10 +95,17 @@ public class LinksFragment extends Fragment {
 
     private void populateDummyData() {
 
-        String[] grpIds = {"1", "2"};
+        String grpIdString = "";
+        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
+            if (i == 0){
+                grpIdString = NotificationManager.grpIds.get(i);
+            }else {
+                grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
+            }
+        }
         HashMap map = new HashMap();
         map.put("regId", "id");
-        map.put("groupId", 1);
+        map.put("groupId", grpIdString);
         map.put("page", 1);
 
         LinksManager.getSharedInstance().getAllLinks(map, new LinksManager.LinksManagerListener() {
