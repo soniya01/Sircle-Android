@@ -90,9 +90,16 @@ public class NotificationsGroupAdapter extends BaseAdapter {
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
 
                 int pos = (Integer) buttonView.getTag();
-                NotificationManager.grpIds.add( notificationsGroupList.get(position).getId());
-                int flag = isChecked ? 1 : 0;
-                notificationsGroupList.get(pos).setActive(flag);
+
+                if (isChecked){
+                    NotificationManager.grpIds.add( notificationsGroupList.get(pos).getId());
+                    notificationsGroupList.get(pos).setActive(1);
+                }else{
+                    notificationsGroupList.get(pos).setActive(0);
+                    NotificationManager.grpIds.remove(notificationsGroupList.get(pos).getId());
+                }
+
+
 
 //                int status =  isChecked ? 1 : 0;
 //                HashMap map = new HashMap();

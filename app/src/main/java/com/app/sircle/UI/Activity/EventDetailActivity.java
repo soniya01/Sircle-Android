@@ -158,7 +158,7 @@ public class EventDetailActivity extends Activity {
                             //eventLocation.setText(eventDetailResponse.getData().get);
                             String groupString = "";
                             for (EventDetailGroups groups : eventDetailResponse.getData().getEventGroups()){
-                                groupString = groups.getName() + " ,";
+                                groupString = groups.getName() + "," + groupString ;
                             }
                             eventGroups.setText("Groups: "+groupString);
                             eventTitle.setText(eventDetailResponse.getData().getEventInfo().getTitle());

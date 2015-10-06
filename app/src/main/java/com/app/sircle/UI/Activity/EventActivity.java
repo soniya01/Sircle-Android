@@ -93,6 +93,11 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
         minutes.setOnClickListener(this);
         hours.setOnClickListener(this);
 
+        startDate.setOnClickListener(this);
+        endDate.setOnClickListener(this);
+        startTime.setOnClickListener(this);
+        endTime.setOnClickListener(this);
+
         repeat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -357,8 +362,10 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
 
                 if (v == startDate){
                     startDateString = dayOfMonth + "/" + monthOfYear+ "/" +year;
+                    startDate.setText(startDateString);
                 }else if (v == endDate){
                     endDateStr = dayOfMonth + "/" + monthOfYear+ "/" +year;
+                    endDate.setText(endDateStr);
                 }
             }
         };
@@ -371,8 +378,10 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
 
                 if (v == startTime){
                     startTimeStr = hour + ":"+mins+ ":00";
+                    startTime.setText(startTimeStr);
                 }else if (v == endTime){
                     endTimeStr = hour + ":"+mins+ ":00";
+                    endTime.setText(endTimeStr);
                 }
             }
         };
