@@ -20,6 +20,8 @@ import com.app.sircle.Utility.Constants;
 import com.app.sircle.WebService.EventDataReponse;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,7 +32,7 @@ public class EventsListActivity extends ActionBarActivity {
     private CalendarMonthListAdapter calendarMonthListViewAdapter;
     private List<Event> calendarMonthList = new ArrayList<Event>();
     private View footerView;
-    private int month, year;
+    private int month, year, day;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,7 @@ public class EventsListActivity extends ActionBarActivity {
         if (getIntent() != null){
             month = getIntent().getIntExtra("month",0);
             year = getIntent().getIntExtra("year",0);
-            //day = getIntent().getStringExtra("day");
+            day = getIntent().getIntExtra("day",0);
         }
         setContentView(R.layout.activity_events_list);
 
@@ -118,6 +120,16 @@ public class EventsListActivity extends ActionBarActivity {
                             if (data.getEventData().getEvents().size() > 0) {
                                 if (calendarMonthList.size() > 0) {
                                     calendarMonthList.clear();
+
+                                    if (day != 0){
+                                        // search data for a particular date
+                                        Calendar cal = Calendar.getInstance();
+                                        cal.set(Calendar.YEAR, year);
+                                        cal.set(Calendar.MONTH, month);
+                                        cal.set(Calendar.DAY_OF_MONTH, day);
+                                        Date date = new Date();
+                                        date = cal.getTime();
+                                    }
                                     calendarMonthList.addAll(data.getEventData().getEvents());
                                     calendarMonthListViewAdapter.notifyDataSetChanged();
                                 } else {

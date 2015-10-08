@@ -91,7 +91,7 @@ public class CalendarMonthFragment extends Fragment {
         caldroidFragment = new CaldroidFragment();
        // caldroidFragment.setMinDate(new Date());
         Bundle args = new Bundle();
-        Calendar cal = Calendar.getInstance();
+        final Calendar cal = Calendar.getInstance();
         args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
         args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
         caldroidFragment.setArguments(args);
@@ -111,10 +111,13 @@ public class CalendarMonthFragment extends Fragment {
             public void onSelectDate(Date date, View view) {
               //  Toast.makeText(getActivity().getApplicationContext(), formatter.format(date), Toast.LENGTH_SHORT).show();
                 //date.
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
                 Intent addLinkIntent = new Intent(getActivity(), EventsListActivity.class);
                 addLinkIntent.putExtra("month",month);
                 addLinkIntent.putExtra("year",year);
-                addLinkIntent.putExtra("day",date.getDay());
+                addLinkIntent.putExtra("day",calendar.get(Calendar.DAY_OF_MONTH));
                 startActivity(addLinkIntent);
 
             }
