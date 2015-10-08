@@ -39,8 +39,10 @@ import retrofit.http.Multipart;
 import retrofit.http.POST;
 import retrofit.http.PUT;
 import retrofit.http.Part;
+import retrofit.http.PartMap;
 import retrofit.http.QueryMap;
 import retrofit.mime.TypedFile;
+import retrofit.mime.TypedString;
 
 /**
  * Created by soniya on 3/30/15.
@@ -588,9 +590,12 @@ public class RetrofitImplementation implements WebServiceProtocol{
                 })
                 .build();
 
+        TypedString id = new TypedString("alb_id");
+        TypedString name = new TypedString("caption");
+
         WebserviceApi uploadImageService = restAdapter.create(WebserviceApi.class);
 
-        uploadImageService.uploadImage(params, typedFile, new Callback<JsonElement>() {
+        uploadImageService.uploadImage(id,name, typedFile, new Callback<JsonElement>() {
             @Override
             public void success(JsonElement jsonElement, Response response) {
                 if (!jsonElement.isJsonNull()) {
@@ -673,7 +678,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
         @Multipart
         @POST("/")
-        void uploadImage(@FieldMap Map<String, String> params, @Part("data") TypedFile image, Callback<JsonElement> cb);
+        void uploadImage(@Part("alb_id")TypedString id, @Part("caption") TypedString title, @Part("data") TypedFile image, Callback<JsonElement> cb);
 
     }
 

@@ -1,10 +1,17 @@
 package com.app.sircle.UI.Fragment;
 
 
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Camera;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +23,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.app.sircle.DownLoader.ImageManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.AddSelectedPhoto;
 import com.app.sircle.UI.Activity.BaseActivity;
 import com.app.sircle.UI.CustomView.CameraPreview;
 import com.app.sircle.UI.Model.ImageData;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 public class CameraFragment extends Fragment implements View.OnClickListener{
@@ -48,6 +57,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener{
 
     //to store the image data of the clicked image
     public static byte[] imageData;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -185,13 +195,48 @@ public class CameraFragment extends Fragment implements View.OnClickListener{
     Camera.PictureCallback pictureCallback = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
+
             enableButtons(true);
             imageData = data;
+
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
+            //imageDataList  = ImageManager.getInstance().getCameraImagePaths(getActivity());
+
+            String path = getRealPathFromURI(getImageUri(getActivity().getApplicationContext(), bitmap));
+            ImageData imageData1 = new ImageData();
+            imageData1.setPath(path);
+
             Intent intent = new Intent(getActivity(), AddSelectedPhoto.class);
+            intent.putExtra("data", imageData1);
             intent.putExtra(INTENT_EXTRA_BACK_CAMERA_SHOWN, backCameraShown);
             startActivity(intent);
         }
     };
+
+    public  void addImageToGallery(final String filePath) {
+
+        ContentValues values = new ContentValues();
+
+        values.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis());
+        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+        values.put(MediaStore.MediaColumns.DATA, filePath);
+
+        getActivity().getApplicationContext().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    public String getRealPathFromURI(Uri uri) {
+        Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx);
+    }
 
 
     private void toggleFlash(boolean value) {

@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.app.sircle.DownLoader.ImageManager;
 import com.app.sircle.Manager.PhotoManager;
@@ -24,7 +25,10 @@ import com.app.sircle.UI.Model.ImageData;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.WebService.PhotoUploadResponse;
 
+import java.io.File;
 import java.util.HashMap;
+
+import retrofit.mime.TypedFile;
 
 public class AddSelectedPhoto extends ActionBarActivity {
 
@@ -35,6 +39,7 @@ public class AddSelectedPhoto extends ActionBarActivity {
     private int rotationAngle = 90;
     private int rotationAngle_front_camera = 270;
     private String albumId;
+    private ImageData data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,16 +66,22 @@ public class AddSelectedPhoto extends ActionBarActivity {
                 String descText = desc.getText().toString();
                 BaseActivity.jumpToFragment = true;
                 HashMap params = new HashMap();
-                params.put("alb_id",albumId);
+                params.put("alb_id",AlbumDetailsActivity.albumId);
                 params.put("caption", descText);
-                PhotoManager.getSharedInstance().uploadImage(params, new PhotoManager.PhotoManagerListener() {
+
+                String photoName = data.getPath();
+                File photo = new File(photoName );
+                TypedFile typedImage = new TypedFile("image/jpeg", photo);
+
+                PhotoManager.getSharedInstance().uploadImage(params, typedImage, new PhotoManager.PhotoManagerListener() {
                     @Override
                     public void onCompletion(PhotoUploadResponse response, AppError error) {
                         if (response != null) {
                             if (response.getStatus() == 200) {
+                                Toast.makeText(AddSelectedPhoto.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                                 finish();
                             } else {
-
+                                Toast.makeText(AddSelectedPhoto.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -91,7 +102,7 @@ public class AddSelectedPhoto extends ActionBarActivity {
                 backCameraShown = extras.getBoolean(CameraFragment.INTENT_EXTRA_BACK_CAMERA_SHOWN);
 
                 if (extras != null && extras.containsKey("data")) {
-                    ImageData data = (ImageData) extras.get("data");
+                    data = (ImageData) extras.get("data");
                     new DecodeBitmapTask(data).execute();
                 } else {
                     new DecodeBitmapTask(null).execute();

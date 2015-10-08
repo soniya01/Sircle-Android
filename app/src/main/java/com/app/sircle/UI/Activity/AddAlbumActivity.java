@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.Manager.PhotoManager;
 import com.app.sircle.R;
+import com.app.sircle.UI.Adapter.NotificationsGroupAdapter;
 import com.app.sircle.UI.Model.NotificationGroups;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.Utility.Constants;
@@ -34,6 +35,7 @@ public class AddAlbumActivity extends ActionBarActivity {
     private List<String> groupNames = new ArrayList<String>();
     private Button addButton;
     ArrayAdapter<String> arrayAdapter;
+    private NotificationsGroupAdapter notificationsGroupAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +61,19 @@ public class AddAlbumActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                PhotoManager.getSharedInstance().addNewAlbum(null, new PhotoManager.AddPhotoManagerListener() {
+                String grpIdString = "";
+                for (int i = 0; i< NotificationManager.grpIds.size(); i++){
+                    if (i == 0){
+                        grpIdString = NotificationManager.grpIds.get(i);
+                    }else {
+                        grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
+                    }
+                }
+
+                HashMap params = new HashMap();
+                params.put("albumName",title.getText().toString());
+                params.put("grp",grpIdString);
+                PhotoManager.getSharedInstance().addNewAlbum(params, new PhotoManager.AddPhotoManagerListener() {
                     @Override
                     public void onCompletion(AddAlbumResponse addAlbumResponse, AppError error) {
                         if (addAlbumResponse != null) {
@@ -79,36 +93,43 @@ public class AddAlbumActivity extends ActionBarActivity {
     }
 
     public void populateDummyData() {
+
         HashMap<String, String> map = new HashMap<>();
         map.put("regId", Constants.GCM_REG_ID);
         NotificationManager.getSharedInstance().getAllGroups(map, new NotificationManager.GroupsManagerListener() {
             @Override
             public void onCompletion(GroupResponse response, AppError error) {
-                if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
-                    if (response.getData() != null) {
 
-                        if (response.getData().size() > 0) {
-                            if (AddAlbumActivity.this.groupNames.size() == 0 || AddAlbumActivity.this.groupNames == null) {
-                                AddAlbumActivity.this.notificationGroupList.clear();
-                                AddAlbumActivity.this.notificationGroupList.addAll(response.getData());
-                                getGroupNames();
-                                arrayAdapter = new ArrayAdapter<String>(AddAlbumActivity.this, android.R.layout.simple_list_item_multiple_choice, android.R.id.text1, groupNames);
-                                addListView.setAdapter(arrayAdapter);
-                            } else {
-                                AddAlbumActivity.this.notificationGroupList.clear();
-                                AddAlbumActivity.this.notificationGroupList.addAll(response.getData());
-                                getGroupNames();
-                                arrayAdapter.notifyDataSetChanged();
-                            }
+                if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
+                    if (response != null) {
+
+                        if (AddAlbumActivity.this.notificationGroupList.size() > 0) {
+                            AddAlbumActivity.this.notificationGroupList.clear();
+                            AddAlbumActivity.this.notificationGroupList.addAll(response.getData());
+                            notificationsGroupAdapter.notifyDataSetChanged();
+                            // update group notifictaion for all groups
+                            //updateAllGroup();
+
+                        } else {
+                            //SettingsActivity.this.notificationGroupList.clear();
+                            AddAlbumActivity.this.notificationGroupList.addAll(response.getData());
+                            notificationsGroupAdapter = new NotificationsGroupAdapter(AddAlbumActivity.this, notificationGroupList);
+                            addListView.setAdapter(notificationsGroupAdapter);
+
                         }
-                    } else {
+
                         Toast.makeText(AddAlbumActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        //Toast.makeText(SettingsActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
                     }
+
                 } else {
-                    Toast.makeText(AddAlbumActivity.this, error.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddAlbumActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
+
 
     }
 

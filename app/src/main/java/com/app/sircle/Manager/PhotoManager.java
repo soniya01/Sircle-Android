@@ -1,5 +1,7 @@
 package com.app.sircle.Manager;
 
+import android.graphics.Bitmap;
+
 import com.app.sircle.UI.Model.AlbumDetails;
 import com.app.sircle.UI.Model.Photo;
 import com.app.sircle.Utility.AppError;
@@ -12,6 +14,8 @@ import com.app.sircle.WebService.PhotoWebService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import retrofit.mime.TypedFile;
 
 /**
  * Created by soniya on 17/08/15.
@@ -61,8 +65,8 @@ public class PhotoManager  {
         });
     }
 
-    public void uploadImage(HashMap params, final PhotoManagerListener photoManagerListener){
-        PhotoWebService.getSharedInstance().uploadPhoto(params, new PhotoWebService.PhotoWebServiceListener() {
+    public void uploadImage(HashMap params, TypedFile image, final PhotoManagerListener photoManagerListener){
+        PhotoWebService.getSharedInstance().uploadPhoto(params, image, new PhotoWebService.PhotoWebServiceListener() {
             @Override
             public void onCompletion(PhotoUploadResponse response, AppError error) {
                 photoManagerListener.onCompletion(response, error);

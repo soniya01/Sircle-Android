@@ -1,5 +1,7 @@
 package com.app.sircle.WebService;
 
+import android.graphics.Bitmap;
+
 import com.app.sircle.UI.Model.AlbumDetails;
 import com.app.sircle.UI.Model.Photo;
 import com.app.sircle.Utility.AppError;
@@ -10,6 +12,8 @@ import com.app.sircle.WebService.Common.WebServiceListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import retrofit.mime.TypedFile;
 
 /**
  * Created by soniya on 17/08/15.
@@ -71,7 +75,7 @@ public class PhotoWebService {
         });
     }
 
-    public void uploadPhoto(HashMap params, final PhotoWebServiceListener photoWebServiceListener){
+    public void uploadPhoto(HashMap params, TypedFile image, final PhotoWebServiceListener photoWebServiceListener){
 //        retrofitImplementation.executePostWithURL(Constants.PHOTOS_ADD_PHOTO_TO_ALBUM_API_PATH, params, null, PhotoUploadResponse.class, new WebServiceListener() {
 //            @Override
 //            public void onCompletion(Object responseObject, AppError error) {
@@ -83,7 +87,7 @@ public class PhotoWebService {
 //            }
 //        });
 
-        retrofitImplementation.executeUploadImageWithURL(Constants.PHOTOS_ADD_PHOTO_TO_ALBUM_API_PATH, params, null, PhotoUploadResponse.class, new WebServiceListener() {
+        retrofitImplementation.executeUploadImageWithURL(Constants.PHOTOS_ADD_PHOTO_TO_ALBUM_API_PATH, params, image, PhotoUploadResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
                 if (error.getErrorCode() == AppError.NO_ERROR || error == null) {

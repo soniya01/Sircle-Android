@@ -30,7 +30,7 @@ public class AlbumDetailsActivity extends ActionBarActivity {
     private AlbumDetailsGridAdapter albumDetailsGridAdapter;
     public static List<AlbumDetails> albumDetailsList = new ArrayList<AlbumDetails>();
     private FloatingActionButton floatingActionButton;
-    private int albumId;
+    public static int albumId;
     public static String albumName="";
 
     @Override
