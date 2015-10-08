@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.app.sircle.R;
 import com.app.sircle.UI.Model.Links;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,10 +67,26 @@ public class LinksListViewAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.linksTitleLabel.setText(linksList.get(position).getLinkTitle());
-        viewHolder.linksLabel.setText(linksList.get(position).getLink());
+        viewHolder.linksTitleLabel.setText(linksList.get(position).getName());
+        viewHolder.linksLabel.setText(linksList.get(position).getUrl());
 
-        viewHolder.linksImageView.setImageResource(getImageLink(linksList.get(position).getLinkTitle()));
+        // get screen dimensions
+        Picasso.with(context)
+                .load(linksList.get(position).getFavIcon())
+                .into(viewHolder.linksImageView, new Callback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
+
+        viewHolder.linkTimeLabel.setText(linksList.get(position).getTimeString());
+        viewHolder.linkDateLabel.setText(linksList.get(position).getCreatedOn());
         return convertView;
     }
 

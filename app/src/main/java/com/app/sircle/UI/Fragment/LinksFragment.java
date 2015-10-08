@@ -27,14 +27,14 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class LinksFragment extends Fragment {
+public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     public List<Links> linksList = new ArrayList<Links>();
     private ListView linksListView;
     private FloatingActionButton floatingActionButton;
     private LinksListViewAdapter linksListViewAdapter;
     private View footerView;
-    //private SwipeRefreshLayout swipeRefreshLayout;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,22 +44,22 @@ public class LinksFragment extends Fragment {
 
         linksListView = (ListView) viewFragment.findViewById(R.id.fragment_links_listview);
         floatingActionButton = (FloatingActionButton) viewFragment.findViewById(R.id.fab);
-        //swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
-       // swipeRefreshLayout.setOnRefreshListener(LinksFragment.this);
+        swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(LinksFragment.this);
 
-//        /**
-//         * Showing Swipe Refresh animation on activity create
-//         * As animation won't start on onCreate, post runnable is used
-//         */
-//        swipeRefreshLayout.post(new Runnable() {
-//                                    @Override
-//                                    public void run() {
-//                                        swipeRefreshLayout.setRefreshing(true);
-//
-//                                        populateDummyData();
-//                                    }
-//                                }
-//        );
+        /**
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
+        swipeRefreshLayout.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        swipeRefreshLayout.setRefreshing(true);
+
+                                        populateDummyData();
+                                    }
+                                }
+        );
 
         footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
         linksListView.addFooterView(footerView);
@@ -111,11 +111,12 @@ public class LinksFragment extends Fragment {
         LinksManager.getSharedInstance().getAllLinks(map, new LinksManager.LinksManagerListener() {
             @Override
             public void onCompletion(LinksResponse response, AppError error) {
+                swipeRefreshLayout.setRefreshing(false);
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                     if (response != null) {
                         if (response.getData().getLinks().size() > 0) {
                             if (LinksFragment.this.linksList.size() == 0) {
-                                LinksFragment.this.linksList = linksList;
+                                LinksFragment.this.linksList.addAll(response.getData().getLinks());
                                 linksListViewAdapter = new LinksListViewAdapter(LinksFragment.this.linksList, getActivity());
                                 linksListView.setAdapter(linksListViewAdapter);
                             } else {
@@ -146,8 +147,8 @@ public class LinksFragment extends Fragment {
 
     }
 
-//    @Override
-//    public void onRefresh() {
-//        populateDummyData();
-//    }
+    @Override
+    public void onRefresh() {
+        populateDummyData();
+    }
 }
