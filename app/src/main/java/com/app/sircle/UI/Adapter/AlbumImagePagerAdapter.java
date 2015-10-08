@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.app.sircle.R;
 import com.app.sircle.UI.CustomView.TouchImageView;
 import com.app.sircle.UI.Model.AlbumDetails;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +48,6 @@ public class AlbumImagePagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
 
         TouchImageView photoImageView;
-        //ImageButton download;
         TextView titleLabel, countLabel;
 
         layoutInflater = (LayoutInflater) context
@@ -55,13 +56,29 @@ public class AlbumImagePagerAdapter extends PagerAdapter {
                 false);
 
         photoImageView = (TouchImageView) viewLayout.findViewById(R.id.album_pager_image);
-       // download = (ImageButton) viewLayout.findViewById(R.id.album_image_download_button);
         titleLabel = (TextView)viewLayout.findViewById(R.id.album_image_title_label);
         countLabel = (TextView)viewLayout.findViewById(R.id.albums_image_no_label);
 
+        titleLabel.setText(albumDetailsList.get(position).getPhotoCaption());
+
         countLabel.setText((position+1)+"/"+albumDetailsList.size());
 
-        ((ViewPager) container).addView(viewLayout);
+        // get screen dimensions
+        Picasso.with(context)
+                .load(albumDetailsList.get(position).getPhotoLargeURL())
+                .into(photoImageView, new Callback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
+
+                ((ViewPager) container).addView(viewLayout);
 
         return viewLayout;
     }

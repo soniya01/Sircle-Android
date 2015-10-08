@@ -21,6 +21,7 @@ import com.app.sircle.WebService.GroupResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by mosesafonso on 28/07/15.
@@ -95,6 +96,8 @@ public class NotificationsGroupAdapter extends BaseAdapter {
                     NotificationManager.grpIds.add( notificationsGroupList.get(pos).getId());
                     notificationsGroupList.get(pos).setActive(1);
                 }else{
+                    SettingsActivity.allCheckBox.setChecked(false);
+                    SettingsActivity.isAllChecked = false;
                     notificationsGroupList.get(pos).setActive(0);
                     NotificationManager.grpIds.remove(notificationsGroupList.get(pos).getId());
                 }

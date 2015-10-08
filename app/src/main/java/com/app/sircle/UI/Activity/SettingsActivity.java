@@ -37,7 +37,7 @@ public class SettingsActivity extends Activity {
     private ListView notificationListView;
     private NotificationsGroupAdapter notificationsGroupAdapter;
     private List<NotificationGroups> notificationGroupList = new ArrayList<NotificationGroups>();
-    private CheckBox allCheckBox;
+    public static CheckBox allCheckBox;
     ProgressDialog ringProgressDialog;
     public static boolean isAllChecked;
 
@@ -47,6 +47,7 @@ public class SettingsActivity extends Activity {
         setContentView(R.layout.activity_settings);
         NotificationManager.grpIds.clear();
         isAllChecked = true;
+        AlbumDetailsActivity.albumDetailsList.clear();
 
         notificationListView = (ListView) findViewById(R.id.notificationsGroupListView);
         allCheckBox = (CheckBox) findViewById(R.id.checkAll);

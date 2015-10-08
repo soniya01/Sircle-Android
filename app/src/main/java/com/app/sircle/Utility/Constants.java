@@ -1,12 +1,18 @@
 package com.app.sircle.Utility;
 
 
+import android.os.Environment;
+
 public class Constants {
 
     public static final String LOGIN_PREFS_NAME = "LOGIN_PREFS";
     public static final String LOGIN_USERNAME_PREFS_KEY = "username";
     public static final String LOGIN_PASSWORD_PREFS_KEY = "password";
     public static final String NO_NET_CONNECTIVITY_MESSAGE = "Sorry! There was trouble playing this video. PLease check your net connection";
+
+    // photos
+    public static final String PHOTO_SAVE_GALLERY_DIR_IMAGE_PATH = Environment.getExternalStorageDirectory() + "/SircleApp/images/";
+
 
 //    Video fragment
     public static final String YOUTUBE_VIDEO_BASE_IMAGE_URL = "http://img.youtube.com/vi/";

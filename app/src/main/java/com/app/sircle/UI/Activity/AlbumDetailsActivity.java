@@ -28,9 +28,10 @@ public class AlbumDetailsActivity extends ActionBarActivity {
 
     private GridView albumGridView;
     private AlbumDetailsGridAdapter albumDetailsGridAdapter;
-    private List<AlbumDetails> albumDetailsList = new ArrayList<AlbumDetails>();
+    public static List<AlbumDetails> albumDetailsList = new ArrayList<AlbumDetails>();
     private FloatingActionButton floatingActionButton;
     private int albumId;
+    public static String albumName="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class AlbumDetailsActivity extends ActionBarActivity {
 
         if (getIntent() != null){
             albumId = getIntent().getIntExtra("albumId",0);
+            albumName = getIntent().getStringExtra("albumName");
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
