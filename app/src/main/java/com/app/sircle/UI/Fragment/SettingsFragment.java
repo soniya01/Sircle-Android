@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class SettingsFragment extends Fragment {
+public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
 
     private ListView notificationListView;
@@ -42,6 +43,7 @@ public class SettingsFragment extends Fragment {
     private List<NotificationGroups> notificationGroupList = new ArrayList<NotificationGroups>();
     ProgressDialog ringProgressDialog;
     CheckBox allCheckBox;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
 
     @Override
@@ -67,7 +69,22 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        populateDummyData();
+        swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(SettingsFragment.this);
+
+        /**
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
+        swipeRefreshLayout.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        swipeRefreshLayout.setRefreshing(true);
+
+                                        populateDummyData();
+                                    }
+                                }
+        );
 
         notificationListView = (ListView)viewFragment.findViewById(R.id.notificationsGroupListView);
         notificationsGroupAdapter = new NotificationsGroupAdapter(getActivity(), notificationGroupList);
@@ -85,8 +102,6 @@ public class SettingsFragment extends Fragment {
                         object.put("group_id", notificationGroupList.get(i).getId());
                         object.put("val", notificationGroupList.get(i).getActive());
 
-                        //NotificationManager.grpIds[i] = notificationGroupList.get(i).getId();
-
                         arrayObject.put(object);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -98,7 +113,6 @@ public class SettingsFragment extends Fragment {
                 map.put("regId", Constants.GCM_REG_ID);
                 map.put("groupValString", arrayObject.toString());
 
-
                 NotificationManager.getSharedInstance().updateGroupNotification(map, new NotificationManager.PostManagerListener() {
                     @Override
                     public void onCompletion(PostResponse postResponse, AppError error) {
@@ -108,14 +122,12 @@ public class SettingsFragment extends Fragment {
                             if (postResponse.getStatus() == 200) {
                                 Intent homeIntent = new Intent(getActivity(), BaseActivity.class);
                                 startActivity(homeIntent);
-                                //finish();
                             }
                         } else {
                             Toast.makeText(getActivity(), "some error occurred", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-                // give access to the app features
 
             }
         });
@@ -131,7 +143,7 @@ public class SettingsFragment extends Fragment {
             NotificationManager.getSharedInstance().getAllGroups(map, new NotificationManager.GroupsManagerListener() {
                 @Override
                 public void onCompletion(GroupResponse response, AppError error) {
-
+                    swipeRefreshLayout.setRefreshing(false);
                     if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                         if (response != null) {
                             if (response.getStatus() == 200){
@@ -165,4 +177,8 @@ public class SettingsFragment extends Fragment {
         }
 
 
+    @Override
+    public void onRefresh() {
+        populateDummyData();
+    }
 }

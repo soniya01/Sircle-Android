@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class VideoFragment extends Fragment {
+public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     private static final int REQ_START_STANDALONE_PLAYER = 1;
     private static final int REQ_RESOLVE_SERVICE_MISSING = 2;
@@ -42,6 +43,8 @@ public class VideoFragment extends Fragment {
     private VideoListViewAdapter videoListViewAdapter;
     private List<Video> videoList = new ArrayList<Video>();
     private View footerView, viewFragment;
+    private SwipeRefreshLayout swipeRefreshLayout;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,7 +59,22 @@ public class VideoFragment extends Fragment {
         footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
         videoListView.addFooterView(footerView);
 
-        populateDummyData();
+        swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(VideoFragment.this);
+
+        /**
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
+        swipeRefreshLayout.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        swipeRefreshLayout.setRefreshing(true);
+
+                                        populateDummyData();
+                                    }
+                                }
+        );
 
         videoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -82,12 +100,12 @@ public class VideoFragment extends Fragment {
 
     public void populateDummyData(){
 
-        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
-        progressBar.setIndeterminate(true);
-        progressBar.setVisibility(View.VISIBLE);
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
-        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-        ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
+//        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
+//        progressBar.setIndeterminate(true);
+//        progressBar.setVisibility(View.VISIBLE);
+//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
+//        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+//        ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
 
         String grpIdString = "";
         for (int i = 0; i< NotificationManager.grpIds.size(); i++){
@@ -106,7 +124,8 @@ public class VideoFragment extends Fragment {
         VideoManager.getSharedInstance().getAllVideos(object, new VideoManager.VideoManagerListener() {
             @Override
             public void onCompletion(VideoResponse response, AppError error) {
-                progressBar.setVisibility(View.GONE);
+                //progressBar.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                     if (response != null){
                         if (response.getData().getVideos().size() > 0){
@@ -132,16 +151,7 @@ public class VideoFragment extends Fragment {
 
             }
         });
-//        Video video = new Video();
-//        video.setVideoEmbedURL("https://www.youtube.com/watch?v=cdgQpa1pUUE");
-//        video.setVideoSource("Youtube");
-//        videoList.add(video);
-//        videoList.add(video);
-//        videoList.add(video);
-//        videoList.add(video);
-//        videoList.add(video);
-//        videoList.add(video);
-//        videoList.add(video);
+
     }
 
     private boolean canResolveIntent(Intent intent) {
@@ -155,5 +165,10 @@ public class VideoFragment extends Fragment {
         if (VideoFragment.this.videoList.size() > 0 ){
             videoListViewAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        populateDummyData();
     }
 }

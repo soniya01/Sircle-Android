@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,13 +27,14 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class NotificationFragment extends Fragment {
+public class NotificationFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     public static List<Notification> notificationList = new ArrayList<Notification>();
     private ListView notificationListView;
     private FloatingActionButton floatingActionButton;
     private NotificationListviewAdapter notificationListviewAdapter;
     private View footerView,viewFragment;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,9 +50,22 @@ public class NotificationFragment extends Fragment {
         notificationListviewAdapter = new NotificationListviewAdapter(notificationList, getActivity());
         notificationListView.setAdapter(notificationListviewAdapter);
 
-        populateDummyData();
+        swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(NotificationFragment.this);
 
-        // set up custom listview
+        /**
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
+        swipeRefreshLayout.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        swipeRefreshLayout.setRefreshing(true);
+
+                                        populateDummyData();
+                                    }
+                                }
+        );
 
 
         // add button on click to open respective view - only for admin
@@ -67,12 +82,12 @@ public class NotificationFragment extends Fragment {
     }
 
     public void populateDummyData() {
-        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
-        progressBar.setIndeterminate(true);
-        progressBar.setVisibility(View.VISIBLE);
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
-        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-        ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
+//        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
+//        progressBar.setIndeterminate(true);
+//        progressBar.setVisibility(View.VISIBLE);
+//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
+//        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+//        ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
 
 
         String grpIdString = "";
@@ -92,7 +107,8 @@ public class NotificationFragment extends Fragment {
         NotificationManager.getSharedInstance().getAllNotifications(object, new NotificationManager.NotificationManagerListener() {
             @Override
             public void onCompletion(NotificationResponse data, AppError error) {
-                progressBar.setVisibility(View.GONE);
+                //progressBar.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
                 if (data != null) {
                     if (data.getStatus() == 200){
                         if (data.getData().getNotifications().size() > 0){
@@ -123,5 +139,10 @@ public class NotificationFragment extends Fragment {
     public void onResume() {
         super.onResume();
         //notificationListviewAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onRefresh() {
+        populateDummyData();
     }
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,7 @@ import java.util.List;
 /**
  * Created by soniya on 23/07/15.
  */
-public class PhotosFragment extends Fragment {
+public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     private ListView albumListView;
     private PhotosListViewAdapter photosListViewAdapter;
@@ -43,6 +44,7 @@ public class PhotosFragment extends Fragment {
     private View footerView;
     private FloatingActionButton floatingActionButton;
     private View viewFragment;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,6 +54,24 @@ public class PhotosFragment extends Fragment {
         albumListView = (ListView)viewFragment.findViewById(R.id.fragment_photos_list_view);
        // photosListViewAdapter = new PhotosListViewAdapter(getActivity(), photos);
         //albumListView.setAdapter(photosListViewAdapter);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(PhotosFragment.this);
+
+        /**
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
+        swipeRefreshLayout.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        swipeRefreshLayout.setRefreshing(true);
+
+                                        populateDummyData();
+                                    }
+                                }
+        );
+
         populateDummyData();
 
         floatingActionButton = (FloatingActionButton)viewFragment.findViewById(R.id.fab);
@@ -91,12 +111,12 @@ public class PhotosFragment extends Fragment {
 
     private void populateDummyData() {
 
-        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
-        progressBar.setIndeterminate(true);
-        progressBar.setVisibility(View.VISIBLE);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100,100);
-        params.addRule(RelativeLayout.CENTER_IN_PARENT);
-        ((RelativeLayout)viewFragment).addView(progressBar, params);
+//        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
+//        progressBar.setIndeterminate(true);
+//        progressBar.setVisibility(View.VISIBLE);
+//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100,100);
+//        params.addRule(RelativeLayout.CENTER_IN_PARENT);
+//        ((SwipeRefreshLayout)viewFragment).addView(progressBar, params);
         String grpIdString = "";
         for (int i = 0; i< NotificationManager.grpIds.size(); i++){
             if (i == 0){
@@ -113,7 +133,8 @@ public class PhotosFragment extends Fragment {
         PhotoManager.getSharedInstance().getAlbums(map, new PhotoManager.GetAlbumsManagerListener() {
             @Override
             public void onCompletion(PhotoResponse response, AppError error) {
-                progressBar.setVisibility(View.GONE);
+               // progressBar.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
                 if (response != null) {
                     if (response.getStatus() == 200) {
                         if (response.getData().getAlbums().size() > 0) {
@@ -140,5 +161,8 @@ public class PhotosFragment extends Fragment {
     }
 
 
-
+    @Override
+    public void onRefresh() {
+        populateDummyData();
+    }
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,7 +25,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-public class AlbumDetailsActivity extends ActionBarActivity {
+public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener{
 
     private GridView albumGridView;
     private AlbumDetailsGridAdapter albumDetailsGridAdapter;
@@ -32,11 +33,15 @@ public class AlbumDetailsActivity extends ActionBarActivity {
     private FloatingActionButton floatingActionButton;
     public static int albumId;
     public static String albumName="";
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_details);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         if (getIntent() != null){
             albumId = getIntent().getIntExtra("albumId",0);
@@ -119,5 +124,10 @@ public class AlbumDetailsActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onRefresh() {
+        populateDummyData();
     }
 }

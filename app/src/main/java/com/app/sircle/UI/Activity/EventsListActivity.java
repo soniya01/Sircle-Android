@@ -2,6 +2,7 @@ package com.app.sircle.UI.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,7 +26,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-public class EventsListActivity extends ActionBarActivity {
+public class EventsListActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener{
 
 
     private ListView calendarMonthListView;
@@ -33,6 +34,7 @@ public class EventsListActivity extends ActionBarActivity {
     private List<Event> calendarMonthList = new ArrayList<Event>();
     private View footerView;
     private int month, year, day;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,22 @@ public class EventsListActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        populateDummyData();
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(this);
+
+        /**
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
+        swipeRefreshLayout.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        swipeRefreshLayout.setRefreshing(true);
+
+                                        populateDummyData();
+                                    }
+                                }
+        );
 
         calendarMonthListView = (ListView)findViewById(R.id.fragment_month_list_view);
         calendarMonthListViewAdapter = new CalendarMonthListAdapter(this, calendarMonthList);
@@ -153,5 +170,10 @@ public class EventsListActivity extends ActionBarActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onRefresh() {
+        populateDummyData();
     }
 }

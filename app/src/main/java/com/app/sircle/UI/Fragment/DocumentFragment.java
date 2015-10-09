@@ -4,6 +4,7 @@ package com.app.sircle.UI.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,12 +30,13 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class DocumentFragment extends Fragment {
+public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     private ListView newsLetterListView;
     private NewsLettersViewAdapter newsLetterListViewAdapter;
     private List<NewsLetter> newsLetterList = new ArrayList<NewsLetter>();
     private View footerView, viewFragment;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
 
     @Override
@@ -46,7 +48,24 @@ public class DocumentFragment extends Fragment {
                 null, true);
         footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
 
-        populateDummyData();
+        swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(DocumentFragment.this);
+
+        /**
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
+        swipeRefreshLayout.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        swipeRefreshLayout.setRefreshing(true);
+
+                                        populateDummyData();
+                                    }
+                                }
+        );
+
+        //populateDummyData();
 
         newsLetterListView = (ListView)viewFragment.findViewById(R.id.fragment_news_list_view);
         newsLetterListView.addFooterView(footerView);
@@ -70,12 +89,12 @@ public class DocumentFragment extends Fragment {
     }
 
     public void populateDummyData(){
-        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
-        progressBar.setIndeterminate(true);
-        progressBar.setVisibility(View.VISIBLE);
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
-        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-        ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
+//        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
+//        progressBar.setIndeterminate(true);
+//        progressBar.setVisibility(View.VISIBLE);
+//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
+//        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+//        ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
 
 
         String grpIdString = "";
@@ -94,7 +113,8 @@ public class DocumentFragment extends Fragment {
         DocumentManager.getSharedInstance().getAllDocs(object, new DocumentManager.GetNewsManagerListener() {
             @Override
             public void onCompletion(DocumentsResponse data, AppError error) {
-                progressBar.setVisibility(View.GONE);
+                //progressBar.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
                 if (data != null) {
                     if (data.getStatus() == 200){
                         if (data.getData().getDocs().size() > 0){
@@ -121,4 +141,8 @@ public class DocumentFragment extends Fragment {
 
     }
 
+    @Override
+    public void onRefresh() {
+        populateDummyData();
+    }
 }

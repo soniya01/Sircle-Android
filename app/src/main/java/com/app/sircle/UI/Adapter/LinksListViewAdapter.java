@@ -71,19 +71,22 @@ public class LinksListViewAdapter extends BaseAdapter {
         viewHolder.linksLabel.setText(linksList.get(position).getUrl());
 
         // get screen dimensions
-        Picasso.with(context)
-                .load(linksList.get(position).getFavIcon())
-                .into(viewHolder.linksImageView, new Callback() {
-                    @Override
-                    public void onSuccess() {
+        if (linksList.get(position).getFavIcon() != null){
+            Picasso.with(context)
+                    .load(linksList.get(position).getFavIcon())
+                    .into(viewHolder.linksImageView, new Callback() {
+                        @Override
+                        public void onSuccess() {
 
-                    }
+                        }
 
-                    @Override
-                    public void onError() {
+                        @Override
+                        public void onError() {
 
-                    }
-                });
+                        }
+                    });
+        }
+
 
         viewHolder.linkTimeLabel.setText(linksList.get(position).getTimeString());
         viewHolder.linkDateLabel.setText(linksList.get(position).getCreatedOn());

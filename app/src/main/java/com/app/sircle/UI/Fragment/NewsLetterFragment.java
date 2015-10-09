@@ -4,6 +4,7 @@ package com.app.sircle.UI.Fragment;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,12 +30,13 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class NewsLetterFragment extends Fragment {
+public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     private ListView newsLetterListView;
     private NewsLettersViewAdapter newsLetterListViewAdapter;
     private List<NewsLetter> newsLetterList = new ArrayList<NewsLetter>();
     private View footerView, viewFragment;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,7 +46,22 @@ public class NewsLetterFragment extends Fragment {
                 null, true);
         newsLetterListView = (ListView)viewFragment.findViewById(R.id.fragment_news_list_view);
 
-        populateDummyData();
+        swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(NewsLetterFragment.this);
+
+        /**
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
+        swipeRefreshLayout.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        swipeRefreshLayout.setRefreshing(true);
+
+                                        populateDummyData();
+                                    }
+                                }
+        );
 
         footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
         newsLetterListView.addFooterView(footerView);
@@ -68,12 +85,12 @@ public class NewsLetterFragment extends Fragment {
 
     public void populateDummyData(){
 
-        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
-        progressBar.setIndeterminate(true);
-        progressBar.setVisibility(View.VISIBLE);
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
-        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-        ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
+//        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
+//        progressBar.setIndeterminate(true);
+//        progressBar.setVisibility(View.VISIBLE);
+//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
+//        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+//        ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
 
         String grpIdString = "";
         for (int i = 0; i< NotificationManager.grpIds.size(); i++){
@@ -92,7 +109,8 @@ public class NewsLetterFragment extends Fragment {
         DocumentManager.getSharedInstance().getAllNewsLetters(map, new DocumentManager.GetNewsManagerListener() {
             @Override
             public void onCompletion(DocumentsResponse response, AppError error) {
-                progressBar.setVisibility(View.GONE);
+                //progressBar.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR){
                     if (response != null){
                         if (response.getStatus() == 200){
@@ -119,5 +137,10 @@ public class NewsLetterFragment extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onRefresh() {
+        populateDummyData();
     }
 }
