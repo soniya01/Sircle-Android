@@ -54,12 +54,12 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
         calendarMonthListView = (ListView)findViewById(R.id.fragment_month_list_view);
 
         //calendarMonthList = EventManager.eventList;
-        calendarMonthListViewAdapter = new CalendarMonthListAdapter(this, calendarMonthList);
+
 
         footerView = View.inflate(this, R.layout.list_view_padding_footer, null);
         calendarMonthListView.addFooterView(footerView);
 
-        calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
+
 
         //swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         //swipeRefreshLayout.setOnRefreshListener(this);
@@ -189,9 +189,14 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
 
     public void filterEventsByDate(){
         List<Event> filteredList = new ArrayList<>();
+        String dayStr = "", monthStr ="";
+        dayStr = String.valueOf(day);
+        monthStr = String.valueOf(month);
 
-        String selectedDate = day + "/" + month + "/" +year;
+        if (day / 10 < 1)  dayStr = "0"+day;
+        if (month / 10 < 1) monthStr = "0"+month;
 
+        String selectedDate = dayStr + "/" + monthStr + "/" +year;
         for (Event event : calendarMonthList){
             String sDate = event.getStartDate(); //03/09/2015
             if (selectedDate.equals(sDate)){
@@ -200,7 +205,9 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
         }
 
         calendarMonthList.clear();
-        calendarMonthList = filteredList;
-        calendarMonthListViewAdapter.notifyDataSetChanged();
+        calendarMonthList.addAll(filteredList);
+        calendarMonthListViewAdapter = new CalendarMonthListAdapter(this, calendarMonthList);
+        calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
+        //calendarMonthListViewAdapter.notifyDataSetChanged();
     }
 }
