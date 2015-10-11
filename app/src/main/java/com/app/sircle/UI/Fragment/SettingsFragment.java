@@ -50,9 +50,8 @@ public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnR
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-       // return inflater.inflate(R.layout.fragment_settings, container, false);
-       // activity_settings
         View viewFragment = inflater.inflate(R.layout.activity_settings, null , true);
+        notificationListView = (ListView)viewFragment.findViewById(R.id.notificationsGroupListView);
 
         NotificationManager.grpIds.clear();
         SettingsActivity.isAllChecked = true;
@@ -69,27 +68,34 @@ public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnR
             }
         });
 
-        swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setOnRefreshListener(SettingsFragment.this);
+        notificationGroupList = NotificationManager.groupList;
+        notificationsGroupAdapter = new NotificationsGroupAdapter(getActivity(), notificationGroupList);
 
+        notificationListView.setAdapter(notificationsGroupAdapter);
+
+        //swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
+        //swipeRefreshLayout.setOnRefreshListener(SettingsFragment.this);
+
+
+
+        if (notificationGroupList.size() > 0){
+            populateDummyData();
+        }
         /**
          * Showing Swipe Refresh animation on activity create
          * As animation won't start on onCreate, post runnable is used
          */
-        swipeRefreshLayout.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        swipeRefreshLayout.setRefreshing(true);
+//        swipeRefreshLayout.post(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        swipeRefreshLayout.setRefreshing(true);
+//
+//                                        populateDummyData();
+//                                    }
+//                                }
+//        );
 
-                                        populateDummyData();
-                                    }
-                                }
-        );
 
-        notificationListView = (ListView)viewFragment.findViewById(R.id.notificationsGroupListView);
-        notificationsGroupAdapter = new NotificationsGroupAdapter(getActivity(), notificationGroupList);
-
-        notificationListView.setAdapter(notificationsGroupAdapter);
         Button saveButton = (Button)viewFragment.findViewById(R.id.saveGroups);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,23 +149,24 @@ public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnR
             NotificationManager.getSharedInstance().getAllGroups(map, new NotificationManager.GroupsManagerListener() {
                 @Override
                 public void onCompletion(GroupResponse response, AppError error) {
-                    swipeRefreshLayout.setRefreshing(false);
+                    //swipeRefreshLayout.setRefreshing(false);
                     if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                         if (response != null) {
                             if (response.getStatus() == 200){
-                                if (notificationGroupList.size() > 0) {
+                                if (response.getData().size() > 0) {
                                     notificationGroupList.clear();
                                     notificationGroupList.addAll(response.getData());
                                     notificationsGroupAdapter.notifyDataSetChanged();
                                     // update group notifictaion for all groups
                                     //updateAllGroup();
 
-                                } else {
-                                    //SettingsActivity.this.notificationGroupList.clear();
-                                    notificationGroupList.addAll(response.getData());
-                                    notificationsGroupAdapter = new NotificationsGroupAdapter(getActivity(), notificationGroupList);
-                                    notificationListView.setAdapter(notificationsGroupAdapter);
-                                }
+                               }
+// else {
+//                                    //SettingsActivity.this.notificationGroupList.clear();
+//                                    notificationGroupList.addAll(response.getData());
+//                                    notificationsGroupAdapter = new NotificationsGroupAdapter(getActivity(), notificationGroupList);
+//                                    notificationListView.setAdapter(notificationsGroupAdapter);
+//                                }
                             }else {
                                 Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                             }
@@ -179,6 +186,6 @@ public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onRefresh() {
-        populateDummyData();
+        //populateDummyData();
     }
 }

@@ -47,24 +47,32 @@ public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(LinksFragment.this);
 
+        linksList = LinksManager.linksList;
+
+        linksListViewAdapter = new LinksListViewAdapter(linksList, getActivity());
+        linksListView.setAdapter(linksListViewAdapter);
+
         /**
          * Showing Swipe Refresh animation on activity create
          * As animation won't start on onCreate, post runnable is used
          */
-        swipeRefreshLayout.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        swipeRefreshLayout.setRefreshing(true);
 
-                                        populateDummyData();
+        if (linksList.size() <= 0){
+            swipeRefreshLayout.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            swipeRefreshLayout.setRefreshing(true);
+
+                                            populateDummyData();
+                                        }
                                     }
-                                }
-        );
+            );
+        }
+
 
         footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
         linksListView.addFooterView(footerView);
 
-        populateDummyData();
 
         // add button on click to open respective view - only for admin
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -75,19 +83,18 @@ public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             }
         });
         // set up custom listview
-        linksListViewAdapter = new LinksListViewAdapter(linksList, getActivity());
-        linksListView.setAdapter(linksListViewAdapter);
-        linksListView.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
 
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-            }
-        });
+//        linksListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(AbsListView view, int scrollState) {
+//
+//            }
+//
+//            @Override
+//            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+//
+//            }
+//        });
 
         return viewFragment;
     }
@@ -115,14 +122,9 @@ public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                     if (response != null) {
                         if (response.getData().getLinks().size() > 0) {
-                            if (LinksFragment.this.linksList.size() == 0) {
-                                LinksFragment.this.linksList.addAll(response.getData().getLinks());
-                                linksListViewAdapter = new LinksListViewAdapter(LinksFragment.this.linksList, getActivity());
-                                linksListView.setAdapter(linksListViewAdapter);
-                            } else {
-                                LinksFragment.this.linksList.addAll(response.getData().getLinks());
-                                linksListViewAdapter.notifyDataSetChanged();
-                            }
+                            LinksFragment.this.linksList.addAll(response.getData().getLinks());
+                            linksListViewAdapter.notifyDataSetChanged();
+
                         } else {
                             Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                         }

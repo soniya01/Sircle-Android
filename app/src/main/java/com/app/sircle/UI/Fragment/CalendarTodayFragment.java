@@ -90,8 +90,15 @@ public class CalendarTodayFragment extends Fragment {
                 null, true);
 
         termsListView = (ListView)viewFragment.findViewById(R.id.fragment_term_list_view);
+        termsListViewAdapter = new TermsAdapter(getActivity(), EventManager.termsList);
+        termsListView.setAdapter(termsListViewAdapter);
 
-        populateDummyData();
+        if (EventManager.getSharedInstance().termsList.size() <= 0){
+            populateDummyData();
+
+        }
+
+        //populateDummyData();
 
         // footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
         // calendarMonthListView.addFooterView(footerView);
@@ -155,19 +162,19 @@ public class CalendarTodayFragment extends Fragment {
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                     if (termsList.size() > 0) {
 
-                        if (CalendarTodayFragment.this.termsList.size() > 0) {
-                            CalendarTodayFragment.this.termsList.clear();
-                            CalendarTodayFragment.this.termsList.addAll(termsList);
-                            termsListViewAdapter.notifyDataSetChanged();
-                            // update group notifictaion for all groups
-                            //updateAllGroup();
-
-                        } else {
-                            //SettingsActivity.this.notificationGroupList.clear();
-                            CalendarTodayFragment.this.termsList.addAll(termsList);
-                            termsListViewAdapter = new TermsAdapter(getActivity(), termsList);
-                            termsListView.setAdapter(termsListViewAdapter);
-                        }
+                        termsListViewAdapter.notifyDataSetChanged();
+//                        if (CalendarTodayFragment.this.termsList.size() > 0) {
+//                            CalendarTodayFragment.this.termsList.clear();
+//                            CalendarTodayFragment.this.termsList.addAll(termsList);
+//                            termsListViewAdapter.notifyDataSetChanged();
+//                            // update group notifictaion for all groups
+//                            //updateAllGroup();
+//
+//                        } else {
+//                            //SettingsActivity.this.notificationGroupList.clear();
+//                            CalendarTodayFragment.this.termsList.addAll(termsList);
+//
+//                        }
 
                        // Toast.makeText(CalendarTodayFragment.this, "", Toast.LENGTH_SHORT).show();
                     } else {

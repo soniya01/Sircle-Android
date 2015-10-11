@@ -18,6 +18,8 @@ import java.util.List;
  */
 public class NotificationManager {
     public static List<String> grpIds = new ArrayList<>();
+    public static List<NotificationGroups> groupList = new ArrayList<>();
+    public static List<Notification> notificationList = new ArrayList<>();
 
     private static NotificationManager sharedInstance;
 
@@ -36,6 +38,12 @@ public class NotificationManager {
             Notificationservice.getSharedInstance().getAllNotifications(object, new Notificationservice.NotificationServiceListener() {
                 @Override
                 public void onCompletion(NotificationResponse response, AppError error) {
+                    if (response != null) {
+                        if (response.getData() != null && response.getData().getNotifications().size() > 0) {
+                            notificationList.clear();
+                            notificationList = response.getData().getNotifications();
+                        }
+                    }
                     notificationManagerListener.onCompletion(response, error);
                 }
             });
@@ -45,8 +53,12 @@ public class NotificationManager {
         Notificationservice.getSharedInstance().getAllGroups(map, new Notificationservice.GroupsServiceListener() {
             @Override
             public void onCompletion(GroupResponse groupResponse, AppError error) {
-                if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
-                    groupsManagerListener.onCompletion(groupResponse, new AppError());
+                if (groupResponse != null){
+                    if (groupResponse.getData() != null){
+                        groupList.clear();
+                        groupList = groupResponse.getData();
+                    }
+
                 }
                 groupsManagerListener.onCompletion(groupResponse, error);
             }

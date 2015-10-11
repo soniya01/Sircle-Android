@@ -14,7 +14,8 @@ import java.util.List;
  */
 public class DocumentManager {
 
-    public List<NewsLetter> newsLetterList = new ArrayList<NewsLetter>();
+    public static List<NewsLetter> newsLetterList = new ArrayList<NewsLetter>();
+    public static List<NewsLetter> docsList = new ArrayList<NewsLetter>();
 
     private static DocumentManager sharedInstance;
 
@@ -34,6 +35,13 @@ public class DocumentManager {
         DocumentService.getSharedInstance().getAllNewsLetters(object, new DocumentService.GetNewsWebServiceListener() {
             @Override
             public void onCompletion(DocumentsResponse response, AppError error) {
+                if (response != null){
+                    if (response.getData() != null){
+                        newsLetterList.clear();
+                        newsLetterList = response.getData().getNewsLetters();
+                    }
+                }
+
                 getNewsManagerListener.onCompletion(response, error);
             }
         });
@@ -43,6 +51,13 @@ public class DocumentManager {
         DocumentService.getSharedInstance().getAllDocs(object, new DocumentService.GetNewsWebServiceListener() {
             @Override
             public void onCompletion(DocumentsResponse response, AppError error) {
+                if (response != null){
+                    if (response.getData() != null){
+                        docsList.clear();
+                        docsList = response.getData().getDocs();
+                    }
+                }
+
                 getNewsManagerListener.onCompletion(response, error);
             }
         });

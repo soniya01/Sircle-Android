@@ -93,8 +93,11 @@ public class CalendarListFragment extends Fragment {
         View viewFragment = inflater.inflate(R.layout.fragment_calendar_list,
                 null, true);
 
-        populateDummyData();
+        //populateDummyData();
         calendarMonthListView = (ListView)viewFragment.findViewById(R.id.fragment_month_list_view);
+        calendarMonthList = EventManager.eventList;
+        calendarMonthListViewAdapter = new CalendarMonthListAdapter(getActivity(), calendarMonthList);
+        calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
 
         footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
         calendarMonthListView.addFooterView(footerView);
@@ -107,6 +110,10 @@ public class CalendarListFragment extends Fragment {
                 startActivity(detailIntent);
             }
         });
+
+        if (calendarMonthList.size() <= 0){
+            populateDummyData();
+        }
 
         return viewFragment;
     }
@@ -171,15 +178,9 @@ public class CalendarListFragment extends Fragment {
                 if (data != null) {
                     if (data.getStatus() == 200){
                         if (data.getEventData().getEvents().size() > 0){
-                            if (calendarMonthList.size() > 0){
-                                calendarMonthList.clear();
-                                calendarMonthList.addAll(data.getEventData().getEvents());
-                                calendarMonthListViewAdapter.notifyDataSetChanged();
-                            }else {
-                                calendarMonthList.addAll(data.getEventData().getEvents());
-                                calendarMonthListViewAdapter = new CalendarMonthListAdapter(getActivity(), calendarMonthList);
-                                calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
-                            }
+                            calendarMonthList.addAll(data.getEventData().getEvents());
+                            calendarMonthListViewAdapter.notifyDataSetChanged();
+
                         }else {
                             Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                         }

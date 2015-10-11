@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.app.sircle.Manager.PhotoManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Adapter.AlbumImagePagerAdapter;
 import com.app.sircle.UI.Model.AlbumDetails;
@@ -48,7 +49,7 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        albumDetailsList.addAll(AlbumDetailsActivity.albumDetailsList);
+        albumDetailsList.addAll(PhotoManager.getSharedInstance().albumDetailsList);
 
         populateDummyData();
         setContentView(R.layout.activity_album_full_screen);

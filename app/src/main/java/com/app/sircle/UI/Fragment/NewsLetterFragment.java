@@ -45,26 +45,33 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
         viewFragment = inflater.inflate(R.layout.fragment_news_letter,
                 null, true);
         newsLetterListView = (ListView)viewFragment.findViewById(R.id.fragment_news_list_view);
-
-        swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setOnRefreshListener(NewsLetterFragment.this);
-
-        /**
-         * Showing Swipe Refresh animation on activity create
-         * As animation won't start on onCreate, post runnable is used
-         */
-        swipeRefreshLayout.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        swipeRefreshLayout.setRefreshing(true);
-
-                                        populateDummyData();
-                                    }
-                                }
-        );
-
         footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
         newsLetterListView.addFooterView(footerView);
+
+        newsLetterList = DocumentManager.newsLetterList;
+
+        newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), newsLetterList);
+        newsLetterListView.setAdapter(newsLetterListViewAdapter);
+
+        //swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
+        //swipeRefreshLayout.setOnRefreshListener(NewsLetterFragment.this);
+
+        if (DocumentManager.newsLetterList.size() <= 0){
+            /**
+             * Showing Swipe Refresh animation on activity create
+             * As animation won't start on onCreate, post runnable is used
+             */
+            populateDummyData();
+//            swipeRefreshLayout.post(new Runnable() {
+//                                        @Override
+//                                        public void run() {
+//                                            swipeRefreshLayout.setRefreshing(true);
+//
+//                                            populateDummyData();
+//                                        }
+//                                    }
+//            );
+        }
 
 
         newsLetterListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -85,12 +92,12 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
 
     public void populateDummyData(){
 
-//        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
-//        progressBar.setIndeterminate(true);
-//        progressBar.setVisibility(View.VISIBLE);
-//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
-//        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-//        ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
+        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
+        progressBar.setIndeterminate(true);
+        progressBar.setVisibility(View.VISIBLE);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
+        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+        ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
 
         String grpIdString = "";
         for (int i = 0; i< NotificationManager.grpIds.size(); i++){
@@ -109,21 +116,23 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
         DocumentManager.getSharedInstance().getAllNewsLetters(map, new DocumentManager.GetNewsManagerListener() {
             @Override
             public void onCompletion(DocumentsResponse response, AppError error) {
-                //progressBar.setVisibility(View.GONE);
-                swipeRefreshLayout.setRefreshing(false);
+                progressBar.setVisibility(View.GONE);
+                //swipeRefreshLayout.setRefreshing(false);
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR){
                     if (response != null){
                         if (response.getStatus() == 200){
                             if (response.getData().getNewsLetters().size() > 0){
-                                if (NewsLetterFragment.this.newsLetterList.size() == 0){
-                                    NewsLetterFragment.this.newsLetterList.addAll(response.getData().getNewsLetters());
-                                    newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), response.getData().getNewsLetters());
-                                    newsLetterListView.setAdapter(newsLetterListViewAdapter);
-                                }else {
-                                    NewsLetterFragment.this.newsLetterList.clear();
-                                    NewsLetterFragment.this.newsLetterList.addAll(response.getData().getNewsLetters());
-                                    newsLetterListViewAdapter.notifyDataSetChanged();
-                                }
+                                NewsLetterFragment.this.newsLetterList = DocumentManager.newsLetterList;
+                                newsLetterListViewAdapter.notifyDataSetChanged();
+//                                if (NewsLetterFragment.this.newsLetterList.size() == 0){
+//                                    NewsLetterFragment.this.newsLetterList.addAll(response.getData().getNewsLetters());
+//                                    newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), response.getData().getNewsLetters());
+//                                    newsLetterListView.setAdapter(newsLetterListViewAdapter);
+//                                }else {
+//                                    NewsLetterFragment.this.newsLetterList.clear();
+//                                    NewsLetterFragment.this.newsLetterList.addAll(response.getData().getNewsLetters());
+//                                    newsLetterListViewAdapter.notifyDataSetChanged();
+//                                }
                             }else {
                                 Toast.makeText(getActivity(), response.getMessage(),Toast.LENGTH_SHORT).show();
                             }
@@ -140,7 +149,12 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
     public void onRefresh() {
-        populateDummyData();
+       // populateDummyData();
     }
 }

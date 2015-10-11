@@ -7,6 +7,7 @@ import com.app.sircle.WebService.LinksResponseData;
 import com.app.sircle.WebService.LinksWebService;
 import com.app.sircle.WebService.PostResponse;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,6 +15,8 @@ import java.util.List;
  * Created by soniya on 25/08/15.
  */
 public class LinksManager {
+
+    public static List<Links> linksList = new ArrayList<>();
 
     private static LinksManager sharedInstance;
 
@@ -32,6 +35,12 @@ public class LinksManager {
         LinksWebService.getSharedInstance().getAllLinks(object, new LinksWebService.GetAllLinksServiceListener() {
             @Override
             public void onCompletion(LinksResponse response, AppError error) {
+                if (response != null){
+                    if (response.getData() != null && response.getData().getLinks().size() > 0){
+                        linksList.clear();
+                        linksList = response.getData().getLinks();
+                    }
+                }
                 linksManagerListener.onCompletion(response, error);
             }
         });

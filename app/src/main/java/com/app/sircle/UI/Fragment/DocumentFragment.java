@@ -47,31 +47,34 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
         viewFragment = inflater.inflate(R.layout.fragment_document,
                 null, true);
         footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
-
-        swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setOnRefreshListener(DocumentFragment.this);
-
-        /**
-         * Showing Swipe Refresh animation on activity create
-         * As animation won't start on onCreate, post runnable is used
-         */
-        swipeRefreshLayout.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        swipeRefreshLayout.setRefreshing(true);
-
-                                        populateDummyData();
-                                    }
-                                }
-        );
-
-        //populateDummyData();
-
         newsLetterListView = (ListView)viewFragment.findViewById(R.id.fragment_news_list_view);
         newsLetterListView.addFooterView(footerView);
-        newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), newsLetterList);
+        //swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
+        //swipeRefreshLayout.setOnRefreshListener(DocumentFragment.this);
 
+        newsLetterList = DocumentManager.docsList;
+        newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), newsLetterList);
         newsLetterListView.setAdapter(newsLetterListViewAdapter);
+
+        if (newsLetterList.size() <= 0){
+            /**
+             * Showing Swipe Refresh animation on activity create
+             * As animation won't start on onCreate, post runnable is used
+             */
+//            swipeRefreshLayout.post(new Runnable() {
+//                                        @Override
+//                                        public void run() {
+//                                            swipeRefreshLayout.setRefreshing(true);
+
+                                            populateDummyData();
+//                                        }
+//                                    }
+//            );
+
+            //populateDummyData();
+        }
+
+
         newsLetterListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -89,12 +92,12 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     public void populateDummyData(){
-//        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
-//        progressBar.setIndeterminate(true);
-//        progressBar.setVisibility(View.VISIBLE);
-//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
-//        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-//        ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
+        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
+        progressBar.setIndeterminate(true);
+        progressBar.setVisibility(View.VISIBLE);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
+        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+        ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
 
 
         String grpIdString = "";
@@ -113,20 +116,23 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
         DocumentManager.getSharedInstance().getAllDocs(object, new DocumentManager.GetNewsManagerListener() {
             @Override
             public void onCompletion(DocumentsResponse data, AppError error) {
-                //progressBar.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
                 swipeRefreshLayout.setRefreshing(false);
                 if (data != null) {
                     if (data.getStatus() == 200){
                         if (data.getData().getDocs().size() > 0){
-                            if (newsLetterList.size() > 0){
-                                newsLetterList.clear();
-                                newsLetterList.addAll(data.getData().getDocs());
-                                newsLetterListViewAdapter.notifyDataSetChanged();
-                            }else {
-                                newsLetterList.addAll(data.getData().getDocs());
-                                newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), newsLetterList);
-                                newsLetterListView.setAdapter(newsLetterListViewAdapter);
-                            }
+                            newsLetterList.clear();
+                            newsLetterList.addAll(DocumentManager.docsList);
+                            newsLetterListViewAdapter.notifyDataSetChanged();
+
+//                            if (newsLetterList.size() > 0){
+//                                newsLetterList.clear();
+//
+//                            }else {
+//                                newsLetterList.addAll(data.getData().getDocs());
+//                                newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), DocumentManager.docsList);
+//                                newsLetterListView.setAdapter(newsLetterListViewAdapter);
+//                            }
                         }else {
                             Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -142,7 +148,17 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (DocumentFragment.this.newsLetterList.size() > 0) {
+            newsLetterListViewAdapter.notifyDataSetChanged();
+        }
+    }
+
+
+
+    @Override
     public void onRefresh() {
-        populateDummyData();
+        //populateDummyData();
     }
 }

@@ -29,7 +29,7 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
 
     private GridView albumGridView;
     private AlbumDetailsGridAdapter albumDetailsGridAdapter;
-    public static List<AlbumDetails> albumDetailsList = new ArrayList<AlbumDetails>();
+    public List<AlbumDetails> albumDetailsList = new ArrayList<AlbumDetails>();
     private FloatingActionButton floatingActionButton;
     public static int albumId;
     public static String albumName="";
@@ -40,8 +40,8 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_details);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setOnRefreshListener(this);
+        //swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+        //swipeRefreshLayout.setOnRefreshListener(this);
 
         if (getIntent() != null){
             albumId = getIntent().getIntExtra("albumId",0);
@@ -52,7 +52,26 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
 
         albumGridView = (GridView)findViewById(R.id.album_details_grid_view);
         floatingActionButton = (FloatingActionButton)findViewById(R.id.fab);
-        populateDummyData();
+
+        albumDetailsList = PhotoManager.getSharedInstance().albumDetailsList;
+        albumDetailsGridAdapter = new AlbumDetailsGridAdapter(AlbumDetailsActivity.this, albumDetailsList);
+        albumGridView.setAdapter(albumDetailsGridAdapter);
+
+        if (albumDetailsList.size() <= 0){
+            /**
+             * Showing Swipe Refresh animation on activity create
+             * As animation won't start on onCreate, post runnable is used
+             */
+//            swipeRefreshLayout.post(new Runnable() {
+//                                        @Override
+//                                        public void run() {
+//                                            swipeRefreshLayout.setRefreshing(true);
+
+                                            populateDummyData();
+//                                        }
+//                                    }
+//            );
+        }
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,15 +95,17 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
                 if (response != null){
                     if (response.getStatus() == 200){
                         if (response.getData().getPhotos().size() > 0){
-                            if (albumDetailsList.size() > 0){
-                                albumDetailsList.clear();
-                                albumDetailsList.addAll(response.getData().getPhotos());
-                                albumDetailsGridAdapter.notifyDataSetChanged();
-                            }else {
-                                albumDetailsList.addAll(response.getData().getPhotos());
-                                albumDetailsGridAdapter = new AlbumDetailsGridAdapter(AlbumDetailsActivity.this, albumDetailsList);
-                                albumGridView.setAdapter(albumDetailsGridAdapter);
-                            }
+
+                            albumDetailsList = PhotoManager.getSharedInstance().albumDetailsList;
+                            albumDetailsGridAdapter.notifyDataSetChanged();
+//                            if (albumDetailsList.size() > 0){
+//                                albumDetailsList.clear();
+//                                albumDetailsList.addAll(response.getData().getPhotos());
+//                                albumDetailsGridAdapter.notifyDataSetChanged();
+//                            }else {
+//                                albumDetailsList.addAll(response.getData().getPhotos());
+//
+//                            }
 
                         }else {
                             Toast.makeText(AlbumDetailsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
@@ -128,6 +149,6 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
 
     @Override
     public void onRefresh() {
-        populateDummyData();
+        //populateDummyData();
     }
 }

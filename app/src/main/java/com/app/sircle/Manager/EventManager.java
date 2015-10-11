@@ -1,5 +1,6 @@
 package com.app.sircle.Manager;
 
+import com.app.sircle.UI.Model.Event;
 import com.app.sircle.UI.Model.EventCategory;
 import com.app.sircle.UI.Model.Terms;
 import com.app.sircle.Utility.AppError;
@@ -15,11 +16,16 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
+ *
  * Created by soniya on 15/08/15.
  */
 public class EventManager {
 
     private static EventManager sharedInstance;
+    public static List<Terms> termsList = new ArrayList<>();
+    public  static List<Event> eventList = new ArrayList<>();
+    public  static List<EventCategory> eventCategoryList = new ArrayList<>();
+    public static Event eventDetail;
 
     private EventManager(){
 
@@ -37,7 +43,10 @@ public class EventManager {
         EventWebService.getSharedInstance().getAllTerms(map, new EventWebService.GetAllTermsServiceListener() {
             @Override
             public void onCompletion(List<Terms> termsList, AppError error) {
+
                 if (error.getErrorCode() == AppError.NO_ERROR) {
+                    EventManager.termsList.clear();
+                    EventManager.termsList = termsList;
 
                     getAllTermsManagerListener.onCompletion(termsList, new AppError());
                 } else {
@@ -47,12 +56,13 @@ public class EventManager {
         });
     }
 
-    public void getEventsMonthWise(HashMap requestObject, final GetMonthwiseEventsManagerListener getMonthwiseEventsManagerListener ){
+    public void getEventsMonthWise(final HashMap requestObject, final GetMonthwiseEventsManagerListener getMonthwiseEventsManagerListener ){
 
         EventWebService.getSharedInstance().getMonthWiseEvents(requestObject, new EventWebService.GetMonthwiseEventsServiceListener() {
             @Override
             public void onCompletion(EventDataReponse data, AppError error) {
                 if (error.getErrorCode() == AppError.NO_ERROR) {
+
                     getMonthwiseEventsManagerListener.onCompletion(data, new AppError());
                 } else {
                     getMonthwiseEventsManagerListener.onCompletion(data, error);
@@ -67,6 +77,11 @@ public class EventManager {
             @Override
             public void onCompletion(EventDataReponse data, AppError error) {
                 if (error.getErrorCode() == AppError.NO_ERROR) {
+                    if (data != null && data.getEventData() != null){
+                        eventList.clear();
+                        EventManager.eventList = data.getEventData().getEvents();
+                    }
+
                     getMonthwiseEventsManagerListener.onCompletion(data, new AppError());
                 } else {
                     getMonthwiseEventsManagerListener.onCompletion(data, error);
@@ -79,7 +94,9 @@ public class EventManager {
         EventWebService.getSharedInstance().getAllEventCategory(new EventWebService.GetEventsCategoryServiceListener() {
             @Override
             public void onCompletion(CategoryResponse response, AppError error) {
-                if (response != null) {
+                if (response != null && response.getData() != null) {
+                    eventCategoryList.clear();
+                    eventCategoryList = response.getData();
                     getEventsCategoryManagerListener.onCompletion(response, new AppError());
                 } else {
                     getEventsCategoryManagerListener.onCompletion(response, error);
@@ -110,6 +127,10 @@ public class EventManager {
         EventWebService.getSharedInstance().getEventDetails(object, new EventWebService.EventWebServiceListener() {
             @Override
             public void onCompletion(EventDetailResponse response, AppError error) {
+                if (response != null){
+                    eventDetail = null;
+                    eventDetail = response.getData().getEventInfo();
+                }
                 eventManagerListener.onCompletion(response, error);
             }
         });

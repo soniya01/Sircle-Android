@@ -32,6 +32,7 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
     private ListView calendarMonthListView;
     private CalendarMonthListAdapter calendarMonthListViewAdapter;
     private List<Event> calendarMonthList = new ArrayList<Event>();
+
     private View footerView;
     private int month, year, day;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -50,30 +51,37 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setOnRefreshListener(this);
-
-        /**
-         * Showing Swipe Refresh animation on activity create
-         * As animation won't start on onCreate, post runnable is used
-         */
-        swipeRefreshLayout.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        swipeRefreshLayout.setRefreshing(true);
-
-                                        populateDummyData();
-                                    }
-                                }
-        );
-
         calendarMonthListView = (ListView)findViewById(R.id.fragment_month_list_view);
+
+        //calendarMonthList = EventManager.eventList;
         calendarMonthListViewAdapter = new CalendarMonthListAdapter(this, calendarMonthList);
 
         footerView = View.inflate(this, R.layout.list_view_padding_footer, null);
         calendarMonthListView.addFooterView(footerView);
 
         calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
+
+        //swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+        //swipeRefreshLayout.setOnRefreshListener(this);
+
+        /**
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
+        if (calendarMonthList.size() <= 0){
+            populateDummyData();
+        }
+//        swipeRefreshLayout.post(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        swipeRefreshLayout.setRefreshing(true);
+//
+//                                        populateDummyData();
+//                                    }
+//                                }
+//        );
+
+
         calendarMonthListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -135,25 +143,25 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
                     if (data.getStatus() == 200) {
                         if (data.getEventData().getEvents() != null){
                             if (data.getEventData().getEvents().size() > 0) {
-                                if (calendarMonthList.size() > 0) {
-                                    calendarMonthList.clear();
+                                calendarMonthList.clear();
+                                calendarMonthList = data.getEventData().getEvents();
+
 
                                     if (day != 0){
                                         // search data for a particular date
-                                        Calendar cal = Calendar.getInstance();
-                                        cal.set(Calendar.YEAR, year);
-                                        cal.set(Calendar.MONTH, month);
-                                        cal.set(Calendar.DAY_OF_MONTH, day);
-                                        Date date = new Date();
-                                        date = cal.getTime();
+                                        // filter by date
+                                        filterEventsByDate();
+
+                                    }else {
+                                        calendarMonthListViewAdapter.notifyDataSetChanged();
                                     }
-                                    calendarMonthList.addAll(data.getEventData().getEvents());
-                                    calendarMonthListViewAdapter.notifyDataSetChanged();
-                                } else {
-                                    calendarMonthList.addAll(data.getEventData().getEvents());
-                                    calendarMonthListViewAdapter = new CalendarMonthListAdapter(EventsListActivity.this, calendarMonthList);
-                                    calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
-                                }
+                                    //calendarMonthList.addAll(data.getEventData().getEvents());
+
+//                                } else {
+//                                    calendarMonthList.addAll(data.getEventData().getEvents());
+//                                    calendarMonthListViewAdapter = new CalendarMonthListAdapter(EventsListActivity.this, calendarMonthList);
+//                                    calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
+//                                }
                             } else {
                                 Toast.makeText(EventsListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
                             }
@@ -172,8 +180,27 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
         });
     }
 
+
+
     @Override
     public void onRefresh() {
-        populateDummyData();
+       // populateDummyData();
+    }
+
+    public void filterEventsByDate(){
+        List<Event> filteredList = new ArrayList<>();
+
+        String selectedDate = day + "/" + month + "/" +year;
+
+        for (Event event : calendarMonthList){
+            String sDate = event.getStartDate(); //03/09/2015
+            if (selectedDate.equals(sDate)){
+                filteredList.add(event);
+            }
+        }
+
+        calendarMonthList.clear();
+        calendarMonthList = filteredList;
+        calendarMonthListViewAdapter.notifyDataSetChanged();
     }
 }

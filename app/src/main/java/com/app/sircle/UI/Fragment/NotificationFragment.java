@@ -29,7 +29,7 @@ import java.util.List;
 
 public class NotificationFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
-    public static List<Notification> notificationList = new ArrayList<Notification>();
+    public  List<Notification> notificationList = new ArrayList<Notification>();
     private ListView notificationListView;
     private FloatingActionButton floatingActionButton;
     private NotificationListviewAdapter notificationListviewAdapter;
@@ -47,25 +47,29 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
 
         footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
         notificationListView.addFooterView(footerView);
+
+        notificationList = NotificationManager.notificationList;
         notificationListviewAdapter = new NotificationListviewAdapter(notificationList, getActivity());
         notificationListView.setAdapter(notificationListviewAdapter);
 
         swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(NotificationFragment.this);
 
-        /**
-         * Showing Swipe Refresh animation on activity create
-         * As animation won't start on onCreate, post runnable is used
-         */
-        swipeRefreshLayout.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        swipeRefreshLayout.setRefreshing(true);
+        if (notificationList.size() <= 0){
+            /**
+             * Showing Swipe Refresh animation on activity create
+             * As animation won't start on onCreate, post runnable is used
+             */
+            swipeRefreshLayout.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            swipeRefreshLayout.setRefreshing(true);
 
-                                        populateDummyData();
+                                            populateDummyData();
+                                        }
                                     }
-                                }
-        );
+            );
+        }
 
 
         // add button on click to open respective view - only for admin
@@ -112,14 +116,9 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
                 if (data != null) {
                     if (data.getStatus() == 200){
                         if (data.getData().getNotifications().size() > 0){
-                            if (notificationList.size() > 0){
-                                notificationList.clear();
-                                notificationList.addAll(data.getData().getNotifications());
-                                notificationListviewAdapter.notifyDataSetChanged();
-                            }else {
-                                notificationList.addAll(data.getData().getNotifications());
-                                notificationListviewAdapter.notifyDataSetChanged();
-                            }
+                            notificationList.addAll(NotificationManager.notificationList);
+                            notificationListviewAdapter.notifyDataSetChanged();
+
                         }else {
                             Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                         }

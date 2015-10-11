@@ -52,8 +52,8 @@ public class NotificationListviewAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.list_view_notification_row,
                     parent, false);
 
-            viewHolder.notificationDescLabel = (TextView) convertView.findViewById(R.id.notification_row_title_label_name);
-            viewHolder.notificationTitleLabel = (TextView) convertView.findViewById(R.id.notification_row_desc_label);
+            viewHolder.notificationDescLabel = (TextView) convertView.findViewById(R.id.notification_row_desc_label);
+            viewHolder.notificationTitleLabel = (TextView) convertView.findViewById(R.id.notification_row_title_label_name);
             viewHolder.notificationDateLabel = (TextView) convertView.findViewById(R.id.notification_row_publish_label_day);
             viewHolder.notificationTimeLabel = (TextView) convertView.findViewById(R.id.notification_row_publish_label_time);
 

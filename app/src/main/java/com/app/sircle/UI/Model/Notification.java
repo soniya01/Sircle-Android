@@ -8,6 +8,7 @@ import java.util.Date;
  * Created by soniya on 08/08/15.
  */
 public class Notification {
+
     public String subject;
     public String message;
 

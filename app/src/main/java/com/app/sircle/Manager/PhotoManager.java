@@ -22,7 +22,8 @@ import retrofit.mime.TypedFile;
  */
 public class PhotoManager  {
 
-    public List<AlbumDetails> albumDetailsList = new ArrayList<AlbumDetails>();
+    public static List<AlbumDetails> albumDetailsList = new ArrayList<AlbumDetails>();
+    public static List<Photo> albumsList = new ArrayList<Photo>();
 
     private static PhotoManager sharedInstance;
     private PhotoManager(){
@@ -60,6 +61,12 @@ public class PhotoManager  {
         PhotoWebService.getSharedInstance().getAlbums(params, new PhotoWebService.GetAlbumWebServiceListener() {
             @Override
             public void onCompletion(PhotoResponse response, AppError error) {
+                if (response != null){
+                    if (response.getData() != null && response.getData().getAlbums().size() > 0){
+                        albumsList.clear();
+                        albumsList = response.getData().getAlbums();
+                    }
+                }
                 albumsManagerListener.onCompletion(response, new AppError());
             }
         });

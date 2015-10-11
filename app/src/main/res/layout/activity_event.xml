@@ -52,6 +52,7 @@ tools:context="com.app.sircle.UI.Activity.EventActivity">
                 android:layout_marginTop="10dp"
                 android:background="@drawable/custom_edit_text_border"
                 android:maxLines="2"
+                android:maxHeight="100dp"
                 android:padding="15dp"
                 android:textColor="#303030"
                 android:textSize="14sp" />

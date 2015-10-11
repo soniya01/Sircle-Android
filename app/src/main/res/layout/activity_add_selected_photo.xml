@@ -31,7 +31,7 @@
         android:padding="20dp"
         android:hint="Add description"
         android:text=""
-        android:maxLines="3"/>
+        android:maxLength="255"/>
 
     <Button
         android:id="@+id/activity_add_new_photo"

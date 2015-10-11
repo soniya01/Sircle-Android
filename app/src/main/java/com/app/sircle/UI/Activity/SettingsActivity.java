@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.app.sircle.Manager.NotificationManager;
+import com.app.sircle.Manager.PhotoManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Adapter.NotificationsGroupAdapter;
 
@@ -32,7 +34,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class SettingsActivity extends Activity {
+public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnRefreshListener{
 
     private ListView notificationListView;
     private NotificationsGroupAdapter notificationsGroupAdapter;
@@ -40,6 +42,7 @@ public class SettingsActivity extends Activity {
     public static CheckBox allCheckBox;
     ProgressDialog ringProgressDialog;
     public static boolean isAllChecked;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,28 +50,50 @@ public class SettingsActivity extends Activity {
         setContentView(R.layout.activity_settings);
         NotificationManager.grpIds.clear();
         isAllChecked = true;
-        AlbumDetailsActivity.albumDetailsList.clear();
 
         notificationListView = (ListView) findViewById(R.id.notificationsGroupListView);
         allCheckBox = (CheckBox) findViewById(R.id.checkAll);
         allCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
+                if (isChecked) {
                     isAllChecked = true;
-                }else {
+                } else {
                     isAllChecked = false;
                 }
             }
         });
-        populateDummyData();
+        notificationGroupList = NotificationManager.groupList;
+        notificationsGroupAdapter = new NotificationsGroupAdapter(SettingsActivity.this, notificationGroupList);
+        notificationListView.setAdapter(notificationsGroupAdapter);
+        //populateDummyData();
+        //swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+        //swipeRefreshLayout.setOnRefreshListener(this);
+
+        if (notificationGroupList.size() <= 0){
+            populateDummyData();
+        }
+
+        /**
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
+//        swipeRefreshLayout.post(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        swipeRefreshLayout.setRefreshing(true);
+//
+//                                        populateDummyData();
+//                                    }
+//                                }
+//        );
 
         //notificationListView.setAdapter(notificationsGroupAdapter);
         Button saveButton = (Button)findViewById(R.id.saveGroups);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ringProgressDialog = ProgressDialog.show(SettingsActivity.this, "", "", true);
+                //ringProgressDialog = ProgressDialog.show(SettingsActivity.this, "", "", true);
                 JSONArray arrayObject = new JSONArray();
                 for (int i =0 ; i< notificationGroupList.size(); i++){
                     try {
@@ -84,8 +109,6 @@ public class SettingsActivity extends Activity {
                     }
                 }
 
-
-
                 HashMap map = new HashMap();
                 map.put("regId", Constants.GCM_REG_ID);
                 map.put("groupValString", arrayObject.toString());
@@ -94,7 +117,8 @@ public class SettingsActivity extends Activity {
                 NotificationManager.getSharedInstance().updateGroupNotification(map, new NotificationManager.PostManagerListener() {
                     @Override
                     public void onCompletion(PostResponse postResponse, AppError error) {
-                        ringProgressDialog.dismiss();
+                        //ringProgressDialog.dismiss();
+
                         if (postResponse != null) {
                             Toast.makeText(SettingsActivity.this, postResponse.getMessage(), Toast.LENGTH_SHORT).show();
                             if (postResponse.getStatus() == 200) {
@@ -149,27 +173,22 @@ public class SettingsActivity extends Activity {
         NotificationManager.getSharedInstance().getAllGroups(map, new NotificationManager.GroupsManagerListener() {
             @Override
             public void onCompletion(GroupResponse response, AppError error) {
-
+                //swipeRefreshLayout.setRefreshing(false);
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                     if (response != null) {
-
-                        if (SettingsActivity.this.notificationGroupList.size() > 0) {
-                            SettingsActivity.this.notificationGroupList.clear();
-                            SettingsActivity.this.notificationGroupList.addAll(response.getData());
-                            notificationsGroupAdapter.notifyDataSetChanged();
-                            // update group notifictaion for all groups
-                            //updateAllGroup();
-
-                        } else {
-                            //SettingsActivity.this.notificationGroupList.clear();
-                            SettingsActivity.this.notificationGroupList.addAll(response.getData());
-                            notificationsGroupAdapter = new NotificationsGroupAdapter(SettingsActivity.this, notificationGroupList);
-                            notificationListView.setAdapter(notificationsGroupAdapter);
+                        if (response.getStatus() == 200){
+                            if (response.getData().size() > 0){
+                                SettingsActivity.this.notificationGroupList.addAll(NotificationManager.groupList);
+                                notificationsGroupAdapter.notifyDataSetChanged();
+                            }
+                            Toast.makeText(SettingsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(SettingsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                         }
 
-                        Toast.makeText(SettingsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(SettingsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                     } else {
-                        //Toast.makeText(SettingsActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SettingsActivity.this,"some error occurred",Toast.LENGTH_SHORT).show();
                     }
 
                 } else {
@@ -184,5 +203,10 @@ public class SettingsActivity extends Activity {
     @Override
     public void onBackPressed() {
 
+    }
+
+    @Override
+    public void onRefresh() {
+        populateDummyData();
     }
 }

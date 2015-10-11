@@ -59,22 +59,31 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
         videoListView.addFooterView(footerView);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setOnRefreshListener(VideoFragment.this);
+        //swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
+        //swipeRefreshLayout.setOnRefreshListener(VideoFragment.this);
 
-        /**
-         * Showing Swipe Refresh animation on activity create
-         * As animation won't start on onCreate, post runnable is used
-         */
-        swipeRefreshLayout.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        swipeRefreshLayout.setRefreshing(true);
+        VideoFragment.this.videoList = VideoManager.getSharedInstance().videoList;
 
-                                        populateDummyData();
-                                    }
-                                }
-        );
+        videoListViewAdapter = new VideoListViewAdapter(getActivity(), VideoFragment.this.videoList);
+        videoListView.setAdapter(videoListViewAdapter);
+
+        if (VideoFragment.this.videoList.size() <= 0){
+            populateDummyData();
+            /**
+             * Showing Swipe Refresh animation on activity create
+             * As animation won't start on onCreate, post runnable is used
+             */
+//            swipeRefreshLayout.post(new Runnable() {
+//                                        @Override
+//                                        public void run() {
+//                                            swipeRefreshLayout.setRefreshing(true);
+//
+//                                            populateDummyData();
+//                                        }
+//                                    }
+//            );
+        }
+
 
         videoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -100,12 +109,12 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     public void populateDummyData(){
 
-//        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
-//        progressBar.setIndeterminate(true);
-//        progressBar.setVisibility(View.VISIBLE);
-//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
-//        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-//        ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
+        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
+        progressBar.setIndeterminate(true);
+        progressBar.setVisibility(View.VISIBLE);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
+        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+        ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
 
         String grpIdString = "";
         for (int i = 0; i< NotificationManager.grpIds.size(); i++){
@@ -124,24 +133,31 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         VideoManager.getSharedInstance().getAllVideos(object, new VideoManager.VideoManagerListener() {
             @Override
             public void onCompletion(VideoResponse response, AppError error) {
-                //progressBar.setVisibility(View.GONE);
-                swipeRefreshLayout.setRefreshing(false);
+                progressBar.setVisibility(View.GONE);
+                //swipeRefreshLayout.setRefreshing(false);
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                     if (response != null){
-                        if (response.getData().getVideos().size() > 0){
-                                if (VideoFragment.this.videoList.size() == 0) {
-                                    VideoFragment.this.videoList.addAll(response.getData().getVideos());
-                                    videoListViewAdapter = new VideoListViewAdapter(getActivity(), VideoFragment.this.videoList);
-                                    videoListView.setAdapter(videoListViewAdapter);
-                                } else {
-                                    VideoFragment.this.videoList.clear();
-                                    VideoFragment.this.videoList.addAll(response.getData().getVideos());
-                                    videoListViewAdapter.notifyDataSetChanged();
-                                }
+                        if (response.getStatus() == 200){
+                            if (response.getData().getVideos().size() > 0){
+                                videoList = response.getData().getVideos();
+                                videoListViewAdapter.notifyDataSetChanged();
+//                                if (VideoFragment.this.videoList.size() == 0) {
+//                                    VideoFragment.this.videoList.addAll(response.getData().getVideos());
+//                                    videoListViewAdapter = new VideoListViewAdapter(getActivity(), VideoFragment.this.videoList);
+//                                    videoListView.setAdapter(videoListViewAdapter);
+//                                } else {
+//                                    VideoFragment.this.videoList.clear();
+//                                    VideoFragment.this.videoList.addAll(response.getData().getVideos());
+//                                    videoListViewAdapter.notifyDataSetChanged();
+//                                }
 
-                        } else {
-                        Toast.makeText(getActivity(), "Sorry no data available", Toast.LENGTH_SHORT).show();
-                    }
+                            } else {
+                                Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }else {
+                            Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                     else {
                         Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection", Toast.LENGTH_SHORT).show();

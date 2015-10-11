@@ -16,7 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.sircle.Manager.LoginManager;
+import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
+import com.app.sircle.UI.Model.Notification;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.Utility.Constants;
 import com.app.sircle.WebService.LoginResponse;
@@ -87,6 +89,7 @@ public class LoginScreen extends Activity {
                                 if (response != null){
                                     if (response.getStatus() == 200)
                                     {
+                                        NotificationManager.grpIds.clear();
                                         sessionExpiryDate = new Date();
                                         LoginManager.accessToken = response.getUserData().getOauth().getAccessToken();//  //getOauth().getAccessToken();
                                         //editor.putString(Constants.LOGIN_USERNAME_PREFS_KEY, response.getUserData().getOauth().getAccessToken());

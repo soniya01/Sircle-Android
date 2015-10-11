@@ -51,28 +51,29 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
         viewFragment = inflater.inflate(R.layout.fragment_photos, null , true);
 
+        photos = PhotoManager.getSharedInstance().albumsList;
         albumListView = (ListView)viewFragment.findViewById(R.id.fragment_photos_list_view);
-       // photosListViewAdapter = new PhotosListViewAdapter(getActivity(), photos);
-        //albumListView.setAdapter(photosListViewAdapter);
+        photosListViewAdapter = new PhotosListViewAdapter(getActivity(), photos);
+        albumListView.setAdapter(photosListViewAdapter);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setOnRefreshListener(PhotosFragment.this);
+        //swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
+        //swipeRefreshLayout.setOnRefreshListener(PhotosFragment.this);
 
-        /**
-         * Showing Swipe Refresh animation on activity create
-         * As animation won't start on onCreate, post runnable is used
-         */
-        swipeRefreshLayout.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        swipeRefreshLayout.setRefreshing(true);
+        if (PhotoManager.getSharedInstance().albumsList.size() <= 0){
+            /**
+             * Showing Swipe Refresh animation on activity create
+             * As animation won't start on onCreate, post runnable is used
+             */
+//            swipeRefreshLayout.post(new Runnable() {
+//                                        @Override
+//                                        public void run() {
+//                                            swipeRefreshLayout.setRefreshing(true);
 
-                                        populateDummyData();
-                                    }
-                                }
-        );
-
-        populateDummyData();
+                                            populateDummyData();
+//                                        }
+//                                    }
+//            );
+        }
 
         floatingActionButton = (FloatingActionButton)viewFragment.findViewById(R.id.fab);
         albumListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -111,12 +112,13 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
     private void populateDummyData() {
 
-//        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
-//        progressBar.setIndeterminate(true);
-//        progressBar.setVisibility(View.VISIBLE);
-//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100,100);
-//        params.addRule(RelativeLayout.CENTER_IN_PARENT);
-//        ((SwipeRefreshLayout)viewFragment).addView(progressBar, params);
+        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
+        progressBar.setIndeterminate(true);
+        progressBar.setVisibility(View.VISIBLE);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(100,100);
+        params.addRule(RelativeLayout.CENTER_IN_PARENT);
+        ((RelativeLayout)viewFragment).addView(progressBar, params);
+
         String grpIdString = "";
         for (int i = 0; i< NotificationManager.grpIds.size(); i++){
             if (i == 0){
@@ -133,21 +135,23 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
         PhotoManager.getSharedInstance().getAlbums(map, new PhotoManager.GetAlbumsManagerListener() {
             @Override
             public void onCompletion(PhotoResponse response, AppError error) {
-               // progressBar.setVisibility(View.GONE);
-                swipeRefreshLayout.setRefreshing(false);
+                progressBar.setVisibility(View.GONE);
+                //swipeRefreshLayout.setRefreshing(false);
                 if (response != null) {
                     if (response.getStatus() == 200) {
                         if (response.getData().getAlbums().size() > 0) {
+                            photos = response.getData().getAlbums();
+                            photosListViewAdapter.notifyDataSetChanged();
 
-                            if (PhotosFragment.this.photos.size() > 0) {
-                                PhotosFragment.this.photos.clear();
-                                PhotosFragment.this.photos.addAll(response.getData().getAlbums());
-                                photosListViewAdapter.notifyDataSetChanged();
-                            } else {
-                                PhotosFragment.this.photos.addAll(response.getData().getAlbums());
-                                photosListViewAdapter = new PhotosListViewAdapter(getActivity(), photos);
-                                albumListView.setAdapter(photosListViewAdapter);
-                            }
+//                            if (PhotosFragment.this.photos.size() > 0) {
+//                                PhotosFragment.this.photos.clear();
+//                                PhotosFragment.this.photos.addAll(response.getData().getAlbums());
+//                                photosListViewAdapter.notifyDataSetChanged();
+//                            } else {
+//                                PhotosFragment.this.photos.addAll(response.getData().getAlbums());
+//                                photosListViewAdapter = new PhotosListViewAdapter(getActivity(), photos);
+//                                albumListView.setAdapter(photosListViewAdapter);
+//                            }
                         }
                     } else {
                             Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
@@ -163,6 +167,6 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
     @Override
     public void onRefresh() {
-        populateDummyData();
+        //populateDummyData();
     }
 }
