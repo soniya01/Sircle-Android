@@ -63,7 +63,7 @@ public class PDFViewer extends Activity {
             pdfView.fromFile(pdfFile).defaultPage(1).load();
         }
         else {
-            download("http://fzs.sve-mo.ba/sites/default/files/dokumenti-vijesti/sample.pdf");
+            download(url);
         }
 
     }
@@ -89,6 +89,7 @@ public class PDFViewer extends Activity {
                 pdfFile.createNewFile();
                 FileDownloader.downloadFile(fileUrl, pdfFile);
             }catch (IOException e){
+                Toast.makeText(PDFViewer.this, "Error occurred", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             }catch (Exception e){
                 Toast.makeText(PDFViewer.this, Constants.NO_NET_CONNECTIVITY_MESSAGE, Toast.LENGTH_SHORT).show();
