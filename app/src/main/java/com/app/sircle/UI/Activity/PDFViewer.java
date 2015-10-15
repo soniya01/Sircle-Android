@@ -33,10 +33,10 @@ public class PDFViewer extends Activity {
         setContentView(R.layout.activity_pdfviewer);
 
         pdfView = (PDFView) findViewById(R.id.pdfview);
-        mProgressDialog = new ProgressDialog(this);
+       mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setMessage("Loading");
-        mProgressDialog.setIndeterminate(true);
-        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+       mProgressDialog.setIndeterminate(true);
+      //  mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
       //  mProgressDialog.setCancelable(true);
 
         String pdfUrl = getIntent().getExtras().getString("PdfUrl");
@@ -94,28 +94,32 @@ public class PDFViewer extends Activity {
             }catch (Exception e){
                 Toast.makeText(PDFViewer.this, Constants.NO_NET_CONNECTIVITY_MESSAGE, Toast.LENGTH_SHORT).show();
             }
+            try {
+                Class.forName("android.os.AsyncTask");
+            } catch (ClassNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
 
             return null;
         }
 
 
-        // @Override
+         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             mProgressDialog.show();
 
         }
 
-
-
         @Override
-        protected void onPostExecute(Void result) {
-            //  progressDialog.dismiss();
-            if (result == null) {
-
-            }
-            else
-            {
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+//                        if (aVoid == null) {
+//
+//            }
+//            else
+//            {
                 mProgressDialog.dismiss();
 
                 File pdfFile = new File(Environment.getExternalStorageDirectory() + "/Sircle/" + fileName);  // -> filename
@@ -123,11 +127,18 @@ public class PDFViewer extends Activity {
                     pdfView.fromFile(pdfFile).defaultPage(1).load();
                 }
 
-            }
-            return;
+         //   }
+           // return;
 
         }
-    }
+        }
+
+
+//        @Override
+//        protected void onPostExecute(Void result) {
+//            //  progressDialog.dismiss();
+
+ //}
 
 
 }
