@@ -21,6 +21,7 @@ import com.app.sircle.DownLoader.ImageManager;
 import com.app.sircle.Manager.PhotoManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Fragment.CameraFragment;
+import com.app.sircle.UI.Fragment.PhotosFragment;
 import com.app.sircle.UI.Model.AlbumDetails;
 import com.app.sircle.UI.Model.ImageData;
 import com.app.sircle.Utility.AppError;
@@ -67,7 +68,7 @@ public class AddSelectedPhoto extends ActionBarActivity {
                 String descText = desc.getText().toString();
                 BaseActivity.jumpToFragment = true;
                 HashMap params = new HashMap();
-                params.put("alb_id", Integer.parseInt(String.valueOf(AlbumDetailsActivity.albumId)));
+                params.put("alb_id", Integer.parseInt(String.valueOf(PhotosFragment.albumId)));
                 //params.put("alb_id",AlbumDetailsActivity.albumId);
                 params.put("caption", descText);
 

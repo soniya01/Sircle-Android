@@ -31,8 +31,7 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
     private AlbumDetailsGridAdapter albumDetailsGridAdapter;
     public List<AlbumDetails> albumDetailsList = new ArrayList<AlbumDetails>();
     private FloatingActionButton floatingActionButton;
-    public static int albumId;
-    public static String albumName="";
+
     private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
@@ -43,10 +42,10 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
         //swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         //swipeRefreshLayout.setOnRefreshListener(this);
 
-        if (getIntent() != null){
-            albumId = getIntent().getIntExtra("albumId",0);
-            albumName = getIntent().getStringExtra("albumName");
-        }
+//        if (getIntent() != null){
+//            albumId = getIntent().getIntExtra("albumId",0);
+//            albumName = getIntent().getStringExtra("albumName");
+//        }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -86,7 +85,7 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
     void populateDummyData(){
 
         HashMap params = new HashMap();
-        params.put("album_id",albumId);
+        params.put("album_id",PhotosFragment.albumId);
         params.put("page",1);
 
         PhotoManager.getSharedInstance().getImages(params, new PhotoManager.GetPhotosManagerListener() {

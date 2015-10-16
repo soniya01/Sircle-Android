@@ -26,6 +26,7 @@ import com.app.sircle.UI.Model.AlbumDetails;
 import com.app.sircle.UI.Model.Photo;
 import com.app.sircle.UI.SlidingPane.SlidingPaneInterface;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.WebService.AlbumResponse;
 import com.app.sircle.WebService.PhotoResponse;
 
 import java.util.ArrayList;
@@ -45,6 +46,8 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
     private FloatingActionButton floatingActionButton;
     private View viewFragment;
     private SwipeRefreshLayout swipeRefreshLayout;
+    public static int albumId;
+    public static String albumName="";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -81,10 +84,10 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent albumIntent = new Intent(getActivity(), AlbumDetailsActivity.class);
-                albumIntent.putExtra("albumId",photos.get(position).getAlbumID());
-                albumIntent.putExtra("albumName",photos.get(position).getAlbumTitle());
-                startActivity(albumIntent);
+                albumId = photos.get(position).getAlbumID();
+                albumName = photos.get(position).getAlbumTitle();
+                populateAlbumData(photos.get(position).getAlbumID());
+
             }
         });
 
@@ -162,6 +165,23 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
             }
         });
 
+    }
+
+    void populateAlbumData(int albumId){
+
+        HashMap params = new HashMap();
+        params.put("album_id",albumId);
+        params.put("page",1);
+
+        PhotoManager.getSharedInstance().getImages(params, new PhotoManager.GetPhotosManagerListener() {
+            @Override
+            public void onCompletion(AlbumResponse response, AppError error) {
+                Intent albumIntent = new Intent(getActivity(), AlbumDetailsActivity.class);
+                //albumIntent.putExtra("albumId",photos.get(position).getAlbumID());
+                //albumIntent.putExtra("albumName",photos.get(position).getAlbumTitle());
+                startActivity(albumIntent);
+            }
+        });
     }
 
 

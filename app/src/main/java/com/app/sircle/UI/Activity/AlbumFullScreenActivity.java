@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import com.app.sircle.Manager.PhotoManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Adapter.AlbumImagePagerAdapter;
+import com.app.sircle.UI.Fragment.PhotosFragment;
 import com.app.sircle.UI.Model.AlbumDetails;
 import com.app.sircle.Utility.Constants;
 import com.squareup.picasso.Picasso;
@@ -152,7 +153,7 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
 
         public void storeImage(Bitmap bitmap){
                 //get path to external storage (SD card)
-                String iconsStoragePath = Constants.PHOTO_SAVE_GALLERY_DIR_IMAGE_PATH  + AlbumDetailsActivity.albumName;
+                String iconsStoragePath = Constants.PHOTO_SAVE_GALLERY_DIR_IMAGE_PATH  + PhotosFragment.albumName;
                 File sdIconStorageDir = new File(iconsStoragePath);
 
                 //create storage directories, if they don't exist

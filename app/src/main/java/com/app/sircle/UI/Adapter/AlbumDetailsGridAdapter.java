@@ -51,7 +51,7 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         ViewHolder viewHolder;
         if (convertView == null) {
@@ -77,6 +77,9 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
             @Override
             public void onSuccess() {
 
+                if (position == albumDetailsList.size() - 1){
+                   // ringProgressDialog.dismiss();
+                }
             }
 
             @Override
