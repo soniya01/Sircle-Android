@@ -52,6 +52,7 @@ public class PhotoManager  {
         PhotoWebService.getSharedInstance().getPhotos(params, new PhotoWebService.GetPhotoWebServiceListener() {
             @Override
             public void onCompletion(AlbumResponse response, AppError error) {
+                albumDetailsList = response.getData().getPhotos();
                 getPhotosManagerListener.onCompletion(response, error);
             }
         });
