@@ -1,5 +1,6 @@
 package com.app.sircle.UI.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -36,6 +37,7 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
     private View footerView;
     private int month, year, day;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private ProgressDialog ringProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,7 +137,7 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
         map.put("year",year);
         map.put("page", 1);
         map.put("groupId", grpIdString);
-
+        ringProgressDialog = ProgressDialog.show(this, "", "", true);
         EventManager.getSharedInstance().getEventsMonthWise(map, new EventManager.GetMonthwiseEventsManagerListener() {
             @Override
             public void onCompletion(EventDataReponse data, AppError error) {
@@ -153,6 +155,7 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
                                         filterEventsByDate();
 
                                     }else {
+                                        ringProgressDialog.dismiss();
                                         calendarMonthListViewAdapter.notifyDataSetChanged();
                                     }
                                     //calendarMonthList.addAll(data.getEventData().getEvents());
@@ -203,7 +206,7 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
                 filteredList.add(event);
             }
         }
-
+        ringProgressDialog.dismiss();
         calendarMonthList.clear();
         calendarMonthList.addAll(filteredList);
         calendarMonthListViewAdapter = new CalendarMonthListAdapter(this, calendarMonthList);

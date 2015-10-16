@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -233,7 +234,8 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
                 // add sign out functionality and show LoginScreen
                 mDrawerLayout.closeDrawer(mDrawerList);
                 fragmentToLoad = null;
-                finish();
+                Intent loginIntent = new Intent(BaseActivity.this, LoginScreen.class);
+                startActivity(loginIntent);
             default:
                 break;
         }

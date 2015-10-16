@@ -1,6 +1,7 @@
 package com.app.sircle.UI.Fragment;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -50,6 +51,7 @@ public class CalendarMonthFragment extends Fragment {
     private String mParam2;
     public int month, year;
     private CaldroidFragment caldroidFragment;
+    private ProgressDialog ringProgressDialog;
 
     private OnFragmentInteractionListener mListener;
 
@@ -211,10 +213,12 @@ public class CalendarMonthFragment extends Fragment {
         object.put("year", year);
         object.put("page", 1);
         object.put("groupId", grpIdString);
-
+        ringProgressDialog = ProgressDialog.show(getActivity(), "", "", true);
         EventManager.getSharedInstance().getEventsMonthWise(object, new EventManager.GetMonthwiseEventsManagerListener() {
             @Override
             public void onCompletion(EventDataReponse data, AppError error) {
+                ringProgressDialog.dismiss();
+
                 if (data != null){
                     if (data.getEventData().getEvents() != null){
                         if (data.getEventData().getEvents().size() > 0){
