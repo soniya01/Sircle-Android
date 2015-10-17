@@ -67,6 +67,7 @@ public class AddSelectedPhoto extends ActionBarActivity {
                 //TODO: post the photos and albums created to the server
                 String descText = desc.getText().toString();
                 BaseActivity.jumpToFragment = true;
+
                 HashMap params = new HashMap();
                 params.put("alb_id", String.valueOf(AlbumDetailsActivity.albumId));
                 //params.put("alb_id",AlbumDetailsActivity.albumId);
