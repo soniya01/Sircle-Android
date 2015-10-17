@@ -36,7 +36,7 @@ public class LinksManager {
             @Override
             public void onCompletion(LinksResponse response, AppError error) {
                 if (response != null){
-                    if (response.getData() != null && response.getData().getLinks().size() > 0){
+                    if (response.getData() != null && response.getData().getLinks() != null){
                         linksList.clear();
                         linksList = response.getData().getLinks();
                     }

@@ -128,8 +128,12 @@ public class EventManager {
             @Override
             public void onCompletion(EventDetailResponse response, AppError error) {
                 if (response != null){
-                    eventDetail = null;
-                    eventDetail = response.getData().getEventInfo();
+
+                    if (response.getData() != null && response.getData().getEventInfo() != null){
+                        eventDetail = null;
+                        eventDetail = response.getData().getEventInfo();
+                    }
+
                 }
                 eventManagerListener.onCompletion(response, error);
             }

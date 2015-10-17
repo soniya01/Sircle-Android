@@ -39,7 +39,7 @@ public class NotificationManager {
                 @Override
                 public void onCompletion(NotificationResponse response, AppError error) {
                     if (response != null) {
-                        if (response.getData() != null && response.getData().getNotifications().size() > 0) {
+                        if (response.getData() != null ) {
                             notificationList.clear();
                             notificationList = response.getData().getNotifications();
                         }
