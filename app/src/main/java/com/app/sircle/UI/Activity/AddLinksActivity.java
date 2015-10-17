@@ -55,10 +55,14 @@ public class AddLinksActivity extends ActionBarActivity {
         addButton = (Button) footerView.findViewById(R.id.add_button);
         addListView.addFooterView(footerView);
 
-        populateDummyData();
+       if (notificationGroupList.size() <= 0){
+           populateDummyData();
+       }
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, android.R.id.text1, groupNames);
-        addListView.setAdapter(arrayAdapter);
+        notificationGroupList = NotificationManager.groupList;
+        notificationsGroupAdapter = new NotificationsGroupAdapter(AddLinksActivity.this, notificationGroupList);
+        addListView.setAdapter(notificationsGroupAdapter);
+
         addListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -136,19 +140,24 @@ public class AddLinksActivity extends ActionBarActivity {
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                     if (response != null) {
 
-                        if (AddLinksActivity.this.notificationGroupList.size() > 0) {
-                            AddLinksActivity.this.notificationGroupList.clear();
-                            AddLinksActivity.this.notificationGroupList.addAll(response.getData());
+                        if (response.getData().size() > 0){
+                            AddLinksActivity.this.notificationGroupList.addAll(NotificationManager.groupList);
                             notificationsGroupAdapter.notifyDataSetChanged();
-                            // update group notifictaion for all groups
-                            //updateAllGroup();
-
-                        } else {
-                            //SettingsActivity.this.notificationGroupList.clear();
-                            AddLinksActivity.this.notificationGroupList.addAll(response.getData());
-                            notificationsGroupAdapter = new NotificationsGroupAdapter(AddLinksActivity.this, notificationGroupList);
-                            addListView.setAdapter(notificationsGroupAdapter);
                         }
+
+//                        if (AddLinksActivity.this.notificationGroupList.size() > 0) {
+//                            AddLinksActivity.this.notificationGroupList.clear();
+//                            AddLinksActivity.this.notificationGroupList.addAll(response.getData());
+//                            notificationsGroupAdapter.notifyDataSetChanged();
+//                            // update group notifictaion for all groups
+//                            //updateAllGroup();
+//
+//                        } else {
+//                            //SettingsActivity.this.notificationGroupList.clear();
+//                            AddLinksActivity.this.notificationGroupList.addAll(response.getData());
+//                            notificationsGroupAdapter = new NotificationsGroupAdapter(AddLinksActivity.this, notificationGroupList);
+//                            addListView.setAdapter(notificationsGroupAdapter);
+//                        }
 
                         Toast.makeText(AddLinksActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                     } else {

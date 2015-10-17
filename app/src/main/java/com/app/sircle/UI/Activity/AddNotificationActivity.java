@@ -59,11 +59,15 @@ public class AddNotificationActivity extends ActionBarActivity {
         addButton.setText("Add Notification");
         addListView.addFooterView(footerView);
 
-        populateDummyData();
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, android.R.id.text1, groupNames);
-        addListView.setAdapter(arrayAdapter);
+        notificationGroupList = NotificationManager.groupList;
+        notificationsGroupAdapter = new NotificationsGroupAdapter(AddNotificationActivity.this, notificationGroupList);
+        addListView.setAdapter(notificationsGroupAdapter);
         addListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+
+        if (notificationGroupList.size() <= 0){
+            populateDummyData();
+        }
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,19 +130,24 @@ public class AddNotificationActivity extends ActionBarActivity {
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                     if (response != null) {
 
-                        if (AddNotificationActivity.this.notificationGroupList.size() > 0) {
-                            AddNotificationActivity.this.notificationGroupList.clear();
-                            AddNotificationActivity.this.notificationGroupList.addAll(response.getData());
+                        if (response.getData().size() > 0){
+                            AddNotificationActivity.this.notificationGroupList.addAll(NotificationManager.groupList);
                             notificationsGroupAdapter.notifyDataSetChanged();
-                            // update group notifictaion for all groups
-                            //updateAllGroup();
-
-                        } else {
-                            //SettingsActivity.this.notificationGroupList.clear();
-                            AddNotificationActivity.this.notificationGroupList.addAll(response.getData());
-                            notificationsGroupAdapter = new NotificationsGroupAdapter(AddNotificationActivity.this, notificationGroupList);
-                            addListView.setAdapter(notificationsGroupAdapter);
                         }
+
+//                        if (AddNotificationActivity.this.notificationGroupList.size() > 0) {
+//                            AddNotificationActivity.this.notificationGroupList.clear();
+//                            AddNotificationActivity.this.notificationGroupList.addAll(response.getData());
+//                            notificationsGroupAdapter.notifyDataSetChanged();
+//                            // update group notifictaion for all groups
+//                            //updateAllGroup();
+//
+//                        } else {
+//                            //SettingsActivity.this.notificationGroupList.clear();
+//                            AddNotificationActivity.this.notificationGroupList.addAll(response.getData());
+//                            notificationsGroupAdapter = new NotificationsGroupAdapter(AddNotificationActivity.this, notificationGroupList);
+//                            addListView.setAdapter(notificationsGroupAdapter);
+//                        }
 
                         Toast.makeText(AddNotificationActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                     } else {
