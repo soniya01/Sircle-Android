@@ -14,6 +14,9 @@ public class Video {
     @SerializedName("url")
     public String videoEmbedURL;
 
+    @SerializedName("video_thumb")
+    public String videoThumbURL;
+
     @SerializedName("time_string")
     public String time;
 
@@ -51,5 +54,13 @@ public class Video {
 
     public void setPublishDate(String publishDate) {
         this.publishDate = publishDate;
+    }
+
+    public String getVideoThumbURL() {
+        return videoThumbURL;
+    }
+
+    public void setVideoThumbURL(String videoThumbURL) {
+        this.videoThumbURL = videoThumbURL;
     }
 }

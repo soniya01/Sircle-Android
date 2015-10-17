@@ -65,7 +65,7 @@ public class VideoListViewAdapter extends BaseAdapter {
 
         String videoUrl = videoList.get(position).getVideoEmbedURL();//.split("embed/");//"https://www.youtube.com/watch?v=cdgQpa1pUUE";
 
-        String videoThumbnailUrl = extractYoutubeThumbnail(videoUrl);
+        String videoThumbnailUrl =  videoList.get(position).getVideoThumbURL();//extractYoutubeThumbnail(videoUrl);
         viewHolder.videoSourceLabel.setText(videoList.get(position).getName());
         viewHolder.videoDate.setText(videoList.get(position).getPublishDate());
         viewHolder.videoTime.setText(videoList.get(position).getTime());
