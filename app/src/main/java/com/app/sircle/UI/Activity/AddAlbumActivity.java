@@ -53,9 +53,15 @@ public class AddAlbumActivity extends ActionBarActivity {
         addButton.setText("Add Album");
         addListView.addFooterView(footerView);
 
-        populateDummyData();
 
+        notificationGroupList = NotificationManager.groupList;
+        notificationsGroupAdapter = new NotificationsGroupAdapter(AddAlbumActivity.this, notificationGroupList);
+        addListView.setAdapter(notificationsGroupAdapter);
         addListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+
+        if (notificationGroupList.size() <= 0){
+            populateDummyData();
+        }
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,20 +113,25 @@ public class AddAlbumActivity extends ActionBarActivity {
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                     if (response != null) {
 
-                        if (AddAlbumActivity.this.notificationGroupList.size() > 0) {
-                            AddAlbumActivity.this.notificationGroupList.clear();
-                            AddAlbumActivity.this.notificationGroupList.addAll(response.getData());
+                        if (response.getData().size() > 0){
+                            AddAlbumActivity.this.notificationGroupList.addAll(NotificationManager.groupList);
                             notificationsGroupAdapter.notifyDataSetChanged();
-                            // update group notifictaion for all groups
-                            //updateAllGroup();
-
-                        } else {
-                            //SettingsActivity.this.notificationGroupList.clear();
-                            AddAlbumActivity.this.notificationGroupList.addAll(response.getData());
-                            notificationsGroupAdapter = new NotificationsGroupAdapter(AddAlbumActivity.this, notificationGroupList);
-                            addListView.setAdapter(notificationsGroupAdapter);
-
                         }
+
+//                        if (AddAlbumActivity.this.notificationGroupList.size() > 0) {
+//                            AddAlbumActivity.this.notificationGroupList.clear();
+//                            AddAlbumActivity.this.notificationGroupList.addAll(response.getData());
+//                            notificationsGroupAdapter.notifyDataSetChanged();
+//                            // update group notifictaion for all groups
+//                            //updateAllGroup();
+//
+//                        } else {
+//                            //SettingsActivity.this.notificationGroupList.clear();
+//                            AddAlbumActivity.this.notificationGroupList.addAll(response.getData());
+//                            notificationsGroupAdapter = new NotificationsGroupAdapter(AddAlbumActivity.this, notificationGroupList);
+//                            addListView.setAdapter(notificationsGroupAdapter);
+//
+//                        }
 
                         Toast.makeText(AddAlbumActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                     } else {
