@@ -78,6 +78,14 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
         populateHour();
 
         addListView = (ListView) findViewById(R.id.activity_schoolHoliday_list_view);
+        addButton = (Button)findViewById(R.id.add_button);
+        setListViewHeightBasedOnChildren(addListView);
+
+        notificationGroupList = NotificationManager.groupList;
+        notificationsGroupAdapter = new NotificationsGroupAdapter(EventActivity.this, notificationGroupList);
+        addListView.setAdapter(notificationsGroupAdapter);
+
+
         title = (EditText)findViewById(R.id.eventTypeEditText);
         detail = (EditText)findViewById(R.id.eventTypeEditText);
         location = (EditText)findViewById(R.id.eventTypeEditText);
@@ -107,14 +115,16 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
             }
         });
 
-        addButton = (Button)findViewById(R.id.add_button);
-        setListViewHeightBasedOnChildren(addListView);
 
 
-        notificationsGroupAdapter = new NotificationsGroupAdapter(EventActivity.this, notificationGroupList);
-        addListView.setAdapter(notificationsGroupAdapter);
 
-        populateDummyData();
+        //notificationsGroupAdapter = new NotificationsGroupAdapter(EventActivity.this, notificationGroupList);
+        //addListView.setAdapter(notificationsGroupAdapter);
+
+        if (notificationGroupList.size() <= 0){
+            populateDummyData();
+        }
+
 
         addListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
@@ -306,20 +316,25 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                     if (response != null) {
 
-                        if (notificationGroupList.size() > 0) {
-                            notificationGroupList.clear();
-                            notificationGroupList.addAll(response.getData());
+                        if (response.getData().size() > 0){
+                            EventActivity.this.notificationGroupList.addAll(NotificationManager.groupList);
                             notificationsGroupAdapter.notifyDataSetChanged();
+                        }
+
+                        //if (notificationGroupList.size() > 0) {
+                           // notificationGroupList.clear();
+                            //notificationGroupList.addAll(response.getData());
+                            //notificationsGroupAdapter.notifyDataSetChanged();
                             // update group notifictaion for all groups
                             //updateAllGroup();
 
-                        } else {
-                            //SettingsActivity.this.notificationGroupList.clear();
-                            notificationGroupList.addAll(response.getData());
-                            notificationsGroupAdapter = new NotificationsGroupAdapter(EventActivity.this, notificationGroupList);
-                            addListView.setAdapter(notificationsGroupAdapter);
-
-                        }
+//                        } else {
+//                            //SettingsActivity.this.notificationGroupList.clear();
+//                            notificationGroupList.addAll(response.getData());
+//                            notificationsGroupAdapter = new NotificationsGroupAdapter(EventActivity.this, notificationGroupList);
+//                            addListView.setAdapter(notificationsGroupAdapter);
+//
+//                        }
 
                         Toast.makeText(EventActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                     } else {
