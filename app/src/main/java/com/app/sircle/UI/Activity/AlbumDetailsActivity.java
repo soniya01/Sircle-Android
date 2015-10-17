@@ -31,6 +31,8 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
     private AlbumDetailsGridAdapter albumDetailsGridAdapter;
     public List<AlbumDetails> albumDetailsList = new ArrayList<AlbumDetails>();
     private FloatingActionButton floatingActionButton;
+    public static int albumId;
+    public static String albumName="";
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -50,7 +52,7 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         albumGridView = (GridView)findViewById(R.id.album_details_grid_view);
-        floatingActionButton = (FloatingActionButton)findViewById(R.id.fab);
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
 
         albumDetailsList.addAll(PhotoManager.getSharedInstance().albumDetailsList);
 
