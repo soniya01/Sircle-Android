@@ -53,7 +53,7 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ViewHolder viewHolder;
+        ViewHolder viewHolder ;
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = inflater.inflate(R.layout.grid_view_albums,
@@ -66,24 +66,27 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
         }
 
         if (position == albumDetailsList.size()){
-            footerView  = View.inflate(mContext, R.layout.list_view_padding_footer, null);
+            footerView  = View.inflate(this.mContext, R.layout.list_view_padding_footer, null);
             return footerView;
         }
 
         // get screen dimensions
-        Picasso.with(mContext)
-                .load(albumDetailsList.get(position).getPhotoLargeURL())
-                .into(viewHolder.albumImageView, new Callback() {
-            @Override
-            public void onSuccess() {
+        if (!albumDetailsList.get(position).getPhotoLargeURL().equals("")) {
+            Picasso.with(this.mContext)
+                    .load(albumDetailsList.get(position).getPhotoLargeURL())
+                    .into(viewHolder.albumImageView, new Callback() {
+                        @Override
+                        public void onSuccess() {
 
-            }
+                        }
 
-            @Override
-            public void onError() {
+                        @Override
+                        public void onError() {
 
-            }
-        });
+                        }
+                    });
+        }
+
 
         viewHolder.albumImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
@@ -115,8 +118,8 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
 
     }
 
-    static class ViewHolder {
+    public static class ViewHolder {
 
-        private ImageView albumImageView;
+        public ImageView albumImageView;
     }
 }

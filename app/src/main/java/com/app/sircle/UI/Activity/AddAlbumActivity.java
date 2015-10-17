@@ -80,9 +80,13 @@ public class AddAlbumActivity extends ActionBarActivity {
                             if (addAlbumResponse.getStatus() == 200) {
 
                                 Intent tabIntent = new Intent(AddAlbumActivity.this, AddPhotoTabbedActivity.class);
-                                tabIntent.putExtra("albumId",addAlbumResponse.getData().getAlbumId());
+                                tabIntent.putExtra("albumId", addAlbumResponse.getData().getAlbumId());
                                 startActivity(tabIntent);
+                            } else {
+                                Toast.makeText(AddAlbumActivity.this, addAlbumResponse.getMessage(), Toast.LENGTH_SHORT).show();
                             }
+                        } else {
+                            Toast.makeText(AddAlbumActivity.this, "Some error occurred", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

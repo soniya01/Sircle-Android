@@ -67,7 +67,7 @@ public class AddSelectedPhoto extends ActionBarActivity {
                 String descText = desc.getText().toString();
                 BaseActivity.jumpToFragment = true;
                 HashMap params = new HashMap();
-                params.put("alb_id", Integer.parseInt(String.valueOf(AlbumDetailsActivity.albumId)));
+                params.put("alb_id", String.valueOf(AlbumDetailsActivity.albumId));
                 //params.put("alb_id",AlbumDetailsActivity.albumId);
                 params.put("caption", descText);
 
