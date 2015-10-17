@@ -137,7 +137,7 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
         map.put("year",year);
         map.put("page", 1);
         map.put("groupId", grpIdString);
-        ringProgressDialog = ProgressDialog.show(this, "", "", true);
+        //ringProgressDialog = ProgressDialog.show(this, "", "", true);
         EventManager.getSharedInstance().getEventsMonthWise(map, new EventManager.GetMonthwiseEventsManagerListener() {
             @Override
             public void onCompletion(EventDataReponse data, AppError error) {
@@ -206,7 +206,7 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
                 filteredList.add(event);
             }
         }
-        ringProgressDialog.dismiss();
+//        ringProgressDialog.dismiss();
         calendarMonthList.clear();
         calendarMonthList.addAll(filteredList);
         calendarMonthListViewAdapter = new CalendarMonthListAdapter(this, calendarMonthList);

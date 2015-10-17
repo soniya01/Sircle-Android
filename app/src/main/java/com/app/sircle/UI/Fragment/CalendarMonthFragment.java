@@ -3,15 +3,20 @@ package com.app.sircle.UI.Fragment;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.app.sircle.Manager.EventManager;
@@ -51,7 +56,8 @@ public class CalendarMonthFragment extends Fragment {
     private String mParam2;
     public int month, year;
     private CaldroidFragment caldroidFragment;
-    private ProgressDialog ringProgressDialog;
+    private ProgressDialog progressDialog;
+    private View viewFragment;
 
     private OnFragmentInteractionListener mListener;
 
@@ -89,6 +95,7 @@ public class CalendarMonthFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        viewFragment = inflater.inflate(R.layout.fragment_calendar_month, container, false);
         // Inflate the layout for this fragment
         caldroidFragment = new CaldroidFragment();
        // caldroidFragment.setMinDate(new Date());
@@ -155,7 +162,7 @@ public class CalendarMonthFragment extends Fragment {
         t.replace(R.id.calendar1, caldroidFragment);
         t.commit();
 
-        return inflater.inflate(R.layout.fragment_calendar_month, container, false);
+        return viewFragment;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -213,22 +220,30 @@ public class CalendarMonthFragment extends Fragment {
         object.put("year", year);
         object.put("page", 1);
         object.put("groupId", grpIdString);
-        ringProgressDialog = ProgressDialog.show(getActivity(), "", "", true);
+        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
+        progressBar.setIndeterminate(true);
+        progressBar.setVisibility(View.VISIBLE);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(100,100);
+        //layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+        layoutParams.gravity = Gravity.CENTER;
+        ((FrameLayout) viewFragment).addView(progressBar, layoutParams);
+
         EventManager.getSharedInstance().getEventsMonthWise(object, new EventManager.GetMonthwiseEventsManagerListener() {
             @Override
             public void onCompletion(EventDataReponse data, AppError error) {
-                ringProgressDialog.dismiss();
+
+
 
                 if (data != null){
                     if (data.getEventData().getEvents() != null){
                         if (data.getEventData().getEvents().size() > 0){
-                            HashMap dates = new HashMap();
+                            HashMap<Date,Integer> dates = new HashMap();
                             for (Event event:  data.getEventData().getEvents()){
                                 String dateString = event.getStartDate();
                                 Date date;
-                                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
                                 try {
-                                    date = new SimpleDateFormat("dd/mm/yyyy")
+                                    date = format
                                             .parse(dateString);
 
 
@@ -238,12 +253,18 @@ public class CalendarMonthFragment extends Fragment {
                                     e.printStackTrace();
                                 }
                             }
+                            progressBar.setVisibility(View.GONE);
                             caldroidFragment.setBackgroundResourceForDates(dates);
+                            caldroidFragment.refreshView();
 
                         }else {
-
+                            progressBar.setVisibility(View.GONE);
                         }
+                    }else {
+                        progressBar.setVisibility(View.GONE);
                     }
+                }else {
+                    progressBar.setVisibility(View.GONE);
                 }
             }
         });
