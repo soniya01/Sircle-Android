@@ -70,6 +70,7 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
 //                                        }
 //                                    }
 //            );
+            
         }
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
