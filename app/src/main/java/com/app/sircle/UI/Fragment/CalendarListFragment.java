@@ -1,6 +1,7 @@
 package com.app.sircle.UI.Fragment;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -44,6 +45,7 @@ public class CalendarListFragment extends Fragment {
     private CalendarMonthListAdapter calendarMonthListViewAdapter;
     private List<Event> calendarMonthList = new ArrayList<Event>();
     private View footerView;
+    ProgressDialog ringProgressDialog;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -172,9 +174,11 @@ public class CalendarListFragment extends Fragment {
         map.put("page",1);
         map.put("groupId",grpIdString);
 
+        ringProgressDialog = ProgressDialog.show(getActivity(), "", "", true);
         EventManager.getSharedInstance().getAllEvents(map, new EventManager.GetMonthwiseEventsManagerListener() {
             @Override
             public void onCompletion(EventDataReponse data, AppError error) {
+               ringProgressDialog.dismiss();
                 if (data != null) {
                     if (data.getStatus() == 200){
                         if (data.getEventData().getEvents().size() > 0){

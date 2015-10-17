@@ -41,7 +41,7 @@ private FetchedDataDelegate fetchedDataDelegate;
         PhotoManager.getSharedInstance().albumDetailsList.clear();
         PhotoManager.getSharedInstance().albumsList.clear();
         VideoManager.getSharedInstance().videoList.clear();
-        NotificationManager.groupList.clear();
+        //NotificationManager.groupList.clear();
         NotificationManager.notificationList.clear();
         LinksManager.linksList.clear();
         DocumentManager.docsList.clear();

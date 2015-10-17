@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,14 +42,15 @@ public class HomeFragment extends Fragment {
         progressBar.setIndeterminate(true);
         progressBar.setVisibility(View.VISIBLE);
         LinearLayout.LayoutParams pbParam = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
+                100,
+                100);
+        pbParam.gravity = Gravity.CENTER;
 
         //pb.setLayoutParams(pbParam);
 
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
-        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-        ((LinearLayout)viewFragment).addView(progressBar, pbParam);
+       // RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
+        //layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+                ((LinearLayout) viewFragment).addView(progressBar, pbParam);
 
         fetchAppData();
 

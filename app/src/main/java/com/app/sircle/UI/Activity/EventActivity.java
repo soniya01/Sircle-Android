@@ -2,6 +2,7 @@ package com.app.sircle.UI.Activity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -63,6 +64,7 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
     public  List<String> minList = new ArrayList<>();
     public  List<String> daysList = new ArrayList<>();
     int startYear,startMonth,startDay, mins, hour, secs;
+    ProgressDialog ringProgressDialog;
 
 
     @Override
@@ -76,6 +78,14 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
         populateHour();
 
         addListView = (ListView) findViewById(R.id.activity_schoolHoliday_list_view);
+        addButton = (Button)findViewById(R.id.add_button);
+        setListViewHeightBasedOnChildren(addListView);
+
+        notificationGroupList = NotificationManager.groupList;
+        notificationsGroupAdapter = new NotificationsGroupAdapter(EventActivity.this, notificationGroupList);
+        addListView.setAdapter(notificationsGroupAdapter);
+
+
         title = (EditText)findViewById(R.id.eventTypeEditText);
         detail = (EditText)findViewById(R.id.eventTypeEditText);
         location = (EditText)findViewById(R.id.eventTypeEditText);
@@ -101,14 +111,20 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
         repeat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                isRepeat = isChecked? 1: 0;
+                isRepeat = isChecked ? 1 : 0;
             }
         });
 
-        addButton = (Button)findViewById(R.id.add_button);
-        setListViewHeightBasedOnChildren(addListView);
 
-        populateDummyData();
+
+
+        //notificationsGroupAdapter = new NotificationsGroupAdapter(EventActivity.this, notificationGroupList);
+        //addListView.setAdapter(notificationsGroupAdapter);
+
+        if (notificationGroupList.size() <= 0){
+            populateDummyData();
+        }
+
 
         addListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
@@ -290,30 +306,35 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
         // get group names call to be added
 
         // get event category
-
+        ringProgressDialog = ProgressDialog.show(this, "", "", true);
         HashMap<String, String> map = new HashMap<>();
         map.put("regId", Constants.GCM_REG_ID);
         NotificationManager.getSharedInstance().getAllGroups(map, new NotificationManager.GroupsManagerListener() {
             @Override
             public void onCompletion(GroupResponse response, AppError error) {
-
+                ringProgressDialog.dismiss();
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                     if (response != null) {
 
-                        if (EventActivity.this.notificationGroupList.size() > 0) {
-                            EventActivity.this.notificationGroupList.clear();
-                            EventActivity.this.notificationGroupList.addAll(response.getData());
+                        if (response.getData().size() > 0){
+                            EventActivity.this.notificationGroupList.addAll(NotificationManager.groupList);
                             notificationsGroupAdapter.notifyDataSetChanged();
+                        }
+
+                        //if (notificationGroupList.size() > 0) {
+                           // notificationGroupList.clear();
+                            //notificationGroupList.addAll(response.getData());
+                            //notificationsGroupAdapter.notifyDataSetChanged();
                             // update group notifictaion for all groups
                             //updateAllGroup();
 
-                        } else {
-                            //SettingsActivity.this.notificationGroupList.clear();
-                            EventActivity.this.notificationGroupList.addAll(response.getData());
-                            notificationsGroupAdapter = new NotificationsGroupAdapter(EventActivity.this, notificationGroupList);
-                            addListView.setAdapter(notificationsGroupAdapter);
-
-                        }
+//                        } else {
+//                            //SettingsActivity.this.notificationGroupList.clear();
+//                            notificationGroupList.addAll(response.getData());
+//                            notificationsGroupAdapter = new NotificationsGroupAdapter(EventActivity.this, notificationGroupList);
+//                            addListView.setAdapter(notificationsGroupAdapter);
+//
+//                        }
 
                         Toast.makeText(EventActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                     } else {

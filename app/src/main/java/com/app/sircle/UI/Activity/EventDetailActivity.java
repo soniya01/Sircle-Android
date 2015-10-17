@@ -1,6 +1,7 @@
 package com.app.sircle.UI.Activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.CalendarContract;
@@ -28,6 +29,7 @@ public class EventDetailActivity extends Activity {
     private TextView eventTime, eventLocation, eventTitle, eventCategory, eventInfo, eventGroups;
     private Button saveButton, deleteButton;
     private String eventId, eventStartDate, eventEndDate, eventTitleString, eventLocationString, eventDetail;
+    ProgressDialog ringProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +93,7 @@ public class EventDetailActivity extends Activity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 HashMap params = new HashMap();
                 params.put("eventId",eventId);
                 EventManager.getSharedInstance().deleteEvent(params, new EventManager.AddEventsManagerListener() {
@@ -139,11 +142,13 @@ public class EventDetailActivity extends Activity {
 
     public void getEventDetail(){
 
+        ringProgressDialog = ProgressDialog.show(this, "", "", true);
         HashMap params = new HashMap();
         params.put("eid",eventId);
         EventManager.getSharedInstance().getEventDetails(params, new EventManager.EventManagerListener() {
             @Override
             public void onCompletion(EventDetailResponse eventDetailResponse, AppError error) {
+                ringProgressDialog.dismiss();
                 if (eventDetailResponse != null){
                     if (eventDetailResponse.getStatus() == 200){
                         if (eventDetailResponse.getData() != null){

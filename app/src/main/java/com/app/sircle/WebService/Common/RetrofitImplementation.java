@@ -595,7 +595,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
         WebserviceApi uploadImageService = restAdapter.create(WebserviceApi.class);
 
-        uploadImageService.uploadImage(id,name, typedFile, new Callback<JsonElement>() {
+        uploadImageService.uploadImage(params.get("alb_id"),params.get("caption"), typedFile, new Callback<JsonElement>() {
             @Override
             public void success(JsonElement jsonElement, Response response) {
                 if (!jsonElement.isJsonNull()) {
@@ -678,7 +678,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
         @Multipart
         @POST("/")
-        void uploadImage(@Part("alb_id")TypedString id, @Part("caption") TypedString title, @Part("data") TypedFile image, Callback<JsonElement> cb);
+        void uploadImage(@Part("alb_id")String id, @Part("caption") String title, @Part("files") TypedFile image, Callback<JsonElement> cb);
 
     }
 

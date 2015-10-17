@@ -52,7 +52,13 @@ public class PhotoManager  {
         PhotoWebService.getSharedInstance().getPhotos(params, new PhotoWebService.GetPhotoWebServiceListener() {
             @Override
             public void onCompletion(AlbumResponse response, AppError error) {
-                albumDetailsList = response.getData().getPhotos();
+                if (response != null){
+                    if (response.getData() != null && response.getData().getPhotos() != null){
+                        albumDetailsList = response.getData().getPhotos();
+                    }
+
+                }
+
                 getPhotosManagerListener.onCompletion(response, error);
             }
         });
@@ -63,7 +69,7 @@ public class PhotoManager  {
             @Override
             public void onCompletion(PhotoResponse response, AppError error) {
                 if (response != null){
-                    if (response.getData() != null && response.getData().getAlbums().size() > 0){
+                    if (response.getData() != null && response.getData().getAlbums() != null){
                         albumsList.clear();
                         albumsList = response.getData().getAlbums();
                     }

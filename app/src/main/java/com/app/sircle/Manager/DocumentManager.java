@@ -36,7 +36,7 @@ public class DocumentManager {
             @Override
             public void onCompletion(DocumentsResponse response, AppError error) {
                 if (response != null){
-                    if (response.getData() != null){
+                    if (response.getData() != null && response.getData().getNewsLetters() != null){
                         newsLetterList.clear();
                         newsLetterList = response.getData().getNewsLetters();
                     }
@@ -52,7 +52,7 @@ public class DocumentManager {
             @Override
             public void onCompletion(DocumentsResponse response, AppError error) {
                 if (response != null){
-                    if (response.getData() != null){
+                    if (response.getData() != null && response.getData().getDocs() != null){
                         docsList.clear();
                         docsList = response.getData().getDocs();
                     }
