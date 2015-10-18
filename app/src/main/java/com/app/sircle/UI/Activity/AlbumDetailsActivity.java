@@ -48,6 +48,8 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
 //            albumId = getIntent().getIntExtra("albumId",0);
 //            albumName = getIntent().getStringExtra("albumName");
 //        }
+
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -55,7 +57,8 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
         floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
 
         albumDetailsList.addAll(PhotoManager.getSharedInstance().albumDetailsList);
-
+        albumDetailsGridAdapter = new AlbumDetailsGridAdapter(AlbumDetailsActivity.this, albumDetailsList);
+        albumGridView.setAdapter(albumDetailsGridAdapter);
 
         if (albumDetailsList.size() <= 0){
             /**
@@ -100,15 +103,15 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
                             //albumDetailsList = PhotoManager.getSharedInstance().albumDetailsList;
                             //albumDetailsList.addAll(PhotoManager.getSharedInstance().albumDetailsList);
 
-                            if (albumDetailsList.size() > 0){
+                           // if (albumDetailsList.size() > 0){
                                 albumDetailsList.clear();
                                 albumDetailsList.addAll(response.getData().getPhotos());
                                 albumDetailsGridAdapter.notifyDataSetChanged();
-                            }else {
-                                albumDetailsList.addAll(response.getData().getPhotos());
-                                albumDetailsGridAdapter = new AlbumDetailsGridAdapter(AlbumDetailsActivity.this, albumDetailsList);
-                                albumGridView.setAdapter(albumDetailsGridAdapter);
-                            }
+//                            }else {
+//                                albumDetailsList.addAll(response.getData().getPhotos());
+//                                albumDetailsGridAdapter = new AlbumDetailsGridAdapter(AlbumDetailsActivity.this, albumDetailsList);
+//                                albumGridView.setAdapter(albumDetailsGridAdapter);
+//                            }
 
                         }else {
                             Toast.makeText(AlbumDetailsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();

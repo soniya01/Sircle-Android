@@ -49,6 +49,7 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
     public static int albumId;
     public static String albumName="";
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -189,4 +190,22 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
     public void onRefresh() {
         //populateDummyData();
     }
+
+    void populateAlbumData(int albumId){
+
+        HashMap params = new HashMap();
+        params.put("album_id",albumId);
+        params.put("page",1);
+
+        PhotoManager.getSharedInstance().getImages(params, new PhotoManager.GetPhotosManagerListener() {
+            @Override
+            public void onCompletion(AlbumResponse response, AppError error) {
+                Intent albumIntent = new Intent(getActivity(), AlbumDetailsActivity.class);
+                //albumIntent.putExtra("albumId",photos.get(position).getAlbumID());
+                //albumIntent.putExtra("albumName",photos.get(position).getAlbumTitle());
+                startActivity(albumIntent);
+            }
+        });
+    }
+
 }
