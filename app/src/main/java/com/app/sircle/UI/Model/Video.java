@@ -23,6 +23,13 @@ public class Video {
     @SerializedName("created_on")
     public String publishDate;
 
+    @SerializedName("video_from")
+    public String videoType;
+
+    @SerializedName("video_provider_id")
+    public  String videoId;
+
+
     public String getVideoEmbedURL() {
         return videoEmbedURL;
     }
@@ -63,4 +70,21 @@ public class Video {
     public void setVideoThumbURL(String videoThumbURL) {
         this.videoThumbURL = videoThumbURL;
     }
+
+    public String getVideoType() {
+        return videoType;
+    }
+
+    public void setVideoType(String videoType) {
+        this.videoType = videoType;
+    }
+
+    public String getVideoId() {
+        return videoId;
+    }
+
+    public void setVideoId(String videoId) {
+        this.videoId = videoId;
+    }
+
 }

@@ -20,6 +20,7 @@ import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.Manager.VideoManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.VideoActivity;
+import com.app.sircle.UI.Activity.VimeoWebviewActivity;
 import com.app.sircle.UI.Adapter.VideoListViewAdapter;
 import com.app.sircle.UI.Model.Video;
 import com.app.sircle.UI.SlidingPane.SlidingPaneInterface;
@@ -89,8 +90,12 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+
+                if (videoList.get(position).getVideoType().equals("youtube"))
+                {
+
                 Intent intent = YouTubeStandalonePlayer.createVideoIntent(
-                        getActivity(), DeveloperKey.DEVELOPER_KEY, "cdgQpa1pUUE", 0, false, false);
+                        getActivity(), DeveloperKey.DEVELOPER_KEY,videoList.get(position).getVideoId(), 0, false, false);
 
                 if (intent != null) {
                     if (canResolveIntent(intent)) {
@@ -101,6 +106,15 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                                 .getErrorDialog(getActivity(), REQ_RESOLVE_SERVICE_MISSING).show();
                     }
                 }
+                }
+                else
+                {
+Intent intent = new Intent(getActivity(), VimeoWebviewActivity.class);
+                    intent.putExtra("VideoUrl",videoList.get(position).getVideoEmbedURL());
+                    startActivity(intent);
+
+                }
+
             }
         });
 

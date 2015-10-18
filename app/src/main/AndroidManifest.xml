@@ -13,8 +13,10 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
-    <permission android:name="com.example.gcm.permission.C2D_MESSAGE"
+    <permission
+        android:name="com.example.gcm.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
+
     <uses-permission android:name="com.example.gcm.permission.C2D_MESSAGE" />
     <!-- Network State Permissions -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -24,30 +26,30 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
                 <category android:name="com.example.gcm" />
             </intent-filter>
         </receiver>
-        <!--<service-->
-            <!--android:name="com.example.MyGcmListenerService"-->
-            <!--android:exported="false" >-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.google.android.c2dm.intent.RECEIVE" />-->
-            <!--</intent-filter>-->
-        <!--</service>-->
-        <!--<service-->
-            <!--android:name="com.example.MyInstanceIDListenerService"-->
-            <!--android:exported="false">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.google.android.gms.iid.InstanceID"/>-->
-            <!--</intent-filter>-->
-        <!--</service>-->
+        <!-- <service -->
+        <!-- android:name="com.example.MyGcmListenerService" -->
+        <!-- android:exported="false" > -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="com.google.android.c2dm.intent.RECEIVE" /> -->
+        <!-- </intent-filter> -->
+        <!-- </service> -->
+        <!-- <service -->
+        <!-- android:name="com.example.MyInstanceIDListenerService" -->
+        <!-- android:exported="false"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="com.google.android.gms.iid.InstanceID"/> -->
+        <!-- </intent-filter> -->
+        <!-- </service> -->
         <activity
             android:name=".UI.Activity.SplashActivity"
             android:label="@string/app_name" >
@@ -122,6 +124,12 @@
         <activity
             android:name=".UI.Activity.EventDetailActivity"
             android:label="@string/title_activity_event_detail" >
+        </activity>
+        <activity
+            android:name=".UI.Activity.VimeoWebviewActivity"
+            android:label="@string/title_activity_vimeo_webview"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
 

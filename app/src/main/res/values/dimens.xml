@@ -15,4 +15,5 @@
     <!-- Photos-->
     <dimen name="photos_row_day_label_size">12sp</dimen>
     <dimen name="photos_row_time_label_size">12sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>
