@@ -78,7 +78,7 @@ public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnR
 
 
 
-        if (notificationGroupList.size() > 0){
+        if (notificationGroupList.size() <= 0){
             populateDummyData();
         }
         /**
@@ -155,7 +155,7 @@ public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnR
                             if (response.getStatus() == 200){
                                 if (response.getData().size() > 0) {
                                     notificationGroupList.clear();
-                                    notificationGroupList.addAll(response.getData());
+                                    notificationGroupList.addAll(NotificationManager.groupList);
                                     notificationsGroupAdapter.notifyDataSetChanged();
                                     // update group notifictaion for all groups
                                     //updateAllGroup();
