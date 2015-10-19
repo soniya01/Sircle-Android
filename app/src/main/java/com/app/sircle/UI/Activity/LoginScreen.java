@@ -122,4 +122,9 @@ public class LoginScreen extends Activity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }
