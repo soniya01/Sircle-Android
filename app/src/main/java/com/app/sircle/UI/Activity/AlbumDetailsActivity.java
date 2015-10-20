@@ -60,22 +60,7 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
         albumDetailsGridAdapter = new AlbumDetailsGridAdapter(AlbumDetailsActivity.this, albumDetailsList);
         albumGridView.setAdapter(albumDetailsGridAdapter);
 
-        if (albumDetailsList.size() <= 0){
-            /**
-             * Showing Swipe Refresh animation on activity create
-             * As animation won't start on onCreate, post runnable is used
-             */
-//            swipeRefreshLayout.post(new Runnable() {
-//                                        @Override
-//                                        public void run() {
-//                                            swipeRefreshLayout.setRefreshing(true);
 
-                                            populateDummyData();
-//                                        }
-//                                    }
-//            );
-            
-        }
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,5 +141,27 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
     @Override
     public void onRefresh() {
         //populateDummyData();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (albumDetailsList.size() <= 0){
+            /**
+             * Showing Swipe Refresh animation on activity create
+             * As animation won't start on onCreate, post runnable is used
+             */
+//            swipeRefreshLayout.post(new Runnable() {
+//                                        @Override
+//                                        public void run() {
+//                                            swipeRefreshLayout.setRefreshing(true);
+
+            populateDummyData();
+//                                        }
+//                                    }
+//            );
+
+        }
     }
 }

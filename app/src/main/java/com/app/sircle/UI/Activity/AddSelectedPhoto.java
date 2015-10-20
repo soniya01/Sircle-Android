@@ -1,20 +1,24 @@
 package com.app.sircle.UI.Activity;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.app.sircle.DownLoader.ImageManager;
@@ -42,6 +46,7 @@ public class AddSelectedPhoto extends ActionBarActivity {
     private int rotationAngle_front_camera = 270;
     private String albumId;
     private ImageData data;
+    private ProgressDialog ringProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +70,16 @@ public class AddSelectedPhoto extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 //TODO: post the photos and albums created to the server
+//                final ProgressBar progressBar = new ProgressBar(AddSelectedPhoto.this,null,android.R.attr.progressBarStyleLarge);
+//                progressBar.setIndeterminate(true);
+//                progressBar.setVisibility(View.VISIBLE);
+//                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(100,100);
+//                //layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+//                layoutParams.gravity = Gravity.CENTER;
+//                LinearLayout layout = (LinearLayout)findViewById(R.id.container);
+//                (layout).addView(progressBar, layoutParams);
+
+                ringProgressDialog = ProgressDialog.show(AddSelectedPhoto.this, "", "Uploading image..", true);
                 String descText = desc.getText().toString();
                 BaseActivity.jumpToFragment = true;
 
@@ -80,6 +95,8 @@ public class AddSelectedPhoto extends ActionBarActivity {
                 PhotoManager.getSharedInstance().uploadImage(params, typedImage, new PhotoManager.PhotoManagerListener() {
                     @Override
                     public void onCompletion(PhotoUploadResponse response, AppError error) {
+//                        progressBar.setVisibility(View.GONE);
+                        ringProgressDialog.dismiss();
                         if (response != null) {
                             if (response.getStatus() == 200) {
                                 Toast.makeText(AddSelectedPhoto.this, response.getMessage(), Toast.LENGTH_SHORT).show();
