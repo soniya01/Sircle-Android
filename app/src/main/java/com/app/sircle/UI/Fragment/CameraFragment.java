@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,31 +34,62 @@ import com.app.sircle.UI.Model.ImageData;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 
-public class CameraFragment extends Fragment implements View.OnClickListener{
+public class CameraFragment extends Fragment implements View.OnClickListener {
 
 
+    public static final String INTENT_EXTRA_BACK_CAMERA_SHOWN = "com.propaganda3.boulevardia.backCameraShown";
     private static final String TOAST_NO_FLASH = "Device does not support flash";
     private static final String TOAST_NO_FRONT_CAMERA = "Front camera does not exist";
-    public  static final String INTENT_EXTRA_BACK_CAMERA_SHOWN = "com.propaganda3.boulevardia.backCameraShown";
     private static final String PICTURE = "picture";
-
+    //to store the image data of the clicked image
+    public static byte[] imageData;
     private ImageButton imageButtonSwitchCamera;
     private ImageButton imageButtonClickPhoto;
     private CheckBox checkBoxToggleFlash;
-
     private FrameLayout cameraPreviewLayout;
-
     private Camera camera;
     private CameraPreview cameraPreview;
-
     private boolean backCameraShown;
+    //callback for handling picture taken by camera
+    Camera.PictureCallback pictureCallback = new Camera.PictureCallback() {
+        @Override
+        public void onPictureTaken(byte[] data, Camera camera) {
+
+            enableButtons(true);
+            imageData = data;
+
+            final BitmapFactory.Options sizeOptions = new BitmapFactory.Options();
+            sizeOptions.inJustDecodeBounds = true;
+            BitmapFactory.decodeByteArray(data, 0, data.length, sizeOptions);
+            //Log.d(TAG, "Bitmap is " + sizeOptions.outWidth + "x"+ sizeOptions.outHeight);
+
+            // Now use the size to determine the ratio you want to shrink it
+            final float widthSampling = sizeOptions.outWidth / 300;
+            sizeOptions.inJustDecodeBounds = false;
+
+            // Note this drops the fractional portion, making it smaller
+            sizeOptions.inSampleSize = (int) widthSampling;
+            //Log.d(TAG, "Sample size = " + sizeOptions.inSampleSize);
+
+    // Scale by the smallest amount so that image is at least the desired
+    // size in each direction
+            //final Bitmap result = BitmapFactory.decodeByteArray(data, 0, data.length,sizeOptions);
+
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length, sizeOptions);
+            //imageDataList  = ImageManager.getInstance().getCameraImagePaths(getActivity());
+
+            String path = getRealPathFromURI(getImageUri(getActivity().getApplicationContext(), bitmap));
+            ImageData imageData1 = new ImageData();
+            imageData1.setPath(path);
+
+            Intent intent = new Intent(getActivity(), AddSelectedPhoto.class);
+            intent.putExtra("data", imageData1);
+            intent.putExtra(INTENT_EXTRA_BACK_CAMERA_SHOWN, backCameraShown);
+            startActivity(intent);
+        }
+    };
     private boolean flashOn;
-
     private List<ImageData> imageDataList;
-
-    //to store the image data of the clicked image
-    public static byte[] imageData;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -93,8 +125,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener{
      *
      * @param flag - send true to enable button and false to disable buttons.
      */
-    private void enableButtons(boolean flag)
-    {
+    private void enableButtons(boolean flag) {
         imageButtonSwitchCamera.setEnabled(flag);
         imageButtonClickPhoto.setEnabled(flag);
         checkBoxToggleFlash.setEnabled(flag);
@@ -116,7 +147,6 @@ public class CameraFragment extends Fragment implements View.OnClickListener{
         return c; // returns null if camera is unavailable
 
     }
-
 
     private void showBackCamera() {
         releaseCamera();
@@ -150,7 +180,6 @@ public class CameraFragment extends Fragment implements View.OnClickListener{
         checkBoxToggleFlash.setVisibility(visibility);
     }
 
-
     private void releaseCamera() {
         if (camera != null) {
             camera.release(); // release the camera for other applications
@@ -166,8 +195,6 @@ public class CameraFragment extends Fragment implements View.OnClickListener{
     private void removePreview() {
         cameraPreviewLayout.removeView(cameraPreview);
     }
-
-
 
     @Override
     public void onClick(View v) {
@@ -191,29 +218,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener{
         }
     }
 
-    //callback for handling picture taken by camera
-    Camera.PictureCallback pictureCallback = new Camera.PictureCallback() {
-        @Override
-        public void onPictureTaken(byte[] data, Camera camera) {
-
-            enableButtons(true);
-            imageData = data;
-
-            Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
-            //imageDataList  = ImageManager.getInstance().getCameraImagePaths(getActivity());
-
-            String path = getRealPathFromURI(getImageUri(getActivity().getApplicationContext(), bitmap));
-            ImageData imageData1 = new ImageData();
-            imageData1.setPath(path);
-
-            Intent intent = new Intent(getActivity(), AddSelectedPhoto.class);
-            intent.putExtra("data", imageData1);
-            intent.putExtra(INTENT_EXTRA_BACK_CAMERA_SHOWN, backCameraShown);
-            startActivity(intent);
-        }
-    };
-
-    public  void addImageToGallery(final String filePath) {
+    public void addImageToGallery(final String filePath) {
 
         ContentValues values = new ContentValues();
 
@@ -228,6 +233,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener{
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        inImage.recycle();
         return Uri.parse(path);
     }
 
@@ -267,10 +273,11 @@ public class CameraFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onResume() {
         super.onResume();
-        if (BaseActivity.jumpToFragment){
+        imageData = null;
+        if (BaseActivity.jumpToFragment) {
             getActivity().finish();
         }
-        imageData = null;
+
         toggleFlashButtonVisibility(View.VISIBLE);
         showBackCamera();
         enableButtons(true);
