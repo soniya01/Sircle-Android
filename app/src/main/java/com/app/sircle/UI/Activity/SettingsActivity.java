@@ -61,6 +61,7 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
                 } else {
                     isAllChecked = false;
                 }
+                notificationsGroupAdapter.notifyDataSetChanged();
             }
         });
         notificationGroupList = NotificationManager.groupList;
@@ -95,47 +96,49 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
             public void onClick(View v) {
                 //ringProgressDialog = ProgressDialog.show(SettingsActivity.this, "", "", true);
                 JSONArray arrayObject = new JSONArray();
-                for (int i =0 ; i< notificationGroupList.size(); i++){
-                    try {
-                        JSONObject object = new JSONObject();
-                        object.put("group_id",notificationGroupList.get(i).getId());
-                        object.put("val", notificationGroupList.get(i).getActive());
 
-                        //NotificationManager.grpIds[i] = notificationGroupList.get(i).getId();
+                if ( NotificationManager.grpIds.size() > 0){
+                    for (int i =0 ; i<  NotificationManager.grpIds.size(); i++){
+                        try {
+                            JSONObject object = new JSONObject();
+                            object.put("group_id",NotificationManager.grpIds.get(i));
+                            object.put("val", 1);
 
-                        arrayObject.put(object);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                HashMap map = new HashMap();
-                map.put("regId", Constants.GCM_REG_ID);
-                map.put("groupValString", arrayObject.toString());
-
-
-                NotificationManager.getSharedInstance().updateGroupNotification(map, new NotificationManager.PostManagerListener() {
-                    @Override
-                    public void onCompletion(PostResponse postResponse, AppError error) {
-                        //ringProgressDialog.dismiss();
-
-                        if (postResponse != null) {
-                            Toast.makeText(SettingsActivity.this, postResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                            if (postResponse.getStatus() == 200) {
-                                Intent homeIntent = new Intent(SettingsActivity.this, BaseActivity.class);
-                                startActivity(homeIntent);
-                                //finish();
-                            }
-                        } else {
-                            Toast.makeText(SettingsActivity.this, "some error occurred", Toast.LENGTH_SHORT).show();
+                            arrayObject.put(object);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
-                });
-                    // give access to the app features
 
+                    HashMap map = new HashMap();
+                    map.put("regId", Constants.GCM_REG_ID);
+                    map.put("groupValString", arrayObject.toString());
+
+                    NotificationManager.getSharedInstance().updateGroupNotification(map, new NotificationManager.PostManagerListener() {
+                        @Override
+                        public void onCompletion(PostResponse postResponse, AppError error) {
+                            //ringProgressDialog.dismiss();
+                            if (postResponse != null) {
+                                //Toast.makeText(SettingsActivity.this, postResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                if (postResponse.getStatus() == 200) {
+                                    Intent homeIntent = new Intent(SettingsActivity.this, BaseActivity.class);
+                                    startActivity(homeIntent);
+                                    //finish();
+                                }
+                            } else {
+                                Toast.makeText(SettingsActivity.this, "some error occurred", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+                }else {
+                    Toast.makeText(SettingsActivity.this, "Please select at least one group", Toast.LENGTH_SHORT).show();
                 }
+                     // give access to the app features
 
-            });
+            }
+
+        });
 
     }
 

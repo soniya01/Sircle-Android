@@ -78,12 +78,12 @@ public class NotificationsGroupAdapter extends BaseAdapter {
             viewHolder.checkBox.setChecked(true);
             NotificationManager.grpIds.add( notificationsGroupList.get(position).getId());
         }else {
-            if (notificationsGroupList.get(position).getActive() == 1){
-                NotificationManager.grpIds.add( notificationsGroupList.get(position).getId());
-                viewHolder.checkBox.setChecked(true);
-            }
+//            if (notificationsGroupList.get(position).getActive() == 1){
+//                NotificationManager.grpIds.add( notificationsGroupList.get(position).getId());
+//                viewHolder.checkBox.setChecked(true);
+//            }
 
-            else viewHolder.checkBox.setChecked(false);
+             viewHolder.checkBox.setChecked(false);
         }
 
         viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
