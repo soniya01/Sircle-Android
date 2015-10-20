@@ -27,7 +27,7 @@
         <CheckBox
             android:layout_marginLeft="20dp"
             android:id="@+id/checkAll"
-            android:checked="true"
+            android:checked="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

@@ -74,16 +74,20 @@ public class NotificationsGroupAdapter extends BaseAdapter {
         viewHolder.checkBox.setTag(position);
 
         viewHolder.notificationGroupTitle.setText(notificationsGroupList.get(position).name);
-        if (SettingsActivity.isAllChecked){
-            viewHolder.checkBox.setChecked(true);
-            NotificationManager.grpIds.add( notificationsGroupList.get(position).getId());
-        }else {
-//            if (notificationsGroupList.get(position).getActive() == 1){
-//                NotificationManager.grpIds.add( notificationsGroupList.get(position).getId());
-//                viewHolder.checkBox.setChecked(true);
-//            }
+        if (SettingsActivity.isAllChecked == 1){
 
-             viewHolder.checkBox.setChecked(false);
+            viewHolder.checkBox.setChecked(true);
+            NotificationManager.grpIds.add(notificationsGroupList.get(position).getId());
+        }else {
+            if (SettingsActivity.isAllChecked == -1){
+                if (notificationsGroupList.get(position).getActive() == 1){
+                    NotificationManager.grpIds.add( notificationsGroupList.get(position).getId());
+                    viewHolder.checkBox.setChecked(true);
+                }
+            }else if (SettingsActivity.isAllChecked == 0){
+                viewHolder.checkBox.setChecked(false);
+            }
+
         }
 
         viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -94,10 +98,11 @@ public class NotificationsGroupAdapter extends BaseAdapter {
 
                 if (isChecked){
                     NotificationManager.grpIds.add( notificationsGroupList.get(pos).getId());
+                    SettingsActivity.isAllChecked = -1;
                     notificationsGroupList.get(pos).setActive(1);
                 }else{
                     SettingsActivity.allCheckBox.setChecked(false);
-                    SettingsActivity.isAllChecked = false;
+                    //SettingsActivity.isAllChecked = -1;
                     notificationsGroupList.get(pos).setActive(0);
                     NotificationManager.grpIds.remove(notificationsGroupList.get(pos).getId());
                 }

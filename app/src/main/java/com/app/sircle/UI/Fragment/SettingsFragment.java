@@ -54,17 +54,19 @@ public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnR
         notificationListView = (ListView)viewFragment.findViewById(R.id.notificationsGroupListView);
 
         NotificationManager.grpIds.clear();
-        SettingsActivity.isAllChecked = true;
+        //SettingsActivity.isAllChecked = true;
 
         allCheckBox = (CheckBox) viewFragment.findViewById(R.id.checkAll);
         allCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
-                    SettingsActivity.isAllChecked = true;
+                    SettingsActivity.isAllChecked = 1;
                 }else {
-                    SettingsActivity.isAllChecked = false;
+                    SettingsActivity.isAllChecked = 0;
                 }
+                NotificationManager.grpIds.clear();
+                notificationsGroupAdapter.notifyDataSetChanged();
             }
         });
 
@@ -100,40 +102,45 @@ public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnR
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ringProgressDialog = ProgressDialog.show(getActivity(), "", "", true);
+                //ringProgressDialog = ProgressDialog.show(getActivity(), "", "", true);
                 JSONArray arrayObject = new JSONArray();
-                for (int i = 0; i < notificationGroupList.size(); i++) {
-                    try {
-                        JSONObject object = new JSONObject();
-                        object.put("group_id", notificationGroupList.get(i).getId());
-                        object.put("val", notificationGroupList.get(i).getActive());
 
-                        arrayObject.put(object);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
+                if (NotificationManager.grpIds.size() > 0){
+                    for (int i = 0; i < NotificationManager.grpIds.size(); i++) {
+                        try {
+                            JSONObject object = new JSONObject();
+                            object.put("group_id", NotificationManager.grpIds.get(i));
+                            object.put("val", 1);
 
-
-                HashMap map = new HashMap();
-                map.put("regId", Constants.GCM_REG_ID);
-                map.put("groupValString", arrayObject.toString());
-
-                NotificationManager.getSharedInstance().updateGroupNotification(map, new NotificationManager.PostManagerListener() {
-                    @Override
-                    public void onCompletion(PostResponse postResponse, AppError error) {
-                        ringProgressDialog.dismiss();
-                        if (postResponse != null) {
-                            Toast.makeText(getActivity(), postResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                            if (postResponse.getStatus() == 200) {
-                                Intent homeIntent = new Intent(getActivity(), BaseActivity.class);
-                                startActivity(homeIntent);
-                            }
-                        } else {
-                            Toast.makeText(getActivity(), "some error occurred", Toast.LENGTH_SHORT).show();
+                            arrayObject.put(object);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
-                });
+
+                    HashMap map = new HashMap();
+                    map.put("regId", Constants.GCM_REG_ID);
+                    map.put("groupValString", arrayObject.toString());
+
+                    NotificationManager.getSharedInstance().updateGroupNotification(map, new NotificationManager.PostManagerListener() {
+                        @Override
+                        public void onCompletion(PostResponse postResponse, AppError error) {
+                            //ringProgressDialog.dismiss();
+                            if (postResponse != null) {
+                                Toast.makeText(getActivity(), postResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                if (postResponse.getStatus() == 200) {
+                                    Intent homeIntent = new Intent(getActivity(), BaseActivity.class);
+                                    startActivity(homeIntent);
+                                }
+                            } else {
+                                Toast.makeText(getActivity(), "some error occurred", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }else {
+                    Toast.makeText(getActivity(), "Please select at least one group", Toast.LENGTH_SHORT).show();
+                }
+
 
             }
         });
