@@ -81,15 +81,15 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
                         @Override
                         public void onSuccess() {
 
-                if (position == albumDetailsList.size() - 1){
-                    AlbumDetailsActivity.ringProgressDialog.dismiss();
-                }
-            }
+                            if (position == albumDetailsList.size() - 1){
+                                AlbumDetailsActivity.ringProgressDialog.dismiss();
+                            }
+                    }
 
 
                         @Override
                         public void onError() {
-
+                            AlbumDetailsActivity.ringProgressDialog.dismiss();
                         }
                     });
         }
