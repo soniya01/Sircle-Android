@@ -1,5 +1,6 @@
 package com.app.sircle.UI.Adapter;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.app.sircle.R;
+import com.app.sircle.UI.Activity.AlbumDetailsActivity;
 import com.app.sircle.UI.Activity.AlbumFullScreenActivity;
 import com.app.sircle.UI.Model.AlbumDetails;
 import com.squareup.picasso.Callback;
@@ -27,6 +29,7 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
     private List<AlbumDetails> albumDetailsList = new ArrayList<AlbumDetails>();
     private LayoutInflater inflater;
     private View footerView;
+
 
     public AlbumDetailsGridAdapter(Context mContext, List<AlbumDetails> albums) {
         this.mContext = mContext;
@@ -79,7 +82,7 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
                         public void onSuccess() {
 
                 if (position == albumDetailsList.size() - 1){
-                   // ringProgressDialog.dismiss();
+                    AlbumDetailsActivity.ringProgressDialog.dismiss();
                 }
             }
 

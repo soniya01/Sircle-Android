@@ -95,7 +95,7 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //ringProgressDialog = ProgressDialog.show(SettingsActivity.this, "", "", true);
+                ringProgressDialog = ProgressDialog.show(SettingsActivity.this, "", "", true);
                 JSONArray arrayObject = new JSONArray();
 
                 if ( NotificationManager.grpIds.size() > 0){
@@ -118,7 +118,7 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
                     NotificationManager.getSharedInstance().updateGroupNotification(map, new NotificationManager.PostManagerListener() {
                         @Override
                         public void onCompletion(PostResponse postResponse, AppError error) {
-                            //ringProgressDialog.dismiss();
+                            ringProgressDialog.dismiss();
                             if (postResponse != null) {
                                 //Toast.makeText(SettingsActivity.this, postResponse.getMessage(), Toast.LENGTH_SHORT).show();
                                 if (postResponse.getStatus() == 200) {
@@ -172,11 +172,13 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
 
     public void populateDummyData(){
 
+        ringProgressDialog = ProgressDialog.show(SettingsActivity.this, "", "", true);
         HashMap<String, String> map = new HashMap<>();
         map.put("regId", Constants.GCM_REG_ID);
         NotificationManager.getSharedInstance().getAllGroups(map, new NotificationManager.GroupsManagerListener() {
             @Override
             public void onCompletion(GroupResponse response, AppError error) {
+                ringProgressDialog.dismiss();
                 //swipeRefreshLayout.setRefreshing(false);
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                     if (response != null) {

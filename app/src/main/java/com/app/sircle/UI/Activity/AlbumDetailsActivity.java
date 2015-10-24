@@ -1,6 +1,7 @@
 package com.app.sircle.UI.Activity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -33,6 +34,7 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
     private FloatingActionButton floatingActionButton;
     public static int albumId;
     public static String albumName="";
+    public static ProgressDialog ringProgressDialog;
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -55,6 +57,8 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
 
         albumGridView = (GridView)findViewById(R.id.album_details_grid_view);
         floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
+
+        ringProgressDialog = ProgressDialog.show(AlbumDetailsActivity.this, "", "", true);
 
         albumDetailsList.addAll(PhotoManager.getSharedInstance().albumDetailsList);
         albumDetailsGridAdapter = new AlbumDetailsGridAdapter(AlbumDetailsActivity.this, albumDetailsList);
