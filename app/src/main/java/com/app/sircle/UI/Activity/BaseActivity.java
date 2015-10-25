@@ -297,4 +297,9 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+
+    public void setActionBarTitle(String title) {
+        getSupportActionBar().setTitle(title);
+    }
 }
