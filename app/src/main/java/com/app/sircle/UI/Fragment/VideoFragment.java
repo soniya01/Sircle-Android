@@ -25,6 +25,7 @@ import com.app.sircle.UI.Adapter.VideoListViewAdapter;
 import com.app.sircle.UI.Model.Video;
 import com.app.sircle.UI.SlidingPane.SlidingPaneInterface;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.Utility.Constants;
 import com.app.sircle.Utility.DeveloperKey;
 import com.app.sircle.WebService.VideoResponse;
 import com.google.android.youtube.player.YouTubeInitializationResult;
@@ -140,7 +141,7 @@ Intent intent = new Intent(getActivity(), VimeoWebviewActivity.class);
         }
 
         HashMap object = new HashMap();
-        object.put("regId", "id");
+        object.put("regId", Constants.GCM_REG_ID);
         object.put("groupId",grpIdString);
         object.put("page", 1);
 

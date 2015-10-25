@@ -120,7 +120,6 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
             i.putExtra("url",albumDetailsList.get(_postion).getPhotoLargeURL());
             i.putExtra("caption",albumDetailsList.get(_postion).getPhotoCaption());
             mContext.startActivity(i);
-
         }
 
     }

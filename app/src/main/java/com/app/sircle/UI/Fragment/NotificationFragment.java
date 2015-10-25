@@ -20,6 +20,7 @@ import com.app.sircle.UI.Activity.AddNotificationActivity;
 import com.app.sircle.UI.Adapter.NotificationListviewAdapter;
 import com.app.sircle.UI.Model.Notification;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.Utility.Constants;
 import com.app.sircle.WebService.NotificationResponse;
 
 import java.util.ArrayList;
@@ -104,7 +105,7 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
 
         }
         HashMap object = new HashMap();
-        object.put("regId", "id");
+        object.put("regId", Constants.GCM_REG_ID);
         object.put("groupId",grpIdString);
         object.put("page", 1);
 

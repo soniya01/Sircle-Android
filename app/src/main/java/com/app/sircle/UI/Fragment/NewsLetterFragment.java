@@ -23,6 +23,7 @@ import com.app.sircle.UI.Adapter.NewsLettersViewAdapter;
 import com.app.sircle.UI.Model.NewsLetter;
 import com.app.sircle.UI.SlidingPane.SlidingPaneInterface;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.Utility.Constants;
 import com.app.sircle.WebService.DocumentsResponse;
 
 import java.util.ArrayList;
@@ -109,7 +110,7 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
         }
 
         HashMap map = new HashMap();
-        map.put("regId", "id");
+        map.put("regId", Constants.GCM_REG_ID);
         map.put("groupId", grpIdString);
         map.put("page", 1);
 

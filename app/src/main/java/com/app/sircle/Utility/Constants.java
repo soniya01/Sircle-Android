@@ -18,7 +18,7 @@ public class Constants {
     public static final String YOUTUBE_VIDEO_BASE_IMAGE_URL = "http://img.youtube.com/vi/";
     public static final String YOUTUBE_VIDEO_BASE_IMAGE_FILE_URL = "/0.jpg";
 
-    public static final String GCM_REG_ID = "id";
+    public static String GCM_REG_ID = "id";
     public static final String BASE_URL = "http://52.3.172.189/testapi/";
     //public static final String BASE_URL = "http://demo.snaptech.in/";
     public static final String LOGIN_API_PATH = "user/user_get/";
@@ -48,7 +48,8 @@ public class Constants {
     public static final String LINKS_GET_ALL_API  = "user/links_group";//"user/links_group/format/json";
     public static final String VIDEOS_GET_ALL_API  = "user/videos_group";//"user/videos_group/format/json";
 
-
+    public static final String SENT_TOKEN_TO_SERVER = "sentTokenToServer";
+    public static final String REGISTRATION_COMPLETE = "registrationComplete";
 
 
 }

@@ -2,10 +2,14 @@ package com.app.sircle.UI.Activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.view.View;
@@ -15,6 +19,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.sircle.GCM.RegistrationIntentService;
 import com.app.sircle.Manager.LoginManager;
 import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
@@ -22,7 +27,12 @@ import com.app.sircle.UI.Model.Notification;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.Utility.Constants;
 import com.app.sircle.WebService.LoginResponse;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.android.gms.iid.InstanceID;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -37,7 +47,9 @@ public class LoginScreen extends Activity {
     private LoginResponse loginData;
     private String accessToken;
     ProgressDialog ringProgressDialog;
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
     // private TextView supportLabel;
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +95,7 @@ public class LoginScreen extends Activity {
                     LoginManager.getSharedInstance().login(loginMap, new LoginManager.LoginManagerListener() {
                         @Override
                         public void onCompletion(LoginResponse response, AppError error) {
-                            ringProgressDialog.dismiss();
+
                             if (error.getErrorCode() == 0) {
                                 // give access to the app features
                                 if (response != null){
@@ -94,22 +106,25 @@ public class LoginScreen extends Activity {
                                         LoginManager.accessToken = response.getUserData().getOauth().getAccessToken();//  //getOauth().getAccessToken();
                                         //editor.putString(Constants.LOGIN_USERNAME_PREFS_KEY, response.getUserData().getOauth().getAccessToken());
                                         //editor.putString(Constants.LOGIN_PASSWORD_PREFS_KEY, passwordEditText.getText().toString());
-
+                                        getGCMToken();
                                         Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
-                                        Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);
-                                        startActivity(homeIntent);
+
+
                                     }else {
+                                        ringProgressDialog.dismiss();
                                         usernameField.setText("");
                                         passwordEditText.setText("");
                                         Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
 
                                 }else {
+                                    ringProgressDialog.dismiss();
                                     usernameField.setText("");
                                     passwordEditText.setText("");
                                     Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             }else {
+                                ringProgressDialog.dismiss();
                                 usernameField.setText("");
                                 passwordEditText.setText("");
                                 Toast.makeText(LoginScreen.this, "Check internet connectivity", Toast.LENGTH_SHORT).show();
@@ -121,10 +136,72 @@ public class LoginScreen extends Activity {
                 }
             }
         });
+
+
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                ringProgressDialog.dismiss();
+                //mRegistrationProgressBar.setVisibility(ProgressBar.GONE);
+                SharedPreferences sharedPreferences =
+                        PreferenceManager.getDefaultSharedPreferences(context);
+                boolean sentToken = sharedPreferences.getBoolean(Constants.SENT_TOKEN_TO_SERVER, false);
+                if (sentToken) {
+
+                    Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);
+                    startActivity(homeIntent);
+
+                } else {
+                    Toast.makeText(LoginScreen.this, "Some error occurred while registering the app for notification", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+    }
+
+
+    public void getGCMToken(){
+        if (checkPlayServices()){
+            Intent serviceIntent = new Intent(LoginScreen.this, RegistrationIntentService.class);
+            startService(serviceIntent);
+        }
+    }
+
+    /**
+     * Check the device to make sure it has the Google Play Services APK. If
+     * it doesn't, display a dialog that allows users to download the APK from
+     * the Google Play Store or enable it in the device's system settings.
+     */
+    private boolean checkPlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
+                        .show();
+            } else {
+                //Log.i(TAG, "This device is not supported.");
+                finish();
+            }
+            return false;
+        }
+        return true;
     }
 
     @Override
     public void onBackPressed() {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(Constants.REGISTRATION_COMPLETE));
+    }
+
+    @Override
+    protected void onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
+        super.onPause();
     }
 }

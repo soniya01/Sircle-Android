@@ -20,6 +20,7 @@ import com.app.sircle.UI.Activity.AddLinksActivity;
 import com.app.sircle.UI.Adapter.LinksListViewAdapter;
 import com.app.sircle.UI.Model.Links;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.Utility.Constants;
 import com.app.sircle.WebService.LinksResponse;
 
 import java.util.ArrayList;
@@ -111,7 +112,7 @@ public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             }
         }
         HashMap map = new HashMap();
-        map.put("regId", "id");
+        map.put("regId", Constants.GCM_REG_ID);
         map.put("groupId", grpIdString);
         map.put("page", 1);
 

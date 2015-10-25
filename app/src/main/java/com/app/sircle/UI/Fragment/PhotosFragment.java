@@ -26,6 +26,7 @@ import com.app.sircle.UI.Model.AlbumDetails;
 import com.app.sircle.UI.Model.Photo;
 import com.app.sircle.UI.SlidingPane.SlidingPaneInterface;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.Utility.Constants;
 import com.app.sircle.WebService.AlbumResponse;
 import com.app.sircle.WebService.PhotoResponse;
 
@@ -132,7 +133,7 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
             }
         }
         HashMap map = new HashMap();
-        map.put("regId", "id");
+        map.put("regId", Constants.GCM_REG_ID);
         map.put("groupId", grpIdString);
         map.put("page",1);
 
