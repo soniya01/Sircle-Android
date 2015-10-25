@@ -3,6 +3,13 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@color/actionbarBlue</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/actionbarBlue</item>
+        <item name="colorPrimaryDark">@color/statusbarBlue</item>
+<item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:statusBarColor">@color/statusbarBlue</item>
     </style>
 </resources>

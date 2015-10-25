@@ -38,24 +38,9 @@
         android:layout_height="1dp"
         android:background="@android:color/darker_gray" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:scaleType="fitXY"
-        android:layout_marginTop="30dp"
-        android:contentDescription="@string/description_image_default"
-        android:src="@drawable/school_building" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
-        android:padding="15dp">
-
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -63,98 +48,357 @@
 
             <TextView
                 android:id="@+id/activity_home_address_label"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
+                android:text="Sircle"
+                android:gravity="center"
+                android:layout_marginTop="48dp"
+                android:textAlignment="center"
+                android:textColor="#333332"
+                android:textSize="34px" />
+
+
+
+            <TextView
+                android:id="@+id/school_address_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:autoLink="phone"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:text="Mazgoan, Mumbai -10, India."
+                android:textColor="#424241"
+                android:textSize="30px" />
+
+            <TextView
+                android:id="@+id/activity_home_email_address_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autoLink="email"
                 android:lineSpacingExtra="1dp"
-                android:text="@string/activity_login_address_text"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="@dimen/activity_login_address_text_view_size" />
+                android:text="@string/activity_login_email_address"
+                android:textColor="#424241"
+                android:textColorLink="#424241"
+                android:textSize="30px"
+                android:gravity="center"
+                android:textAlignment="center"/>
+
+
 
 
             <TextView
                 android:id="@+id/activity_login_home_number_label"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 android:autoLink="phone"
                 android:lineSpacingExtra="1dp"
                 android:text="@string/activity_login_contact_number"
-                android:textColor="@android:color/darker_gray"
-                android:textColorLink="@android:color/darker_gray"
-                android:textSize="@dimen/activity_login_address_text_view_size" />
+                android:textColor="#424241"
+                android:textColorLink="#424241"
+                android:textSize="30px"
+                android:gravity="center"
+                android:textAlignment="center"/>
 
-            <TextView
-                android:id="@+id/activity_home_email_address_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:autoLink="email"
-                android:lineSpacingExtra="1dp"
-                android:text="@string/activity_login_email_address"
-                android:textColor="@android:color/darker_gray"
-                android:textColorLink="@android:color/darker_gray"
-                android:textSize="@dimen/activity_login_address_text_view_size" />
-
-            <TextView
-                android:id="@+id/activity_home_development_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:autoLink="phone"
-                android:lineSpacingExtra="1dp"
-                android:textStyle="bold"
-                android:text="@string/fragment_home_development_title"
-                android:textColor="#4f4f4f"
-                android:textSize="@dimen/fragment_home_school_title_size" />
-
-            <TextView
-                android:id="@+id/activity_home_school_moto_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:autoLink="phone"
-                android:text="@string/fragment_home_school_moto"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="@dimen/activity_login_address_text_view_size" />
 
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="70dp"
-            android:layout_alignParentRight="true"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/description_image_default"
-            android:src="@drawable/splashscreenimage" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal">
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
-
+            android:layout_width="190px"
+            android:layout_height="190px">
             <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/description_image_default"
-                android:background="@android:color/transparent"
-                android:src="@drawable/social_facebook"
-                android:layout_centerVertical="true"
-                 />
-
+                android:id="@+id/calendarButton"
+                android:layout_width="190px"
+                android:layout_height="190px"
+                android:textColor="#333332"
+                android:paddingTop="10dp"
+                android:paddingBottom="50dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/calendarlargeicon"
+                android:background="@color/white"/>
             <TextView
+                android:textSize="24px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:text="Powered By Sircle" />
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:textColor="#333332"
+                android:text="Calendar"/>
 
 
         </RelativeLayout>
 
 
-    </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="190px"
+            android:layout_height="190px">
+            <ImageButton
+                android:id="@+id/photosButton"
+                android:layout_width="190px"
+                android:layout_height="190px"
+                android:textColor="#333332"
+                android:paddingTop="10dp"
+                android:paddingBottom="50dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/photoslargeicon"
+                android:background="@color/white"/>
+            <TextView
+                android:textSize="24px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:textColor="#333332"
+                android:text="Photos"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="190px"
+            android:layout_height="190px">
+            <ImageButton
+                android:id="@+id/newsletterButton"
+                android:layout_width="190px"
+                android:layout_height="190px"
+                android:textColor="#333332"
+                android:paddingTop="10dp"
+                android:paddingBottom="50dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/newsletterlargeicon"
+                android:background="@color/white"/>
+            <TextView
+                android:textSize="24px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:textColor="#333332"
+                android:text="Newsletter"/>
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="190px"
+            android:layout_height="190px">
+            <ImageButton
+                android:id="@+id/documentsButton"
+                android:layout_width="190px"
+                android:layout_height="190px"
+                android:textColor="#333332"
+                android:paddingTop="10dp"
+                android:paddingBottom="50dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/documentslargeicon"
+                android:background="@color/white"/>
+            <TextView
+                android:textSize="24px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:textColor="#333332"
+                android:text="Documents"/>
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="190px"
+            android:layout_height="190px">
+            <ImageButton
+                android:id="@+id/videosButton"
+                android:layout_width="190px"
+                android:layout_height="190px"
+                android:textColor="#333332"
+                android:paddingTop="10dp"
+                android:paddingBottom="50dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/videoslargeicon"
+                android:background="@color/white"/>
+            <TextView
+                android:textSize="24px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:textColor="#333332"
+                android:text="Videos"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="190px"
+            android:layout_height="190px">
+            <ImageButton
+                android:id="@+id/linksButton"
+                android:layout_width="190px"
+                android:layout_height="190px"
+                android:textColor="#333332"
+                android:paddingTop="10dp"
+                android:paddingBottom="50dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/linkslargeicon"
+                android:background="@color/white"/>
+            <TextView
+                android:textSize="24px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:textColor="#333332"
+                android:text="Links"/>
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="190px"
+            android:layout_height="190px">
+            <ImageButton
+                android:id="@+id/settingsButton"
+                android:layout_width="190px"
+                android:layout_height="190px"
+                android:textColor="#333332"
+                android:paddingTop="10dp"
+                android:paddingBottom="50dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/settingslargeicon"
+                android:background="@color/white"/>
+            <TextView
+                android:textSize="24px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:textColor="#333332"
+                android:text="Settings"/>
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="190px"
+            android:layout_height="190px">
+            <ImageButton
+                android:id="@+id/notificationsButton"
+                android:layout_width="190px"
+                android:layout_height="190px"
+                android:textColor="#333332"
+                android:paddingTop="10dp"
+                android:paddingBottom="50dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/notificationslargeicon"
+                android:background="@color/white"/>
+            <TextView
+                android:textSize="24px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:textColor="#333332"
+                android:text="Notifications"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="190px"
+            android:layout_height="190px">
+            <ImageButton
+                android:id="@+id/informationButton"
+                android:layout_width="190px"
+                android:layout_height="190px"
+                android:textColor="#333332"
+                android:paddingTop="10dp"
+                android:paddingBottom="50dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/informationlargeicon"
+                android:background="@color/white"/>
+            <TextView
+                android:textSize="24px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:textColor="#333332"
+                android:text="Information"/>
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+
+
+
 
 </LinearLayout>
