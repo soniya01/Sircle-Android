@@ -95,6 +95,7 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
 //        ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
 
 
+        NotificationManager.notificationList.clear();
         String grpIdString = "";
         for (int i = 0; i< NotificationManager.grpIds.size(); i++){
             if (i == 0){
