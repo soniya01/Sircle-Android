@@ -1,6 +1,10 @@
 package com.app.sircle.DownLoader;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.app.sircle.Manager.DocumentManager;
 import com.app.sircle.Manager.EventManager;
@@ -8,6 +12,8 @@ import com.app.sircle.Manager.LinksManager;
 import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.Manager.PhotoManager;
 import com.app.sircle.Manager.VideoManager;
+import com.app.sircle.UI.Activity.BaseActivity;
+import com.app.sircle.UI.Fragment.HomeFragment;
 import com.app.sircle.UI.Model.Event;
 import com.app.sircle.UI.Model.Terms;
 import com.app.sircle.Utility.AppError;
@@ -25,17 +31,24 @@ import java.util.List;
 /**
  * Created by soniya on 10/10/15.
  */
-public class FetchAppData extends AsyncTask<FetchAppData.FetchedDataDelegate, Void, Void> {
+public class FetchAppData extends AsyncTask<FetchAppData.FetchedDataDelegate, Void, Integer> {
 
-private FetchedDataDelegate fetchedDataDelegate;
+    private FetchedDataDelegate fetchedDataDelegate;
+    ProgressDialog progressDialog;
+    ProgressBar progressBar;
+    public Activity mActivity;
+    public  int count = 0;
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+
+        //this.ringProgressDialog = ProgressDialog.show(HomeFragment.mContext, "", "", true);
     }
 
     @Override
-    protected Void doInBackground(FetchedDataDelegate... params) {
+    protected Integer doInBackground(FetchedDataDelegate... params) {
+
         fetchedDataDelegate = params[0];
 
         PhotoManager.getSharedInstance().albumDetailsList.clear();
@@ -64,7 +77,7 @@ private FetchedDataDelegate fetchedDataDelegate;
         NotificationManager.getSharedInstance().getAllGroups(object, new NotificationManager.GroupsManagerListener() {
             @Override
             public void onCompletion(GroupResponse groupResponse, AppError error) {
-
+                count++;
             }
         });
 
@@ -75,49 +88,49 @@ private FetchedDataDelegate fetchedDataDelegate;
         EventManager.getSharedInstance().getAllEvents(object, new EventManager.GetMonthwiseEventsManagerListener() {
             @Override
             public void onCompletion(EventDataReponse data, AppError error) {
-
+                count++;
             }
         });
 
         EventManager.getSharedInstance().getAllTerms(null, new EventManager.GetAllTermsManagerListener() {
             @Override
             public void onCompletion(List<Terms> termsList, AppError error) {
-
+                count++;
             }
         });
 
         DocumentManager.getSharedInstance().getAllDocs(object, new DocumentManager.GetNewsManagerListener() {
             @Override
             public void onCompletion(DocumentsResponse response, AppError error) {
-
+                count++;
             }
         });
 
         DocumentManager.getSharedInstance().getAllNewsLetters(object, new DocumentManager.GetNewsManagerListener() {
             @Override
             public void onCompletion(DocumentsResponse response, AppError error) {
-
+                count++;
             }
         });
 
         LinksManager.getSharedInstance().getAllLinks(object, new LinksManager.LinksManagerListener() {
             @Override
             public void onCompletion(LinksResponse response, AppError error) {
-
+                count++;
             }
         });
 
         PhotoManager.getSharedInstance().getAlbums(object, new PhotoManager.GetAlbumsManagerListener() {
             @Override
             public void onCompletion(PhotoResponse response, AppError error) {
-
+                count++;
             }
         });
 
         VideoManager.getSharedInstance().getAllVideos(object, new VideoManager.VideoManagerListener() {
             @Override
             public void onCompletion(VideoResponse response, AppError error) {
-
+                count++;
             }
         });
 
@@ -125,20 +138,40 @@ private FetchedDataDelegate fetchedDataDelegate;
         NotificationManager.getSharedInstance().getAllNotifications(object, new NotificationManager.NotificationManagerListener() {
             @Override
             public void onCompletion(NotificationResponse response, AppError error) {
-
+                count++;
             }
         });
 
-        return null;
+        if (count == 9){
+            return 1;
+        }
+        return 0;
     }
 
     @Override
-    protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
-        fetchedDataDelegate.fetchDataDone();
+    protected void onPostExecute(Integer param) {
+
+        if (param == 1){
+            super.onPostExecute(param);
+            if (this.progressDialog != null){
+                this.progressDialog.dismiss();
+            }
+
+            fetchedDataDelegate.fetchDataDone();
+        }
+
     }
 
-    public static abstract class FetchedDataDelegate {
-        public abstract void fetchDataDone();
+    public interface FetchedDataDelegate {
+        public void fetchDataDone();
+    }
+
+    public void setRingProgressDialog(ProgressDialog bar){
+        this.progressDialog = bar;
+        this.progressDialog.show();
+    }
+
+    public ProgressDialog getProgressDialog(){
+        return this.progressDialog;
     }
 }

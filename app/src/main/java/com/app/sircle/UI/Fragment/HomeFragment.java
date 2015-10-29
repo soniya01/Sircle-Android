@@ -4,14 +4,18 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.ContentLoadingProgressBar;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -19,10 +23,29 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.sircle.DownLoader.FetchAppData;
+import com.app.sircle.Manager.DocumentManager;
+import com.app.sircle.Manager.EventManager;
+import com.app.sircle.Manager.LinksManager;
+import com.app.sircle.Manager.NotificationManager;
+import com.app.sircle.Manager.PhotoManager;
+import com.app.sircle.Manager.VideoManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.BaseActivity;
+import com.app.sircle.UI.Model.Event;
+import com.app.sircle.UI.Model.Terms;
 import com.app.sircle.UI.SlidingPane.SlidingPaneInterface;
+import com.app.sircle.Utility.AppError;
 import com.app.sircle.Utility.Common;
+import com.app.sircle.WebService.DocumentsResponse;
+import com.app.sircle.WebService.EventDataReponse;
+import com.app.sircle.WebService.GroupResponse;
+import com.app.sircle.WebService.LinksResponse;
+import com.app.sircle.WebService.NotificationResponse;
+import com.app.sircle.WebService.PhotoResponse;
+import com.app.sircle.WebService.VideoResponse;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by soniya on 7/22/15.
@@ -30,8 +53,11 @@ import com.app.sircle.Utility.Common;
 public class HomeFragment extends Fragment {
 
     private TextView emailLabel;
-    private ProgressBar progressBar;
+    public ProgressBar progressBar;
     private Fragment fragmentToLoad = null;
+    public  ProgressDialog ringProgressDialog;
+    public static Context mContext;
+    public FetchAppData appData;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,24 +66,28 @@ public class HomeFragment extends Fragment {
                 null, true);
 
         emailLabel = (TextView)viewFragment.findViewById(R.id.activity_home_email_address_label);
+       // contentLoadingProgressBar = (ProgressBar)viewFragment.findViewById(R.id.loadingBar);
         // underlines the email address
         SpannableString content = new SpannableString(getResources().getString(R.string.activity_login_email_address).toString());
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         emailLabel.setText(content);
 
-        progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
-        progressBar.setIndeterminate(true);
-        progressBar.setVisibility(View.VISIBLE);
-        LinearLayout.LayoutParams pbParam = new LinearLayout.LayoutParams(
-                100,
-                100);
-        pbParam.gravity = Gravity.CENTER;
+        mContext = getActivity();
+
+//        progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
+//        progressBar.setIndeterminate(true);
+//        progressBar.setVisibility(View.VISIBLE);
+//
+//        LinearLayout.LayoutParams pbParam = new LinearLayout.LayoutParams(
+//                100,
+//                100);
+//        pbParam.gravity = Gravity.CENTER;
 
         //pb.setLayoutParams(pbParam);
 
        // RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
         //layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-                ((LinearLayout) viewFragment).addView(progressBar, pbParam);
+        //((LinearLayout) viewFragment).addView(progressBar, pbParam);
 
         fetchAppData();
 
@@ -184,14 +214,20 @@ public class HomeFragment extends Fragment {
     }
 
     public void fetchAppData(){
+        ringProgressDialog = new ProgressDialog(getActivity());
+        ringProgressDialog.setIndeterminate(true);
 
-        new FetchAppData().execute(fetchedDataDelegate);
+        appData = new FetchAppData();
+        appData.setRingProgressDialog(ringProgressDialog);
+        appData.execute(fetchedDataDelegate);
     }
 
     private FetchAppData.FetchedDataDelegate fetchedDataDelegate = new FetchAppData.FetchedDataDelegate() {
         @Override
         public void fetchDataDone() {
-            progressBar.setVisibility(View.GONE);
+            //progressBar.setVisibility(View.GONE);
+            appData.getProgressDialog().dismiss();
+
         }
     };
 
@@ -224,4 +260,13 @@ public class HomeFragment extends Fragment {
                 .setActionBarTitle(title);
 
     }
+
+    public void startProgress(){
+        ringProgressDialog = ProgressDialog.show(getActivity(), "", "", true);
+    }
+
+    public void stopProgress(){
+       ringProgressDialog.dismiss();
+    }
+
 }
