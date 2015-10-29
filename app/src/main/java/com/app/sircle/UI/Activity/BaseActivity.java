@@ -242,6 +242,7 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
             case 10:
                 // add sign out functionality and show LoginScreen
                 mDrawerLayout.closeDrawer(mDrawerList);
+
                 fragmentToLoad = null;
                 Intent loginIntent = new Intent(BaseActivity.this, LoginScreen.class);
                 startActivity(loginIntent);
@@ -290,7 +291,14 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
 
     @Override
     public void onBackPressed() {
-
+        FragmentManager fm = getFragmentManager();
+        if (fm.getBackStackEntryCount() > 0) {
+            //Log.i("MainActivity", "popping backstack");
+            fm.popBackStackImmediate();
+        } else {
+            //Log.i("MainActivity", "nothing on backstack, calling super");
+            super.onBackPressed();
+        }
     }
 
     @Override
