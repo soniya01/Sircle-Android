@@ -95,7 +95,7 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
 //        ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
 
 
-        NotificationManager.notificationList.clear();
+        //NotificationManager.notificationList.clear();
         String grpIdString = "";
         for (int i = 0; i< NotificationManager.grpIds.size(); i++){
             if (i == 0){
@@ -118,9 +118,10 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
                 if (data != null) {
                     if (data.getStatus() == 200){
                         if (data.getData().getNotifications().size() > 0){
+                            //NotificationManager.notificationList.clear()
+                            notificationList.clear();
                             notificationList.addAll(NotificationManager.notificationList);
                             notificationListviewAdapter.notifyDataSetChanged();
-
                         }else {
                             Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                         }

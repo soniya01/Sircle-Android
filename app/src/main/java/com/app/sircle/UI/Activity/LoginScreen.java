@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.sircle.GCM.GCMListener;
 import com.app.sircle.GCM.RegistrationIntentService;
 import com.app.sircle.Manager.LoginManager;
 import com.app.sircle.Manager.NotificationManager;
@@ -86,53 +87,7 @@ public class LoginScreen extends Activity {
 
                 }else {
                     // save username and password
-
-                    HashMap<String, String> loginMap = new HashMap<String, String>();
-                    loginMap.put("loginId",usernameField.getText().toString());
-                    loginMap.put("pwd",passwordEditText.getText().toString());
-                    loginMap.put("regId", Constants.GCM_REG_ID);
-
-                    LoginManager.getSharedInstance().login(loginMap, new LoginManager.LoginManagerListener() {
-                        @Override
-                        public void onCompletion(LoginResponse response, AppError error) {
-
-                            if (error.getErrorCode() == 0) {
-                                // give access to the app features
-                                if (response != null){
-                                    if (response.getStatus() == 200)
-                                    {
-                                        NotificationManager.grpIds.clear();
-                                        sessionExpiryDate = new Date();
-                                        LoginManager.accessToken = response.getUserData().getOauth().getAccessToken();//  //getOauth().getAccessToken();
-                                        //editor.putString(Constants.LOGIN_USERNAME_PREFS_KEY, response.getUserData().getOauth().getAccessToken());
-                                        //editor.putString(Constants.LOGIN_PASSWORD_PREFS_KEY, passwordEditText.getText().toString());
-                                        getGCMToken();
-                                        Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
-
-
-                                    }else {
-                                        ringProgressDialog.dismiss();
-                                        usernameField.setText("");
-                                        passwordEditText.setText("");
-                                        Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-
-                                }else {
-                                    ringProgressDialog.dismiss();
-                                    usernameField.setText("");
-                                    passwordEditText.setText("");
-                                    Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            }else {
-                                ringProgressDialog.dismiss();
-                                usernameField.setText("");
-                                passwordEditText.setText("");
-                                Toast.makeText(LoginScreen.this, "Check internet connectivity", Toast.LENGTH_SHORT).show();
-
-                            }
-                        }
-                    });
-
+                    getGCMToken();
                 }
             }
         });
@@ -147,15 +102,70 @@ public class LoginScreen extends Activity {
                         PreferenceManager.getDefaultSharedPreferences(context);
                 boolean sentToken = sharedPreferences.getBoolean(Constants.SENT_TOKEN_TO_SERVER, false);
                 if (sentToken) {
+                    loginUser();
 
-                    Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);
-                    startActivity(homeIntent);
 
-                } else {
-                    Toast.makeText(LoginScreen.this, "Some error occurred while registering the app for notification", Toast.LENGTH_SHORT).show();
                 }
+                //else {
+//                        Intent intent_receiver = new Intent(LoginScreen.this, GCMListener.class);
+//                        startService(intent_receiver);
+//
+//                    //Toast.makeText(LoginScreen.this, "Some error occurred while registering the app for notification", Toast.LENGTH_SHORT).show();
+//                }
             }
         };
+    }
+
+    private void loginUser() {
+        HashMap<String, String> loginMap = new HashMap<String, String>();
+        loginMap.put("loginId",usernameField.getText().toString());
+        loginMap.put("pwd",passwordEditText.getText().toString());
+        loginMap.put("regId", Constants.GCM_REG_ID);
+
+        LoginManager.getSharedInstance().login(loginMap, new LoginManager.LoginManagerListener() {
+            @Override
+            public void onCompletion(LoginResponse response, AppError error) {
+
+                if (error.getErrorCode() == 0) {
+                    // give access to the app features
+                    if (response != null){
+                        if (response.getStatus() == 200)
+                        {
+                            Intent intent_receiver = new Intent(LoginScreen.this, GCMListener.class);
+                            startService(intent_receiver);
+
+                            NotificationManager.grpIds.clear();
+                            sessionExpiryDate = new Date();
+                            LoginManager.accessToken = response.getUserData().getOauth().getAccessToken();//  //getOauth().getAccessToken();
+                            //editor.putString(Constants.LOGIN_USERNAME_PREFS_KEY, response.getUserData().getOauth().getAccessToken());
+                            //editor.putString(Constants.LOGIN_PASSWORD_PREFS_KEY, passwordEditText.getText().toString());
+
+                            Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                            Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);
+                            startActivity(homeIntent);
+
+                        }else {
+                            ringProgressDialog.dismiss();
+                            usernameField.setText("");
+                            passwordEditText.setText("");
+                            Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    }else {
+                        ringProgressDialog.dismiss();
+                        usernameField.setText("");
+                        passwordEditText.setText("");
+                        Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    ringProgressDialog.dismiss();
+                    usernameField.setText("");
+                    passwordEditText.setText("");
+                    Toast.makeText(LoginScreen.this, "Check internet connectivity", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
     }
 
 

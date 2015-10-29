@@ -37,7 +37,7 @@ public class DocumentManager {
             public void onCompletion(DocumentsResponse response, AppError error) {
                 if (response != null){
                     if (response.getData() != null && response.getData().getNewsLetters() != null){
-                        newsLetterList.clear();
+
                         newsLetterList = response.getData().getNewsLetters();
                     }
                 }

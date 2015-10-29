@@ -40,7 +40,6 @@ public class NotificationManager {
                 public void onCompletion(NotificationResponse response, AppError error) {
                     if (response != null) {
                         if (response.getData() != null ) {
-                            notificationList.clear();
                             notificationList = response.getData().getNotifications();
                         }
                     }
