@@ -18,7 +18,6 @@
     <string name="activity_login_address_text">Mazagaon,\nMumbai-10\nIndia</string>
     <string name="activity_login_email_address">support@snaptech.in</string>
     <string name="activity_login_contact_number">+919819737252</string>
-    <string name="gcm_senderId">526007976502</string>
 
     <!-- Splash -->
     <string name="activity_splash_powered_by_text">"Powered By : Snaptech Digital Solutions"</string>
@@ -78,5 +77,8 @@
     <string name="title_activity_event">Event</string>
     <string name="title_activity_event_detail">View Event</string>
     <string name="title_activity_vimeo_webview">VimeoWebviewActivity</string>
+
+    <drawable name="textView_selected">@color/pink</drawable>
+    <drawable name="text_view_pressed">@color/pink</drawable>
 
 </resources>
