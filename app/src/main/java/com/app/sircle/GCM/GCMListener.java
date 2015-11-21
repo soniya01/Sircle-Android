@@ -16,7 +16,9 @@ import android.util.Log;
 
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.AddNotificationActivity;
+import com.app.sircle.UI.Activity.AlbumDetailsActivity;
 import com.app.sircle.UI.Activity.BaseActivity;
+import com.app.sircle.UI.Activity.EventDetailActivity;
 import com.google.android.gms.gcm.GcmListenerService;
 
 /**
@@ -29,11 +31,14 @@ public class GCMListener extends GcmListenerService {
     public void onMessageReceived(String from, Bundle data) {
         super.onMessageReceived(from, data);
 
+        String title = data.getString("title");
+        String type = title.split(":")[0];
         String message = data.getString("message");
+        String url = data.getString("url");
         Log.d("App", "From: " + from);
         Log.d("App", "Message: " + message);
 
-        sendNotification(message);
+        sendNotification(data);
     }
 
     @Override
@@ -41,8 +46,48 @@ public class GCMListener extends GcmListenerService {
         super.onMessageSent(msgId);
     }
 
-    private void sendNotification(String message) {
-        Intent intent = new Intent(this, BaseActivity.class);
+    private void sendNotification(Bundle data) {
+        String title = "", eventId = "", url="", albumId, message="";
+        Class intentClass = null;
+        Intent intent;
+        url = data.getString("url");
+        title = data.getString("title");
+        if (url.equals("notificationsPage")){
+            message = data.getString("message");
+            title = title + "\n" + message;
+            BaseActivity.selectedModuleIndex = 3;
+            intentClass = BaseActivity.class;
+
+        }else if(url.equals("eventPage")){
+            intentClass = EventDetailActivity.class;
+            BaseActivity.selectedModuleIndex = 1;
+        }else if(url.equals("albumPage")){
+            intentClass = BaseActivity.class;
+            BaseActivity.selectedModuleIndex = 1;
+        }
+        else if(url.equals("albumPage")){
+                intentClass = BaseActivity.class;
+                BaseActivity.selectedModuleIndex = 5;
+            }
+        else if (url.equals("PhotoListViewPage")){
+                intentClass = AlbumDetailsActivity.class;
+                BaseActivity.selectedModuleIndex = 5;
+        }
+
+        intent = new Intent(this, intentClass);
+        if (url.equals("PhotoListViewPage")){
+            albumId = data.getString("albumId");
+            intent.putExtra("albumId", albumId);
+        }
+        if (url.equals("eventPage")){
+            try{
+                eventId = data.getString("eventId");
+                intent.putExtra("eventId", eventId);
+            }catch (Exception e){
+
+            }
+        }
+
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 0);
@@ -50,23 +95,24 @@ public class GCMListener extends GcmListenerService {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             notification = new Notification.Builder(this)
-                    .setContentTitle("Sircle")
-                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle(getResources().getString(R.string.app_name))
+                    .setSmallIcon(android.R.drawable.stat_notify_voicemail)
                     .setContentIntent(pendingIntent)
-                    .setContentText(message)
-                    .setSound(defaultSoundUri)
-                    .setWhen(System.currentTimeMillis())
+                    .setContentText(title)
+                    .setDefaults(Notification.DEFAULT_SOUND)
                     .build();
+
+
         }else {
             notification = new NotificationCompat.Builder(this)
                     .setSmallIcon(android.R.drawable.stat_notify_voicemail)
                     .setContentTitle(getResources().getString(R.string.app_name))
-                    .setContentText(message)
-                    .setSound(defaultSoundUri)
+                    .setContentText(title)
+                    .setDefaults(Notification.DEFAULT_SOUND)
                     .setContentIntent(pendingIntent)
             .build();
         }
-        notification.flags = Notification.FLAG_AUTO_CANCEL | Notification.DEFAULT_LIGHTS;
+        notification.defaults = Notification.FLAG_AUTO_CANCEL | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_SOUND;
 
         NotificationManager mNotificationManager =
                 (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -87,8 +133,8 @@ public class GCMListener extends GcmListenerService {
 //
 //        notificationManager.notify();
 
-        long futureInMillis = SystemClock.elapsedRealtime() + 1000;
-        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+//        long futureInMillis = SystemClock.elapsedRealtime() + 1000;
+//        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+//        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
     }
 }

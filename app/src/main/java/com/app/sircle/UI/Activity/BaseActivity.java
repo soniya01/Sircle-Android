@@ -100,7 +100,11 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        selectedModuleIndex = -1;
+        if (selectedModuleIndex == null || selectedModuleIndex == 0){
+            selectedModuleIndex = -1;
+        }else {
+            shouldSelectListViewItem = true;
+        }
 
         if (savedInstanceState != null) {
             shouldSelectListViewItem = savedInstanceState
@@ -127,10 +131,15 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
         mDrawerList.setAdapter(adapter);
 
         if (shouldSelectListViewItem){
-            didSelectListViewItemAtIndex(0);
-            mDrawerList.setItemChecked(0, true);
-            mDrawerList.setSelection(0);
+            if (selectedModuleIndex != -1){
+                didSelectListViewItemAtIndex(selectedModuleIndex);
+            }else {
+                didSelectListViewItemAtIndex(0);
+                mDrawerList.setItemChecked(0, true);
+                mDrawerList.setSelection(0);
+            }
         }
+
 
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
            @Override
