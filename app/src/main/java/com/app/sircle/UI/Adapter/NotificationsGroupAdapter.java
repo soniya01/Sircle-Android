@@ -98,7 +98,7 @@ public class NotificationsGroupAdapter extends BaseAdapter {
 
                 if (isChecked){
                     NotificationManager.grpIds.add( notificationsGroupList.get(pos).getId());
-                    SettingsActivity.isAllChecked = -1;
+                  //  SettingsActivity.isAllChecked = -1;
                     notificationsGroupList.get(pos).setActive(1);
                 }else{
                     SettingsActivity.allCheckBox.setChecked(false);

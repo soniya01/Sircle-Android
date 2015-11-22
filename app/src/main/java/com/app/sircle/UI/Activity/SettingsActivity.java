@@ -95,10 +95,11 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ringProgressDialog = ProgressDialog.show(SettingsActivity.this, "", "", true);
+
                 JSONArray arrayObject = new JSONArray();
 
                 if ( NotificationManager.grpIds.size() > 0){
+                    ringProgressDialog = ProgressDialog.show(SettingsActivity.this, "", "", true);
                     for (int i =0 ; i<  NotificationManager.grpIds.size(); i++){
                         try {
                             JSONObject object = new JSONObject();
