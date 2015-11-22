@@ -26,14 +26,16 @@
                 android:id="@+id/notification_row_title_label_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingRight="40dp"
-                android:maxLines="2"
                 android:paddingLeft="20dp"
                 android:paddingTop="10dp"
                 android:text="Heavy Rains"
                 android:textStyle="bold"
                 android:textColor="#505050"
-                android:textSize="17sp" />
+                android:gravity="left"
+                android:textSize="17sp"
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@+id/notification_row_publish_label_day"
+                android:layout_toStartOf="@+id/notification_row_publish_label_day" />
 
             <TextView
                 android:id="@+id/notification_row_desc_label"

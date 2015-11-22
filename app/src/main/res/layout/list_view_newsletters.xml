@@ -33,7 +33,10 @@
                 android:layout_marginTop="15dp"
                 android:layout_toRightOf="@+id/pdfImage"
                 android:text="Sample pdf"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"
+
+                android:layout_toLeftOf="@+id/pdfDate"
+                android:layout_toStartOf="@+id/pdfDate"/>
 
             <TextView
                 android:id="@+id/pdfDate"
