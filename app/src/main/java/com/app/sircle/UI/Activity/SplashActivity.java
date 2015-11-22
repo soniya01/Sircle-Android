@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
+import android.widget.Toast;
 
 import com.app.sircle.Manager.LoginManager;
 import com.app.sircle.R;
@@ -48,13 +49,16 @@ public class SplashActivity extends Activity {
 
         long lastActivity = new Date().getTime();
 
-        if (LoginManager.loggedInTime != 0 ||  LoginManager.expiresIn != 0){
+        if (LoginManager.accessToken != null){
             if (lastActivity - LoginManager.loggedInTime > LoginManager.expiresIn){
+                Toast.makeText(this, "Session expired", Toast.LENGTH_SHORT).show();
                 loginIntent = new Intent(this, LoginScreen.class);
             }else {
                 loginIntent = new Intent(this, BaseActivity.class);
             }
         }else {
+            LoginManager.expiresIn = 0;
+            LoginManager.loggedInTime = 0;
             loginIntent = new Intent(this, LoginScreen.class);
         }
 

@@ -13,7 +13,8 @@ public class LoginManager {
 
     private static LoginManager sharedInstance;
     public static String accessToken;
-    public long expiresIn;
+    public static long expiresIn ;
+    public static long loggedInTime;
     private LoginManager(){
 
     }
@@ -22,6 +23,7 @@ public class LoginManager {
 
         if (sharedInstance == null){
             sharedInstance =  new LoginManager();
+
         }
         return sharedInstance;
     }
