@@ -49,6 +49,7 @@ public class LoginScreen extends Activity {
     private String accessToken;
     ProgressDialog ringProgressDialog;
     private BroadcastReceiver mRegistrationBroadcastReceiver;
+    SharedPreferences.Editor editor;
     // private TextView supportLabel;
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
@@ -77,7 +78,7 @@ public class LoginScreen extends Activity {
                 ringProgressDialog = ProgressDialog.show(LoginScreen.this, "", "Signing In", true);
 
                loginSharedPrefs = LoginScreen.this.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
-                final SharedPreferences.Editor editor = loginSharedPrefs.edit();
+                 editor = loginSharedPrefs.edit();
 
                 if (LoginManager.accessToken != null){
                     ringProgressDialog.dismiss();
@@ -139,10 +140,11 @@ public class LoginScreen extends Activity {
                             NotificationManager.grpIds.clear();
                             sessionExpiryDate = new Date();
                             LoginManager.accessToken = response.getUserData().getOauth().getAccessToken();//  //getOauth().getAccessToken();
-                            LoginManager.expiresIn = response.getUserData().getOauth().getExpiresIn();
-                            LoginManager.loggedInTime = new Date().getTime();
-                            //editor.putString(Constants.LOGIN_USERNAME_PREFS_KEY, response.getUserData().getOauth().getAccessToken());
-                            //editor.putString(Constants.LOGIN_PASSWORD_PREFS_KEY, passwordEditText.getText().toString());
+                            //LoginManager.expiresIn = response.getUserData().getOauth().getExpiresIn();
+                            //LoginManager.loggedInTime = new Date().getTime();
+                            editor.putString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, response.getUserData().getOauth().getAccessToken());
+                            editor.putLong(Constants.LOGIN_EXPIRES_IN_PREFS_KEY, response.getUserData().getOauth().getExpiresIn());
+                            editor.putLong(Constants.LOGIN_LOGGED_IN_PREFS_KEY, new Date().getTime());
 
                             Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                             Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);

@@ -6,8 +6,9 @@ import android.os.Environment;
 public class Constants {
 
     public static final String LOGIN_PREFS_NAME = "LOGIN_PREFS";
-    public static final String LOGIN_USERNAME_PREFS_KEY = "username";
-    public static final String LOGIN_PASSWORD_PREFS_KEY = "password";
+    public static final String LOGIN_ACCESS_TOKEN_PREFS_KEY = "accessToken";
+    public static final String LOGIN_EXPIRES_IN_PREFS_KEY = "expiresIn";
+    public static final String LOGIN_LOGGED_IN_PREFS_KEY = "loggedIn";
     public static final String NO_NET_CONNECTIVITY_MESSAGE = "Sorry! There was trouble playing this video. PLease check your net connection";
 
     // photos

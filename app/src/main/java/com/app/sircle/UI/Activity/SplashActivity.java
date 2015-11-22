@@ -20,6 +20,7 @@ public class SplashActivity extends Activity {
 
     public static final int SPLASH_SCREEN_TIME_OUT = 3000;
     private  Intent loginIntent = null;
+    private SharedPreferences loginSharedPreferences;
 
 
     @Override
@@ -46,19 +47,22 @@ public class SplashActivity extends Activity {
      * @return if user is logged in then success else fail
      */
     private void checkIfLoggedIn(){
+        loginSharedPreferences = this.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
+        String accessToken = loginSharedPreferences.getString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY,null);
+        long loggedIn = 0;
+        long expiresIn = 0;
 
         long lastActivity = new Date().getTime();
-
-        if (LoginManager.accessToken != null){
-            if (lastActivity - LoginManager.loggedInTime > LoginManager.expiresIn){
+        if (accessToken != null){
+            loggedIn = loginSharedPreferences.getLong(Constants.LOGIN_LOGGED_IN_PREFS_KEY,0);
+            expiresIn = loginSharedPreferences.getLong(Constants.LOGIN_EXPIRES_IN_PREFS_KEY, 0);
+            if (lastActivity - loggedIn > expiresIn){
                 Toast.makeText(this, "Session expired", Toast.LENGTH_SHORT).show();
                 loginIntent = new Intent(this, LoginScreen.class);
             }else {
                 loginIntent = new Intent(this, BaseActivity.class);
             }
         }else {
-            LoginManager.expiresIn = 0;
-            LoginManager.loggedInTime = 0;
             loginIntent = new Intent(this, LoginScreen.class);
         }
 

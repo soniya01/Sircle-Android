@@ -7,6 +7,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -42,6 +43,7 @@ import com.app.sircle.UI.Fragment.SettingsFragment;
 import com.app.sircle.UI.Fragment.VideoFragment;
 import com.app.sircle.UI.SlidingPane.SlidingPaneAdapter;
 import com.app.sircle.Utility.Common;
+import com.app.sircle.Utility.Constants;
 
 import java.util.Date;
 
@@ -274,9 +276,11 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
 
 
     public void checkIfSessionExpired(){
+        SharedPreferences loginSharedPreferences = this.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
         long lastActivity = new Date().getTime();
-
-            if (lastActivity - LoginManager.loggedInTime > LoginManager.expiresIn){
+        long loggedIn = loginSharedPreferences.getLong(Constants.LOGIN_LOGGED_IN_PREFS_KEY,0);
+        long expiresIn = loginSharedPreferences.getLong(Constants.LOGIN_EXPIRES_IN_PREFS_KEY, 0);
+            if ((lastActivity - loggedIn) > expiresIn){
                 Toast.makeText(this, "Session expired. Please login again!", Toast.LENGTH_SHORT).show();
                 loginIntent = new Intent(this, LoginScreen.class);
                 startActivity(loginIntent);
