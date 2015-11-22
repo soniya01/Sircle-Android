@@ -26,7 +26,9 @@ import com.app.sircle.Utility.Constants;
 import com.app.sircle.WebService.EventData;
 import com.app.sircle.WebService.EventDataReponse;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -171,19 +173,23 @@ public class CalendarListFragment extends Fragment {
         }
         HashMap map = new HashMap();
         map.put("regId", Constants.GCM_REG_ID);
+        map.put("month",CalendarMonthFragment.month);
+        map.put("year", CalendarMonthFragment.year);
         map.put("page",1);
         map.put("groupId",grpIdString);
 
         ringProgressDialog = ProgressDialog.show(getActivity(), "", "", true);
-        EventManager.getSharedInstance().getAllEvents(map, new EventManager.GetMonthwiseEventsManagerListener() {
+
+        EventManager.getSharedInstance().getEventsMonthWise(map, new EventManager.GetMonthwiseEventsManagerListener() {
             @Override
             public void onCompletion(EventDataReponse data, AppError error) {
-               ringProgressDialog.dismiss();
-                if (data != null) {
-                    if (data.getStatus() == 200){
+                ringProgressDialog.dismiss();
+                if (data != null){
+                    if (data.getEventData().getEvents() != null){
                         if (data.getEventData().getEvents().size() > 0){
                             calendarMonthList.addAll(data.getEventData().getEvents());
                             calendarMonthListViewAdapter.notifyDataSetChanged();
+
 
                         }else {
                             Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
@@ -191,12 +197,35 @@ public class CalendarListFragment extends Fragment {
                     }else {
                         Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-
-                } else {
-                    Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getActivity(), "Some problem occurred", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+        /////
+//        EventManager.getSharedInstance().getAllEvents(map, new EventManager.GetMonthwiseEventsManagerListener() {
+//            @Override
+//            public void onCompletion(EventDataReponse data, AppError error) {
+//               ringProgressDialog.dismiss();
+//                if (data != null) {
+//                    if (data.getStatus() == 200){
+//                        if (data.getEventData().getEvents().size() > 0){
+//                            calendarMonthList.addAll(data.getEventData().getEvents());
+//                            calendarMonthListViewAdapter.notifyDataSetChanged();
+//
+//                        }else {
+//                            Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    }else {
+//                        Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                } else {
+//                    Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
 
     }
 

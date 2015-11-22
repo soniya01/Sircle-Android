@@ -6,16 +6,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.MotionEvent;
 
+import com.app.sircle.Manager.LoginManager;
 import com.app.sircle.R;
 import com.app.sircle.Utility.Constants;
+
+import java.util.Date;
 
 
 public class SplashActivity extends Activity {
 
     public static final int SPLASH_SCREEN_TIME_OUT = 3000;
-    private SharedPreferences loginSharedPreferences;
-    private Class intentClass;
+    private  Intent loginIntent = null;
 
 
     @Override
@@ -24,22 +27,16 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.activity_splash);
 
         // check if user is already logged in
-        if (checkIfLoggedIn()){
-            intentClass = BaseActivity.class;
-        }else {
-            intentClass =LoginScreen.class;
-        }
+//        if (checkIfLoggedIn()){
+//            intentClass = BaseActivity.class;
+//        }else {
+//            intentClass =LoginScreen.class;
+//        }
+
+        checkIfLoggedIn();
 
         // add delay to the splash screen
-        new Handler().postDelayed(new Runnable() {
 
-            @Override
-            public void run() {
-                Intent loginIntent = new Intent(SplashActivity.this, intentClass);
-                startActivity(loginIntent);
-                finish();
-            }
-        }, SPLASH_SCREEN_TIME_OUT);
     }
 
 
@@ -47,18 +44,36 @@ public class SplashActivity extends Activity {
      * Checks if user is already logged in to the app
      * @return if user is logged in then success else fail
      */
-    private boolean checkIfLoggedIn(){
+    private void checkIfLoggedIn(){
 
-        loginSharedPreferences = this.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
-        String username = loginSharedPreferences.getString(Constants.LOGIN_USERNAME_PREFS_KEY,"");
-        String password = loginSharedPreferences.getString(Constants.LOGIN_PASSWORD_PREFS_KEY,"");
+        long lastActivity = new Date().getTime();
 
-        if (username.equals("") || password.equals("")){
-            return false;
+        if (LoginManager.loggedInTime != 0 ||  LoginManager.expiresIn != 0){
+            if (lastActivity - LoginManager.loggedInTime > LoginManager.expiresIn){
+                loginIntent = new Intent(this, LoginScreen.class);
+            }else {
+                loginIntent = new Intent(this, BaseActivity.class);
+            }
         }else {
-            return true;
+            loginIntent = new Intent(this, LoginScreen.class);
         }
+
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                startActivity(loginIntent);
+                finish();
+            }
+        }, SPLASH_SCREEN_TIME_OUT);
+
 
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+
+        return super.dispatchTouchEvent(ev);
+    }
 }

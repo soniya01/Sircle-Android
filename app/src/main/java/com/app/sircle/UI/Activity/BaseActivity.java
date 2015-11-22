@@ -24,7 +24,9 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.app.sircle.Manager.LoginManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Fragment.CalendarFragment;
 import com.app.sircle.UI.Fragment.CalendarListFragment;
@@ -41,6 +43,8 @@ import com.app.sircle.UI.Fragment.VideoFragment;
 import com.app.sircle.UI.SlidingPane.SlidingPaneAdapter;
 import com.app.sircle.Utility.Common;
 
+import java.util.Date;
+
 
 public class BaseActivity extends ActionBarActivity implements CalendarMonthFragment.OnFragmentInteractionListener,CalendarTodayFragment.OnFragmentInteractionListener,CalendarListFragment.OnFragmentInteractionListener {
 
@@ -54,6 +58,7 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
     private ActionBarDrawerToggle mDrawerToggle;
     private String[] menuList;
     public static boolean jumpToFragment;
+    private  Intent loginIntent = null;
 
     private void loadFragment(Context context, Fragment fragment) {
 
@@ -99,6 +104,8 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        checkIfSessionExpired();
 
         if (selectedModuleIndex == null || selectedModuleIndex == 0){
             selectedModuleIndex = -1;
@@ -263,6 +270,19 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
 
         }
 
+    }
+
+
+    public void checkIfSessionExpired(){
+        long lastActivity = new Date().getTime();
+
+            if (lastActivity - LoginManager.loggedInTime > LoginManager.expiresIn){
+                Toast.makeText(this, "Session expired. Please login again!", Toast.LENGTH_SHORT).show();
+                loginIntent = new Intent(this, LoginScreen.class);
+                startActivity(loginIntent);
+            }else {
+               // loginIntent = new Intent(this, BaseActivity.class);
+            }
     }
 
     /* Called whenever we call invalidateOptionsMenu() */

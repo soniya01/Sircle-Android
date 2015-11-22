@@ -26,11 +26,12 @@ import com.google.android.gms.gcm.GcmListenerService;
  */
 public class GCMListener extends GcmListenerService {
     private Notification notification;
+    int count = 0;
 
     @Override
     public void onMessageReceived(String from, Bundle data) {
         super.onMessageReceived(from, data);
-
+        count++;
         String title = data.getString("title");
         String type = title.split(":")[0];
         String message = data.getString("message");
@@ -48,6 +49,7 @@ public class GCMListener extends GcmListenerService {
 
     private void sendNotification(Bundle data) {
         String title = "", eventId = "", url="", albumId, message="";
+
         Class intentClass = null;
         Intent intent;
         url = data.getString("url");
@@ -117,7 +119,7 @@ public class GCMListener extends GcmListenerService {
         NotificationManager mNotificationManager =
                 (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        mNotificationManager.notify(1, notification);
+        mNotificationManager.notify(count, notification);
 
 
 //        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)

@@ -54,7 +54,7 @@ public class CalendarMonthFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    public int month, year;
+    public static int month, year;
     private CaldroidFragment caldroidFragment;
     private ProgressDialog progressDialog;
     private View viewFragment;
@@ -231,8 +231,6 @@ public class CalendarMonthFragment extends Fragment {
         EventManager.getSharedInstance().getEventsMonthWise(object, new EventManager.GetMonthwiseEventsManagerListener() {
             @Override
             public void onCompletion(EventDataReponse data, AppError error) {
-
-
 
                 if (data != null){
                     if (data.getEventData().getEvents() != null){

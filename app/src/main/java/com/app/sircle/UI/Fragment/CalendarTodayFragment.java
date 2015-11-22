@@ -106,6 +106,7 @@ public class CalendarTodayFragment extends Fragment {
         termsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // open calendar with month and year
 
             }
         });

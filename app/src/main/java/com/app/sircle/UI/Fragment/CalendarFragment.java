@@ -32,7 +32,7 @@ public class CalendarFragment extends Fragment {
 
     private PagerSlidingTabStrip tabs;
     private ViewPager pager;
-    private MyPagerAdapter adapter;
+    public static MyPagerAdapter adapter;
     FloatingActionsMenu menuMultipleActions =  null;
 
 

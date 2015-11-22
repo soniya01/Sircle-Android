@@ -18,6 +18,9 @@ public class RegistrationIntentService extends IntentService {
 
     private static final String TAG = "RegIntentService";
     private static final String[] TOPICS = {"global"};
+    String token = "";
+    InstanceID instanceID;
+    SharedPreferences sharedPreferences;
 
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
@@ -33,28 +36,35 @@ public class RegistrationIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
 
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        try {
 
-            InstanceID instanceID = InstanceID.getInstance(this);
+            instanceID = InstanceID.getInstance(this);
             // R.string.gcm_defaultSenderId (the Sender ID) is typically derived from google-services.json.
-            String token = instanceID.getToken(getString(R.string.gcm_defaultSenderId),
-                    GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
 
-            // TODO: Implement this method to send any registration to your app's servers.
-            Constants.GCM_REG_ID = token;
+            new Thread(new Runnable() {
+                public void run() {
+                    //code
+                    try {
+                        token = instanceID.getToken(getString(R.string.gcm_defaultSenderId),
+                                GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
+
+                        // TODO: Implement this method to send any registration to your app's servers.
+                        Constants.GCM_REG_ID = token;
+                        sharedPreferences.edit().putBoolean(Constants.SENT_TOKEN_TO_SERVER, true).apply();
+                    }catch (Exception e) {
+                        System.out.println("exc: "+e);
+                        sharedPreferences.edit().putBoolean(Constants.SENT_TOKEN_TO_SERVER, false).apply();
+                    }
+
+                    Intent registrationComplete = new Intent(Constants.REGISTRATION_COMPLETE);
+                    LocalBroadcastManager.getInstance(RegistrationIntentService.this).sendBroadcast(registrationComplete);
+                }
+            }).start();
 
             // Subscribe to topic channels
             //subscribeTopics(token);
-
-            sharedPreferences.edit().putBoolean(Constants.SENT_TOKEN_TO_SERVER, true).apply();
-        } catch (Exception e) {
-            sharedPreferences.edit().putBoolean(Constants.SENT_TOKEN_TO_SERVER, false).apply();
         }
         // Notify UI that registration has completed, so the progress indicator can be hidden.
-        Intent registrationComplete = new Intent(Constants.REGISTRATION_COMPLETE);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(registrationComplete);
 
     }
-}

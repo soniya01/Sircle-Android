@@ -105,6 +105,8 @@ public class LoginScreen extends Activity {
                     loginUser();
 
 
+                }else {
+                    Toast.makeText(LoginScreen.this, "Some error occurred while registering the app for notification", Toast.LENGTH_SHORT).show();
                 }
                 //else {
 //                        Intent intent_receiver = new Intent(LoginScreen.this, GCMListener.class);
@@ -137,6 +139,8 @@ public class LoginScreen extends Activity {
                             NotificationManager.grpIds.clear();
                             sessionExpiryDate = new Date();
                             LoginManager.accessToken = response.getUserData().getOauth().getAccessToken();//  //getOauth().getAccessToken();
+                            LoginManager.expiresIn = response.getUserData().getOauth().getExpiresIn();
+                            LoginManager.loggedInTime = new Date().getTime();
                             //editor.putString(Constants.LOGIN_USERNAME_PREFS_KEY, response.getUserData().getOauth().getAccessToken());
                             //editor.putString(Constants.LOGIN_PASSWORD_PREFS_KEY, passwordEditText.getText().toString());
 
