@@ -1,6 +1,8 @@
 package com.app.sircle.UI.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ import com.app.sircle.WebService.GroupResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -30,6 +33,7 @@ public class NotificationsGroupAdapter extends BaseAdapter {
     private Context context;
     private List<NotificationGroups> notificationsGroupList = new ArrayList<NotificationGroups>();
     private LayoutInflater inflater;
+    SharedPreferences.Editor editor;
 
 
     public NotificationsGroupAdapter(Context context, List<NotificationGroups> notificationsGroupList) {
@@ -56,9 +60,15 @@ public class NotificationsGroupAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-
+        SharedPreferences sharedPreferences;
         final ViewHolder viewHolder;
+        sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(context);
+        //List<String> sentToken = sharedPreferences.getStringSet(Constants.SENT_TOKEN_TO_SERVER, false);
+        //Constants.GCM_REG_ID = sharedPreferences.getString(Constants.TOKEN_TO_SERVER,"");
         if (convertView == null) {
+
+           // NotificationManager.grpIds = (List<String>)sharedPreferences.getStringSet(Constants.GROUP_IDS,null);
             viewHolder = new ViewHolder();
             convertView = inflater.inflate(R.layout.notifications_settings_list_item,
                     parent, false);
@@ -89,7 +99,10 @@ public class NotificationsGroupAdapter extends BaseAdapter {
             }
 
         }
-
+        editor = sharedPreferences.edit();
+        Set<String> set = new HashSet<>();
+        set.addAll(NotificationManager.grpIds);
+        editor.putStringSet(Constants.GROUP_IDS, set).apply();
         viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
@@ -107,7 +120,7 @@ public class NotificationsGroupAdapter extends BaseAdapter {
                     NotificationManager.grpIds.remove(notificationsGroupList.get(pos).getId());
                 }
 
-
+                editor.putStringSet(Constants.GROUP_IDS, (Set<String>) NotificationManager.grpIds).apply();
 
 //                int status =  isChecked ? 1 : 0;
 //                HashMap map = new HashMap();

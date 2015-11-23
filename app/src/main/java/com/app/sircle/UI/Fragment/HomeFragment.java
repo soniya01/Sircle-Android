@@ -5,7 +5,9 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.view.Gravity;
@@ -19,10 +21,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.sircle.DownLoader.FetchAppData;
+import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.BaseActivity;
 import com.app.sircle.UI.SlidingPane.SlidingPaneInterface;
 import com.app.sircle.Utility.Common;
+import com.app.sircle.Utility.Constants;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by soniya on 7/22/15.
@@ -184,7 +191,10 @@ public class HomeFragment extends Fragment {
     }
 
     public void fetchAppData(){
-
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+       Set<String> grpIds = sharedPreferences.getStringSet(Constants.GROUP_IDS,null);
+        NotificationManager.grpIds.addAll(grpIds);
+        Constants.GCM_REG_ID = sharedPreferences.getString(Constants.TOKEN_TO_SERVER, "");
         new FetchAppData().execute(fetchedDataDelegate);
     }
 

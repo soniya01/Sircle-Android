@@ -1,6 +1,9 @@
 package com.app.sircle.DownLoader;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 
 import com.app.sircle.Manager.DocumentManager;
 import com.app.sircle.Manager.EventManager;
@@ -8,9 +11,11 @@ import com.app.sircle.Manager.LinksManager;
 import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.Manager.PhotoManager;
 import com.app.sircle.Manager.VideoManager;
+import com.app.sircle.UI.Activity.LoginScreen;
 import com.app.sircle.UI.Model.Event;
 import com.app.sircle.UI.Model.Terms;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.Utility.Constants;
 import com.app.sircle.WebService.DocumentsResponse;
 import com.app.sircle.WebService.EventDataReponse;
 import com.app.sircle.WebService.GroupResponse;
@@ -21,6 +26,8 @@ import com.app.sircle.WebService.VideoResponse;
 
 import java.util.HashMap;
 import java.util.List;
+
+import retrofit.mime.FormUrlEncodedTypedOutput;
 
 /**
  * Created by soniya on 10/10/15.
@@ -59,7 +66,7 @@ private FetchedDataDelegate fetchedDataDelegate;
             }
         }
         HashMap object = new HashMap();
-        object.put("regId", "id");
+        object.put("regId", Constants.GCM_REG_ID);
 
         NotificationManager.getSharedInstance().getAllGroups(object, new NotificationManager.GroupsManagerListener() {
             @Override
@@ -68,11 +75,12 @@ private FetchedDataDelegate fetchedDataDelegate;
             }
         });
 
+        HashMap request = new HashMap();
+        request.put("regId", Constants.GCM_REG_ID);
+        request.put("groupId",grpIdString);
+        request.put("page", 1);
 
-        object.put("groupId",grpIdString);
-        object.put("page", 1);
-
-        EventManager.getSharedInstance().getAllEvents(object, new EventManager.GetMonthwiseEventsManagerListener() {
+        EventManager.getSharedInstance().getAllEvents(request, new EventManager.GetMonthwiseEventsManagerListener() {
             @Override
             public void onCompletion(EventDataReponse data, AppError error) {
 
@@ -86,35 +94,35 @@ private FetchedDataDelegate fetchedDataDelegate;
             }
         });
 
-        DocumentManager.getSharedInstance().getAllDocs(object, new DocumentManager.GetNewsManagerListener() {
+        DocumentManager.getSharedInstance().getAllDocs(request, new DocumentManager.GetNewsManagerListener() {
             @Override
             public void onCompletion(DocumentsResponse response, AppError error) {
 
             }
         });
 
-        DocumentManager.getSharedInstance().getAllNewsLetters(object, new DocumentManager.GetNewsManagerListener() {
+        DocumentManager.getSharedInstance().getAllNewsLetters(request, new DocumentManager.GetNewsManagerListener() {
             @Override
             public void onCompletion(DocumentsResponse response, AppError error) {
 
             }
         });
 
-        LinksManager.getSharedInstance().getAllLinks(object, new LinksManager.LinksManagerListener() {
+        LinksManager.getSharedInstance().getAllLinks(request, new LinksManager.LinksManagerListener() {
             @Override
             public void onCompletion(LinksResponse response, AppError error) {
 
             }
         });
 
-        PhotoManager.getSharedInstance().getAlbums(object, new PhotoManager.GetAlbumsManagerListener() {
+        PhotoManager.getSharedInstance().getAlbums(request, new PhotoManager.GetAlbumsManagerListener() {
             @Override
             public void onCompletion(PhotoResponse response, AppError error) {
 
             }
         });
 
-        VideoManager.getSharedInstance().getAllVideos(object, new VideoManager.VideoManagerListener() {
+        VideoManager.getSharedInstance().getAllVideos(request, new VideoManager.VideoManagerListener() {
             @Override
             public void onCompletion(VideoResponse response, AppError error) {
 
@@ -122,7 +130,7 @@ private FetchedDataDelegate fetchedDataDelegate;
         });
 
 
-        NotificationManager.getSharedInstance().getAllNotifications(object, new NotificationManager.NotificationManagerListener() {
+        NotificationManager.getSharedInstance().getAllNotifications(request, new NotificationManager.NotificationManagerListener() {
             @Override
             public void onCompletion(NotificationResponse response, AppError error) {
 

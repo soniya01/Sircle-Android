@@ -50,7 +50,9 @@ public class RegistrationIntentService extends IntentService {
                                 GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
 
                         // TODO: Implement this method to send any registration to your app's servers.
+
                         Constants.GCM_REG_ID = token;
+                        sharedPreferences.edit().putString(Constants.TOKEN_TO_SERVER, token).apply();
                         sharedPreferences.edit().putBoolean(Constants.SENT_TOKEN_TO_SERVER, true).apply();
                     }catch (Exception e) {
                         System.out.println("exc: "+e);

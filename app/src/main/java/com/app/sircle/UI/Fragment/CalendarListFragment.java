@@ -99,7 +99,7 @@ public class CalendarListFragment extends Fragment {
 
         //populateDummyData();
         calendarMonthListView = (ListView)viewFragment.findViewById(R.id.fragment_month_list_view);
-        calendarMonthList = EventManager.eventList;
+        //calendarMonthList = EventManager.eventList;
         calendarMonthListViewAdapter = new CalendarMonthListAdapter(getActivity(), calendarMonthList);
         calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
 
@@ -115,9 +115,9 @@ public class CalendarListFragment extends Fragment {
             }
         });
 
-        if (calendarMonthList.size() <= 0){
+        //if (calendarMonthList.size() <= 0){
             populateDummyData();
-        }
+        //}
 
         return viewFragment;
     }

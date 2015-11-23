@@ -1,5 +1,7 @@
 package com.app.sircle.WebService.Common;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.widget.Switch;
 
 import com.app.sircle.Manager.LoginManager;
@@ -454,6 +456,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
 //        final OkHttpClient okHttpClient = new OkHttpClient();
 //        okHttpClient.setReadTimeout(60, TimeUnit.SECONDS);
 //        okHttpClient.setConnectTimeout(60, TimeUnit.SECONDS);
+
 
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint(this.baseURL + url)
