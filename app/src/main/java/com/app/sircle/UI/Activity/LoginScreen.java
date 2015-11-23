@@ -145,7 +145,7 @@ public class LoginScreen extends Activity {
                             editor.putString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, response.getUserData().getOauth().getAccessToken());
                             editor.putLong(Constants.LOGIN_EXPIRES_IN_PREFS_KEY, response.getUserData().getOauth().getExpiresIn());
                             editor.putLong(Constants.LOGIN_LOGGED_IN_PREFS_KEY, new Date().getTime());
-
+editor.apply();
                             Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                             Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);
                             startActivity(homeIntent);
