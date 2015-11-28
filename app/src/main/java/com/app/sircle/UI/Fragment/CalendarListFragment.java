@@ -97,11 +97,10 @@ public class CalendarListFragment extends Fragment {
         View viewFragment = inflater.inflate(R.layout.fragment_calendar_list,
                 null, true);
 
-        //populateDummyData();
+
         calendarMonthListView = (ListView)viewFragment.findViewById(R.id.fragment_month_list_view);
         //calendarMonthList = EventManager.eventList;
-        calendarMonthListViewAdapter = new CalendarMonthListAdapter(getActivity(), calendarMonthList);
-        calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
+
 
         footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
         calendarMonthListView.addFooterView(footerView);
@@ -161,6 +160,12 @@ public class CalendarListFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        populateDummyData();
+    }
+
     public void populateDummyData(){
 
         String grpIdString = "";
@@ -187,8 +192,20 @@ public class CalendarListFragment extends Fragment {
                 if (data != null){
                     if (data.getEventData().getEvents() != null){
                         if (data.getEventData().getEvents().size() > 0){
-                            calendarMonthList.addAll(data.getEventData().getEvents());
-                            calendarMonthListViewAdapter.notifyDataSetChanged();
+                            if (calendarMonthList.size() == 0){
+                                calendarMonthList.clear();
+                                calendarMonthList.addAll(data.getEventData().getEvents());
+                                calendarMonthListViewAdapter = new CalendarMonthListAdapter(getActivity(), calendarMonthList);
+                                calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
+
+                            }else {
+                                calendarMonthList.clear();
+                                calendarMonthList.addAll(data.getEventData().getEvents());
+                                calendarMonthListViewAdapter.notifyDataSetChanged();
+                            }
+
+
+
 
 
                         }else {

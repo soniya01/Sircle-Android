@@ -193,6 +193,7 @@ public class HomeFragment extends Fragment {
     public void fetchAppData(){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
        Set<String> grpIds = sharedPreferences.getStringSet(Constants.GROUP_IDS,null);
+        NotificationManager.grpIds.clear();
         NotificationManager.grpIds.addAll(grpIds);
         Constants.GCM_REG_ID = sharedPreferences.getString(Constants.TOKEN_TO_SERVER, "");
         new FetchAppData().execute(fetchedDataDelegate);
