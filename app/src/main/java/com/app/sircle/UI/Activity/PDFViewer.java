@@ -10,21 +10,25 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.sircle.DownLoader.FileDownloader;
 import com.app.sircle.R;
 import com.app.sircle.Utility.Constants;
 import com.joanzapata.pdfview.PDFView;
+import com.joanzapata.pdfview.listener.OnPageChangeListener;
 
 import java.io.File;
 import java.io.IOException;
 
-public class PDFViewer extends Activity {
+import static java.lang.String.format;
+
+public class PDFViewer extends Activity implements OnPageChangeListener {
 
     PDFView pdfView;
 
-
+TextView pdfPageCount;
     ProgressDialog mProgressDialog;
 
     @Override
@@ -32,7 +36,11 @@ public class PDFViewer extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdfviewer);
 
+        pdfPageCount = (TextView)findViewById(R.id.pdfPageCount);
+
         pdfView = (PDFView) findViewById(R.id.pdfview);
+
+       // pdfView.
        mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setMessage("Loading");
        mProgressDialog.setIndeterminate(true);
@@ -60,12 +68,18 @@ public class PDFViewer extends Activity {
         File pdfFile = new File(Environment.getExternalStorageDirectory() + "/Sircle/" + fileName);  // -> filename
         long len = pdfFile.length();
         if(pdfFile.exists() && pdfFile.canRead() && pdfFile.length() != 0) {
-            pdfView.fromFile(pdfFile).defaultPage(1).load();
+            pdfView.fromFile(pdfFile).defaultPage(1).onPageChange(this).load();
+            pdfPageCount.setText(pdfView.getCurrentPage()+"/"+pdfView.getPageCount());
         }
         else {
             download(url);
         }
 
+    }
+
+    @Override
+    public void onPageChanged(int page, int pageCount) {
+        pdfPageCount.setText(page+"/"+pageCount);
     }
 
     private class DownloadFile extends AsyncTask<String, Void, Void> {
@@ -124,7 +138,9 @@ public class PDFViewer extends Activity {
 
                 File pdfFile = new File(Environment.getExternalStorageDirectory() + "/Sircle/" + fileName);  // -> filename
                 if(pdfFile.exists() && pdfFile.length() != 0) {
-                    pdfView.fromFile(pdfFile).defaultPage(1).load();
+                   // pdfView.fromFile(pdfFile).defaultPage(1).load();
+                    pdfView.fromFile(pdfFile).defaultPage(1).onPageChange(PDFViewer.this).load();
+                    pdfPageCount.setText(pdfView.getCurrentPage() + "/" + pdfView.getPageCount());
                 }
 
          //   }
