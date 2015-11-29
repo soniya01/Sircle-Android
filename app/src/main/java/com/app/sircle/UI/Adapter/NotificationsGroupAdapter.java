@@ -33,7 +33,7 @@ public class NotificationsGroupAdapter extends BaseAdapter {
     private Context context;
     private List<NotificationGroups> notificationsGroupList = new ArrayList<NotificationGroups>();
     private LayoutInflater inflater;
-    SharedPreferences.Editor editor;
+    SharedPreferences.Editor editor ;
 
 
     public NotificationsGroupAdapter(Context context, List<NotificationGroups> notificationsGroupList) {
@@ -60,7 +60,7 @@ public class NotificationsGroupAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        SharedPreferences sharedPreferences;
+      final   SharedPreferences sharedPreferences;
         final ViewHolder viewHolder;
         sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(context);
@@ -120,7 +120,12 @@ public class NotificationsGroupAdapter extends BaseAdapter {
                     NotificationManager.grpIds.remove(notificationsGroupList.get(pos).getId());
                 }
 
-                editor.putStringSet(Constants.GROUP_IDS, (Set<String>) NotificationManager.grpIds).apply();
+
+                editor = sharedPreferences.edit();
+                Set<String> set = new HashSet<>();
+                set.addAll(NotificationManager.grpIds);
+                editor.putStringSet(Constants.GROUP_IDS, set).apply();
+               // editor.putStringSet(Constants.GROUP_IDS, (Set<String>) NotificationManager.grpIds).apply();
 
 //                int status =  isChecked ? 1 : 0;
 //                HashMap map = new HashMap();
