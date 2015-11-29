@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.sircle.DownLoader.FetchAppData;
+import com.app.sircle.Manager.LoginManager;
 import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.BaseActivity;
@@ -195,6 +196,9 @@ public class HomeFragment extends Fragment {
        Set<String> grpIds = sharedPreferences.getStringSet(Constants.GROUP_IDS,null);
         NotificationManager.grpIds.clear();
         NotificationManager.grpIds.addAll(grpIds);
+
+        SharedPreferences loginSharedPreferences = getActivity().getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
+        LoginManager.accessToken = loginSharedPreferences.getString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY,null);
         Constants.GCM_REG_ID = sharedPreferences.getString(Constants.TOKEN_TO_SERVER, "");
         new FetchAppData().execute(fetchedDataDelegate);
     }

@@ -163,7 +163,7 @@ public class CalendarListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        populateDummyData();
+       // populateDummyData();
     }
 
     public void populateDummyData(){

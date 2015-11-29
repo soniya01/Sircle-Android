@@ -277,7 +277,7 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
 
     public void checkIfSessionExpired(){
         SharedPreferences loginSharedPreferences = this.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
-        long lastActivity = new Date().getTime();
+        long lastActivity = new Date().getTime()*1000;
         long loggedIn = loginSharedPreferences.getLong(Constants.LOGIN_LOGGED_IN_PREFS_KEY,0);
         long expiresIn = loginSharedPreferences.getLong(Constants.LOGIN_EXPIRES_IN_PREFS_KEY, 0);
             if ((lastActivity - loggedIn) > expiresIn){

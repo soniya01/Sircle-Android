@@ -57,9 +57,9 @@ public class SplashActivity extends Activity {
         if (accessToken != null){
             loggedIn = loginSharedPreferences.getLong(Constants.LOGIN_LOGGED_IN_PREFS_KEY,0);
             expiresIn = loginSharedPreferences.getLong(Constants.LOGIN_EXPIRES_IN_PREFS_KEY, 0);
-            if (lastActivity - loggedIn > expiresIn){
+            if (((lastActivity*1000) - loggedIn) > expiresIn){
                 editor.putLong(Constants.LOGIN_LOGGED_IN_PREFS_KEY,new Date().getTime()).apply();
-                editor.putString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, null).apply();
+                //editor.putString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, null).apply();
                 Toast.makeText(this, "Session expired", Toast.LENGTH_SHORT).show();
                 loginIntent = new Intent(this, LoginScreen.class);
             }else {

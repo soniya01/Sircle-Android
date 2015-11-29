@@ -81,11 +81,12 @@ public class LoginScreen extends Activity {
                  editor = loginSharedPrefs.edit();
                 LoginManager.accessToken = loginSharedPrefs.getString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY,null);
 
-                if (LoginManager.accessToken != null){
+                if (Constants.GCM_REG_ID !=  null){
                     ringProgressDialog.dismiss();
-                    Toast.makeText(LoginScreen.this, "User already logged in", Toast.LENGTH_SHORT).show();
-                    Intent homeIntent = new Intent(LoginScreen.this, BaseActivity.class);
-                    startActivity(homeIntent);
+                    //Toast.makeText(LoginScreen.this, "User already logged in", Toast.LENGTH_SHORT).show();
+                    //Intent homeIntent = new Intent(LoginScreen.this, BaseActivity.class);
+                    //startActivity(homeIntent);
+                    loginUser();
 
                 }else {
                     // save username and password
@@ -145,8 +146,8 @@ public class LoginScreen extends Activity {
                             //LoginManager.expiresIn = response.getUserData().getOauth().getExpiresIn();
                             //LoginManager.loggedInTime = new Date().getTime();
                             editor.putString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, response.getUserData().getOauth().getAccessToken());
-                            editor.putLong(Constants.LOGIN_EXPIRES_IN_PREFS_KEY, response.getUserData().getOauth().getExpiresIn());
-                            editor.putLong(Constants.LOGIN_LOGGED_IN_PREFS_KEY, new Date().getTime());
+                            editor.putLong(Constants.LOGIN_EXPIRES_IN_PREFS_KEY, response.getUserData().getOauth().getExpiresIn() * 1000);
+                            editor.putLong(Constants.LOGIN_LOGGED_IN_PREFS_KEY, new Date().getTime() * 1000);
                             editor.apply();
                             Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                             Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);

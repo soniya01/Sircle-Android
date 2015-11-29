@@ -65,15 +65,15 @@ private FetchedDataDelegate fetchedDataDelegate;
                 grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
             }
         }
-        HashMap object = new HashMap();
-        object.put("regId", Constants.GCM_REG_ID);
-
-        NotificationManager.getSharedInstance().getAllGroups(object, new NotificationManager.GroupsManagerListener() {
-            @Override
-            public void onCompletion(GroupResponse groupResponse, AppError error) {
-
-            }
-        });
+//        HashMap object = new HashMap();
+//        object.put("regId", Constants.GCM_REG_ID);
+//
+//        NotificationManager.getSharedInstance().getAllGroups(object, new NotificationManager.GroupsManagerListener() {
+//            @Override
+//            public void onCompletion(GroupResponse groupResponse, AppError error) {
+//
+//            }
+//        });
 
         HashMap request = new HashMap();
         request.put("regId", Constants.GCM_REG_ID);
