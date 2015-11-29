@@ -63,9 +63,6 @@ public class GCMListener extends GcmListenerService {
         }else if(url.equals("eventPage")){
             intentClass = EventDetailActivity.class;
             BaseActivity.selectedModuleIndex = 1;
-        }else if(url.equals("albumPage")){
-            intentClass = BaseActivity.class;
-            BaseActivity.selectedModuleIndex = 1;
         }
         else if(url.equals("albumPage")){
                 intentClass = BaseActivity.class;
@@ -74,6 +71,9 @@ public class GCMListener extends GcmListenerService {
         else if (url.equals("PhotoListViewPage")){
                 intentClass = AlbumDetailsActivity.class;
                 BaseActivity.selectedModuleIndex = 5;
+        }else {
+            intentClass = BaseActivity.class;
+            BaseActivity.selectedModuleIndex = 1;
         }
 
         intent = new Intent(this, intentClass);
@@ -114,7 +114,8 @@ public class GCMListener extends GcmListenerService {
                     .setContentIntent(pendingIntent)
             .build();
         }
-        notification.defaults = Notification.FLAG_AUTO_CANCEL | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_SOUND;
+        notification.defaults =  Notification.DEFAULT_LIGHTS | Notification.DEFAULT_SOUND;
+        notification.flags = Notification.FLAG_AUTO_CANCEL;
 
         NotificationManager mNotificationManager =
                 (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
