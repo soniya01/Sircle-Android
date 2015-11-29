@@ -116,6 +116,8 @@ public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         map.put("groupId", grpIdString);
         map.put("page", 1);
 
+        System.out.print("Map "+map);
+
         LinksManager.getSharedInstance().getAllLinks(map, new LinksManager.LinksManagerListener() {
             @Override
             public void onCompletion(LinksResponse response, AppError error) {

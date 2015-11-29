@@ -79,7 +79,13 @@ public class LoginScreen extends Activity {
 
                loginSharedPrefs = LoginScreen.this.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
                  editor = loginSharedPrefs.edit();
-                LoginManager.accessToken = loginSharedPrefs.getString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY,null);
+                LoginManager.accessToken = loginSharedPrefs.getString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, null);
+
+                SharedPreferences sharedPreferences =
+                        PreferenceManager.getDefaultSharedPreferences(LoginScreen.this);
+              //  boolean sentToken = sharedPreferences.getBoolean(Constants.SENT_TOKEN_TO_SERVER, false);
+                Constants.GCM_REG_ID = sharedPreferences.getString(Constants.TOKEN_TO_SERVER, null);
+
 
                 if (Constants.GCM_REG_ID !=  null){
                     ringProgressDialog.dismiss();
@@ -104,7 +110,7 @@ public class LoginScreen extends Activity {
                 SharedPreferences sharedPreferences =
                         PreferenceManager.getDefaultSharedPreferences(context);
                 boolean sentToken = sharedPreferences.getBoolean(Constants.SENT_TOKEN_TO_SERVER, false);
-                Constants.GCM_REG_ID = sharedPreferences.getString(Constants.TOKEN_TO_SERVER,"");
+                Constants.GCM_REG_ID = sharedPreferences.getString(Constants.TOKEN_TO_SERVER,null);
                 if (sentToken) {
                     loginUser();
 

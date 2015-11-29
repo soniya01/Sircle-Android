@@ -199,7 +199,7 @@ public class HomeFragment extends Fragment {
 
         SharedPreferences loginSharedPreferences = getActivity().getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
         LoginManager.accessToken = loginSharedPreferences.getString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY,null);
-        Constants.GCM_REG_ID = sharedPreferences.getString(Constants.TOKEN_TO_SERVER, "");
+        Constants.GCM_REG_ID = sharedPreferences.getString(Constants.TOKEN_TO_SERVER, null);
         new FetchAppData().execute(fetchedDataDelegate);
     }
 
