@@ -54,6 +54,8 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle(PhotosFragment.albumName);
+
 
         albumGridView = (GridView)findViewById(R.id.album_details_grid_view);
         floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
