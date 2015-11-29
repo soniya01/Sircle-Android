@@ -6,20 +6,27 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.app.sircle.Manager.LoginManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.AddNotificationActivity;
 import com.app.sircle.UI.Activity.AlbumDetailsActivity;
 import com.app.sircle.UI.Activity.BaseActivity;
 import com.app.sircle.UI.Activity.EventDetailActivity;
+import com.app.sircle.Utility.Constants;
 import com.google.android.gms.gcm.GcmListenerService;
+
+import java.util.Set;
 
 /**
  * Created by soniya on 26/10/15.
@@ -50,9 +57,27 @@ public class GCMListener extends GcmListenerService {
     private void sendNotification(Bundle data) {
         String title = "", eventId = "", url="", albumId, message="";
 
+
+        SharedPreferences loginSharedPrefs = getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
+        LoginManager.accessToken = loginSharedPrefs.getString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, null);
+
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        //  boolean sentToken = sharedPreferences.getBoolean(Constants.SENT_TOKEN_TO_SERVER, false);
+        Constants.GCM_REG_ID = sharedPreferences.getString(Constants.TOKEN_TO_SERVER, null);
+        Set<String> grpIds = sharedPreferences.getStringSet(Constants.GROUP_IDS,null);
+        com.app.sircle.Manager.NotificationManager.grpIds.clear();
+        com.app.sircle.Manager.NotificationManager.grpIds.addAll(grpIds);
+
+
+        // Toast.makeText(getBaseContext(), Constants.GCM_REG_ID,Toast.LENGTH_SHORT).show();
+
+        System.out.println("REG"+ Constants.GCM_REG_ID);
+
         Class intentClass = null;
         Intent intent;
         url = data.getString("url");
+
         title = data.getString("title");
         if (url.equals("notificationsPage")){
             message = data.getString("message");
@@ -89,6 +114,7 @@ public class GCMListener extends GcmListenerService {
 
             }
         }
+
 
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,

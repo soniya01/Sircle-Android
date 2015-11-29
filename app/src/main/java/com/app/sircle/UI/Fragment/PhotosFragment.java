@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.app.sircle.Manager.DocumentManager;
 import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.Manager.PhotoManager;
 import com.app.sircle.R;
@@ -145,7 +146,11 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
                 if (response != null) {
                     if (response.getStatus() == 200) {
                         if (response.getData().getAlbums().size() > 0) {
-                            photos = response.getData().getAlbums();
+                          //  photos = response.getData().getAlbums();
+                          //  photosListViewAdapter.notifyDataSetChanged();
+
+                            photos.clear();
+                            photos.addAll(PhotoManager.albumsList);
                             photosListViewAdapter.notifyDataSetChanged();
 
 //                            if (PhotosFragment.this.photos.size() > 0) {

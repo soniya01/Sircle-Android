@@ -118,7 +118,7 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
             @Override
             public void onCompletion(DocumentsResponse data, AppError error) {
                 progressBar.setVisibility(View.GONE);
-                swipeRefreshLayout.setRefreshing(false);
+//                swipeRefreshLayout.setRefreshing(false);
                 if (data != null) {
                     if (data.getStatus() == 200){
                         if (data.getData().getDocs().size() > 0){

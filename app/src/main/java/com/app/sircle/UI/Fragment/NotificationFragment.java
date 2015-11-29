@@ -110,6 +110,8 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
         object.put("groupId",grpIdString);
         object.put("page", 1);
 
+        System.out.println("REG" + Constants.GCM_REG_ID);
+
         NotificationManager.getSharedInstance().getAllNotifications(object, new NotificationManager.NotificationManagerListener() {
             @Override
             public void onCompletion(NotificationResponse data, AppError error) {

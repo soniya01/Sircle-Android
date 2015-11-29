@@ -57,7 +57,10 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
         //swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
         //swipeRefreshLayout.setOnRefreshListener(NewsLetterFragment.this);
 
-        if (DocumentManager.newsLetterList.size() <= 0){
+
+
+
+        if (newsLetterList.size() <= 0){
             /**
              * Showing Swipe Refresh animation on activity create
              * As animation won't start on onCreate, post runnable is used
@@ -114,6 +117,8 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
         map.put("groupId", grpIdString);
         map.put("page", 1);
 
+        System.out.println("Map " + map);
+
         DocumentManager.getSharedInstance().getAllNewsLetters(map, new DocumentManager.GetNewsManagerListener() {
             @Override
             public void onCompletion(DocumentsResponse response, AppError error) {
@@ -123,8 +128,19 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
                     if (response != null){
                         if (response.getStatus() == 200){
                             if (response.getData().getNewsLetters().size() > 0){
-                                NewsLetterFragment.this.newsLetterList = DocumentManager.newsLetterList;
+
+                               // System.out.println("Size "+DocumentManager.newsLetterList);
+
+//                                NewsLetterFragment.this.newsLetterList = DocumentManager.newsLetterList;
+//                                newsLetterListViewAdapter.notifyDataSetChanged();
+
+
+                                newsLetterList.clear();
+                                newsLetterList.addAll(DocumentManager.newsLetterList);
                                 newsLetterListViewAdapter.notifyDataSetChanged();
+
+
+
 //                                if (NewsLetterFragment.this.newsLetterList.size() == 0){
 //                                    NewsLetterFragment.this.newsLetterList.addAll(response.getData().getNewsLetters());
 //                                    newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), response.getData().getNewsLetters());

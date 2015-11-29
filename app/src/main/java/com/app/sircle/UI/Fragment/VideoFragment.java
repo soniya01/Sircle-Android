@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.app.sircle.Manager.DocumentManager;
 import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.Manager.VideoManager;
 import com.app.sircle.R;
@@ -154,7 +155,13 @@ Intent intent = new Intent(getActivity(), VimeoWebviewActivity.class);
                     if (response != null){
                         if (response.getStatus() == 200){
                             if (response.getData().getVideos().size() > 0){
-                                videoList = response.getData().getVideos();
+
+
+                                videoList.clear();
+                                videoList.addAll(VideoManager.videoList);
+                                //newsLetterListViewAdapter.notifyDataSetChanged();
+
+                               // videoList = response.getData().getVideos();
                                 videoListViewAdapter.notifyDataSetChanged();
 //                                if (VideoFragment.this.videoList.size() == 0) {
 //                                    VideoFragment.this.videoList.addAll(response.getData().getVideos());

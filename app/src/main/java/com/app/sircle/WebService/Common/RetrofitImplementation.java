@@ -1,6 +1,7 @@
 package com.app.sircle.WebService.Common;
 
-import android.content.SharedPreferences;
+import android.content.Context;
+
 import android.preference.PreferenceManager;
 import android.widget.Switch;
 

@@ -280,10 +280,15 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
         long lastActivity = new Date().getTime()/1000;
         long loggedIn = loginSharedPreferences.getLong(Constants.LOGIN_LOGGED_IN_PREFS_KEY,0);
         long expiresIn = loginSharedPreferences.getLong(Constants.LOGIN_EXPIRES_IN_PREFS_KEY, 0);
+
+        System.out.println("last Activity + logged In + expires in "+lastActivity+ " " + loggedIn + " " + expiresIn);
+
             if ((lastActivity - loggedIn) > expiresIn){
                 Toast.makeText(this, "Session expired. Please login again!", Toast.LENGTH_SHORT).show();
                 loginIntent = new Intent(this, LoginScreen.class);
                 startActivity(loginIntent);
+
+
             }else {
                // loginIntent = new Intent(this, BaseActivity.class);
             }
