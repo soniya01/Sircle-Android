@@ -6,8 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.sircle.R;
+import com.app.sircle.UI.Fragment.CalendarTodayFragment;
 import com.app.sircle.UI.Model.CalendarMonthlyListData;
 import com.app.sircle.UI.Model.Terms;
 
@@ -25,9 +27,11 @@ public class TermsAdapter extends BaseAdapter {
     private Context context;
     private List<Terms> termsList = new ArrayList<Terms>();
     private LayoutInflater inflater;
+    private CalendarTodayFragment termsFragment;
 
-    public TermsAdapter(Context context, List<Terms> termsList) {
+    public TermsAdapter(Context context, List<Terms> termsList,CalendarTodayFragment calendarTodayFragment) {
         this.context = context;
+        this.termsFragment = calendarTodayFragment;
         this.termsList = termsList;
         inflater  = (LayoutInflater) this.context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -51,7 +55,7 @@ public class TermsAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        ViewHolder viewHolder;
+        final ViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = inflater.inflate(R.layout.list_view_terms,
@@ -66,8 +70,28 @@ public class TermsAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.termsTitleLabel.setText(termsList.get(position).getTermTitle());
-        viewHolder.termsStartDateLabel.setText(termsList.get(position).getTermStartDate().substring(0,10));
+        viewHolder.termsStartDateLabel.setText(termsList.get(position).getTermStartDate().substring(0, 10));
          viewHolder.termsEndDateLabel.setText(termsList.get(position).getTermEndDate().substring(0,10));
+
+        viewHolder.termsStartDateLabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                termsFragment.showDialogCalendar(viewHolder.termsStartDateLabel.getText().toString());
+
+            }
+        });
+
+        viewHolder.termsEndDateLabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Toast.makeText(context,,Toast.LENGTH_SHORT).show();
+                termsFragment.showDialogCalendar(viewHolder.termsEndDateLabel.getText().toString());
+
+            }
+        });
+
 
         return convertView;
 

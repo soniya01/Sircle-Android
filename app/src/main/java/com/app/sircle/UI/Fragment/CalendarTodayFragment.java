@@ -19,8 +19,14 @@ import com.app.sircle.UI.Adapter.TermsAdapter;
 import com.app.sircle.UI.Model.CalendarMonthlyListData;
 import com.app.sircle.UI.Model.Terms;
 import com.app.sircle.Utility.AppError;
+import com.roomorama.caldroid.CaldroidFragment;
+import com.roomorama.caldroid.CaldroidListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,9 +40,12 @@ import java.util.List;
 public class CalendarTodayFragment extends Fragment {
 
     private ListView termsListView;
+    private CaldroidFragment dialogCaldroidFragment;
     private TermsAdapter termsListViewAdapter;
     private List<Terms> termsList = new ArrayList<Terms>();
     private View footerView;
+    CaldroidListener listener;
+    Bundle state ;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -89,8 +98,10 @@ public class CalendarTodayFragment extends Fragment {
         View viewFragment = inflater.inflate(R.layout.fragment_calendar_today,
                 null, true);
 
+        state = savedInstanceState;
+
         termsListView = (ListView)viewFragment.findViewById(R.id.fragment_term_list_view);
-        termsListViewAdapter = new TermsAdapter(getActivity(), EventManager.termsList);
+        termsListViewAdapter = new TermsAdapter(getActivity(), EventManager.termsList,this);
         termsListView.setAdapter(termsListViewAdapter);
 
         if (EventManager.getSharedInstance().termsList.size() <= 0){
@@ -103,13 +114,49 @@ public class CalendarTodayFragment extends Fragment {
         // footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
         // calendarMonthListView.addFooterView(footerView);
 
-        termsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//        termsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                // open calendar with month and year
+//
+//            }
+//        });
+
+
+        listener = new CaldroidListener() {
+
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // open calendar with month and year
+            public void onSelectDate(Date date, View view) {
+//                Toast.makeText(getApplicationContext(), formatter.format(date),
+//                        Toast.LENGTH_SHORT).show();
 
             }
-        });
+
+            @Override
+            public void onChangeMonth(int month, int year) {
+                String text = "month: " + month + " year: " + year;
+//                Toast.makeText(getApplicationContext(), text,
+//                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onLongClickDate(Date date, View view) {
+//                Toast.makeText(getApplicationContext(),
+//                        "Long click " + formatter.format(date),
+//                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCaldroidViewCreated() {
+//                if (caldroidFragment.getLeftArrowButton() != null) {
+//                    Toast.makeText(getApplicationContext(),
+//                            "Caldroid view is created", Toast.LENGTH_SHORT)
+//                            .show();
+//                }
+            }
+
+        };
+
 
 
         return viewFragment;
@@ -191,4 +238,54 @@ public class CalendarTodayFragment extends Fragment {
 
     }
 
+    public void showDialogCalendar(String date)
+    {
+        //String dateString = "03/26/2012 11:49:00 AM";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date convertedDate = new Date();
+        try {
+            convertedDate = dateFormat.parse(date);
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        Calendar thatDay = Calendar.getInstance();
+        thatDay.setTime(convertedDate);
+
+      //  Toast.makeText(getActivity(),convertedDate.toString(),Toast.LENGTH_SHORT).show();
+
+        dialogCaldroidFragment = new CaldroidFragment();
+        dialogCaldroidFragment.setCaldroidListener(listener);
+
+
+        // If activity is recovered from rotation
+        final String dialogTag = "CALDROID_DIALOG_FRAGMENT";
+        if (state != null) {
+            dialogCaldroidFragment.restoreDialogStatesFromKey(
+                    getFragmentManager(), state,
+                    "DIALOG_CALDROID_SAVED_STATE", dialogTag);
+            Bundle args = dialogCaldroidFragment.getArguments();
+            if (args == null) {
+                args = new Bundle();
+              //  Bundle args = new Bundle();
+               // final Calendar cal = Calendar.getInstance();
+                args.putInt(CaldroidFragment.MONTH, thatDay.get(Calendar.MONTH) + 1);
+                args.putInt(CaldroidFragment.YEAR, thatDay.get(Calendar.YEAR));
+                dialogCaldroidFragment.setArguments(args);
+            }
+        } else {
+            // Setup arguments
+            Bundle bundle = new Bundle();
+            bundle.putInt(CaldroidFragment.MONTH, thatDay.get(Calendar.MONTH) + 1);
+            bundle.putInt(CaldroidFragment.YEAR, thatDay.get(Calendar.YEAR));
+            // Setup dialogTitle
+            dialogCaldroidFragment.setArguments(bundle);
+        }
+
+        dialogCaldroidFragment.show(getFragmentManager(),
+                dialogTag);
+
+        dialogCaldroidFragment.setSelectedDates(convertedDate,convertedDate);
+    }
 }
