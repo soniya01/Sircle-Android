@@ -6,11 +6,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.app.sircle.Manager.EventManager;
@@ -48,6 +52,7 @@ public class CalendarListFragment extends Fragment {
     private List<Event> calendarMonthList = new ArrayList<Event>();
     private View footerView;
     ProgressDialog ringProgressDialog;
+    private View viewFragment;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -94,7 +99,7 @@ public class CalendarListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View viewFragment = inflater.inflate(R.layout.fragment_calendar_list,
+        viewFragment = inflater.inflate(R.layout.fragment_calendar_list,
                 null, true);
 
 
@@ -163,7 +168,7 @@ public class CalendarListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-       // populateDummyData();
+        populateDummyData();
     }
 
     public void populateDummyData(){
@@ -180,15 +185,24 @@ public class CalendarListFragment extends Fragment {
         map.put("regId", Constants.GCM_REG_ID);
         map.put("month",CalendarMonthFragment.month);
         map.put("year", CalendarMonthFragment.year);
-        map.put("page",1);
-        map.put("groupId",grpIdString);
+        map.put("page", 1);
+        map.put("groupId", grpIdString);
 
-        ringProgressDialog = ProgressDialog.show(getActivity(), "", "", true);
+        //ringProgressDialog = ProgressDialog.show(getActivity(), "", "", true);
+
+        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
+        progressBar.setIndeterminate(true);
+        progressBar.setVisibility(View.VISIBLE);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
+        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+        //layoutParams.gravity = Gravity.CENTER;
+        ((RelativeLayout) viewFragment).addView(progressBar, layoutParams);
 
         EventManager.getSharedInstance().getEventsMonthWise(map, new EventManager.GetMonthwiseEventsManagerListener() {
             @Override
             public void onCompletion(EventDataReponse data, AppError error) {
-                ringProgressDialog.dismiss();
+               // ringProgressDialog.dismiss();
+                progressBar.setVisibility(View.GONE);
                 if (data != null){
                     if (data.getEventData().getEvents() != null){
                         if (data.getEventData().getEvents().size() > 0){
@@ -203,11 +217,6 @@ public class CalendarListFragment extends Fragment {
                                 calendarMonthList.addAll(data.getEventData().getEvents());
                                 calendarMonthListViewAdapter.notifyDataSetChanged();
                             }
-
-
-
-
-
                         }else {
                             Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                         }
