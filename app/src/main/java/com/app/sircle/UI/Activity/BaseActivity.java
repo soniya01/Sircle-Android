@@ -261,6 +261,8 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
                 // add sign out functionality and show LoginScreen
                 mDrawerLayout.closeDrawer(mDrawerList);
                 fragmentToLoad = null;
+                selectedModuleIndex = 0;
+                handleSharedPreferencesOnLogout();
                 Intent loginIntent = new Intent(BaseActivity.this, LoginScreen.class);
                 startActivity(loginIntent);
             default:
@@ -285,6 +287,7 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
 
             if ((lastActivity - loggedIn) > expiresIn){
                 Toast.makeText(this, "Session expired. Please login again!", Toast.LENGTH_SHORT).show();
+                handleSharedPreferencesOnLogout();
                 loginIntent = new Intent(this, LoginScreen.class);
                 startActivity(loginIntent);
 
@@ -336,6 +339,13 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
 
     }
 
+    public void handleSharedPreferencesOnLogout()
+    {
+        SharedPreferences loginSharedPrefs = BaseActivity.this.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor  editor = loginSharedPrefs.edit();
+        editor.putString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, null);
+        editor.apply();
+    }
 
     public void setActionBarTitle(String title) {
         getSupportActionBar().setTitle(title);
