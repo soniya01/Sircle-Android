@@ -114,6 +114,7 @@ public class NotificationsGroupAdapter extends BaseAdapter {
                   //  SettingsActivity.isAllChecked = -1;
                     notificationsGroupList.get(pos).setActive(1);
                 }else{
+                    if (SettingsActivity.allCheckBox!=null)
                     SettingsActivity.allCheckBox.setChecked(false);
                     //SettingsActivity.isAllChecked = -1;
                     notificationsGroupList.get(pos).setActive(0);
