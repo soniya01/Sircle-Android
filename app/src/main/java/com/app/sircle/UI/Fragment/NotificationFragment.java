@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -36,10 +37,13 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
     private NotificationListviewAdapter notificationListviewAdapter;
     private View footerView,viewFragment;
     private SwipeRefreshLayout swipeRefreshLayout;
+    int currentFirstVisibleItem,currentVisibleItemCount,currentScrollState,pageCount;
+    boolean isLoading;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        pageCount = 1;
 
         viewFragment = inflater.inflate(R.layout.fragment_notification, container, false);
 
@@ -83,7 +87,52 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
             }
         });
 
+        notificationListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+                currentScrollState = scrollState;
+                isScrollCompleted();
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount) {
+
+//                int lastInScreen = firstVisibleItem + visibleItemCount;
+//                if ((lastInScreen == totalItemCount) && !(false)) {
+//                  //  Toast.makeText(getActivity(),"Load More",Toast.LENGTH_SHORT).show();
+//                    System.out.println("Load More");
+//                }
+                currentFirstVisibleItem = firstVisibleItem;
+                currentVisibleItemCount = visibleItemCount;
+            }
+
+
+
+
+
+
+        });
+
+
         return viewFragment;
+    }
+
+    private void isScrollCompleted() {
+        if (this.currentVisibleItemCount > 0 && this.currentScrollState == 0) {
+            /*** In this way I detect if there's been a scroll which has completed ***/
+            /*** do the work for load more date! ***/
+            System.out.println("Load not");
+            if(!isLoading){
+                isLoading = true;
+                System.out.println("Load More");
+                loadMoreData();
+               // Toast.makeText(getActivity(),"Load More",Toast.LENGTH_SHORT).show();
+
+            }
+        }
     }
 
     public void populateDummyData() {
@@ -108,7 +157,7 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
         HashMap object = new HashMap();
         object.put("regId", Constants.GCM_REG_ID);
         object.put("groupId",grpIdString);
-        object.put("page", 1);
+        object.put("page", pageCount);
 
         System.out.println("REG" + Constants.GCM_REG_ID);
 
@@ -117,6 +166,7 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
             public void onCompletion(NotificationResponse data, AppError error) {
                 //progressBar.setVisibility(View.GONE);
                 swipeRefreshLayout.setRefreshing(false);
+
                 if (data != null) {
                     if (data.getStatus() == 200){
                         if (data.getData().getNotifications().size() > 0){
@@ -124,6 +174,7 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
                             notificationList.clear();
                             notificationList.addAll(NotificationManager.notificationList);
                             notificationListviewAdapter.notifyDataSetChanged();
+
                         }else {
                             Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -147,6 +198,54 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
 
     @Override
     public void onRefresh() {
+        pageCount = 1;
         populateDummyData();
+    }
+
+    public void loadMoreData()
+    {
+        pageCount = pageCount +1;
+        String grpIdString = "";
+        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
+            if (i == 0){
+                grpIdString = NotificationManager.grpIds.get(i);
+            }else {
+                grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
+            }
+
+        }
+        HashMap object = new HashMap();
+        object.put("regId", Constants.GCM_REG_ID);
+        object.put("groupId",grpIdString);
+        object.put("page", pageCount);
+
+        System.out.println("REG" + Constants.GCM_REG_ID);
+
+        NotificationManager.getSharedInstance().getAllNotifications(object, new NotificationManager.NotificationManagerListener() {
+            @Override
+            public void onCompletion(NotificationResponse data, AppError error) {
+                //progressBar.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
+                isLoading = false;
+                if (data != null) {
+                    if (data.getStatus() == 200){
+                        if (data.getData().getNotifications().size() > 0){
+                            //NotificationManager.notificationList.clear()
+                           // notificationList.clear();
+                            notificationList.addAll(NotificationManager.notificationList);
+                            notificationListviewAdapter.notifyDataSetChanged();
+                        }else {
+                            Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }else {
+                        Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+                    Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 }
