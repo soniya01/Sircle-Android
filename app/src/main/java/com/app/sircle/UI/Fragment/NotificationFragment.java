@@ -37,7 +37,7 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
     private NotificationListviewAdapter notificationListviewAdapter;
     private View footerView,viewFragment;
     private SwipeRefreshLayout swipeRefreshLayout;
-    int currentFirstVisibleItem,currentVisibleItemCount,currentScrollState,pageCount;
+    int currentFirstVisibleItem,currentVisibleItemCount,currentScrollState,pageCount, totalRecord;
     boolean isLoading;
 
     @Override
@@ -121,18 +121,24 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
     }
 
     private void isScrollCompleted() {
-        if (this.currentVisibleItemCount > 0 && this.currentScrollState == 0) {
-            /*** In this way I detect if there's been a scroll which has completed ***/
-            /*** do the work for load more date! ***/
-            System.out.println("Load not");
-            if(!isLoading){
-                isLoading = true;
-                System.out.println("Load More");
-                loadMoreData();
-               // Toast.makeText(getActivity(),"Load More",Toast.LENGTH_SHORT).show();
 
+        if (totalRecord == notificationList.size()){
+
+        }else {
+            if (this.currentVisibleItemCount > 0 && this.currentScrollState == 0) {
+                /*** In this way I detect if there's been a scroll which has completed ***/
+                /*** do the work for load more date! ***/
+                System.out.println("Load not");
+                if(!isLoading){
+                    isLoading = true;
+                    System.out.println("Load More");
+                    loadMoreData();
+                    // Toast.makeText(getActivity(),"Load More",Toast.LENGTH_SHORT).show();
+
+                }
             }
         }
+
     }
 
     public void populateDummyData() {
@@ -165,12 +171,14 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
             @Override
             public void onCompletion(NotificationResponse data, AppError error) {
                 //progressBar.setVisibility(View.GONE);
+
                 swipeRefreshLayout.setRefreshing(false);
 
                 if (data != null) {
                     if (data.getStatus() == 200){
                         if (data.getData().getNotifications().size() > 0){
                             //NotificationManager.notificationList.clear()
+                            totalRecord = data.getData().getTotalRecords();
                             notificationList.clear();
                             notificationList.addAll(NotificationManager.notificationList);
                             notificationListviewAdapter.notifyDataSetChanged();
@@ -193,6 +201,7 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
     @Override
     public void onResume() {
         super.onResume();
+        populateDummyData();
         //notificationListviewAdapter.notifyDataSetChanged();
     }
 

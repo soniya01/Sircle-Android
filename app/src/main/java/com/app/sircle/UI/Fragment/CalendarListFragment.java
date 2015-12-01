@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
@@ -44,7 +45,7 @@ import java.util.List;
  * Use the {@link CalendarListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CalendarListFragment extends Fragment {
+public class CalendarListFragment extends Fragment implements AbsListView.OnScrollListener{
 
 
     private ListView calendarMonthListView;
@@ -53,6 +54,8 @@ public class CalendarListFragment extends Fragment {
     private View footerView;
     ProgressDialog ringProgressDialog;
     private View viewFragment;
+    int currentFirstVisibleItem,currentVisibleItemCount,currentScrollState,pageCount, totalRecord;
+    boolean isLoading;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -99,6 +102,8 @@ public class CalendarListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        pageCount = 1;
         viewFragment = inflater.inflate(R.layout.fragment_calendar_list,
                 null, true);
 
@@ -109,6 +114,7 @@ public class CalendarListFragment extends Fragment {
 
         footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
         calendarMonthListView.addFooterView(footerView);
+        calendarMonthListView.setOnScrollListener(this);
 
         calendarMonthListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -148,6 +154,91 @@ public class CalendarListFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+        currentScrollState = scrollState;
+        isScrollCompleted();
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        currentFirstVisibleItem = firstVisibleItem;
+        currentVisibleItemCount = visibleItemCount;
+    }
+
+    private void isScrollCompleted() {
+
+        if (totalRecord == calendarMonthList.size()){
+
+        }else {
+            if (this.currentVisibleItemCount > 0 && this.currentScrollState == 0) {
+                /*** In this way I detect if there's been a scroll which has completed ***/
+                /*** do the work for load more date! ***/
+                System.out.println("Load not");
+                if(!isLoading){
+                    isLoading = true;
+                    System.out.println("Load More");
+                    loadMoreData();
+                    // Toast.makeText(getActivity(),"Load More",Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        }
+
+    }
+
+    public void loadMoreData() {
+        pageCount += 1;
+        String grpIdString = "";
+        for (int i = 0; i < NotificationManager.grpIds.size(); i++) {
+            if (i == 0) {
+                grpIdString = NotificationManager.grpIds.get(i);
+            } else {
+                grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i);
+            }
+        }
+
+        HashMap map = new HashMap();
+        map.put("regId", Constants.GCM_REG_ID);
+        map.put("month", CalendarMonthFragment.month);
+        map.put("year", CalendarMonthFragment.year);
+        map.put("page", pageCount);
+        map.put("groupId", grpIdString);
+
+        EventManager.getSharedInstance().getEventsMonthWise(map, new EventManager.GetMonthwiseEventsManagerListener() {
+            @Override
+            public void onCompletion(EventDataReponse data, AppError error) {
+                isLoading = false;
+                if (data != null){
+                    if (data.getEventData().getEvents() != null){
+                        if (data.getEventData().getEvents().size() > 0){
+                            if (calendarMonthList.size() == 0){
+                                calendarMonthList.clear();
+                                calendarMonthList.addAll(data.getEventData().getEvents());
+                                calendarMonthListViewAdapter = new CalendarMonthListAdapter(getActivity(), calendarMonthList);
+                                calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
+
+                            }else {
+                                calendarMonthList.clear();
+                                calendarMonthList.addAll(data.getEventData().getEvents());
+                                calendarMonthListViewAdapter.notifyDataSetChanged();
+                            }
+                        }else {
+                            Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }else {
+                        Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    Toast.makeText(getActivity(), "Some problem occurred", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+
     }
 
     /**
@@ -203,10 +294,12 @@ public class CalendarListFragment extends Fragment {
             public void onCompletion(EventDataReponse data, AppError error) {
                // ringProgressDialog.dismiss();
                 progressBar.setVisibility(View.GONE);
+                //isLoading = false;
                 if (data != null){
                     if (data.getEventData().getEvents() != null){
                         if (data.getEventData().getEvents().size() > 0){
                             if (calendarMonthList.size() == 0){
+                                totalRecord = data.getEventData().getTotalRecords();
                                 calendarMonthList.clear();
                                 calendarMonthList.addAll(data.getEventData().getEvents());
                                 calendarMonthListViewAdapter = new CalendarMonthListAdapter(getActivity(), calendarMonthList);

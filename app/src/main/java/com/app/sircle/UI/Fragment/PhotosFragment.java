@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -39,7 +40,7 @@ import java.util.List;
 /**
  * Created by soniya on 23/07/15.
  */
-public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, AbsListView.OnScrollListener{
 
     private ListView albumListView;
     private PhotosListViewAdapter photosListViewAdapter;
@@ -50,17 +51,22 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
     private SwipeRefreshLayout swipeRefreshLayout;
     public static int albumId;
     public static String albumName="";
+    int totalRecord;
+    int currentFirstVisibleItem,currentVisibleItemCount,currentScrollState,pageCount;
+    boolean isLoading;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        pageCount = 1;
         viewFragment = inflater.inflate(R.layout.fragment_photos, null , true);
 
         photos = PhotoManager.getSharedInstance().albumsList;
         albumListView = (ListView)viewFragment.findViewById(R.id.fragment_photos_list_view);
         photosListViewAdapter = new PhotosListViewAdapter(getActivity(), photos);
         albumListView.setAdapter(photosListViewAdapter);
+        albumListView.setOnScrollListener(this);
 
         //swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
         //swipeRefreshLayout.setOnRefreshListener(PhotosFragment.this);
@@ -114,6 +120,7 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
     @Override
     public void onResume() {
         super.onResume();
+        populateDummyData();
     }
 
     private void populateDummyData() {
@@ -141,6 +148,7 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
         PhotoManager.getSharedInstance().getAlbums(map, new PhotoManager.GetAlbumsManagerListener() {
             @Override
             public void onCompletion(PhotoResponse response, AppError error) {
+                //isLoading = false;
                 progressBar.setVisibility(View.GONE);
                 //swipeRefreshLayout.setRefreshing(false);
                 if (response != null) {
@@ -148,20 +156,11 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
                         if (response.getData().getAlbums().size() > 0) {
                           //  photos = response.getData().getAlbums();
                           //  photosListViewAdapter.notifyDataSetChanged();
-
+                            totalRecord = response.getData().getTotalRecords();
                             photos.clear();
                             photos.addAll(PhotoManager.albumsList);
                             photosListViewAdapter.notifyDataSetChanged();
 
-//                            if (PhotosFragment.this.photos.size() > 0) {
-//                                PhotosFragment.this.photos.clear();
-//                                PhotosFragment.this.photos.addAll(response.getData().getAlbums());
-//                                photosListViewAdapter.notifyDataSetChanged();
-//                            } else {
-//                                PhotosFragment.this.photos.addAll(response.getData().getAlbums());
-//                                photosListViewAdapter = new PhotosListViewAdapter(getActivity(), photos);
-//                                albumListView.setAdapter(photosListViewAdapter);
-//                            }
                         }
                     } else {
                             Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
@@ -195,6 +194,78 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
     @Override
     public void onRefresh() {
         //populateDummyData();
+    }
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+        currentScrollState = scrollState;
+        isScrollCompleted();
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        currentFirstVisibleItem = firstVisibleItem;
+        currentVisibleItemCount = visibleItemCount;
+    }
+
+    private void isScrollCompleted() {
+
+        if (totalRecord == photos.size()){
+
+        }else {
+            if (this.currentVisibleItemCount > 0 && this.currentScrollState == 0) {
+                /*** In this way I detect if there's been a scroll which has completed ***/
+                /*** do the work for load more date! ***/
+                System.out.println("Load not");
+                if(!isLoading){
+                    isLoading = true;
+                    System.out.println("Load More");
+                    loadMoreData();
+                    // Toast.makeText(getActivity(),"Load More",Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        }
+
+    }
+
+    public void loadMoreData(){
+
+        pageCount = pageCount +1;
+        String grpIdString = "";
+        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
+            if (i == 0){
+                grpIdString = NotificationManager.grpIds.get(i);
+            }else {
+                grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
+            }
+        }
+        HashMap map = new HashMap();
+        map.put("regId", Constants.GCM_REG_ID);
+        map.put("groupId", grpIdString);
+        map.put("page",pageCount);
+
+        PhotoManager.getSharedInstance().getAlbums(map, new PhotoManager.GetAlbumsManagerListener() {
+            @Override
+            public void onCompletion(PhotoResponse response, AppError error) {
+                isLoading = false;
+                if (response != null) {
+                    if (response.getStatus() == 200) {
+                        if (response.getData().getAlbums().size() > 0) {
+
+                            photos.clear();
+                            photos.addAll(PhotoManager.albumsList);
+                            photosListViewAdapter.notifyDataSetChanged();
+
+                        }
+                    } else {
+                        Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    Toast.makeText(getActivity(), "Check internet connectivity", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
 }

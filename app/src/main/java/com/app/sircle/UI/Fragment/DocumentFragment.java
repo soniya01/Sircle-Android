@@ -8,6 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -31,20 +32,22 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, AbsListView.OnScrollListener{
 
     private ListView newsLetterListView;
     private NewsLettersViewAdapter newsLetterListViewAdapter;
     private List<NewsLetter> newsLetterList = new ArrayList<NewsLetter>();
     private View footerView, viewFragment;
     private SwipeRefreshLayout swipeRefreshLayout;
+    int currentFirstVisibleItem,currentVisibleItemCount,currentScrollState,pageCount, totalRecord;
+    boolean isLoading;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
+        pageCount = 1;
         viewFragment = inflater.inflate(R.layout.fragment_document,
                 null, true);
         footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
@@ -56,6 +59,7 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
         newsLetterList = DocumentManager.docsList;
         newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), newsLetterList);
         newsLetterListView.setAdapter(newsLetterListViewAdapter);
+        newsLetterListView.setOnScrollListener(this);
 
         if (newsLetterList.size() <= 0){
             /**
@@ -111,7 +115,7 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
         }
         HashMap object = new HashMap();
         object.put("regId", Constants.GCM_REG_ID);
-        object.put("groupId",grpIdString);
+        object.put("groupId", grpIdString);
         object.put("page", 1);
 
         DocumentManager.getSharedInstance().getAllDocs(object, new DocumentManager.GetNewsManagerListener() {
@@ -120,24 +124,17 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
                 progressBar.setVisibility(View.GONE);
 //                swipeRefreshLayout.setRefreshing(false);
                 if (data != null) {
-                    if (data.getStatus() == 200){
-                        if (data.getData().getDocs().size() > 0){
+                    if (data.getStatus() == 200) {
+                        if (data.getData().getDocs().size() > 0) {
+                            totalRecord = data.getData().getTotalRecords();
                             newsLetterList.clear();
                             newsLetterList.addAll(DocumentManager.docsList);
                             newsLetterListViewAdapter.notifyDataSetChanged();
 
-//                            if (newsLetterList.size() > 0){
-//                                newsLetterList.clear();
-//
-//                            }else {
-//                                newsLetterList.addAll(data.getData().getDocs());
-//                                newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), DocumentManager.docsList);
-//                                newsLetterListView.setAdapter(newsLetterListViewAdapter);
-//                            }
-                        }else {
+                        } else {
                             Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                    }else {
+                    } else {
                         Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -151,6 +148,8 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onResume() {
         super.onResume();
+        populateDummyData();
+
         if (DocumentFragment.this.newsLetterList.size() > 0) {
             newsLetterListViewAdapter.notifyDataSetChanged();
         }
@@ -161,5 +160,77 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onRefresh() {
         //populateDummyData();
+    }
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+        currentScrollState = scrollState;
+        isScrollCompleted();
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        currentFirstVisibleItem = firstVisibleItem;
+        currentVisibleItemCount = visibleItemCount;
+    }
+
+    private void isScrollCompleted() {
+
+        if (totalRecord == newsLetterList.size()){
+
+        }else {
+            if (this.currentVisibleItemCount > 0 && this.currentScrollState == 0) {
+                /*** In this way I detect if there's been a scroll which has completed ***/
+                /*** do the work for load more date! ***/
+                System.out.println("Load not");
+                if(!isLoading){
+                    isLoading = true;
+                    System.out.println("Load More");
+                    loadMoreData();
+                    // Toast.makeText(getActivity(),"Load More",Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        }
+
+    }
+
+    public void loadMoreData(){
+        pageCount += 1;
+        String grpIdString = "";
+        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
+            if (i == 0){
+                grpIdString = NotificationManager.grpIds.get(i);
+            }else {
+                grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
+            }
+        }
+        HashMap object = new HashMap();
+        object.put("regId", Constants.GCM_REG_ID);
+        object.put("groupId", grpIdString);
+        object.put("page", pageCount);
+
+        DocumentManager.getSharedInstance().getAllDocs(object, new DocumentManager.GetNewsManagerListener() {
+            @Override
+            public void onCompletion(DocumentsResponse data, AppError error) {
+                isLoading = false;
+                if (data != null) {
+                    if (data.getStatus() == 200) {
+                        if (data.getData().getDocs().size() > 0) {
+                            newsLetterList.clear();
+                            newsLetterList.addAll(DocumentManager.docsList);
+                            newsLetterListViewAdapter.notifyDataSetChanged();
+
+                        } else {
+                            Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

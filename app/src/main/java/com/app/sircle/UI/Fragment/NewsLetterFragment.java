@@ -8,6 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -31,13 +32,15 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, AbsListView.OnScrollListener{
 
     private ListView newsLetterListView;
     private NewsLettersViewAdapter newsLetterListViewAdapter;
     private List<NewsLetter> newsLetterList = new ArrayList<NewsLetter>();
     private View footerView, viewFragment;
     private SwipeRefreshLayout swipeRefreshLayout;
+    int currentFirstVisibleItem,currentVisibleItemCount,currentScrollState,pageCount, totalRecord;
+    boolean isLoading;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -124,21 +127,15 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
             public void onCompletion(DocumentsResponse response, AppError error) {
                 progressBar.setVisibility(View.GONE);
                 //swipeRefreshLayout.setRefreshing(false);
-                if (error == null || error.getErrorCode() == AppError.NO_ERROR){
-                    if (response != null){
-                        if (response.getStatus() == 200){
-                            if (response.getData().getNewsLetters().size() > 0){
+                if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
+                    if (response != null) {
+                        if (response.getStatus() == 200) {
+                            if (response.getData().getNewsLetters().size() > 0) {
 
-                               // System.out.println("Size "+DocumentManager.newsLetterList);
-
-//                                NewsLetterFragment.this.newsLetterList = DocumentManager.newsLetterList;
-//                                newsLetterListViewAdapter.notifyDataSetChanged();
-
-
+                                totalRecord = response.getData().getTotalRecords();
                                 newsLetterList.clear();
                                 newsLetterList.addAll(DocumentManager.newsLetterList);
                                 newsLetterListViewAdapter.notifyDataSetChanged();
-
 
 
 //                                if (NewsLetterFragment.this.newsLetterList.size() == 0){
@@ -150,16 +147,16 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
 //                                    NewsLetterFragment.this.newsLetterList.addAll(response.getData().getNewsLetters());
 //                                    newsLetterListViewAdapter.notifyDataSetChanged();
 //                                }
-                            }else {
-                                Toast.makeText(getActivity(), response.getMessage(),Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                             }
-                        }else {
-                            Toast.makeText(getActivity(), response.getMessage(),Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
 
-                }else {
-                    Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -168,10 +165,87 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
     @Override
     public void onResume() {
         super.onResume();
+        populateDummyData();
     }
 
     @Override
     public void onRefresh() {
-       // populateDummyData();
+        populateDummyData();
+    }
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+        currentScrollState = scrollState;
+        isScrollCompleted();
+
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        currentFirstVisibleItem = firstVisibleItem;
+        currentVisibleItemCount = visibleItemCount;
+    }
+
+
+    private void isScrollCompleted() {
+
+        if (totalRecord == newsLetterList.size()){
+
+        }else {
+            if (this.currentVisibleItemCount > 0 && this.currentScrollState == 0) {
+                /*** In this way I detect if there's been a scroll which has completed ***/
+                /*** do the work for load more date! ***/
+                System.out.println("Load not");
+                if(!isLoading){
+                    isLoading = true;
+                    System.out.println("Load More");
+                    loadMoreData();
+                    // Toast.makeText(getActivity(),"Load More",Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        }
+
+
+
+    }
+
+    public void loadMoreData(){
+        pageCount += 1;
+        String grpIdString = "";
+        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
+            if (i == 0){
+                grpIdString = NotificationManager.grpIds.get(i);
+            }else {
+                grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
+            }
+        }
+        HashMap object = new HashMap();
+        object.put("regId", Constants.GCM_REG_ID);
+        object.put("groupId", grpIdString);
+        object.put("page", pageCount);
+
+        DocumentManager.getSharedInstance().getAllNewsLetters(object, new DocumentManager.GetNewsManagerListener() {
+            @Override
+            public void onCompletion(DocumentsResponse data, AppError error) {
+                isLoading = false;
+                if (data != null) {
+                    if (data.getStatus() == 200) {
+                        if (data.getData().getNewsLetters().size() > 0) {
+                            newsLetterList.clear();
+                            newsLetterList.addAll(DocumentManager.newsLetterList);
+                            newsLetterListViewAdapter.notifyDataSetChanged();
+
+                        } else {
+                            Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
