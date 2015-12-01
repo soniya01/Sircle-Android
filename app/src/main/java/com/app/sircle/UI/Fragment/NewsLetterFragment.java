@@ -232,7 +232,6 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
                 if (data != null) {
                     if (data.getStatus() == 200) {
                         if (data.getData().getNewsLetters().size() > 0) {
-                            newsLetterList.clear();
                             newsLetterList.addAll(DocumentManager.newsLetterList);
                             newsLetterListViewAdapter.notifyDataSetChanged();
 

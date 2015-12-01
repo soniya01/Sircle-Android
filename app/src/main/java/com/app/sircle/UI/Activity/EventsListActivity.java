@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -27,7 +28,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-public class EventsListActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener{
+public class EventsListActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener, AbsListView.OnScrollListener{
 
 
     private ListView calendarMonthListView;
@@ -38,11 +39,14 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
     private int month, year, day;
     private SwipeRefreshLayout swipeRefreshLayout;
     private ProgressDialog ringProgressDialog;
+    int currentFirstVisibleItem,currentVisibleItemCount,currentScrollState,pageCount, totalRecord;
+    boolean isLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        pageCount =1;
         if (getIntent() != null){
             month = getIntent().getIntExtra("month",0);
             year = getIntent().getIntExtra("year",0);
@@ -60,6 +64,7 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
 
         footerView = View.inflate(this, R.layout.list_view_padding_footer, null);
         calendarMonthListView.addFooterView(footerView);
+        calendarMonthListView.setOnScrollListener(this);
 
 
 
@@ -190,6 +195,12 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
        // populateDummyData();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        populateDummyData();
+    }
+
     public void filterEventsByDate(){
         List<Event> filteredList = new ArrayList<>();
         String dayStr = "", monthStr ="";
@@ -212,5 +223,97 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
         calendarMonthListViewAdapter = new CalendarMonthListAdapter(this, calendarMonthList);
         calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
         //calendarMonthListViewAdapter.notifyDataSetChanged();
+    }
+
+
+    public void loadMore(){
+
+        pageCount += 1;
+        String grpIdString = "";
+        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
+            if (i == 0){
+                grpIdString = NotificationManager.grpIds.get(i);
+            }else {
+                grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
+            }
+        }
+        HashMap map = new HashMap();
+        map.put("regId", Constants.GCM_REG_ID);
+        map.put("month", month);
+        map.put("year", year);
+        map.put("page", 1);
+        map.put("groupId", grpIdString);
+        //ringProgressDialog = ProgressDialog.show(this, "", "", true);
+        EventManager.getSharedInstance().getEventsMonthWise(map, new EventManager.GetMonthwiseEventsManagerListener() {
+            @Override
+            public void onCompletion(EventDataReponse data, AppError error) {
+                isLoading = false;
+                if (data != null) {
+                    if (data.getStatus() == 200) {
+                        if (data.getEventData().getEvents() != null){
+                            if (data.getEventData().getEvents().size() > 0) {
+                                calendarMonthList = data.getEventData().getEvents();
+                                totalRecord = data.getEventData().getTotalRecords();
+
+                                if (day != 0){
+                                    // search data for a particular date
+                                    // filter by date
+                                    filterEventsByDate();
+
+                                }else {
+                                    //ringProgressDialog.dismiss();
+                                    calendarMonthListViewAdapter.notifyDataSetChanged();
+                                }
+
+                            } else {
+                                Toast.makeText(EventsListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }else {
+                            Toast.makeText(EventsListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Toast.makeText(EventsListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+                    Toast.makeText(EventsListActivity.this, error.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+
+    private void isScrollCompleted() {
+
+        if (totalRecord == calendarMonthList.size()){
+
+        }else {
+            if (this.currentVisibleItemCount > 0 && this.currentScrollState == 0) {
+                /*** In this way I detect if there's been a scroll which has completed ***/
+                /*** do the work for load more date! ***/
+                System.out.println("Load not");
+                if(!isLoading){
+                    isLoading = true;
+                    System.out.println("Load More");
+                    loadMore();
+                    // Toast.makeText(getActivity(),"Load More",Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        }
+
+    }
+
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+        currentScrollState = scrollState;
+        isScrollCompleted();
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        currentFirstVisibleItem = firstVisibleItem;
+        currentVisibleItemCount = visibleItemCount;
     }
 }

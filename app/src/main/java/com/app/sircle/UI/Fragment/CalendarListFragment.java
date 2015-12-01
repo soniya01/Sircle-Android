@@ -215,13 +215,11 @@ public class CalendarListFragment extends Fragment implements AbsListView.OnScro
                     if (data.getEventData().getEvents() != null){
                         if (data.getEventData().getEvents().size() > 0){
                             if (calendarMonthList.size() == 0){
-                                calendarMonthList.clear();
                                 calendarMonthList.addAll(data.getEventData().getEvents());
                                 calendarMonthListViewAdapter = new CalendarMonthListAdapter(getActivity(), calendarMonthList);
                                 calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
 
                             }else {
-                                calendarMonthList.clear();
                                 calendarMonthList.addAll(data.getEventData().getEvents());
                                 calendarMonthListViewAdapter.notifyDataSetChanged();
                             }

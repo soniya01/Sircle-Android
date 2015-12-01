@@ -252,8 +252,6 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
                 if (response != null) {
                     if (response.getStatus() == 200) {
                         if (response.getData().getAlbums().size() > 0) {
-
-                            photos.clear();
                             photos.addAll(PhotoManager.albumsList);
                             photosListViewAdapter.notifyDataSetChanged();
 

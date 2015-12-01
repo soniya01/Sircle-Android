@@ -258,8 +258,6 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                         if (response.getStatus() == 200) {
                             if (response.getData().getVideos().size() > 0) {
 
-                                totalRecord = response.getData().getTotalRecords();
-                                videoList.clear();
                                 videoList.addAll(VideoManager.videoList);
                                 videoListViewAdapter.notifyDataSetChanged();
 

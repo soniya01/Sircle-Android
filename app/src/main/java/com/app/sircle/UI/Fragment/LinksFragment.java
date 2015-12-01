@@ -248,8 +248,6 @@ public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 if (data != null) {
                     if (data.getStatus() == 200){
                         if (data.getData().getLinks().size() > 0){
-                            //NotificationManager.notificationList.clear()
-                            // notificationList.clear();
                             LinksFragment.this.linksList.addAll(LinksManager.linksList);
                             linksListViewAdapter.notifyDataSetChanged();
                         }else {
