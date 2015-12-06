@@ -20,6 +20,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -54,16 +55,21 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
     private NotificationsGroupAdapter notificationsGroupAdapter;
     private ListView categoryListView;
     private ArrayAdapter<String> adapter;
-    private EditText title, location, detail;
-    private Button categoryButton, minutes, hours, days,startDate, endDate, startTime, endTime;
+    private EditText title, location, detail,afterCount;
+    private Button categoryButton, minutes, hours, days,startDate, endDate, startTime, endTime,repeatTypes,repeatForDays,occurrencesDate;
     private DatePickerDialog datePickerDialog;
-    private CheckBox repeat;
+    private CheckBox repeat,repeatNever,repeatNumber,repeatOccurences,monday,tuesday,wednesday,thursday,friday,saturday,sunday,dayOfMonth,dayOfWeek;
     private int isRepeat;
-    private String startDateString, endDateStr, startTimeStr, endTimeStr;
+    private String startDateString, endDateStr, startTimeStr, endTimeStr,occurenceDateStr,repeatMonthlyOnStr;
     public  List<String> hourList = new ArrayList<>();
     public  List<String> minList = new ArrayList<>();
     public  List<String> daysList = new ArrayList<>();
-    int startYear,startMonth,startDay, mins, hour, secs;
+    public List<String> repeatTypesList = new ArrayList<>();
+    public List<String> repeatTypesSubList = new ArrayList<>();
+    public List<String> repeatWeekDaysList = new ArrayList<>();
+
+    int startYear,startMonth,startDay, mins, hour, secs,repeatTypeId = 1,repeat_every=1;
+    LinearLayout repeatLayout,weeklyLayout,monthlyLayout;
     ProgressDialog ringProgressDialog;
 
 
@@ -76,6 +82,8 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
         getSupportActionBar().setHomeButtonEnabled(true);
 
         populateHour();
+
+        repeatMonthlyOnStr = "day of the month";
 
         addListView = (ListView) findViewById(R.id.activity_schoolHoliday_list_view);
         addButton = (Button)findViewById(R.id.add_button);
@@ -98,10 +106,37 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
         hours = (Button)findViewById(R.id.hours);
         minutes = (Button)findViewById(R.id.minutes);
         repeat = (CheckBox)findViewById(R.id.activity_event_repeat);
+        repeatTypes = (Button)findViewById(R.id.repeatsType);
+        repeatForDays = (Button)findViewById(R.id.repeatForDays);
+        occurrencesDate = (Button)findViewById(R.id.occurrencesDate);
+        occurrencesDate.setVisibility(View.GONE);
+        repeatLayout = (LinearLayout) findViewById(R.id.repeatLayout);
+        weeklyLayout = (LinearLayout) findViewById(R.id.weeklyLayout);
+        monthlyLayout = (LinearLayout) findViewById(R.id.monthlyLayout);
+
+        repeatNever = (CheckBox)findViewById(R.id.activity_event_repeat_never);
+        repeatNumber = (CheckBox)findViewById(R.id.activity_event_repeat_after);
+        repeatOccurences = (CheckBox)findViewById(R.id.activity_event_repeat_occurencesOn);
+        afterCount = (EditText)findViewById(R.id.afterCount);
+        afterCount.setVisibility(View.GONE);
+
+        monday = (CheckBox)findViewById(R.id.verticalMonday);
+        tuesday = (CheckBox)findViewById(R.id.verticalTuesday);
+        wednesday = (CheckBox)findViewById(R.id.verticalWednesday);
+        thursday = (CheckBox)findViewById(R.id.verticalThursday);
+        friday = (CheckBox)findViewById(R.id.verticalFriday);
+        saturday = (CheckBox)findViewById(R.id.verticalSaturday);
+        sunday = (CheckBox)findViewById(R.id.verticalSunday);
+        dayOfMonth = (CheckBox)findViewById(R.id.dayofthemonth);
+        dayOfWeek = (CheckBox)findViewById(R.id.dayoftheweek);
+
 
         days.setOnClickListener(this);
         minutes.setOnClickListener(this);
         hours.setOnClickListener(this);
+        repeatTypes.setOnClickListener(this);
+        repeatForDays.setOnClickListener(this);
+        occurrencesDate.setOnClickListener(this);
 
         startDate.setOnClickListener(this);
         endDate.setOnClickListener(this);
@@ -112,6 +147,173 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 isRepeat = isChecked ? 1 : 0;
+                if (isChecked) {
+                    repeatLayout.setVisibility(View.VISIBLE);
+                } else {
+                    repeatLayout.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        repeatNever.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked)
+                {
+                    afterCount.setVisibility(View.GONE);
+                    occurrencesDate.setVisibility(View.GONE);
+                   repeatNumber.setChecked(!isChecked);
+                    repeatOccurences.setChecked(!isChecked);
+                }
+                else
+                {
+
+                }
+            }
+        });
+
+
+        repeatNumber.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked)
+                {
+                    afterCount.setVisibility(View.VISIBLE);
+                    occurrencesDate.setVisibility(View.GONE);
+                    repeatNever.setChecked(!isChecked);
+                    repeatOccurences.setChecked(!isChecked);
+                }
+                else
+                {
+                    afterCount.setVisibility(View.GONE);
+
+                }
+            }
+        });
+
+        repeatOccurences.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked)
+                {
+                    afterCount.setVisibility(View.GONE);
+                    occurrencesDate.setVisibility(View.VISIBLE);
+                    repeatNever.setChecked(!isChecked);
+                    repeatNumber.setChecked(!isChecked);
+                }
+                else
+                {
+                    occurrencesDate.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        monday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    repeatWeekDaysList.add("Monday");
+                } else {
+                    repeatWeekDaysList.remove("Monday");
+                }
+            }
+        });
+
+
+        tuesday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    repeatWeekDaysList.add("Tuesday");
+                } else {
+                    repeatWeekDaysList.remove("Tuesday");
+                }
+            }
+        });
+
+        wednesday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    repeatWeekDaysList.add("Wednesday");
+                } else {
+                    repeatWeekDaysList.remove("Wednesday");
+                }
+            }
+        });
+
+        thursday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    repeatWeekDaysList.add("Thursday");
+                } else {
+                    repeatWeekDaysList.remove("Thursday");
+                }
+            }
+        });
+
+        friday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    repeatWeekDaysList.add("Friday");
+                } else {
+                    repeatWeekDaysList.remove("Friday");
+                }
+            }
+        });
+
+        saturday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    repeatWeekDaysList.add("Saturday");
+                } else {
+                    repeatWeekDaysList.remove("Saturday");
+                }
+            }
+        });
+
+        sunday.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    repeatWeekDaysList.add("Sunday");
+                } else {
+                    repeatWeekDaysList.remove("Sunday");
+                }
+            }
+        });
+
+        dayOfMonth.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked) {
+                    dayOfWeek.setChecked(!isChecked);
+                    repeatMonthlyOnStr = "day of the month";
+
+                } else {
+                  //  dayOfMonth.setChecked(!isChecked);
+
+                }
+            }
+        });
+
+        dayOfWeek.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked) {
+                    dayOfMonth.setChecked(!isChecked);
+                    repeatMonthlyOnStr = "day of the week";
+                } else {
+                  //  dayOfWeek.setChecked(!isChecked);
+                }
             }
         });
 
@@ -177,6 +379,59 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
                 params.put("rem_hours",hours.getText().toString());
                 params.put("rem_mins",minutes.getText().toString());
                 params.put("repeats",isRepeat);
+
+                if (isRepeat==1)
+                {
+                    params.put("repeat_type_id",repeatTypeId);
+                    params.put("repeat_type", repeatTypes.getText().toString());
+                    params.put("repeat_every",repeat_every);
+
+
+
+                    if (repeatTypes.getText().toString().equals("Weekly"))
+
+                    {
+                        String repeat_week_days = "";
+                        for (int i = 0; i< repeatWeekDaysList.size(); i++){
+                            if (i == 0){
+                                repeat_week_days = repeatWeekDaysList.get(i);
+                            }else {
+                                repeat_week_days = repeat_week_days + "," + repeatWeekDaysList.get(i) ;
+                            }
+                        }
+                        params.put("repeat_week_days",repeat_week_days);
+
+                    }
+                    if (repeatTypes.getText().toString().equals("Monthly"))
+                    {
+                        params.put("repeat_monthly_on",repeatMonthlyOnStr);
+                    }
+
+                    if (repeatNever.isChecked())
+                    {
+                        params.put("repeat_end_type_id",1);
+                        params.put("repeat_end_type","Never");
+                    }
+                    if (repeatNumber.isChecked())
+                    {
+                        params.put("repeat_end_type_id",2);
+                        params.put("repeat_end_type","after_occurences");
+                        params.put("rep_after_occurence",afterCount.getText().toString());
+
+                    }
+
+                    if (repeatOccurences.isChecked())
+                    {
+                        params.put("repeat_end_type_id",3);
+                        params.put("repeat_end_type","on_date");
+                        params.put("rep_ondate",occurrencesDate.getText().toString());
+                    }
+
+
+                }
+
+
+
 
                 EventManager.getSharedInstance().addEvent(params, new EventManager.AddEventsManagerListener() {
                     @Override
@@ -398,6 +653,11 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
                     endDateStr = dayOfMonth + "/" + monthOfYear+ "/" +year;
                     endDate.setText(endDateStr);
                 }
+                else if (v==occurrencesDate)
+                {
+                    occurenceDateStr = dayOfMonth + "/" + monthOfYear+ "/" +year;
+                    occurrencesDate.setText(occurenceDateStr);
+                }
             }
         };
 
@@ -539,6 +799,256 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
                 }
             });
         }
+
+        if (v==repeatTypes)
+        {
+            final AlertDialog.Builder alertDialog = new AlertDialog.Builder(EventActivity.this);
+            LayoutInflater inflater = getLayoutInflater();
+            View convertView = (View) inflater.inflate(R.layout.dialog_list_view, null);
+            alertDialog.setView(convertView);
+            alertDialog.setTitle("Repeat Types");
+            categoryListView = (ListView) convertView.findViewById(R.id.listView1);
+            // ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, names);
+            // lv.setAdapter(adapter);
+            adapter = new ArrayAdapter<String>(getApplicationContext(),
+                    android.R.layout.simple_list_item_checked, repeatTypesList
+            ) {
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent) {
+                    View view = super.getView(position, convertView, parent);
+                    TextView text = (TextView) view.findViewById(android.R.id.text1);
+                    text.setTextColor(Color.BLACK);
+                    return view;
+                }
+            };
+            categoryListView.setAdapter(adapter);
+
+            //  alertDialog.show();
+            alert = alertDialog.show();
+
+            categoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+
+                public void onItemClick(AdapterView<?> parent, View view, int position,
+                                        long id) {
+                    TextView textView = (TextView) view.findViewById(android.R.id.text1);
+                    String text = textView.getText().toString();
+                    repeatTypeId = position +1;
+                    repeatTypes.setText(text);
+                    alert.dismiss();
+                    setViewforEventTypes(text);
+                }
+            });
+        }
+
+        if (v==repeatForDays)
+        {
+            final AlertDialog.Builder alertDialog = new AlertDialog.Builder(EventActivity.this);
+            LayoutInflater inflater = getLayoutInflater();
+            View convertView = (View) inflater.inflate(R.layout.dialog_list_view, null);
+            alertDialog.setView(convertView);
+            alertDialog.setTitle("Repeat For");
+            categoryListView = (ListView) convertView.findViewById(R.id.listView1);
+            // ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, names);
+            // lv.setAdapter(adapter);
+            adapter = new ArrayAdapter<String>(getApplicationContext(),
+                    android.R.layout.simple_list_item_checked, repeatTypesSubList
+            ) {
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent) {
+                    View view = super.getView(position, convertView, parent);
+                    TextView text = (TextView) view.findViewById(android.R.id.text1);
+                    text.setTextColor(Color.BLACK);
+                    return view;
+                }
+            };
+            categoryListView.setAdapter(adapter);
+
+            //  alertDialog.show();
+            alert = alertDialog.show();
+
+            categoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+
+                public void onItemClick(AdapterView<?> parent, View view, int position,
+                                        long id) {
+                    TextView textView = (TextView) view.findViewById(android.R.id.text1);
+                    String text = textView.getText().toString();
+                    repeatForDays.setText(text);
+                    alert.dismiss();
+
+                }
+            });
+        }
+
+        if (v==occurrencesDate)
+        {
+            datePickerDialog = new DatePickerDialog(EventActivity.this, dateListener, startYear, startMonth, startDay);
+            datePickerDialog.show();
+        }
+    }
+
+  public void  setViewforEventTypes(String type)
+    {
+
+        if (type.equals("Daily"))
+        {
+            repeatTypesSubList.clear();
+            repeatTypesSubList.add("1 day");
+            repeatTypesSubList.add("2 days");
+            repeatTypesSubList.add("3 days");
+            repeatTypesSubList.add("4 days");
+            repeatTypesSubList.add("5 days");
+            repeatTypesSubList.add("6 days");
+            repeatTypesSubList.add("7 days");
+            repeatTypesSubList.add("8 days");
+            repeatTypesSubList.add("9 days");
+            repeatTypesSubList.add("10 days");
+            repeatTypesSubList.add("11 days");
+            repeatTypesSubList.add("12 days");
+            repeatTypesSubList.add("13 days");
+            repeatTypesSubList.add("14 days");
+            repeatTypesSubList.add("15 days");
+            repeatTypesSubList.add("16 days");
+            repeatTypesSubList.add("17 days");
+            repeatTypesSubList.add("18 days");
+            repeatTypesSubList.add("19 days");
+            repeatTypesSubList.add("20 days");
+            repeatTypesSubList.add("21 days");
+            repeatTypesSubList.add("22 days");
+            repeatTypesSubList.add("23 days");
+            repeatTypesSubList.add("24 days");
+            repeatTypesSubList.add("25 days");
+            repeatTypesSubList.add("26 days");
+            repeatTypesSubList.add("27 days");
+            repeatTypesSubList.add("28 days");
+            repeatTypesSubList.add("29 days");
+            repeatTypesSubList.add("30 days");
+            weeklyLayout.setVisibility(View.GONE);
+            monthlyLayout.setVisibility(View.GONE);
+            repeatForDays.setText("1 day");
+            repeat_every=1;
+        }
+        else if (type.equals("Weekly"))
+        {
+            repeatTypesSubList.clear();
+            repeatTypesSubList.add("1 week");
+            repeatTypesSubList.add("2 weeks");
+            repeatTypesSubList.add("3 weeks");
+            repeatTypesSubList.add("4 weeks");
+            repeatTypesSubList.add("5 weeks");
+            repeatTypesSubList.add("6 weeks");
+            repeatTypesSubList.add("7 weeks");
+            repeatTypesSubList.add("8 weeks");
+            repeatTypesSubList.add("9 weeks");
+            repeatTypesSubList.add("10 weeks");
+            repeatTypesSubList.add("11 weeks");
+            repeatTypesSubList.add("12 weeks");
+            repeatTypesSubList.add("13 weeks");
+            repeatTypesSubList.add("14 weeks");
+            repeatTypesSubList.add("15 weeks");
+            repeatTypesSubList.add("16 weeks");
+            repeatTypesSubList.add("17 weeks");
+            repeatTypesSubList.add("18 weeks");
+            repeatTypesSubList.add("19 weeks");
+            repeatTypesSubList.add("20 weeks");
+            repeatTypesSubList.add("21 weeks");
+            repeatTypesSubList.add("22 weeks");
+            repeatTypesSubList.add("23 weeks");
+            repeatTypesSubList.add("24 weeks");
+            repeatTypesSubList.add("25 weeks");
+            repeatTypesSubList.add("26 weeks");
+            repeatTypesSubList.add("27 weeks");
+            repeatTypesSubList.add("28 weeks");
+            repeatTypesSubList.add("29 weeks");
+            repeatTypesSubList.add("30 weeks");
+            repeatTypesSubList.add("31 weeks");
+            repeatTypesSubList.add("32 weeks");
+            repeatTypesSubList.add("33 weeks");
+            repeatTypesSubList.add("34 weeks");
+            repeatTypesSubList.add("35 weeks");
+            repeatTypesSubList.add("36 weeks");
+            repeatTypesSubList.add("37 weeks");
+            repeatTypesSubList.add("38 weeks");
+            repeatTypesSubList.add("39 weeks");
+            repeatTypesSubList.add("40 weeks");
+            repeatTypesSubList.add("41 weeks");
+            repeatTypesSubList.add("42 weeks");
+            repeatTypesSubList.add("43 weeks");
+            repeatTypesSubList.add("44 weeks");
+            repeatTypesSubList.add("45 weeks");
+            repeatTypesSubList.add("46 weeks");
+            repeatTypesSubList.add("47 weeks");
+            repeatTypesSubList.add("48 weeks");
+            repeatTypesSubList.add("49 weeks");
+            repeatTypesSubList.add("50 weeks");
+            repeatTypesSubList.add("51 weeks");
+            repeatTypesSubList.add("52 weeks");
+            weeklyLayout.setVisibility(View.VISIBLE);
+            monthlyLayout.setVisibility(View.GONE);
+            repeatForDays.setText("1 week");
+            repeat_every=1;
+        }
+        else if (type.equals("Monthly"))
+        {
+            repeatTypesSubList.clear();
+            repeatTypesSubList.add("1 month");
+            repeatTypesSubList.add("2 months");
+            repeatTypesSubList.add("3 months");
+            repeatTypesSubList.add("4 months");
+            repeatTypesSubList.add("5 months");
+            repeatTypesSubList.add("6 months");
+            repeatTypesSubList.add("7 months");
+            repeatTypesSubList.add("8 months");
+            repeatTypesSubList.add("9 months");
+            repeatTypesSubList.add("10 months");
+            repeatTypesSubList.add("11 months");
+            weeklyLayout.setVisibility(View.GONE);
+            monthlyLayout.setVisibility(View.VISIBLE);
+            repeatForDays.setText("1 month");
+            repeat_every=1;
+
+        }
+        else if (type.equals("Yearly"))
+        {
+            repeatTypesSubList.clear();
+            repeatTypesSubList.add("1 year");
+            repeatTypesSubList.add("2 years");
+            repeatTypesSubList.add("3 years");
+            repeatTypesSubList.add("4 years");
+            repeatTypesSubList.add("5 years");
+            repeatTypesSubList.add("6 years");
+            repeatTypesSubList.add("7 years");
+            repeatTypesSubList.add("8 years");
+            repeatTypesSubList.add("9 years");
+            repeatTypesSubList.add("10 years");
+            repeatTypesSubList.add("11 years");
+            repeatTypesSubList.add("12 years");
+            repeatTypesSubList.add("13 years");
+            repeatTypesSubList.add("14 years");
+            repeatTypesSubList.add("15 years");
+            repeatTypesSubList.add("16 years");
+            repeatTypesSubList.add("17 years");
+            repeatTypesSubList.add("18 years");
+            repeatTypesSubList.add("19 years");
+            repeatTypesSubList.add("20 years");
+            repeatTypesSubList.add("21 years");
+            repeatTypesSubList.add("22 years");
+            repeatTypesSubList.add("23 years");
+            repeatTypesSubList.add("24 years");
+            repeatTypesSubList.add("25 years");
+            repeatTypesSubList.add("26 years");
+            repeatTypesSubList.add("27 years");
+            repeatTypesSubList.add("28 years");
+            repeatTypesSubList.add("29 years");
+            repeatTypesSubList.add("30 years");
+            weeklyLayout.setVisibility(View.GONE);
+            monthlyLayout.setVisibility(View.GONE);
+            repeatForDays.setText("1 year");
+            repeat_every=1;
+        }
+
+
     }
 
 
@@ -658,6 +1168,44 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
         minList.add("57 minutes");
         minList.add("58 minutes");
         minList.add("59 minutes");
+
+        repeatTypesList.add("Daily");
+        repeatTypesList.add("Weekly");
+        repeatTypesList.add("Monthly");
+        repeatTypesList.add("Yearly");
+
+        repeatTypesSubList.add("1 day");
+        repeatTypesSubList.add("2 days");
+        repeatTypesSubList.add("3 days");
+        repeatTypesSubList.add("4 days");
+        repeatTypesSubList.add("5 days");
+        repeatTypesSubList.add("6 days");
+        repeatTypesSubList.add("7 days");
+        repeatTypesSubList.add("8 days");
+        repeatTypesSubList.add("9 days");
+        repeatTypesSubList.add("10 days");
+        repeatTypesSubList.add("11 days");
+        repeatTypesSubList.add("12 days");
+        repeatTypesSubList.add("13 days");
+        repeatTypesSubList.add("14 days");
+        repeatTypesSubList.add("15 days");
+        repeatTypesSubList.add("16 days");
+        repeatTypesSubList.add("17 days");
+        repeatTypesSubList.add("18 days");
+        repeatTypesSubList.add("19 days");
+        repeatTypesSubList.add("20 days");
+        repeatTypesSubList.add("21 days");
+        repeatTypesSubList.add("22 days");
+        repeatTypesSubList.add("23 days");
+        repeatTypesSubList.add("24 days");
+        repeatTypesSubList.add("25 days");
+        repeatTypesSubList.add("26 days");
+        repeatTypesSubList.add("27 days");
+        repeatTypesSubList.add("28 days");
+        repeatTypesSubList.add("29 days");
+        repeatTypesSubList.add("30 days");
+
+
 
     }
 }
