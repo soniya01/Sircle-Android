@@ -91,12 +91,32 @@ public class GCMListener extends GcmListenerService {
         }
         else if(url.equals("albumPage")){
                 intentClass = BaseActivity.class;
-                BaseActivity.selectedModuleIndex = 5;
+                BaseActivity.selectedModuleIndex = 2;
             }
         else if (url.equals("PhotoListViewPage")){
                 intentClass = AlbumDetailsActivity.class;
-                BaseActivity.selectedModuleIndex = 5;
-        }else {
+                BaseActivity.selectedModuleIndex = 2;
+        }
+        else if (url.equals("documentsPage"))
+        {
+            intentClass = BaseActivity.class;
+            BaseActivity.selectedModuleIndex = 5;
+        }
+        else if (url.equals("newslettersPage"))
+        {
+            intentClass = BaseActivity.class;
+            BaseActivity.selectedModuleIndex = 4;
+        }
+        else if (url.equals("videoPage")) {
+            intentClass = BaseActivity.class;
+            BaseActivity.selectedModuleIndex = 6;
+        }
+        else if (url.equals("linkPage")) {
+            intentClass = BaseActivity.class;
+            BaseActivity.selectedModuleIndex = 7;
+        }
+
+        else {
             intentClass = BaseActivity.class;
             BaseActivity.selectedModuleIndex = 1;
         }

@@ -7,6 +7,7 @@ import android.app.TimePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -574,6 +575,7 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
                         if (response.getData().size() > 0){
                             EventActivity.this.notificationGroupList.addAll(NotificationManager.groupList);
                             notificationsGroupAdapter.notifyDataSetChanged();
+                            setListViewHeightBasedOnChildren(addListView);
                         }
 
                         //if (notificationGroupList.size() > 0) {
@@ -1206,6 +1208,34 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
         repeatTypesSubList.add("30 days");
 
 
+
+    }
+
+
+    public static void getTotalHeightofListView(ListView listView) {
+
+        ListAdapter mAdapter = listView.getAdapter();
+
+        int totalHeight = 0;
+
+        for (int i = 0; i < mAdapter.getCount(); i++) {
+            View mView = mAdapter.getView(i, null, listView);
+
+            mView.measure(
+                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+
+                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+
+            totalHeight += mView.getMeasuredHeight();
+            Log.w("HEIGHT" + i, String.valueOf(totalHeight));
+
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight
+                + (listView.getDividerHeight() * (mAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
 
     }
 }
