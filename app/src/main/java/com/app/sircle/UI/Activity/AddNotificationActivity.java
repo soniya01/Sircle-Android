@@ -1,14 +1,20 @@
 package com.app.sircle.UI.Activity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -40,6 +46,8 @@ public class AddNotificationActivity extends ActionBarActivity {
     private Button addButton;
     private TextView descCountLabel;
     private NotificationsGroupAdapter notificationsGroupAdapter;
+    public static CheckBox allCheckBox;
+   // public static int isAllChecked = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +57,23 @@ public class AddNotificationActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+        Constants.isAllChecked = -1;
+
         addListView = (ListView)findViewById(R.id.activity_add_group_list_view);
+        allCheckBox = (CheckBox) findViewById(R.id.checkAll);
+        allCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Constants.isAllChecked = 1;
+                } else {
+                    Constants.isAllChecked = 0;
+                }
+                NotificationManager.grpIds.clear();
+                notificationsGroupAdapter.notifyDataSetChanged();
+            }
+        });
+        setListViewHeightBasedOnChildren(addListView);
         title = (EditText)findViewById(R.id.activity_add_notification_title_edit_text);
         desc = (EditText)findViewById(R.id.activity_add_notification_desc_edit_text);
         descCountLabel = (TextView)findViewById(R.id.activity_add_desc_count);
@@ -133,6 +157,7 @@ public class AddNotificationActivity extends ActionBarActivity {
                         if (response.getData().size() > 0){
                             AddNotificationActivity.this.notificationGroupList.addAll(NotificationManager.groupList);
                             notificationsGroupAdapter.notifyDataSetChanged();
+                            setListViewHeightBasedOnChildren(addListView);
                         }
 
 //                        if (AddNotificationActivity.this.notificationGroupList.size() > 0) {
@@ -187,4 +212,29 @@ public class AddNotificationActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null)
+            return;
+
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+        int totalHeight = 0;
+        View view = null;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, view, listView);
+            if (i == 0)
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+    }
+
+
 }

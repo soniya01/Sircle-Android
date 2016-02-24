@@ -5,10 +5,14 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.URLUtil;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -38,6 +42,7 @@ public class AddLinksActivity extends ActionBarActivity {
     private List<String> groupNames = new ArrayList<String>();
     private Button addButton;
     private NotificationsGroupAdapter notificationsGroupAdapter;
+    public static CheckBox allCheckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +51,23 @@ public class AddLinksActivity extends ActionBarActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+        Constants.isAllChecked = -1;
 
         addListView = (ListView) findViewById(R.id.activity_add_group_list_view);
+        allCheckBox = (CheckBox) findViewById(R.id.checkAll);
+        allCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Constants.isAllChecked = 1;
+                } else {
+                    Constants.isAllChecked = 0;
+                }
+                NotificationManager.grpIds.clear();
+                notificationsGroupAdapter.notifyDataSetChanged();
+            }
+        });
+        setListViewHeightBasedOnChildren(addListView);
         title = (EditText) findViewById(R.id.activity_add_link_title_edit_text);
         desc = (EditText) findViewById(R.id.activity_add_link_url_edit_text);
 
@@ -143,6 +163,7 @@ public class AddLinksActivity extends ActionBarActivity {
                         if (response.getData().size() > 0){
                             AddLinksActivity.this.notificationGroupList.addAll(NotificationManager.groupList);
                             notificationsGroupAdapter.notifyDataSetChanged();
+                            setListViewHeightBasedOnChildren(addListView);
                         }
 
 //                        if (AddLinksActivity.this.notificationGroupList.size() > 0) {
@@ -170,5 +191,29 @@ public class AddLinksActivity extends ActionBarActivity {
 
             }
         });
+
+
+    }
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null)
+            return;
+
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+        int totalHeight = 0;
+        View view = null;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, view, listView);
+            if (i == 0)
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            view.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += view.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
     }
 }

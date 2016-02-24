@@ -41,7 +41,7 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
     private List<NotificationGroups> notificationGroupList = new ArrayList<NotificationGroups>();
     public static CheckBox allCheckBox;
     ProgressDialog ringProgressDialog;
-    public static int isAllChecked = -1;
+    //public static int isAllChecked = -1;
     private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
@@ -50,16 +50,16 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
         setContentView(R.layout.activity_settings);
         NotificationManager.grpIds.clear();
         //isAllChecked = true;
-
+        Constants.isAllChecked = -1;
         notificationListView = (ListView) findViewById(R.id.notificationsGroupListView);
         allCheckBox = (CheckBox) findViewById(R.id.checkAll);
         allCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    isAllChecked = 1;
+                    Constants.isAllChecked = 1;
                 } else {
-                    isAllChecked = 0;
+                    Constants.isAllChecked = 0;
                 }
                 NotificationManager.grpIds.clear();
                 notificationsGroupAdapter.notifyDataSetChanged();

@@ -10,6 +10,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.app.sircle.UI.Activity.AddLinksActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,6 +55,33 @@
         android:textColor="#303030"
         android:textSize="14sp" />
 
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="#ffffff"
+                android:id="@+id/layoutSelectAll"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="20dp"
+                android:padding="0dp">
+
+
+                <CheckBox
+                    android:layout_marginLeft="20dp"
+                    android:id="@+id/checkAll"
+                    android:checked="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_marginLeft="25dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="All"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
     <ListView
         android:id="@+id/activity_add_group_list_view"
         android:layout_width="match_parent"
@@ -54,5 +89,9 @@
         android:layout_marginTop="20dp"
         android:overScrollMode="never"
         android:scrollbars="none" />
+
+            </LinearLayout>
+    </ScrollView>
+
 
 </LinearLayout>

@@ -84,17 +84,17 @@ public class NotificationsGroupAdapter extends BaseAdapter {
         viewHolder.checkBox.setTag(position);
 
         viewHolder.notificationGroupTitle.setText(notificationsGroupList.get(position).name);
-        if (SettingsActivity.isAllChecked == 1){
+        if (Constants.isAllChecked == 1){
 
             viewHolder.checkBox.setChecked(true);
             NotificationManager.grpIds.add(notificationsGroupList.get(position).getId());
         }else {
-            if (SettingsActivity.isAllChecked == -1){
+            if (Constants.isAllChecked == -1){
                 if (notificationsGroupList.get(position).getActive() == 1){
                     NotificationManager.grpIds.add( notificationsGroupList.get(position).getId());
                     viewHolder.checkBox.setChecked(true);
                 }
-            }else if (SettingsActivity.isAllChecked == 0){
+            }else if (Constants.isAllChecked == 0){
                 viewHolder.checkBox.setChecked(false);
             }
 

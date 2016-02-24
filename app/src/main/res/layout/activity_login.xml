@@ -19,11 +19,6 @@
         android:layout_marginBottom="8dp"
         android:visibility="gone" />
 
-    <ScrollView
-        android:id="@+id/login_form"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,28 +32,28 @@
 
 
                 <ImageView
-                    android:layout_marginTop="40dp"
-                    android:layout_width="78dp"
-                    android:layout_height="106dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="156dp"
+                    android:layout_height="212dp"
                     android:layout_gravity="center_horizontal"
                     android:contentDescription="@string/description_image_default"
                     android:src="@drawable/splashscreenimage" />
 
-              <!--  <TextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="10dp"
                     android:text="@string/activity_login_title"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"
-                    android:textStyle="bold" /> -->
+                    android:textStyle="bold" />
 
                 <!-- Username view-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="60dp"
+                    android:layout_marginTop="40dp"
                     android:background="@drawable/login_border"
                     android:orientation="horizontal">
 
@@ -204,8 +199,6 @@
             </RelativeLayout> -->
 
         </LinearLayout>
-
-    </ScrollView>
 
 </LinearLayout>
 

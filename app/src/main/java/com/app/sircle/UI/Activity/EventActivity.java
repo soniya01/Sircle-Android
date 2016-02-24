@@ -68,6 +68,7 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
     public List<String> repeatTypesList = new ArrayList<>();
     public List<String> repeatTypesSubList = new ArrayList<>();
     public List<String> repeatWeekDaysList = new ArrayList<>();
+    public static CheckBox allCheckBox;
 
     int startYear,startMonth,startDay, mins, hour, secs,repeatTypeId = 1,repeat_every=1;
     LinearLayout repeatLayout,weeklyLayout,monthlyLayout;
@@ -85,8 +86,23 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
         populateHour();
 
         repeatMonthlyOnStr = "day of the month";
+        Constants.isAllChecked = -1;
 
         addListView = (ListView) findViewById(R.id.activity_schoolHoliday_list_view);
+        allCheckBox = (CheckBox) findViewById(R.id.checkAll);
+        allCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Constants.isAllChecked = 1;
+                } else {
+                    Constants.isAllChecked = 0;
+                }
+                NotificationManager.grpIds.clear();
+                notificationsGroupAdapter.notifyDataSetChanged();
+            }
+        });
+
         addButton = (Button)findViewById(R.id.add_button);
         setListViewHeightBasedOnChildren(addListView);
 

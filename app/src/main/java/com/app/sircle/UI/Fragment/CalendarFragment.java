@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -28,12 +29,19 @@ import java.util.List;
 import java.util.Vector;
 
 
-public class CalendarFragment extends Fragment {
+public class CalendarFragment extends Fragment implements CalendarTodayFragment.OnHeadlineSelectedListener{
 
-    private PagerSlidingTabStrip tabs;
-    private ViewPager pager;
-    public static MyPagerAdapter adapter;
+   // private PagerSlidingTabStrip tabs;
+   // private ViewPager pager;
+    public static TabLayout tabLayout;
+    public static ViewPager viewPager;
+    public static int int_items = 3 ;
+   // public static MyPagerAdapter adapter;
     FloatingActionsMenu menuMultipleActions =  null;
+
+    CalendarMonthFragment calendarMonthFragment;
+    CalendarTodayFragment calendarTodayFragment;
+
 
 
 
@@ -47,11 +55,18 @@ public class CalendarFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+        calendarMonthFragment = new CalendarMonthFragment();
+        calendarTodayFragment = new CalendarTodayFragment();
+        //calendarTodayFragment.setListener(this);
 
         View viewFragment = inflater.inflate(R.layout.fragment_calendar, container, false);
 
-        tabs = (PagerSlidingTabStrip) viewFragment.findViewById(R.id.tabs);
-        pager = (ViewPager) viewFragment.findViewById(R.id.pager);
+        tabLayout = (TabLayout) viewFragment.findViewById(R.id.tabs);
+        viewPager = (ViewPager) viewFragment.findViewById(R.id.viewpager);
+
+
+      //  tabs = (PagerSlidingTabStrip) viewFragment.findViewById(R.id.tabs);
+      //  pager = (ViewPager) viewFragment.findViewById(R.id.pager);
 
 
          menuMultipleActions = (FloatingActionsMenu)viewFragment.findViewById(R.id.multiple_actions);
@@ -88,69 +103,156 @@ public class CalendarFragment extends Fragment {
         });
 
 
-        List<android.support.v4.app.Fragment> fragments = new Vector<android.support.v4.app.Fragment>();
-        fragments.add(android.support.v4.app.Fragment.instantiate(getActivity(), CalendarMonthFragment.class.getName()));
-        fragments.add(android.support.v4.app.Fragment.instantiate(getActivity(), CalendarListFragment.class.getName()));
-        fragments.add(android.support.v4.app.Fragment.instantiate(getActivity(), CalendarTodayFragment.class.getName()));
+//        List<android.support.v4.app.Fragment> fragments = new Vector<android.support.v4.app.Fragment>();
+//        fragments.add(android.support.v4.app.Fragment.instantiate(getActivity(), CalendarMonthFragment.class.getName()));
+//        fragments.add(android.support.v4.app.Fragment.instantiate(getActivity(), CalendarListFragment.class.getName()));
+//        fragments.add(android.support.v4.app.Fragment.instantiate(getActivity(), CalendarTodayFragment.class.getName()));
+//
+//       // Context mycontext = getActivity();
+//        FragmentActivity myContext = (FragmentActivity)getActivity();
+//
+//        FragmentManager fragManager = myContext.getSupportFragmentManager();
+//
+//        adapter = new MyPagerAdapter(fragManager,fragments);
+//
+//        pager.setAdapter(adapter);
+//
+////        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources()
+////                .getDisplayMetrics());
+////        pager.setPageMargin(pageMargin);
+//
+//        tabs.setViewPager(pager);
 
-       // Context mycontext = getActivity();
-        FragmentActivity myContext = (FragmentActivity)getActivity();
-
-        FragmentManager fragManager = myContext.getSupportFragmentManager();
-
-        adapter = new MyPagerAdapter(fragManager,fragments);
-
-        pager.setAdapter(adapter);
-
-//        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources()
-//                .getDisplayMetrics());
-//        pager.setPageMargin(pageMargin);
-
-        tabs.setViewPager(pager);
        // tabs.setTextColor(Color.parseColor("#FFFFFF"));
+
+        FragmentActivity myContext = (FragmentActivity)getActivity();
+//
+       FragmentManager fragManager = myContext.getSupportFragmentManager();
+
+        viewPager.setAdapter(new MyAdapter(fragManager));
+
+
+         //viewPager.(2);
+
+
+        /**
+         * Now , this is a workaround ,
+         * The setupWithViewPager dose't works without the runnable .
+         * Maybe a Support Library Bug .
+         */
+
+        tabLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                tabLayout.setupWithViewPager(viewPager);
+            }
+        });
+
+       // return x;
+
 
         return viewFragment;
     }
 
 
-    public class MyPagerAdapter extends FragmentPagerAdapter {
+//    public class MyPagerAdapter extends FragmentPagerAdapter {
+//
+////        List<Fragment> fragments = new Vector<Fragment>();
+////        fragments.add(Fragment.instantiate(this, Tab1Fragment.class.getName()));
+////        fragments.add(Fragment.instantiate(this, Tab2Fragment.class.getName()));
+//
+//        private final String[] TITLES = { "Month", "List" ,"Term"};
+//
+//        private List<android.support.v4.app.Fragment> fragments;
+//        /**
+//         * @param fm
+//         * @param fragments
+//         */
+//        public MyPagerAdapter(FragmentManager fm, List<android.support.v4.app.Fragment> fragments) {
+//            super(fm);
+//            this.fragments = fragments;
+//        }
+//
+//        @Override
+//        public CharSequence getPageTitle(int position) {
+//            return TITLES[position];
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            return 3;
+//        }
+//
+//        @Override
+//        public android.support.v4.app.Fragment getItem(int position) {
+//            return this.fragments.get(position);
+//        }
+//
+//    }
 
-//        List<Fragment> fragments = new Vector<Fragment>();
-//        fragments.add(Fragment.instantiate(this, Tab1Fragment.class.getName()));
-//        fragments.add(Fragment.instantiate(this, Tab2Fragment.class.getName()));
+    class MyAdapter extends FragmentPagerAdapter {
 
-        private final String[] TITLES = { "Month", "List" ,"Term"};
-
-        private List<android.support.v4.app.Fragment> fragments;
-        /**
-         * @param fm
-         * @param fragments
-         */
-        public MyPagerAdapter(FragmentManager fm, List<android.support.v4.app.Fragment> fragments) {
+        public MyAdapter(FragmentManager fm) {
             super(fm);
-            this.fragments = fragments;
         }
 
+        /**
+         * Return fragment with respect to Position .
+         */
+
         @Override
-        public CharSequence getPageTitle(int position) {
-            return TITLES[position];
+        public android.support.v4.app.Fragment getItem(int position)
+        {
+
+            switch (position){
+                case 0 : return calendarMonthFragment;
+                case 1 : return new CalendarListFragment();
+                case 2 : return calendarTodayFragment;
+            }
+            return null;
         }
 
         @Override
         public int getCount() {
-            return 3;
+
+            return int_items;
+
         }
+
+        /**
+         * This method returns the title of the tab according to the position.
+         */
 
         @Override
-        public android.support.v4.app.Fragment getItem(int position) {
-            return this.fragments.get(position);
-        }
+        public CharSequence getPageTitle(int position) {
 
+            switch (position){
+                case 0 :
+                    return "Month";
+                case 1 :
+                    return "List";
+                case 2 :
+                    return "Term";
+            }
+            return null;
+        }
     }
+
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        tabs.removeAllViews();
+       // tabs.removeAllViews();
     }
+
+    public void setCalendarDate(String date)
+    {
+//        Bundle args = new Bundle();
+//        final Calendar cal = Calendar.getInstance();
+//        args.putInt(CaldroidFragment.MONTH,3);
+//        args.putInt(CaldroidFragment.YEAR,2015);
+//        caldroidFragment.setArguments(args);
+
+    }
+
 }

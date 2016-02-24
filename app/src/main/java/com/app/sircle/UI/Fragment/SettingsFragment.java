@@ -54,16 +54,16 @@ public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnR
         notificationListView = (ListView)viewFragment.findViewById(R.id.notificationsGroupListView);
 
         NotificationManager.grpIds.clear();
-        //SettingsActivity.isAllChecked = true;
+        Constants.isAllChecked = -1;
 
         allCheckBox = (CheckBox) viewFragment.findViewById(R.id.checkAll);
         allCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
-                    SettingsActivity.isAllChecked = 1;
+                    Constants.isAllChecked = 1;
                 }else {
-                    SettingsActivity.isAllChecked = 0;
+                    Constants.isAllChecked = 0;
                 }
                 NotificationManager.grpIds.clear();
                 notificationsGroupAdapter.notifyDataSetChanged();

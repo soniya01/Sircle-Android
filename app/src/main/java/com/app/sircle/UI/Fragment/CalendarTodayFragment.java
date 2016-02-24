@@ -46,6 +46,17 @@ public class CalendarTodayFragment extends Fragment {
     private View footerView;
     CaldroidListener listener;
     Bundle state ;
+    OnHeadlineSelectedListener mCallback;
+
+
+    // Container Activity must implement this interface
+    public interface OnHeadlineSelectedListener {
+        public void setCalendarDate(String date);
+    }
+
+   // public void setListener(OnHeadlineSelectedListener listener) {
+   //     mCallback = listener;
+    //}
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -87,6 +98,7 @@ public class CalendarTodayFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        onAttachFragment(getTargetFragment());
     }
 
     @Override
@@ -178,6 +190,15 @@ public class CalendarTodayFragment extends Fragment {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+
+    }
+
+    private void onAttachFragment(Fragment fragment) {
+        try {
+            mCallback = (OnHeadlineSelectedListener) fragment;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(fragment.toString() + " must implement FollowBrandsCallback interface");
+        }
     }
 
     @Override
@@ -241,51 +262,61 @@ public class CalendarTodayFragment extends Fragment {
     public void showDialogCalendar(String date)
     {
         //String dateString = "03/26/2012 11:49:00 AM";
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date convertedDate = new Date();
-        try {
-            convertedDate = dateFormat.parse(date);
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+//        Date convertedDate = new Date();
+//        try {
+//            convertedDate = dateFormat.parse(date);
+//        } catch (ParseException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//
+//        Calendar thatDay = Calendar.getInstance();
+//        thatDay.setTime(convertedDate);
+//
+//      //  Toast.makeText(getActivity(),convertedDate.toString(),Toast.LENGTH_SHORT).show();
+//
+//        dialogCaldroidFragment = new CaldroidFragment();
+//        dialogCaldroidFragment.setCaldroidListener(listener);
+//
+//
+//        // If activity is recovered from rotation
+//        final String dialogTag = "CALDROID_DIALOG_FRAGMENT";
+//        if (state != null) {
+//            dialogCaldroidFragment.restoreDialogStatesFromKey(
+//                    getFragmentManager(), state,
+//                    "DIALOG_CALDROID_SAVED_STATE", dialogTag);
+//            Bundle args = dialogCaldroidFragment.getArguments();
+//            if (args == null) {
+//                args = new Bundle();
+//              //  Bundle args = new Bundle();
+//               // final Calendar cal = Calendar.getInstance();
+//                args.putInt(CaldroidFragment.MONTH, thatDay.get(Calendar.MONTH) + 1);
+//                args.putInt(CaldroidFragment.YEAR, thatDay.get(Calendar.YEAR));
+//                dialogCaldroidFragment.setArguments(args);
+//            }
+//        } else {
+//            // Setup arguments
+//            Bundle bundle = new Bundle();
+//            bundle.putInt(CaldroidFragment.MONTH, thatDay.get(Calendar.MONTH) + 1);
+//            bundle.putInt(CaldroidFragment.YEAR, thatDay.get(Calendar.YEAR));
+//            // Setup dialogTitle
+//            dialogCaldroidFragment.setArguments(bundle);
+//        }
+//
+//        dialogCaldroidFragment.show(getFragmentManager(),
+//                dialogTag);
+//
+//        dialogCaldroidFragment.setSelectedDates(convertedDate,convertedDate);
+       // mCallback.setCalendarDate("ok");
+        CalendarFragment.viewPager.setCurrentItem(0);
+       // CalendarMonthFragment.setCalendarDate();
+       // mCallback = new OnHeadlineSelectedListener();
+       // mCallback.setCalendarDate(date);
 
-        Calendar thatDay = Calendar.getInstance();
-        thatDay.setTime(convertedDate);
-
-      //  Toast.makeText(getActivity(),convertedDate.toString(),Toast.LENGTH_SHORT).show();
-
-        dialogCaldroidFragment = new CaldroidFragment();
-        dialogCaldroidFragment.setCaldroidListener(listener);
-
-
-        // If activity is recovered from rotation
-        final String dialogTag = "CALDROID_DIALOG_FRAGMENT";
-        if (state != null) {
-            dialogCaldroidFragment.restoreDialogStatesFromKey(
-                    getFragmentManager(), state,
-                    "DIALOG_CALDROID_SAVED_STATE", dialogTag);
-            Bundle args = dialogCaldroidFragment.getArguments();
-            if (args == null) {
-                args = new Bundle();
-              //  Bundle args = new Bundle();
-               // final Calendar cal = Calendar.getInstance();
-                args.putInt(CaldroidFragment.MONTH, thatDay.get(Calendar.MONTH) + 1);
-                args.putInt(CaldroidFragment.YEAR, thatDay.get(Calendar.YEAR));
-                dialogCaldroidFragment.setArguments(args);
-            }
-        } else {
-            // Setup arguments
-            Bundle bundle = new Bundle();
-            bundle.putInt(CaldroidFragment.MONTH, thatDay.get(Calendar.MONTH) + 1);
-            bundle.putInt(CaldroidFragment.YEAR, thatDay.get(Calendar.YEAR));
-            // Setup dialogTitle
-            dialogCaldroidFragment.setArguments(bundle);
-        }
-
-        dialogCaldroidFragment.show(getFragmentManager(),
-                dialogTag);
-
-        dialogCaldroidFragment.setSelectedDates(convertedDate,convertedDate);
     }
+
+
+
+
 }
