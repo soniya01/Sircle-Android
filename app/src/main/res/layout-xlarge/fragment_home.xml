@@ -278,7 +278,7 @@
                 android:paddingRight="0dp"
                 android:layout_gravity="center"
                 android:scaleType="fitXY"
-                android:src="@drawable/linkshome"
+                android:src="@drawable/links_home"
                 android:background="@color/white"/>
             <TextView
                 android:textSize="24px"
