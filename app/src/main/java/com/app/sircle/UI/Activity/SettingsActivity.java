@@ -41,7 +41,6 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
     private List<NotificationGroups> notificationGroupList = new ArrayList<NotificationGroups>();
     public static CheckBox allCheckBox;
     ProgressDialog ringProgressDialog;
-    //public static int isAllChecked = -1;
     private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
@@ -57,11 +56,20 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Constants.isAllChecked = 1;
+                   // Constants.isAllChecked = 1;
+                    for (int i = 0; i < notificationGroupList.size(); i++) {
+                       // listData[i] = listView.getAdapter().getItem(i).toString();
+                        notificationGroupList.get(i).setActive(1);
+                    }
                 } else {
-                    Constants.isAllChecked = 0;
+                    for (int i = 0; i < notificationGroupList.size(); i++) {
+                        // listData[i] = listView.getAdapter().getItem(i).toString();
+                        notificationGroupList.get(i).setActive(0);
+                    }
+                    //notificationGroupList.get(i).setActive(1);
+                   // Constants.isAllChecked = 0;
                 }
-                NotificationManager.grpIds.clear();
+               // NotificationManager.grpIds.clear();
                 notificationsGroupAdapter.notifyDataSetChanged();
             }
         });
@@ -95,6 +103,16 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                for (int i = 0; i < notificationGroupList.size(); i++) {
+                    // listData[i] = listView.getAdapter().getItem(i).toString();
+                   // notificationGroupList.get(i).setActive(1);
+                    if (notificationGroupList.get(i).getActive()==1)
+                    {
+                        NotificationManager.grpIds.add( notificationGroupList.get(i).getId());
+                    }
+                }
 
                 JSONArray arrayObject = new JSONArray();
 
@@ -142,6 +160,19 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
 
         });
 
+    }
+
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // If the nav drawer is open, hide action items related to the content view
+
+
+
+        // boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+        menu.findItem(R.id.action_settings).setVisible(false);
+
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override

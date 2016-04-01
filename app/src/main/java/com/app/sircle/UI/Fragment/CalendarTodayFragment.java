@@ -19,6 +19,7 @@ import com.app.sircle.UI.Adapter.TermsAdapter;
 import com.app.sircle.UI.Model.CalendarMonthlyListData;
 import com.app.sircle.UI.Model.Terms;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.Utility.Constants;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
@@ -46,7 +47,6 @@ public class CalendarTodayFragment extends Fragment {
     private View footerView;
     CaldroidListener listener;
     Bundle state ;
-    OnHeadlineSelectedListener mCallback;
 
 
     // Container Activity must implement this interface
@@ -98,7 +98,7 @@ public class CalendarTodayFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        onAttachFragment(getTargetFragment());
+        //onAttachFragment(getTargetFragment());
     }
 
     @Override
@@ -193,13 +193,6 @@ public class CalendarTodayFragment extends Fragment {
 
     }
 
-    private void onAttachFragment(Fragment fragment) {
-        try {
-            mCallback = (OnHeadlineSelectedListener) fragment;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(fragment.toString() + " must implement FollowBrandsCallback interface");
-        }
-    }
 
     @Override
     public void onDetach() {
@@ -309,6 +302,7 @@ public class CalendarTodayFragment extends Fragment {
 //
 //        dialogCaldroidFragment.setSelectedDates(convertedDate,convertedDate);
        // mCallback.setCalendarDate("ok");
+        Constants.dateAvailabe = date;
         CalendarFragment.viewPager.setCurrentItem(0);
        // CalendarMonthFragment.setCalendarDate();
        // mCallback = new OnHeadlineSelectedListener();

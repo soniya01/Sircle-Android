@@ -155,6 +155,8 @@ public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     @Override
     public void onResume() {
         super.onResume();
+        linksList.clear();
+        linksListViewAdapter.notifyDataSetChanged();
         pageCount = 1;
         populateDummyData(1);
 //        if (LinksFragment.this.linksList.size() > 0) {
@@ -165,6 +167,9 @@ public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     @Override
     public void onRefresh() {
+
+        linksList.clear();
+        linksListViewAdapter.notifyDataSetChanged();
         populateDummyData(1);
     }
 

@@ -11,10 +11,12 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TabHost;
 
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.AddLinksActivity;
@@ -29,7 +31,7 @@ import java.util.List;
 import java.util.Vector;
 
 
-public class CalendarFragment extends Fragment implements CalendarTodayFragment.OnHeadlineSelectedListener{
+public class CalendarFragment extends Fragment  {
 
    // private PagerSlidingTabStrip tabs;
    // private ViewPager pager;
@@ -41,6 +43,7 @@ public class CalendarFragment extends Fragment implements CalendarTodayFragment.
 
     CalendarMonthFragment calendarMonthFragment;
     CalendarTodayFragment calendarTodayFragment;
+    CalendarListFragment calendarListFragment;
 
 
 
@@ -57,6 +60,7 @@ public class CalendarFragment extends Fragment implements CalendarTodayFragment.
 
         calendarMonthFragment = new CalendarMonthFragment();
         calendarTodayFragment = new CalendarTodayFragment();
+        calendarListFragment = new CalendarListFragment();
         //calendarTodayFragment.setListener(this);
 
         View viewFragment = inflater.inflate(R.layout.fragment_calendar, container, false);
@@ -148,11 +152,65 @@ public class CalendarFragment extends Fragment implements CalendarTodayFragment.
             }
         });
 
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                calendarListFragment.populateDummyData();
+                viewPager.setCurrentItem(tab.getPosition()); // call this to fix the conflict
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
+
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            public void onPageScrollStateChanged(int state) {
+            }
+
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            public void onPageSelected(int position) {
+                if (position==1)
+                calendarListFragment.populateDummyData();
+                // Check if this is the page you want.
+            }
+        });
+
+//        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+//        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                viewPager.setCurrentItem(tab.getPosition());
+//            }
+//            // Other overridden methods
+//        });
+
+//        if (ViewCompat.isLaidOut(tabLayout)) {
+//            tabLayout.setupWithViewPager(viewPager);
+//        } else {
+//            tabLayout.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+//                @Override
+//                public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+//                    tabLayout.setupWithViewPager(viewPager);
+//                    tabLayout.removeOnLayoutChangeListener(this);
+//                }
+//            });
+//        }
+
        // return x;
 
 
         return viewFragment;
     }
+
 
 
 //    public class MyPagerAdapter extends FragmentPagerAdapter {
@@ -206,7 +264,7 @@ public class CalendarFragment extends Fragment implements CalendarTodayFragment.
 
             switch (position){
                 case 0 : return calendarMonthFragment;
-                case 1 : return new CalendarListFragment();
+                case 1 : return calendarListFragment;
                 case 2 : return calendarTodayFragment;
             }
             return null;
@@ -245,14 +303,5 @@ public class CalendarFragment extends Fragment implements CalendarTodayFragment.
        // tabs.removeAllViews();
     }
 
-    public void setCalendarDate(String date)
-    {
-//        Bundle args = new Bundle();
-//        final Calendar cal = Calendar.getInstance();
-//        args.putInt(CaldroidFragment.MONTH,3);
-//        args.putInt(CaldroidFragment.YEAR,2015);
-//        caldroidFragment.setArguments(args);
-
-    }
 
 }

@@ -84,21 +84,23 @@ public class NotificationsGroupAdapter extends BaseAdapter {
         viewHolder.checkBox.setTag(position);
 
         viewHolder.notificationGroupTitle.setText(notificationsGroupList.get(position).name);
-        if (Constants.isAllChecked == 1){
-
-            viewHolder.checkBox.setChecked(true);
-            NotificationManager.grpIds.add(notificationsGroupList.get(position).getId());
-        }else {
-            if (Constants.isAllChecked == -1){
+//        if (Constants.isAllChecked == 1){
+//
+//            viewHolder.checkBox.setChecked(true);
+//            NotificationManager.grpIds.add(notificationsGroupList.get(position).getId());
+//        }else {
+          //  if (Constants.isAllChecked == -1){
                 if (notificationsGroupList.get(position).getActive() == 1){
-                    NotificationManager.grpIds.add( notificationsGroupList.get(position).getId());
+                   // NotificationManager.grpIds.add( notificationsGroupList.get(position).getId());
                     viewHolder.checkBox.setChecked(true);
                 }
-            }else if (Constants.isAllChecked == 0){
+           // }
+           else// if (Constants.isAllChecked == 0)
+            {
                 viewHolder.checkBox.setChecked(false);
             }
 
-        }
+       // }
         editor = sharedPreferences.edit();
         Set<String> set = new HashSet<>();
         set.addAll(NotificationManager.grpIds);
@@ -110,15 +112,15 @@ public class NotificationsGroupAdapter extends BaseAdapter {
                 int pos = (Integer) buttonView.getTag();
 
                 if (isChecked){
-                    NotificationManager.grpIds.add( notificationsGroupList.get(pos).getId());
-                  //  SettingsActivity.isAllChecked = -1;
+                  //  NotificationManager.grpIds.add( notificationsGroupList.get(pos).getId());
+                    // Constants.isAllChecked = -1;
                     notificationsGroupList.get(pos).setActive(1);
                 }else{
-                    if (SettingsActivity.allCheckBox!=null)
-                    SettingsActivity.allCheckBox.setChecked(false);
-                    //SettingsActivity.isAllChecked = -1;
+                   // if (SettingsActivity.allCheckBox!=null)
+                   // SettingsActivity.allCheckBox.setChecked(false);
+                    //Constants.isAllChecked = -1;
                     notificationsGroupList.get(pos).setActive(0);
-                    NotificationManager.grpIds.remove(notificationsGroupList.get(pos).getId());
+                    //NotificationManager.grpIds.remove(notificationsGroupList.get(pos).getId());
                 }
 
 

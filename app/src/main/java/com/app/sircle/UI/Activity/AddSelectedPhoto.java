@@ -147,6 +147,18 @@ public class AddSelectedPhoto extends ActionBarActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // If the nav drawer is open, hide action items related to the content view
+
+
+
+        // boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+        menu.findItem(R.id.action_settings).setVisible(false);
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_add_selected_photo, menu);
@@ -310,6 +322,8 @@ public class AddSelectedPhoto extends ActionBarActivity {
             newPhoto.setImageBitmap(bitmap);
             bitmap = null;
         }
+
+
 
     }
 }

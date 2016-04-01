@@ -40,7 +40,7 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return albumDetailsList.size() + 1;
+        return albumDetailsList.size();
     }
 
     @Override

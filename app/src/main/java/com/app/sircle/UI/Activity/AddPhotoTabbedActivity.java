@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
 
 import com.app.sircle.R;
 import com.app.sircle.UI.Fragment.CameraFragment;
@@ -34,4 +35,6 @@ public class AddPhotoTabbedActivity extends ActionBarActivity {
     public void onBackPressed() {
         finish();
     }
+
+
 }

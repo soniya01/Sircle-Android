@@ -3,48 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+    android:baselineAligned="false"
     android:orientation="vertical">
-
-    <!--<RelativeLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:background="@android:color/white">-->
-
-    <!--<ImageButton-->
-    <!--android:id="@+id/fragment_home_drawer_icon"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center_vertical"-->
-    <!--android:background="@android:color/transparent"-->
-    <!--android:contentDescription="@string/description_image_default"-->
-    <!--android:layout_alignParentLeft="true"-->
-    <!--android:layout_alignParentStart="true"-->
-    <!--android:padding="10dp"-->
-    <!--android:src="@android:drawable/ic_menu_slideshow" />-->
-
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_centerInParent="true"-->
-    <!--android:textSize="@dimen/fragment_home_title_size"-->
-    <!--android:text="@string/fragment_home_title"-->
-    <!--android:textColor="@android:color/black"-->
-    <!--/>-->
-
-
-    <!--</RelativeLayout>-->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/darker_gray" />
+        android:background="@android:color/darker_gray"
+         />
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_weight="1">
 
             <TextView
                 android:id="@+id/activity_home_address_label"
@@ -52,10 +24,11 @@
                 android:layout_height="wrap_content"
                 android:text="Sircle"
                 android:gravity="center"
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="10dp"
                 android:textAlignment="center"
                 android:textColor="#333332"
-                android:textSize="34px" />
+                android:textSize="34px"
+                 />
 
 
 
@@ -63,13 +36,14 @@
                 android:id="@+id/school_address_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="4dp"
                 android:autoLink="phone"
                 android:gravity="center"
                 android:textAlignment="center"
                 android:text="Mazgoan, Mumbai -10, India."
                 android:textColor="#424241"
-                android:textSize="30px" />
+                android:textSize="30px"
+                 />
 
             <TextView
                 android:id="@+id/activity_home_email_address_label"
@@ -82,7 +56,8 @@
                 android:textColorLink="#424241"
                 android:textSize="30px"
                 android:gravity="center"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                 />
 
 
 
@@ -98,300 +73,339 @@
                 android:textColorLink="#424241"
                 android:textSize="30px"
                 android:gravity="center"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                 />
 
 
         </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="40dp"
-        android:orientation="horizontal">
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        android:layout_weight="1">
 
-        <RelativeLayout
-            android:layout_width="190px"
-            android:layout_height="190px">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             <ImageButton
                 android:id="@+id/calendarButton"
-                android:layout_width="190px"
-                android:layout_height="190px"
-                android:textColor="#333332"
-                android:paddingTop="10dp"
-                android:paddingBottom="30dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/calendarlargeicon"
-                android:background="@color/white"/>
-            <TextView
-                android:textSize="24px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:textColor="#333332"
+                android:scaleType="fitXY"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_date_range_black_48dp"
+                android:background="@color/white"/>
+            <TextView
+                android:textSize="30px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="false"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="10dp"
+                android:layout_gravity="center"
+                android:layout_alignBottom="@+id/calendarButton"
+                android:layout_marginTop="10dp"
                 android:textColor="#333332"
                 android:text="Calendar"/>
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
 
-        <RelativeLayout
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_width="190px"
-            android:layout_height="190px">
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             <ImageButton
                 android:id="@+id/photosButton"
-                android:layout_width="190px"
-                android:layout_height="190px"
-                android:textColor="#333332"
-                android:paddingTop="10dp"
-                android:paddingBottom="30dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/photoslargeicon"
-                android:background="@color/white"/>
-            <TextView
-                android:textSize="24px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:textColor="#333332"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
+                android:scaleType="fitXY"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_photo_album_black_48dp"
+                android:background="@color/white"/>
+            <TextView
+                android:textSize="30px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="false"
+                android:layout_alignBottom="@+id/photosButton"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
                 android:textColor="#333332"
                 android:text="Photos"/>
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="190px"
-            android:layout_height="190px">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             <ImageButton
                 android:id="@+id/newsletterButton"
-                android:layout_width="190px"
-                android:layout_height="190px"
-                android:textColor="#333332"
-                android:paddingTop="10dp"
-                android:paddingBottom="30dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/newsletterlargeicon"
-                android:background="@color/white"/>
-            <TextView
-                android:textSize="24px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="10dp"
                 android:textColor="#333332"
+                android:paddingTop="0dp"
+                android:layout_gravity="center"
+                android:paddingBottom="0dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_content_copy_black_48dp"
+                android:background="@color/white"/>
+            <TextView
+                android:textSize="30px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="false"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:textColor="#333332"
+                android:layout_alignBottom="@+id/newsletterButton"
                 android:text="Newsletter"/>
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
 
     </LinearLayout>
 
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_weight="1">
 
-        <RelativeLayout
-            android:layout_width="190px"
-            android:layout_height="190px">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             <ImageButton
                 android:id="@+id/documentsButton"
-                android:layout_width="190px"
-                android:layout_height="190px"
-                android:textColor="#333332"
-                android:paddingTop="10dp"
-                android:paddingBottom="30dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/documentslargeicon"
-                android:background="@color/white"/>
-            <TextView
-                android:textSize="24px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:textColor="#333332"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
+                android:scaleType="fitXY"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_description_black_48dp"
+                android:background="@color/white"/>
+            <TextView
+                android:textSize="30px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="false"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="10dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_alignBottom="@+id/documentsButton"
                 android:textColor="#333332"
                 android:text="Documents"/>
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
 
-        <RelativeLayout
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_width="190px"
-            android:layout_height="190px">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             <ImageButton
                 android:id="@+id/videosButton"
-                android:layout_width="190px"
-                android:layout_height="190px"
-                android:textColor="#333332"
-                android:paddingTop="10dp"
-                android:paddingBottom="30dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/videoslargeicon"
-                android:background="@color/white"/>
-            <TextView
-                android:textSize="24px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:textColor="#333332"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
+                android:layout_gravity="center"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_movie_black_48dp"
+                android:background="@color/white"/>
+            <TextView
+                android:textSize="30px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="false"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="10dp"
+                android:layout_alignBottom="@+id/videosButton"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:textColor="#333332"
                 android:text="Videos"/>
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="190px"
-            android:layout_height="190px">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             <ImageButton
                 android:id="@+id/linksButton"
-                android:layout_width="190px"
-                android:layout_height="190px"
-                android:textColor="#333332"
-                android:paddingTop="10dp"
-                android:paddingBottom="30dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/linkslargeicon"
-                android:background="@color/white"/>
-            <TextView
-                android:textSize="24px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:textColor="#333332"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
+                android:layout_gravity="center"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_link_black_48dp"
+                android:background="@color/white"/>
+            <TextView
+                android:textSize="30px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="false"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="10dp"
+                android:layout_alignBottom="@+id/linksButton"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:textColor="#333332"
                 android:text="Links"/>
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
 
     </LinearLayout>
 
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_weight="1">
 
-        <RelativeLayout
-            android:layout_width="190px"
-            android:layout_height="190px">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             <ImageButton
                 android:id="@+id/settingsButton"
-                android:layout_width="190px"
-                android:layout_height="190px"
-                android:textColor="#333332"
-                android:paddingTop="10dp"
-                android:paddingBottom="30dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/settingslargeicon"
-                android:background="@color/white"/>
-            <TextView
-                android:textSize="24px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:textColor="#333332"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
+                android:layout_gravity="center"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_settings_black_48dp"
+                android:background="@color/white"/>
+            <TextView
+                android:textSize="30px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="false"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="10dp"
+                android:layout_alignBottom="@+id/settingsButton"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
                 android:textColor="#333332"
                 android:text="Settings"/>
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
 
-        <RelativeLayout
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_width="190px"
-            android:layout_height="190px">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             <ImageButton
                 android:id="@+id/notificationsButton"
-                android:layout_width="190px"
-                android:layout_height="190px"
-                android:textColor="#333332"
-                android:paddingTop="10dp"
-                android:paddingBottom="30dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/notificationslargeicon"
-                android:background="@color/white"/>
-            <TextView
-                android:textSize="24px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:textColor="#333332"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
+                android:layout_gravity="center"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_announcement_black_48dp"
+                android:background="@color/white"/>
+            <TextView
+                android:textSize="30px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="false"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
+                android:layout_alignBottom="@+id/notificationsButton"
                 android:textColor="#333332"
                 android:text="Notifications"/>
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="190px"
-            android:layout_height="190px">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             <ImageButton
                 android:id="@+id/informationButton"
-                android:layout_width="190px"
-                android:layout_height="190px"
-                android:textColor="#333332"
-                android:paddingTop="10dp"
-                android:paddingBottom="30dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/informationlargeicon"
-                android:background="@color/white"/>
-            <TextView
-                android:textSize="24px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="10dp"
                 android:textColor="#333332"
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
+                android:layout_gravity="center"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_error_outline_black_48dp"
+                android:background="@color/white"/>
+            <TextView
+                android:textSize="30px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="false"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:layout_alignBottom="@+id/informationButton"
+                android:textColor="#333332"
+                android:layout_gravity="center"
                 android:text="Information"/>
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
 
     </LinearLayout>

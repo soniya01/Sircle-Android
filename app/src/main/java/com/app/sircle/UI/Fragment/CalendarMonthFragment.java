@@ -31,6 +31,7 @@ import com.app.sircle.WebService.EventDataReponse;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -101,14 +102,47 @@ public class CalendarMonthFragment extends Fragment {
         // Inflate the layout for this fragment
         caldroidFragment = new CaldroidFragment();
        // caldroidFragment.setMinDate(new Date());
-        Bundle args = new Bundle();
-        final Calendar cal = Calendar.getInstance();
-        args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
-        args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
-        caldroidFragment.setArguments(args);
 
-        month = cal.get(Calendar.MONTH) + 1;
-        year = cal.get(Calendar.YEAR);
+        if (Constants.dateAvailabe.equals(""))
+        {
+            Bundle args = new Bundle();
+            final Calendar cal = Calendar.getInstance();
+            args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
+            args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
+            caldroidFragment.setArguments(args);
+
+            month = cal.get(Calendar.MONTH) + 1;
+            year = cal.get(Calendar.YEAR);
+        }
+        else
+        {
+           // String dateString = "03/26/2012 11:49:00 AM";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date convertedDate = new Date();
+        try {
+            convertedDate = dateFormat.parse(Constants.dateAvailabe);
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+            Bundle args = new Bundle();
+
+        Calendar cal = Calendar.getInstance();
+            cal.setTime(convertedDate);
+
+            args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
+            args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
+            caldroidFragment.setArguments(args);
+
+            month = cal.get(Calendar.MONTH) + 1;
+            year = cal.get(Calendar.YEAR);
+
+
+        }
+
+
+
 
         getCalendarEvents();
 
@@ -138,6 +172,7 @@ public class CalendarMonthFragment extends Fragment {
                 String text = "month: " + month + " year: " + year;
                 CalendarMonthFragment.this.month = month;
                 CalendarMonthFragment.this.year = year;
+                Constants.dateAvailabe="01/"+month+"/"+year;
                 getCalendarEvents();
               //  Toast.makeText(getActivity().getApplicationContext(), text, Toast.LENGTH_SHORT).show();
             }

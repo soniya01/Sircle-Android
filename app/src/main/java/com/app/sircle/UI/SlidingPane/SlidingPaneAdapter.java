@@ -19,7 +19,7 @@ public class SlidingPaneAdapter extends ArrayAdapter<String>{
     private final Context context;
     private final String[] values;
     private Integer selectedIndex;
-    private int[] menuIcons = {R.drawable.home, R.drawable.calendar, R.drawable.photos, R.drawable.notifications, R.drawable.newspaper, R.drawable.file,R.drawable.video, R.drawable.link_variant, R.drawable.settings, R.drawable.email, R.drawable.logout};
+    private int[] menuIcons = {R.drawable.home, R.drawable.calendar, R.drawable.photos, R.drawable.notifications, R.drawable.newsletters, R.drawable.documents,R.drawable.videos, R.drawable.links, R.drawable.settings, R.drawable.email, R.drawable.logout};
 
     public SlidingPaneAdapter(Context context, String[] values) {
         super(context, R.layout.listview_sliding_pane_row, values);

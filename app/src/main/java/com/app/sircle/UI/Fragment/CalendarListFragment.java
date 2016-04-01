@@ -309,10 +309,21 @@ public class CalendarListFragment extends Fragment implements AbsListView.OnScro
                                 calendarMonthListViewAdapter.notifyDataSetChanged();
                             }
                         }else {
+                            calendarMonthList.clear();
+//                            //
+                            calendarMonthListViewAdapter.notifyDataSetChanged();
                             Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }else {
-                        Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+
+                        if (calendarMonthListViewAdapter!=null)
+                        {
+                            calendarMonthList.clear();
+//                            //
+                            calendarMonthListViewAdapter.notifyDataSetChanged();
+                            Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 }else {
                     Toast.makeText(getActivity(), "Some problem occurred", Toast.LENGTH_SHORT).show();

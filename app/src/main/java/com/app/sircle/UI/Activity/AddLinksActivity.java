@@ -216,4 +216,16 @@ public class AddLinksActivity extends ActionBarActivity {
         listView.setLayoutParams(params);
         listView.requestLayout();
     }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // If the nav drawer is open, hide action items related to the content view
+
+
+
+       // boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+        menu.findItem(R.id.action_settings).setVisible(false);
+
+        return super.onPrepareOptionsMenu(menu);
+    }
 }

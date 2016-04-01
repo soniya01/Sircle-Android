@@ -10,16 +10,20 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.Manager.PhotoManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Adapter.AlbumDetailsGridAdapter;
 import com.app.sircle.UI.Fragment.PhotosFragment;
 import com.app.sircle.UI.Model.AlbumDetails;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.Utility.Constants;
 import com.app.sircle.WebService.AlbumResponse;
+import com.app.sircle.WebService.NotificationResponse;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,10 +42,15 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
+    int currentFirstVisibleItem,currentVisibleItemCount,currentScrollState,pageCount, totalRecord;
+    boolean isLoading;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_details);
+
+        pageCount =1;
 
         //swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         //swipeRefreshLayout.setOnRefreshListener(this);
@@ -66,6 +75,31 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
         albumDetailsGridAdapter = new AlbumDetailsGridAdapter(AlbumDetailsActivity.this, albumDetailsList);
         albumGridView.setAdapter(albumDetailsGridAdapter);
 
+        albumGridView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+                currentScrollState = scrollState;
+               // isScrollCompleted();
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount) {
+
+//                int lastInScreen = firstVisibleItem + visibleItemCount;
+//                if ((lastInScreen == totalItemCount) && !(false)) {
+//                  //  Toast.makeText(getActivity(),"Load More",Toast.LENGTH_SHORT).show();
+//                    System.out.println("Load More");
+//                }
+                currentFirstVisibleItem = firstVisibleItem;
+                currentVisibleItemCount = visibleItemCount;
+            }
+
+
+        });
+
 
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +111,85 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
         });
 
     }
+
+    private void isScrollCompleted() {
+
+        if (totalRecord == albumDetailsList.size()){
+
+        }else {
+            if (this.currentVisibleItemCount > 0 && this.currentScrollState == 0) {
+                /*** In this way I detect if there's been a scroll which has completed ***/
+                /*** do the work for load more date! ***/
+                System.out.println("Load not");
+                if(!isLoading){
+                    isLoading = true;
+                    System.out.println("Load More");
+                    loadMoreData();
+                    // Toast.makeText(getActivity(),"Load More",Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        }
+
+    }
+
+    public void loadMoreData()
+    {
+        pageCount = pageCount +1;
+
+        HashMap params = new HashMap();
+        params.put("album_id",PhotosFragment.albumId);
+        params.put("page",pageCount);
+
+        System.out.println("REG" + Constants.GCM_REG_ID);
+
+
+        PhotoManager.getSharedInstance().getImages(params, new PhotoManager.GetPhotosManagerListener() {
+            @Override
+            public void onCompletion(AlbumResponse response, AppError error) {
+                if (response != null) {
+                    if (response.getStatus() == 200) {
+                        if (response.getData().getPhotos().size() > 0) {
+
+                            //albumDetailsList = PhotoManager.getSharedInstance().albumDetailsList;
+                            //albumDetailsList.addAll(PhotoManager.getSharedInstance().albumDetailsList);
+
+                            // if (albumDetailsList.size() > 0){
+                           // albumDetailsList.clear();
+                            totalRecord = response.getData().getTotalRecords();
+                            albumDetailsList.addAll(PhotoManager.getSharedInstance().albumDetailsList);
+                            albumDetailsGridAdapter.notifyDataSetChanged();
+//                            }else {
+//                                albumDetailsList.addAll(response.getData().getPhotos());
+//                                albumDetailsGridAdapter = new AlbumDetailsGridAdapter(AlbumDetailsActivity.this, albumDetailsList);
+//                                albumGridView.setAdapter(albumDetailsGridAdapter);
+//                            }
+
+                        } else {
+                           // ringProgressDialog.dismiss();
+                           // AlbumDetailsActivity.ringProgressDialog.dismiss();
+                            Toast.makeText(AlbumDetailsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                       // ringProgressDialog.dismiss();
+
+                        Toast.makeText(AlbumDetailsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    //ringProgressDialog.dismiss();
+                   // AlbumDetailsActivity.ringProgressDialog.dismiss();
+                    Toast.makeText(AlbumDetailsActivity.this, "Some problem occurred", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+            }
+        });
+
+    }
+
+
 
     void populateDummyData(){
 
@@ -114,8 +227,21 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
                 }else {
                     Toast.makeText(AlbumDetailsActivity.this, "Some problem occurred", Toast.LENGTH_SHORT).show();
                 }
+                AlbumDetailsActivity.ringProgressDialog.dismiss();
             }
         });
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // If the nav drawer is open, hide action items related to the content view
+
+
+
+        // boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+        menu.findItem(R.id.action_settings).setVisible(false);
+
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
