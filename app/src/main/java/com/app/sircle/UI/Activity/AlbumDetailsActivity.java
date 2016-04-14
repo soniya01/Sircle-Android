@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.GridView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.app.sircle.Manager.NotificationManager;
@@ -71,9 +73,7 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
 
         ringProgressDialog = ProgressDialog.show(AlbumDetailsActivity.this, "", "", true);
 
-        albumDetailsList.addAll(PhotoManager.getSharedInstance().albumDetailsList);
-        albumDetailsGridAdapter = new AlbumDetailsGridAdapter(AlbumDetailsActivity.this, albumDetailsList);
-        albumGridView.setAdapter(albumDetailsGridAdapter);
+        //albumDetailsList.addAll(PhotoManager.getSharedInstance().albumDetailsList);
 
         albumGridView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
@@ -81,7 +81,7 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
             public void onScrollStateChanged(AbsListView view, int scrollState) {
 
                 currentScrollState = scrollState;
-               // isScrollCompleted();
+                isScrollCompleted();
             }
 
             @Override
@@ -135,7 +135,14 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
 
     public void loadMoreData()
     {
-        pageCount = pageCount +1;
+        final ProgressBar progressBar = new ProgressBar(this,null,android.R.attr.progressBarStyleLarge);
+        progressBar.setIndeterminate(true);
+        progressBar.setVisibility(View.VISIBLE);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
+        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+        ((RelativeLayout)findViewById(R.id.swipe_refresh_layout)).addView(progressBar, layoutParams);
+
+        pageCount = pageCount + 1;
 
         HashMap params = new HashMap();
         params.put("album_id",PhotosFragment.albumId);
@@ -147,6 +154,7 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
         PhotoManager.getSharedInstance().getImages(params, new PhotoManager.GetPhotosManagerListener() {
             @Override
             public void onCompletion(AlbumResponse response, AppError error) {
+                progressBar.setVisibility(View.GONE);
                 if (response != null) {
                     if (response.getStatus() == 200) {
                         if (response.getData().getPhotos().size() > 0) {
@@ -157,8 +165,16 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
                             // if (albumDetailsList.size() > 0){
                            // albumDetailsList.clear();
                             totalRecord = response.getData().getTotalRecords();
-                            albumDetailsList.addAll(PhotoManager.getSharedInstance().albumDetailsList);
-                            albumDetailsGridAdapter.notifyDataSetChanged();
+                            if (albumDetailsList.size() == 0) {
+                                albumDetailsList.addAll(response.getData().getPhotos());
+                                albumDetailsGridAdapter = new AlbumDetailsGridAdapter(AlbumDetailsActivity.this, albumDetailsList);
+                                albumGridView.setAdapter(albumDetailsGridAdapter);
+                            } else{
+                                albumDetailsList.addAll(response.getData().getPhotos());
+                                albumDetailsGridAdapter.notifyDataSetChanged();
+                            }
+
+
 //                            }else {
 //                                albumDetailsList.addAll(response.getData().getPhotos());
 //                                albumDetailsGridAdapter = new AlbumDetailsGridAdapter(AlbumDetailsActivity.this, albumDetailsList);
@@ -179,7 +195,7 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
                 } else {
                     //ringProgressDialog.dismiss();
                    // AlbumDetailsActivity.ringProgressDialog.dismiss();
-                    Toast.makeText(AlbumDetailsActivity.this, "Some problem occurred", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AlbumDetailsActivity.this, "Some problem occurred.", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -191,52 +207,50 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
 
 
 
-    void populateDummyData(){
-
-        HashMap params = new HashMap();
-        params.put("album_id",PhotosFragment.albumId);
-        params.put("page",1);
-
-        PhotoManager.getSharedInstance().getImages(params, new PhotoManager.GetPhotosManagerListener() {
-            @Override
-            public void onCompletion(AlbumResponse response, AppError error) {
-                if (response != null){
-                    if (response.getStatus() == 200){
-                        if (response.getData().getPhotos().size() > 0){
-
-                            //albumDetailsList = PhotoManager.getSharedInstance().albumDetailsList;
-                            //albumDetailsList.addAll(PhotoManager.getSharedInstance().albumDetailsList);
-
-                           // if (albumDetailsList.size() > 0){
-                                albumDetailsList.clear();
-                                albumDetailsList.addAll(response.getData().getPhotos());
-                                albumDetailsGridAdapter.notifyDataSetChanged();
-//                            }else {
+//    void populateDummyData(){
+//
+//        HashMap params = new HashMap();
+//        params.put("album_id",PhotosFragment.albumId);
+//        params.put("page",1);
+//
+//        PhotoManager.getSharedInstance().getImages(params, new PhotoManager.GetPhotosManagerListener() {
+//            @Override
+//            public void onCompletion(AlbumResponse response, AppError error) {
+//                if (response != null){
+//                    if (response.getStatus() == 200){
+//                        if (response.getData().getPhotos().size() > 0){
+//
+//                            //albumDetailsList = PhotoManager.getSharedInstance().albumDetailsList;
+//                            //albumDetailsList.addAll(PhotoManager.getSharedInstance().albumDetailsList);
+//
+//                           // if (albumDetailsList.size() > 0){
+//                                albumDetailsList.clear();
 //                                albumDetailsList.addAll(response.getData().getPhotos());
-//                                albumDetailsGridAdapter = new AlbumDetailsGridAdapter(AlbumDetailsActivity.this, albumDetailsList);
-//                                albumGridView.setAdapter(albumDetailsGridAdapter);
-//                            }
-
-                        }else {
-                            Toast.makeText(AlbumDetailsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-
-                    }else {
-                        Toast.makeText(AlbumDetailsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }else {
-                    Toast.makeText(AlbumDetailsActivity.this, "Some problem occurred", Toast.LENGTH_SHORT).show();
-                }
-                AlbumDetailsActivity.ringProgressDialog.dismiss();
-            }
-        });
-    }
+//                                albumDetailsGridAdapter.notifyDataSetChanged();
+////                            }else {
+////                                albumDetailsList.addAll(response.getData().getPhotos());
+////                                albumDetailsGridAdapter = new AlbumDetailsGridAdapter(AlbumDetailsActivity.this, albumDetailsList);
+////                                albumGridView.setAdapter(albumDetailsGridAdapter);
+////                            }
+//
+//                        }else {
+//                            Toast.makeText(AlbumDetailsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                    }else {
+//                        Toast.makeText(AlbumDetailsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                }else {
+//                    Toast.makeText(AlbumDetailsActivity.this, "Some problem occurred", Toast.LENGTH_SHORT).show();
+//                }
+//                AlbumDetailsActivity.ringProgressDialog.dismiss();
+//            }
+//        });
+//    }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // If the nav drawer is open, hide action items related to the content view
-
-
 
         // boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
         menu.findItem(R.id.action_settings).setVisible(false);
@@ -279,7 +293,11 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
     protected void onResume() {
         super.onResume();
 
-        if (albumDetailsList.size() <= 0){
+        albumDetailsList.clear();
+        pageCount = 0;
+        loadMoreData();
+
+        //if (albumDetailsList.size() <= 0){
             /**
              * Showing Swipe Refresh animation on activity create
              * As animation won't start on onCreate, post runnable is used
@@ -289,11 +307,11 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
 //                                        public void run() {
 //                                            swipeRefreshLayout.setRefreshing(true);
 
-            populateDummyData();
+            //populateDummyData();
 //                                        }
 //                                    }
 //            );
 
-        }
+        //}
     }
 }
