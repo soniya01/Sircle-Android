@@ -63,8 +63,8 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         pageCount = 1;
         videoListView = (ListView) viewFragment.findViewById(R.id.fragment_video_list_view);
 
-      //  footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
-       // videoListView.addFooterView(footerView);
+//        footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
+//        videoListView.addFooterView(footerView, null, false);
 
         //swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
         //swipeRefreshLayout.setOnRefreshListener(VideoFragment.this);

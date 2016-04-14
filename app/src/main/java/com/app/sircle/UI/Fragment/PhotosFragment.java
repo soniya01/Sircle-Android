@@ -99,8 +99,8 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
             }
         });
 
-        footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
-        albumListView.addFooterView(footerView, null, false);
+//        footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
+//        albumListView.addFooterView(footerView, null, false);
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override

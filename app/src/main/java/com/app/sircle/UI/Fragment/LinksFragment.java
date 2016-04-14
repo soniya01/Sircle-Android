@@ -54,8 +54,8 @@ public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(LinksFragment.this);
 
-        footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
-        linksListView.addFooterView(footerView);
+//        footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
+//        linksListView.addFooterView(footerView, null, false);
 
         linksList = LinksManager.linksList;
 

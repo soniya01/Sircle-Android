@@ -50,9 +50,9 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
         pageCount = 1;
         viewFragment = inflater.inflate(R.layout.fragment_document,
                 null, true);
-        footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
+        //footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
         newsLetterListView = (ListView)viewFragment.findViewById(R.id.fragment_news_list_view);
-        newsLetterListView.addFooterView(footerView);
+        //newsLetterListView.addFooterView(footerView, null, false);
         //swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
         //swipeRefreshLayout.setOnRefreshListener(DocumentFragment.this);
 

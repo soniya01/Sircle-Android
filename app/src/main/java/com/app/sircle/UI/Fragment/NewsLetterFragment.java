@@ -49,8 +49,8 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
         viewFragment = inflater.inflate(R.layout.fragment_news_letter,
                 null, true);
         newsLetterListView = (ListView)viewFragment.findViewById(R.id.fragment_news_list_view);
-        footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
-        newsLetterListView.addFooterView(footerView);
+//        footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
+//        newsLetterListView.addFooterView(footerView, null, false);
 
         newsLetterList = DocumentManager.newsLetterList;
 

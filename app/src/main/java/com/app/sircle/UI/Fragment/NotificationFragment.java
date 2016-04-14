@@ -50,8 +50,8 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
         notificationListView = (ListView) viewFragment.findViewById(R.id.fragment_notification_listview);
         floatingActionButton = (FloatingActionButton) viewFragment.findViewById(R.id.fab);
 
-        footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
-        notificationListView.addFooterView(footerView);
+//        footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
+//        notificationListView.addFooterView(footerView, null, false);
 
         notificationList = NotificationManager.notificationList;
         notificationListviewAdapter = new NotificationListviewAdapter(notificationList, getActivity());
