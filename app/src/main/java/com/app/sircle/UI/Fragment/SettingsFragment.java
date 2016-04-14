@@ -54,18 +54,41 @@ public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnR
         notificationListView = (ListView)viewFragment.findViewById(R.id.notificationsGroupListView);
 
         NotificationManager.grpIds.clear();
-        Constants.isAllChecked = -1;
+       // Constants.isAllChecked = -1;
 
         allCheckBox = (CheckBox) viewFragment.findViewById(R.id.checkAll);
+//        allCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked){
+//                    Constants.isAllChecked = 1;
+//                }else {
+//                    Constants.isAllChecked = 0;
+//                }
+//                NotificationManager.grpIds.clear();
+//                notificationsGroupAdapter.notifyDataSetChanged();
+//            }
+//        });
+
+
         allCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    Constants.isAllChecked = 1;
-                }else {
-                    Constants.isAllChecked = 0;
+                if (isChecked) {
+                    // Constants.isAllChecked = 1;
+                    for (int i = 0; i < notificationGroupList.size(); i++) {
+                        // listData[i] = listView.getAdapter().getItem(i).toString();
+                        notificationGroupList.get(i).setActive(1);
+                    }
+                } else {
+                    for (int i = 0; i < notificationGroupList.size(); i++) {
+                        // listData[i] = listView.getAdapter().getItem(i).toString();
+                        notificationGroupList.get(i).setActive(0);
+                    }
+                    //notificationGroupList.get(i).setActive(1);
+                    // Constants.isAllChecked = 0;
                 }
-                NotificationManager.grpIds.clear();
+                // NotificationManager.grpIds.clear();
                 notificationsGroupAdapter.notifyDataSetChanged();
             }
         });
@@ -99,17 +122,74 @@ public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnR
 
 
         Button saveButton = (Button)viewFragment.findViewById(R.id.saveGroups);
+//        saveButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ringProgressDialog = ProgressDialog.show(getActivity(), "", "", true);
+//                JSONArray arrayObject = new JSONArray();
+//
+//                if (NotificationManager.grpIds.size() > 0){
+//                    for (int i = 0; i < NotificationManager.grpIds.size(); i++) {
+//                        try {
+//                            JSONObject object = new JSONObject();
+//                            object.put("group_id", NotificationManager.grpIds.get(i));
+//                            object.put("val", 1);
+//
+//                            arrayObject.put(object);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    HashMap map = new HashMap();
+//                    map.put("regId", Constants.GCM_REG_ID);
+//                    map.put("groupValString", arrayObject.toString());
+//
+//                    NotificationManager.getSharedInstance().updateGroupNotification(map, new NotificationManager.PostManagerListener() {
+//                        @Override
+//                        public void onCompletion(PostResponse postResponse, AppError error) {
+//                            ringProgressDialog.dismiss();
+//                            if (postResponse != null) {
+//                                Toast.makeText(getActivity(), postResponse.getMessage(), Toast.LENGTH_SHORT).show();
+//                                if (postResponse.getStatus() == 200) {
+//                                    Intent homeIntent = new Intent(getActivity(), BaseActivity.class);
+//                                    startActivity(homeIntent);
+//                                }
+//                            } else {
+//                                Toast.makeText(getActivity(), "some error occurred", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                    });
+//                }else {
+//                    Toast.makeText(getActivity(), "Please select at least one group", Toast.LENGTH_SHORT).show();
+//                }
+//
+//
+//            }
+//        });
+
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ringProgressDialog = ProgressDialog.show(getActivity(), "", "", true);
+
+
+                for (int i = 0; i < notificationGroupList.size(); i++) {
+                    // listData[i] = listView.getAdapter().getItem(i).toString();
+                    // notificationGroupList.get(i).setActive(1);
+                    if (notificationGroupList.get(i).getActive()==1)
+                    {
+                        NotificationManager.getSharedInstance().grpIds.add( notificationGroupList.get(i).getId());
+                    }
+                }
+
                 JSONArray arrayObject = new JSONArray();
 
-                if (NotificationManager.grpIds.size() > 0){
-                    for (int i = 0; i < NotificationManager.grpIds.size(); i++) {
+                if ( NotificationManager.grpIds.size() > 0){
+                    ringProgressDialog = ProgressDialog.show(getActivity(), "", "", true);
+                    for (int i =0 ; i<  NotificationManager.grpIds.size(); i++){
                         try {
                             JSONObject object = new JSONObject();
-                            object.put("group_id", NotificationManager.grpIds.get(i));
+                            object.put("group_id",NotificationManager.grpIds.get(i));
                             object.put("val", 1);
 
                             arrayObject.put(object);
@@ -127,23 +207,37 @@ public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnR
                         public void onCompletion(PostResponse postResponse, AppError error) {
                             ringProgressDialog.dismiss();
                             if (postResponse != null) {
-                                Toast.makeText(getActivity(), postResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(SettingsActivity.this, postResponse.getMessage(), Toast.LENGTH_SHORT).show();
                                 if (postResponse.getStatus() == 200) {
+                                    String grpIdString = "";
+                                    for (int i = 0; i< NotificationManager.grpIds.size(); i++){
+                                        if (i == 0){
+                                            grpIdString = NotificationManager.grpIds.get(i);
+                                        }else {
+                                            grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
+                                        }
+                                    }
+
+                                    NotificationManager.getSharedInstance().saveGroupIds(grpIdString,getActivity());
                                     Intent homeIntent = new Intent(getActivity(), BaseActivity.class);
                                     startActivity(homeIntent);
+                                    //finish();
                                 }
                             } else {
                                 Toast.makeText(getActivity(), "some error occurred", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
+
                 }else {
                     Toast.makeText(getActivity(), "Please select at least one group", Toast.LENGTH_SHORT).show();
                 }
-
+                // give access to the app features
 
             }
+
         });
+
         return  viewFragment;
 
     }

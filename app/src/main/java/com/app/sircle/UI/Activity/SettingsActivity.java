@@ -47,9 +47,10 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
         NotificationManager.grpIds.clear();
         //isAllChecked = true;
-        Constants.isAllChecked = -1;
+       // Constants.isAllChecked = -1;
         notificationListView = (ListView) findViewById(R.id.notificationsGroupListView);
         allCheckBox = (CheckBox) findViewById(R.id.checkAll);
         allCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -107,7 +108,7 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
 
                 for (int i = 0; i < notificationGroupList.size(); i++) {
                     // listData[i] = listView.getAdapter().getItem(i).toString();
-                   // notificationGroupList.get(i).setActive(1);
+                    // notificationGroupList.get(i).setActive(1);
                     if (notificationGroupList.get(i).getActive()==1)
                     {
                         NotificationManager.grpIds.add( notificationGroupList.get(i).getId());
@@ -141,6 +142,18 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
                             if (postResponse != null) {
                                 //Toast.makeText(SettingsActivity.this, postResponse.getMessage(), Toast.LENGTH_SHORT).show();
                                 if (postResponse.getStatus() == 200) {
+
+                                    String grpIdString = "";
+                                    for (int i = 0; i< NotificationManager.grpIds.size(); i++){
+                                        if (i == 0){
+                                            grpIdString = NotificationManager.grpIds.get(i);
+                                        }else {
+                                            grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
+                                        }
+                                    }
+
+                                    NotificationManager.getSharedInstance().saveGroupIds(grpIdString,SettingsActivity.this);
+
                                     Intent homeIntent = new Intent(SettingsActivity.this, BaseActivity.class);
                                     startActivity(homeIntent);
                                     //finish();

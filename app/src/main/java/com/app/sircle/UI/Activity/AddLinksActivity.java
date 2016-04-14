@@ -90,14 +90,16 @@ public class AddLinksActivity extends ActionBarActivity {
             public void onClick(View v) {
                 if (URLUtil.isValidUrl(desc.getText().toString()) && (title.getText().toString() != null) || !title.getText().toString().trim().equals("")) {
 
-                    String grpIdString = "";
-                    for (int i = 0; i< NotificationManager.grpIds.size(); i++){
-                        if (i == 0){
-                            grpIdString = NotificationManager.grpIds.get(i);
-                        }else {
-                            grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
-                        }
-                    }
+//                    String grpIdString = "";
+//                    for (int i = 0; i< NotificationManager.grpIds.size(); i++){
+//                        if (i == 0){
+//                            grpIdString = NotificationManager.grpIds.get(i);
+//                        }else {
+//                            grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
+//                        }
+//                    }
+
+                    String grpIdString = NotificationManager.getSharedInstance().getGroupIds(AddLinksActivity.this);
 
                     HashMap params = new HashMap();
                     params.put("name", title.getText().toString());

@@ -372,14 +372,16 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
                 // repeat_end_type : end_type_text, rep_after_occurence, rep_ondate,
                 // repeat_week_days: (Array), grp, repeat_monthly_on
 
-                String grpIdString = "";
-                for (int i = 0; i< NotificationManager.grpIds.size(); i++){
-                    if (i == 0){
-                        grpIdString = NotificationManager.grpIds.get(i);
-                    }else {
-                        grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
-                    }
-                }
+//                String grpIdString = "";
+//                for (int i = 0; i< NotificationManager.grpIds.size(); i++){
+//                    if (i == 0){
+//                        grpIdString = NotificationManager.grpIds.get(i);
+//                    }else {
+//                        grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
+//                    }
+//                }
+
+                String grpIdString = NotificationManager.getSharedInstance().getGroupIds(EventActivity.this);
 
                 HashMap params = new HashMap();
                 params.put("event_type","2");

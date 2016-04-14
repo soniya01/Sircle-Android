@@ -12,7 +12,10 @@ import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,7 +45,7 @@ public class LoginScreen extends Activity {
 
     private Button loginButton;
     private EditText passwordEditText;
-    private AutoCompleteTextView usernameField;
+    private EditText usernameField;
     private SharedPreferences loginSharedPrefs;
     private Date sessionExpiryDate;
     private LoginResponse loginData;
@@ -60,12 +63,45 @@ public class LoginScreen extends Activity {
 
       //  supportLabel = (TextView)findViewById(R.id.activity_login_email_address_label);
         passwordEditText = (EditText)findViewById(R.id.activity_login_password_edittext);
-        usernameField = (AutoCompleteTextView)findViewById(R.id.activity_login_email_text_view);
+        usernameField = (EditText)findViewById(R.id.activity_login_email_text_view);
 
         // underlines the email address
         SpannableString content = new SpannableString(getResources().getString(R.string.activity_login_email_address).toString());
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         //supportLabel.setText(content);
+
+
+        passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
+                    Log.i("Detect", "Enter pressed");
+                    ringProgressDialog = ProgressDialog.show(LoginScreen.this, "", "Signing In", true);
+
+                    loginSharedPrefs = LoginScreen.this.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
+                    editor = loginSharedPrefs.edit();
+                    LoginManager.accessToken = loginSharedPrefs.getString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, null);
+
+                    SharedPreferences sharedPreferences =
+                            PreferenceManager.getDefaultSharedPreferences(LoginScreen.this);
+                    //  boolean sentToken = sharedPreferences.getBoolean(Constants.SENT_TOKEN_TO_SERVER, false);
+                    Constants.GCM_REG_ID = sharedPreferences.getString(Constants.TOKEN_TO_SERVER, null);
+
+
+                    if (Constants.GCM_REG_ID !=  null){
+                        ringProgressDialog.dismiss();
+                        //Toast.makeText(LoginScreen.this, "User already logged in", Toast.LENGTH_SHORT).show();
+                        //Intent homeIntent = new Intent(LoginScreen.this, BaseActivity.class);
+                        //startActivity(homeIntent);
+                        loginUser();
+
+                    }else {
+                        // save username and password
+                        getGCMToken();
+                    }
+                }
+                return false;
+            }
+        });
 
 
         loginButton = (Button)findViewById(R.id.email_sign_in_button);
@@ -146,7 +182,7 @@ public class LoginScreen extends Activity {
                             Intent intent_receiver = new Intent(LoginScreen.this, GCMListener.class);
                             startService(intent_receiver);
 
-                            NotificationManager.grpIds.clear();
+                            NotificationManager.getSharedInstance().grpIds.clear();
                             sessionExpiryDate = new Date();
                             LoginManager.accessToken = response.getUserData().getOauth().getAccessToken();//  //getOauth().getAccessToken();
                             //LoginManager.expiresIn = response.getUserData().getOauth().getExpiresIn();
@@ -212,10 +248,10 @@ public class LoginScreen extends Activity {
         return true;
     }
 
-    @Override
-    public void onBackPressed() {
-
-    }
+//    @Override
+//    public void onBackPressed() {
+//
+//    }
 
     @Override
     protected void onResume() {

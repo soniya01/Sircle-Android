@@ -193,7 +193,7 @@ public class HomeFragment extends Fragment {
 
     public void fetchAppData(){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-       Set<String> grpIds = sharedPreferences.getStringSet(Constants.GROUP_IDS,null);
+        Set<String> grpIds = sharedPreferences.getStringSet(Constants.GROUP_IDS,null);
         NotificationManager.grpIds.clear();
         NotificationManager.grpIds.addAll(grpIds);
 

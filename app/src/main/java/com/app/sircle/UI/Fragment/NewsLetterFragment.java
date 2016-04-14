@@ -106,14 +106,16 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
         ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
 
-        String grpIdString = "";
-        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
-            if (i == 0){
-                grpIdString = NotificationManager.grpIds.get(i);
-            }else {
-                grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
-            }
-        }
+//        String grpIdString = "";
+//        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
+//            if (i == 0){
+//                grpIdString = NotificationManager.grpIds.get(i);
+//            }else {
+//                grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
+//            }
+//        }
+
+        String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         HashMap map = new HashMap();
         map.put("regId", Constants.GCM_REG_ID);
@@ -212,14 +214,17 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
 
     public void loadMoreData(){
         pageCount += 1;
-        String grpIdString = "";
-        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
-            if (i == 0){
-                grpIdString = NotificationManager.grpIds.get(i);
-            }else {
-                grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
-            }
-        }
+//        String grpIdString = "";
+//        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
+//            if (i == 0){
+//                grpIdString = NotificationManager.grpIds.get(i);
+//            }else {
+//                grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
+//            }
+//        }
+
+        String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
+
         HashMap object = new HashMap();
         object.put("regId", Constants.GCM_REG_ID);
         object.put("groupId", grpIdString);

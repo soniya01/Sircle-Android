@@ -1,8 +1,12 @@
 package com.app.sircle.Manager;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.app.sircle.UI.Model.Notification;
 import com.app.sircle.UI.Model.NotificationGroups;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.Utility.Constants;
 import com.app.sircle.WebService.GroupResponse;
 import com.app.sircle.WebService.NotificationCountResponse;
 import com.app.sircle.WebService.NotificationResponse;
@@ -32,6 +36,21 @@ public class NotificationManager {
             sharedInstance = new NotificationManager();
         }
         return sharedInstance;
+    }
+
+    public void saveGroupIds (String groupIds,Context context)
+    {
+        SharedPreferences sharedpreferences =context.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString(Constants.GROUPIDS_SAVED_PREFS_KEY, groupIds);
+        editor.commit();
+    }
+
+    public String getGroupIds(Context context)
+    {
+        SharedPreferences sharedpreferences =context.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
+        String groupIds = sharedpreferences.getString(Constants.GROUPIDS_SAVED_PREFS_KEY, null);
+        return groupIds;
     }
 
     public void getAllNotifications(HashMap object, final NotificationManagerListener notificationManagerListener){

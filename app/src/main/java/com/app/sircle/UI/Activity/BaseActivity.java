@@ -100,6 +100,8 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        selectedModuleIndex = -1;
+
         checkIfSessionExpired();
 
         if (selectedModuleIndex == null || selectedModuleIndex == 0){

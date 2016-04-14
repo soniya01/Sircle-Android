@@ -71,13 +71,14 @@ android:background="#ffffff"
                         android:background="@android:color/darker_gray" /> -->
 
 
-                    <AutoCompleteTextView
+                    <EditText
                         android:id="@+id/activity_login_email_text_view"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:layout_gravity="center_vertical"
                         android:hint="@string/prompt_email"
+                        android:nextFocusDown="@+id/activity_login_password_edittext"
                         android:inputType="textEmailAddress"
                         android:maxLines="1"
                         android:padding="10dp"

@@ -128,7 +128,7 @@ public class CalendarMonthFragment extends Fragment {
 
             Bundle args = new Bundle();
 
-        Calendar cal = Calendar.getInstance();
+            Calendar cal = Calendar.getInstance();
             cal.setTime(convertedDate);
 
             args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
@@ -243,14 +243,17 @@ public class CalendarMonthFragment extends Fragment {
 
     public void getCalendarEvents(){
 
-        String grpIdString = "";
-        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
-            if (i == 0){
-                grpIdString = NotificationManager.grpIds.get(i);
-            }else {
-                grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
-            }
-        }
+//        String grpIdString = "";
+//        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
+//            if (i == 0){
+//                grpIdString = NotificationManager.grpIds.get(i);
+//            }else {
+//                grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
+//            }
+//        }
+
+        String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
+
         HashMap object = new HashMap();
         object.put("regId", Constants.GCM_REG_ID);
         object.put("month",month);
@@ -283,6 +286,7 @@ public class CalendarMonthFragment extends Fragment {
 
 
                                     dates.put(date, android.R.color.holo_blue_light);
+                                   // dates.put(date,R.drawable.camera_icon);
                                     System.out.println("Date ->" + date);
                                 } catch (Exception e) {
                                     e.printStackTrace();

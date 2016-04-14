@@ -72,14 +72,16 @@ public class SchoolHolidayActivity extends ActionBarActivity {
                         || endDateEditText.getText().toString().equals("")) {
                     Toast.makeText(SchoolHolidayActivity.this, "Please add all the details!", Toast.LENGTH_SHORT).show();
                 } else {
-                    String grpIdString = "";
-                    for (int i = 0; i < NotificationManager.grpIds.size(); i++) {
-                        if (i == 0) {
-                            grpIdString = NotificationManager.grpIds.get(i);
-                        } else {
-                            grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i);
-                        }
-                    }
+//                    String grpIdString = "";
+//                    for (int i = 0; i < NotificationManager.grpIds.size(); i++) {
+//                        if (i == 0) {
+//                            grpIdString = NotificationManager.grpIds.get(i);
+//                        } else {
+//                            grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i);
+//                        }
+//                    }
+
+                    String grpIdString = NotificationManager.getSharedInstance().getGroupIds(SchoolHolidayActivity.this);
 
                     HashMap params = new HashMap();
                     params.put("event_type", "3");
