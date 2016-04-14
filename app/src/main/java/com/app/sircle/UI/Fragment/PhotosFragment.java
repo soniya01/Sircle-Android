@@ -92,7 +92,6 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
         albumListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 albumId = photos.get(position).getAlbumID();
                 albumName = photos.get(position).getAlbumTitle();
                 populateAlbumData(photos.get(position).getAlbumID());
@@ -101,7 +100,7 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
         });
 
         footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
-        albumListView.addFooterView(footerView);
+        albumListView.addFooterView(footerView, null, false);
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
