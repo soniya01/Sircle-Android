@@ -90,15 +90,15 @@ public class AddAlbumActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                String grpIdString = "";
-                for (int i = 0; i< NotificationManager.grpIds.size(); i++){
-                    if (i == 0){
-                        grpIdString = NotificationManager.grpIds.get(i);
-                    }else {
-                        grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
-                    }
-                }
-
+//                String grpIdString = "";
+//                for (int i = 0; i< NotificationManager.grpIds.size(); i++){
+//                    if (i == 0){
+//                        grpIdString = NotificationManager.grpIds.get(i);
+//                    }else {
+//                        grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
+//                    }
+//                }
+                String grpIdString = NotificationManager.getSharedInstance().getGroupIds(AddAlbumActivity.this);
                 HashMap params = new HashMap();
                 params.put("albumName",title.getText().toString());
                 params.put("grp",grpIdString);

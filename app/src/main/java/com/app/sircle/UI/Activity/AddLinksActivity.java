@@ -115,9 +115,11 @@ public class AddLinksActivity extends ActionBarActivity {
                             } else {
                                 Toast.makeText(AddLinksActivity.this, "Some error occured", Toast.LENGTH_SHORT).show();
                             }
+
+                            finish();
                         }
                     });
-                    finish();
+                   // finish();
                 } else {
                     desc.setText("");
                     Toast.makeText(AddLinksActivity.this, "Please enter valid url", Toast.LENGTH_SHORT).show();

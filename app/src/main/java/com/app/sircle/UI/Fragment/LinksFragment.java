@@ -149,6 +149,7 @@ public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                         if (response.getData().getLinks().size() > 0) {
                             totalRecord = response.getData().getTotalRecords();
                             pageRecords =  response.getData().getPageRecords();
+                            linksList.clear();
                             linksList.addAll(response.getData().getLinks());
                             linksListViewAdapter.notifyDataSetChanged();
 
