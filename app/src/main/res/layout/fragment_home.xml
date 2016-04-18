@@ -133,7 +133,7 @@
                 android:paddingRight="0dp"
                 android:scaleType="fitXY"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_photo_album_black_48dp"
+                android:src="@drawable/photoshome"
                 android:background="@color/white"/>
             <TextView
                 android:textSize="30px"
@@ -166,7 +166,7 @@
                 android:paddingLeft="0dp"
                 android:paddingRight="0dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/ic_content_copy_black_48dp"
+                android:src="@drawable/newslettershome"
                 android:background="@color/white"/>
             <TextView
                 android:textSize="30px"
@@ -211,7 +211,7 @@
                 android:paddingRight="0dp"
                 android:scaleType="fitXY"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_description_black_48dp"
+                android:src="@drawable/documentshome"
                 android:background="@color/white"/>
             <TextView
                 android:textSize="30px"
@@ -245,7 +245,7 @@
                 android:paddingRight="0dp"
                 android:layout_gravity="center"
                 android:scaleType="fitXY"
-                android:src="@drawable/ic_movie_black_48dp"
+                android:src="@drawable/videoshome"
                 android:background="@color/white"/>
             <TextView
                 android:textSize="30px"
@@ -278,7 +278,7 @@
                 android:paddingRight="0dp"
                 android:layout_gravity="center"
                 android:scaleType="fitXY"
-                android:src="@drawable/ic_link_black_48dp"
+                android:src="@drawable/linkshome"
                 android:background="@color/white"/>
             <TextView
                 android:textSize="30px"
@@ -323,7 +323,7 @@
                 android:paddingRight="0dp"
                 android:layout_gravity="center"
                 android:scaleType="fitXY"
-                android:src="@drawable/ic_settings_black_48dp"
+                android:src="@drawable/settingshome"
                 android:background="@color/white"/>
             <TextView
                 android:textSize="30px"
@@ -357,7 +357,7 @@
                 android:paddingRight="0dp"
                 android:layout_gravity="center"
                 android:scaleType="fitXY"
-                android:src="@drawable/ic_announcement_black_48dp"
+                android:src="@drawable/notificationshome"
                 android:background="@color/white"/>
             <TextView
                 android:textSize="30px"
@@ -390,7 +390,7 @@
                 android:paddingRight="0dp"
                 android:layout_gravity="center"
                 android:scaleType="fitXY"
-                android:src="@drawable/ic_error_outline_black_48dp"
+                android:src="@drawable/informationhome"
                 android:background="@color/white"/>
             <TextView
                 android:textSize="30px"

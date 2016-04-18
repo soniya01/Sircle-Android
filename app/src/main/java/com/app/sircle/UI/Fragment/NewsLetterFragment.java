@@ -57,8 +57,8 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
         newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), newsLetterList);
         newsLetterListView.setAdapter(newsLetterListViewAdapter);
 
-        //swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
-        //swipeRefreshLayout.setOnRefreshListener(NewsLetterFragment.this);
+        swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(NewsLetterFragment.this);
 
 
 
@@ -68,7 +68,7 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
              * Showing Swipe Refresh animation on activity create
              * As animation won't start on onCreate, post runnable is used
              */
-            populateDummyData();
+          //  populateDummyData();
 //            swipeRefreshLayout.post(new Runnable() {
 //                                        @Override
 //                                        public void run() {
@@ -78,6 +78,16 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
 //                                        }
 //                                    }
 //            );
+
+            swipeRefreshLayout.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            swipeRefreshLayout.setRefreshing(true);
+
+                                            populateDummyData();
+                                        }
+                                    }
+            );
         }
 
 
@@ -99,12 +109,12 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
 
     public void populateDummyData(){
 
-        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
-        progressBar.setIndeterminate(true);
-        progressBar.setVisibility(View.VISIBLE);
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
-        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-        ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
+//        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
+//        progressBar.setIndeterminate(true);
+//        progressBar.setVisibility(View.VISIBLE);
+//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
+//        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+//        ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
 
 //        String grpIdString = "";
 //        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
@@ -127,8 +137,8 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
         DocumentManager.getSharedInstance().getAllNewsLetters(map, new DocumentManager.GetNewsManagerListener() {
             @Override
             public void onCompletion(DocumentsResponse response, AppError error) {
-                progressBar.setVisibility(View.GONE);
-                //swipeRefreshLayout.setRefreshing(false);
+              //  progressBar.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                     if (response != null) {
                         if (response.getStatus() == 200) {
@@ -172,6 +182,8 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
 
     @Override
     public void onRefresh() {
+
+
         populateDummyData();
     }
 

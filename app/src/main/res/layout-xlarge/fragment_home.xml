@@ -133,7 +133,7 @@
                 android:paddingRight="0dp"
                 android:scaleType="fitXY"
                 android:layout_gravity="center"
-                android:src="@drawable/photohome"
+                android:src="@drawable/photoshome"
                 android:background="@color/white"/>
             <TextView
                 android:textSize="24px"
@@ -278,7 +278,7 @@
                 android:paddingRight="0dp"
                 android:layout_gravity="center"
                 android:scaleType="fitXY"
-                android:src="@drawable/links_home"
+                android:src="@drawable/linkshome"
                 android:background="@color/white"/>
             <TextView
                 android:textSize="24px"

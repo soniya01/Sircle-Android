@@ -16,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.sircle.Manager.EventManager;
@@ -115,6 +116,9 @@ public class CalendarListFragment extends Fragment implements AbsListView.OnScro
         footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
         calendarMonthListView.addFooterView(footerView);
         calendarMonthListView.setOnScrollListener(this);
+
+        TextView emptyText = (TextView)viewFragment.findViewById(R.id.empty);
+        calendarMonthListView.setEmptyView(emptyText);
 
         calendarMonthListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -66,8 +66,8 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 //        footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
 //        videoListView.addFooterView(footerView, null, false);
 
-        //swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
-        //swipeRefreshLayout.setOnRefreshListener(VideoFragment.this);
+        swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(VideoFragment.this);
 
         VideoFragment.this.videoList = VideoManager.getSharedInstance().videoList;
 
@@ -76,7 +76,17 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         videoListView.setOnScrollListener(this);
 
         if (VideoFragment.this.videoList.size() <= 0) {
-            populateDummyData();
+           // populateDummyData();
+
+            swipeRefreshLayout.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            swipeRefreshLayout.setRefreshing(true);
+
+                                            populateDummyData();
+                                        }
+                                    }
+            );
             /**
              * Showing Swipe Refresh animation on activity create
              * As animation won't start on onCreate, post runnable is used
@@ -127,12 +137,12 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     public void populateDummyData() {
 
-        final ProgressBar progressBar = new ProgressBar(getActivity(), null, android.R.attr.progressBarStyleLarge);
-        progressBar.setIndeterminate(true);
-        progressBar.setVisibility(View.VISIBLE);
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100, 100);
-        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-        ((RelativeLayout) viewFragment).addView(progressBar, layoutParams);
+//        final ProgressBar progressBar = new ProgressBar(getActivity(), null, android.R.attr.progressBarStyleLarge);
+//        progressBar.setIndeterminate(true);
+//        progressBar.setVisibility(View.VISIBLE);
+//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100, 100);
+//        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+//        ((RelativeLayout) viewFragment).addView(progressBar, layoutParams);
 
 //        String grpIdString = "";
 //        for (int i = 0; i < NotificationManager.grpIds.size(); i++) {
@@ -153,8 +163,8 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         VideoManager.getSharedInstance().getAllVideos(object, new VideoManager.VideoManagerListener() {
             @Override
             public void onCompletion(VideoResponse response, AppError error) {
-                progressBar.setVisibility(View.GONE);
-                //swipeRefreshLayout.setRefreshing(false);
+               // progressBar.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                     if (response != null) {
                         if (response.getStatus() == 200) {

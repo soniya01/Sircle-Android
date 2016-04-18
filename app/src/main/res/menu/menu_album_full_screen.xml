@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/action_download"
-        android:icon="@drawable/download_icon"
+        android:icon="@drawable/downloadicon"
         android:title=""
         android:orderInCategory="100"
         app:showAsAction="always" />

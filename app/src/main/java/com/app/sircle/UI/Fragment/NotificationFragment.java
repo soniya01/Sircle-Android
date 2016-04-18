@@ -2,7 +2,9 @@ package com.app.sircle.UI.Fragment;
 
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -39,6 +41,7 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
     private SwipeRefreshLayout swipeRefreshLayout;
     int currentFirstVisibleItem,currentVisibleItemCount,currentScrollState,pageCount, totalRecord;
     boolean isLoading;
+    private SharedPreferences loginSharedPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,6 +52,15 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
 
         notificationListView = (ListView) viewFragment.findViewById(R.id.fragment_notification_listview);
         floatingActionButton = (FloatingActionButton) viewFragment.findViewById(R.id.fab);
+
+        loginSharedPreferences = getActivity().getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = loginSharedPreferences.edit();
+        String userType = loginSharedPreferences.getString(Constants.LOGIN_LOGGED_IN_USER_TYPE,null);
+
+        if (!userType.equals("admin"))
+        {
+            floatingActionButton.setVisibility(View.GONE);
+        }
 
 //        footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
 //        notificationListView.addFooterView(footerView, null, false);
@@ -217,15 +229,18 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
     public void loadMoreData()
     {
         pageCount = pageCount +1;
-        String grpIdString = "";
-        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
-            if (i == 0){
-                grpIdString = NotificationManager.grpIds.get(i);
-            }else {
-                grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
-            }
+//        String grpIdString = "";
+//        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
+//            if (i == 0){
+//                grpIdString = NotificationManager.grpIds.get(i);
+//            }else {
+//                grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
+//            }
+//
+//        }
 
-        }
+        String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
+
         HashMap object = new HashMap();
         object.put("regId", Constants.GCM_REG_ID);
         object.put("groupId",grpIdString);

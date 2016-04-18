@@ -20,5 +20,13 @@ tools:context="com.app.sircle.UI.Fragment.CalendarListFragment">
 
 </ListView>
 
+    <TextView
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:textAlignment="center"
+        android:layout_height="wrap_content"
+        android:text="No Events"
+        />
+
 
 </RelativeLayout>

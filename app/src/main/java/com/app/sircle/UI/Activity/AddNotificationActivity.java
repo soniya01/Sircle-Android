@@ -47,6 +47,7 @@ public class AddNotificationActivity extends ActionBarActivity {
     private TextView descCountLabel;
     private NotificationsGroupAdapter notificationsGroupAdapter;
     public static CheckBox allCheckBox;
+    ProgressDialog ringProgressDialog;
    // public static int isAllChecked = -1;
 
     @Override
@@ -97,12 +98,15 @@ public class AddNotificationActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                final ProgressBar progressBar = new ProgressBar(AddNotificationActivity.this,null,android.R.attr.progressBarStyleLarge);
-                progressBar.setIndeterminate(true);
-                progressBar.setVisibility(View.VISIBLE);
-                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
-                layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-                ((LinearLayout)v.getParent().getParent().getParent()).addView(progressBar, layoutParams);
+              //  final ProgressBar progressBar = new ProgressBar(AddNotificationActivity.this,null,android.R.attr.progressBarStyleLarge);
+               // progressBar.setIndeterminate(true);
+               // progressBar.setVisibility(View.VISIBLE);
+
+                ringProgressDialog = ProgressDialog.show(AddNotificationActivity.this, "", "", true);
+
+               // RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
+               // layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+               // ((LinearLayout)v.getParent().getParent().getParent()).addView(progressBar, layoutParams);
                 if (!desc.getText().toString().trim().equals("") && (title.getText().toString() != null) || !title.getText().toString().trim().equals("")){
 //                    String grpIdString = "";
 //                    for (int i = 0; i< NotificationManager.grpIds.size(); i++){
@@ -123,15 +127,18 @@ public class AddNotificationActivity extends ActionBarActivity {
                     NotificationManager.getSharedInstance().addNotification(params, new NotificationManager.PostManagerListener() {
                         @Override
                         public void onCompletion(PostResponse postResponse, AppError error) {
-                            progressBar.setVisibility(View.GONE);
+                         //   progressBar.setVisibility(View.GONE);
                             if (postResponse != null) {
                                 if (postResponse.getStatus() == 200) {
+                                    ringProgressDialog.dismiss();
                                     Toast.makeText(AddNotificationActivity.this, postResponse.getMessage(), Toast.LENGTH_SHORT).show();
                                     finish();
                                 } else {
+                                    ringProgressDialog.dismiss();
                                     Toast.makeText(AddNotificationActivity.this, postResponse.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             } else {
+                                ringProgressDialog.dismiss();
                                 Toast.makeText(AddNotificationActivity.this, "Check internet connectivity", Toast.LENGTH_SHORT).show();
                             }
                         }

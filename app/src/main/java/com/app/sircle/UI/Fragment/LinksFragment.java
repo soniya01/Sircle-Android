@@ -2,7 +2,9 @@ package com.app.sircle.UI.Fragment;
 
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -41,6 +43,7 @@ public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     private int count = 1, totalRecord = 0, pageRecords = 0;
     boolean isLoading;
     int currentFirstVisibleItem,currentVisibleItemCount,currentScrollState,pageCount;
+    private SharedPreferences loginSharedPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,6 +56,15 @@ public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         floatingActionButton = (FloatingActionButton) viewFragment.findViewById(R.id.fab);
         swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(LinksFragment.this);
+
+        loginSharedPreferences = getActivity().getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = loginSharedPreferences.edit();
+        String userType = loginSharedPreferences.getString(Constants.LOGIN_LOGGED_IN_USER_TYPE,null);
+
+        if (!userType.equals("admin"))
+        {
+            floatingActionButton.setVisibility(View.GONE);
+        }
 
 //        footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
 //        linksListView.addFooterView(footerView, null, false);

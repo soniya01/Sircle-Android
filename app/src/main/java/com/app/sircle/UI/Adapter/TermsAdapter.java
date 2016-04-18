@@ -12,6 +12,7 @@ import com.app.sircle.R;
 import com.app.sircle.UI.Fragment.CalendarTodayFragment;
 import com.app.sircle.UI.Model.CalendarMonthlyListData;
 import com.app.sircle.UI.Model.Terms;
+import com.app.sircle.Utility.Constants;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public class TermsAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         final ViewHolder viewHolder;
         if (convertView == null) {
@@ -79,6 +80,15 @@ public class TermsAdapter extends BaseAdapter {
 
                 termsFragment.showDialogCalendar(viewHolder.termsStartDateLabel.getText().toString());
 
+                int termNumber = position+1;
+
+                Constants.term = "T"+termNumber;
+                Constants.termPeriod = "Start";
+
+          // String s = viewHolder.termsStartDateLabel.getText().toString();
+
+            //    System.out.println(s);
+
             }
         });
 
@@ -88,6 +98,12 @@ public class TermsAdapter extends BaseAdapter {
 
                 //Toast.makeText(context,,Toast.LENGTH_SHORT).show();
                 termsFragment.showDialogCalendar(viewHolder.termsEndDateLabel.getText().toString());
+
+                int termNumber = position+1;
+
+
+                Constants.term = "T"+termNumber;
+                Constants.termPeriod = "End";
 
             }
         });

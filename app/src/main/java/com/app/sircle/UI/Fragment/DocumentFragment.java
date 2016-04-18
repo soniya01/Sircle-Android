@@ -53,8 +53,8 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
         //footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
         newsLetterListView = (ListView)viewFragment.findViewById(R.id.fragment_news_list_view);
         //newsLetterListView.addFooterView(footerView, null, false);
-        //swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
-        //swipeRefreshLayout.setOnRefreshListener(DocumentFragment.this);
+        swipeRefreshLayout = (SwipeRefreshLayout) viewFragment.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(DocumentFragment.this);
 
         newsLetterList = DocumentManager.docsList;
         newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), newsLetterList);
@@ -71,12 +71,23 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
 //                                        public void run() {
 //                                            swipeRefreshLayout.setRefreshing(true);
 
-                                            populateDummyData();
+                                           // populateDummyData();
 //                                        }
 //                                    }
 //            );
 
             //populateDummyData();
+
+            swipeRefreshLayout.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            swipeRefreshLayout.setRefreshing(true);
+
+                                            populateDummyData();
+                                        }
+                                    }
+            );
+
         }
 
 
@@ -97,14 +108,6 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     public void populateDummyData(){
-        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
-        progressBar.setIndeterminate(true);
-        progressBar.setVisibility(View.VISIBLE);
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
-        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-        ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
-
-
 //        String grpIdString = "";
 //        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
 //            if (i == 0){
@@ -124,8 +127,8 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
         DocumentManager.getSharedInstance().getAllDocs(object, new DocumentManager.GetNewsManagerListener() {
             @Override
             public void onCompletion(DocumentsResponse data, AppError error) {
-                progressBar.setVisibility(View.GONE);
-//                swipeRefreshLayout.setRefreshing(false);
+                //progressBar.setVisibility(View.GONE);
+                 swipeRefreshLayout.setRefreshing(false);
                 if (data != null) {
                     if (data.getStatus() == 200) {
                         if (data.getData().getDocs().size() > 0) {
@@ -162,7 +165,10 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onRefresh() {
-        //populateDummyData();
+        newsLetterList.clear();
+        newsLetterListViewAdapter.notifyDataSetChanged();
+      //  populateDummyData(1);
+        populateDummyData();
     }
 
     @Override

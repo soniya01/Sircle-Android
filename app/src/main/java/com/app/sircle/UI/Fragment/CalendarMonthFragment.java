@@ -14,6 +14,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -23,13 +24,20 @@ import com.app.sircle.Manager.EventManager;
 import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.AddLinksActivity;
+import com.app.sircle.UI.Activity.BaseActivity;
 import com.app.sircle.UI.Activity.EventsListActivity;
+import com.app.sircle.UI.Adapter.CaldroidSampleCustomFragment;
 import com.app.sircle.UI.Model.Event;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.Utility.Constants;
 import com.app.sircle.WebService.EventDataReponse;
+import com.app.sircle.WebService.PostResponse;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -100,8 +108,10 @@ public class CalendarMonthFragment extends Fragment {
                              Bundle savedInstanceState) {
         viewFragment = inflater.inflate(R.layout.fragment_calendar_month, container, false);
         // Inflate the layout for this fragment
-        caldroidFragment = new CaldroidFragment();
-       // caldroidFragment.setMinDate(new Date());
+       // caldroidFragment = new CaldroidFragment();
+        caldroidFragment = new CaldroidSampleCustomFragment();
+
+        // caldroidFragment.setMinDate(new Date());
 
         if (Constants.dateAvailabe.equals(""))
         {
@@ -172,7 +182,7 @@ public class CalendarMonthFragment extends Fragment {
                 String text = "month: " + month + " year: " + year;
                 CalendarMonthFragment.this.month = month;
                 CalendarMonthFragment.this.year = year;
-                Constants.dateAvailabe="01/"+month+"/"+year;
+               // Constants.dateAvailabe="01/"+month+"/"+year;
                 getCalendarEvents();
               //  Toast.makeText(getActivity().getApplicationContext(), text, Toast.LENGTH_SHORT).show();
             }
@@ -198,6 +208,39 @@ public class CalendarMonthFragment extends Fragment {
         FragmentTransaction t = myContext.getSupportFragmentManager().beginTransaction();
         t.replace(R.id.calendar1, caldroidFragment);
         t.commit();
+
+
+        Button todayButton = (Button)viewFragment.findViewById(R.id.todayButton);
+
+
+        todayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                caldroidFragment.moveToDate(new Date());
+
+             //  caldroidFragment = new CaldroidFragment();
+
+              //  Bundle args = new Bundle();
+                final Calendar cal = Calendar.getInstance();
+//                args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
+//                args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
+               // caldroidFragment.c
+               // caldroidFragment.setArguments(args);
+
+              //  caldroidFragment.refreshView();
+
+                month = cal.get(Calendar.MONTH) + 1;
+                year = cal.get(Calendar.YEAR);
+
+                getCalendarEvents();
+
+
+                // give access to the app features
+
+            }
+
+        });
 
         return viewFragment;
     }

@@ -188,6 +188,7 @@ public class LoginScreen extends Activity {
                             //LoginManager.expiresIn = response.getUserData().getOauth().getExpiresIn();
                             //LoginManager.loggedInTime = new Date().getTime();
                             editor.putString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, response.getUserData().getOauth().getAccessToken());
+                            editor.putString(Constants.LOGIN_LOGGED_IN_USER_TYPE, response.getUserData().getUserType());
                             editor.putLong(Constants.LOGIN_EXPIRES_IN_PREFS_KEY, response.getUserData().getOauth().getExpiresIn());
                             editor.putLong(Constants.LOGIN_LOGGED_IN_PREFS_KEY, new Date().getTime() / 1000);
                             editor.apply();

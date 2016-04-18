@@ -3,6 +3,7 @@ package com.app.sircle.UI.Fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -24,6 +25,7 @@ import com.app.sircle.UI.Activity.EventActivity;
 import com.app.sircle.UI.Activity.EventsListActivity;
 import com.app.sircle.UI.Activity.HolidayActivity;
 import com.app.sircle.UI.Activity.SchoolHolidayActivity;
+import com.app.sircle.Utility.Constants;
 import com.astuetz.PagerSlidingTabStrip;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
@@ -44,6 +46,7 @@ public class CalendarFragment extends Fragment  {
     CalendarMonthFragment calendarMonthFragment;
     CalendarTodayFragment calendarTodayFragment;
     CalendarListFragment calendarListFragment;
+    private SharedPreferences loginSharedPreferences;
 
 
 
@@ -74,6 +77,15 @@ public class CalendarFragment extends Fragment  {
 
 
          menuMultipleActions = (FloatingActionsMenu)viewFragment.findViewById(R.id.multiple_actions);
+
+        loginSharedPreferences = getActivity().getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = loginSharedPreferences.edit();
+        String userType = loginSharedPreferences.getString(Constants.LOGIN_LOGGED_IN_USER_TYPE,null);
+
+        if (!userType.equals("admin"))
+        {
+            menuMultipleActions.setVisibility(View.GONE);
+        }
 
         final com.getbase.floatingactionbutton.FloatingActionButton actionHoliday = (com.getbase.floatingactionbutton.FloatingActionButton)viewFragment.findViewById(R.id.actionHoliday);
         actionHoliday.setOnClickListener(new View.OnClickListener() {

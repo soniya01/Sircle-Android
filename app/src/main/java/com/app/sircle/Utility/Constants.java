@@ -9,6 +9,7 @@ public class Constants {
     public static final String LOGIN_ACCESS_TOKEN_PREFS_KEY = "accessToken";
     public static final String LOGIN_EXPIRES_IN_PREFS_KEY = "expiresIn";
     public static final String LOGIN_LOGGED_IN_PREFS_KEY = "loggedIn";
+    public static final String LOGIN_LOGGED_IN_USER_TYPE = "userType";
     public static final String GROUPIDS_SAVED_PREFS_KEY = "savedGroupIDs";
     public static final String NO_NET_CONNECTIVITY_MESSAGE = "Sorry! There was trouble playing this video. PLease check your net connection";
 
@@ -23,6 +24,8 @@ public class Constants {
     public static String GCM_REG_ID = "id";
     public static int isAllChecked = -1;
     public static String dateAvailabe = "";
+    public static String term ="";
+    public static String termPeriod = "";
     public static final String BASE_URL = "http://52.3.172.189/testapi/";
     //public static final String BASE_URL = "http://demo.snaptech.in/";
     public static final String LOGIN_API_PATH = "user/user_get/";

@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.app.sircle.Manager.EventManager;
 import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
+import com.app.sircle.UI.Adapter.CalendarDayListAdapter;
 import com.app.sircle.UI.Adapter.CalendarMonthListAdapter;
 import com.app.sircle.UI.Model.Event;
 import com.app.sircle.Utility.AppError;
@@ -32,7 +33,7 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
 
 
     private ListView calendarMonthListView;
-    private CalendarMonthListAdapter calendarMonthListViewAdapter;
+    private CalendarDayListAdapter calendarMonthListViewAdapter;
     private List<Event> calendarMonthList = new ArrayList<Event>();
 
     private View footerView;
@@ -235,7 +236,7 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
 //        ringProgressDialog.dismiss();
         calendarMonthList.clear();
         calendarMonthList.addAll(filteredList);
-        calendarMonthListViewAdapter = new CalendarMonthListAdapter(this, calendarMonthList);
+        calendarMonthListViewAdapter = new CalendarDayListAdapter(this, calendarMonthList);
         calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
         //calendarMonthListViewAdapter.notifyDataSetChanged();
     }
