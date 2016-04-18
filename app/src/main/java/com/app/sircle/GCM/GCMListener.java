@@ -55,7 +55,7 @@ public class GCMListener extends GcmListenerService {
     }
 
     private void sendNotification(Bundle data) {
-        String title = "", eventId = "", url="", albumId, message="";
+        String title = "", eventId = "", url = "", albumId = "", message = "";
 
 
         SharedPreferences loginSharedPrefs = getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
@@ -65,6 +65,7 @@ public class GCMListener extends GcmListenerService {
                 PreferenceManager.getDefaultSharedPreferences(this);
         //  boolean sentToken = sharedPreferences.getBoolean(Constants.SENT_TOKEN_TO_SERVER, false);
         Constants.GCM_REG_ID = sharedPreferences.getString(Constants.TOKEN_TO_SERVER, null);
+       // String grpIdString = com.app.sircle.Manager.NotificationManager.getSharedInstance().getGroupIds(GCMListener.this);
         Set<String> grpIds = sharedPreferences.getStringSet(Constants.GROUP_IDS,null);
         com.app.sircle.Manager.NotificationManager.grpIds.clear();
         com.app.sircle.Manager.NotificationManager.grpIds.addAll(grpIds);
@@ -78,6 +79,8 @@ public class GCMListener extends GcmListenerService {
         Intent intent;
         url = data.getString("url");
 
+//        Toast.makeText(getBaseContext(), title + "\n" + message,Toast.LENGTH_SHORT).show();
+        System.out.println("message: "+ title + "\n" + message);
         title = data.getString("title");
         if (url.equals("notificationsPage")){
             message = data.getString("message");
@@ -122,6 +125,7 @@ public class GCMListener extends GcmListenerService {
         }
 
         intent = new Intent(this, intentClass);
+        intent.putExtra("notificationActivity", BaseActivity.selectedModuleIndex);
         if (url.equals("PhotoListViewPage")){
             albumId = data.getString("albumId");
             intent.putExtra("albumId", albumId);
@@ -135,10 +139,11 @@ public class GCMListener extends GcmListenerService {
             }
         }
 
+        //System.out.println("extras: "+ eventId + "\n" + albumId);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                0);
+                PendingIntent.FLAG_UPDATE_CURRENT);
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

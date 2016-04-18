@@ -115,6 +115,13 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
                     .getBoolean(SHOULD_SELECT_LIST_VIEW_ITEM);
             selectedModuleIndex = savedInstanceState.getInt(SELECTED_MODULE);
         }
+//""
+        // if notifictaion is clicked
+        if (getIntent().getExtras() != null) {
+            Bundle b = getIntent().getExtras();
+            selectedModuleIndex = b.getInt("notificationActivity");
+            shouldSelectListViewItem = true;
+        }
 
         setContentView(R.layout.activity_base);
 
