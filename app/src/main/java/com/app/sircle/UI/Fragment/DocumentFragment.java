@@ -3,7 +3,8 @@ package com.app.sircle.UI.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Fragment;
+
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.app.sircle.Manager.DocumentManager;
 import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.PDFViewer;
+import com.app.sircle.UI.Adapter.DocumentsViewAdapter;
 import com.app.sircle.UI.Adapter.NewsLettersViewAdapter;
 import com.app.sircle.UI.Model.NewsLetter;
 import com.app.sircle.UI.SlidingPane.SlidingPaneInterface;
@@ -35,7 +37,7 @@ import java.util.List;
 public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, AbsListView.OnScrollListener{
 
     private ListView newsLetterListView;
-    private NewsLettersViewAdapter newsLetterListViewAdapter;
+    private DocumentsViewAdapter newsLetterListViewAdapter;
     private List<NewsLetter> newsLetterList = new ArrayList<NewsLetter>();
     private View footerView, viewFragment;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -57,7 +59,7 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
         swipeRefreshLayout.setOnRefreshListener(DocumentFragment.this);
 
         newsLetterList = DocumentManager.docsList;
-        newsLetterListViewAdapter = new NewsLettersViewAdapter(getActivity(), newsLetterList);
+        newsLetterListViewAdapter = new DocumentsViewAdapter(getActivity(), newsLetterList);
         newsLetterListView.setAdapter(newsLetterListViewAdapter);
         newsLetterListView.setOnScrollListener(this);
 

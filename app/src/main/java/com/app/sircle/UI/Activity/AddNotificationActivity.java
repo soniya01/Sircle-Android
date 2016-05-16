@@ -77,7 +77,7 @@ public class AddNotificationActivity extends ActionBarActivity {
         setListViewHeightBasedOnChildren(addListView);
         title = (EditText)findViewById(R.id.activity_add_notification_title_edit_text);
         desc = (EditText)findViewById(R.id.activity_add_notification_desc_edit_text);
-        descCountLabel = (TextView)findViewById(R.id.activity_add_desc_count);
+        //descCountLabel = (TextView)findViewById(R.id.activity_add_desc_count);
 
         footerView = View.inflate(this, R.layout.list_view_add_footer, null);
         addButton = (Button)footerView.findViewById(R.id.add_button);

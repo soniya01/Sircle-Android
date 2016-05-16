@@ -11,4 +11,5 @@
     <color name="blue_semi_transparent_pressed">#80738ffe</color>
     <color name="actionbarBlue">#000</color>
     <color name="statusbarBlue">#000</color> -->
+    <color name="listimagebackgroundcolor">#F8FBFF</color>
 </resources>

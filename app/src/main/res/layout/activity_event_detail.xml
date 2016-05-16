@@ -81,7 +81,7 @@
         android:layout_marginTop="30dp"
         android:text="SAVE"
         android:textSize="18sp"
-        android:background="#000000"
+        android:background="#FC6F71"
         android:textColor="@android:color/white"/>
 
     <Button
@@ -92,7 +92,7 @@
         android:layout_marginBottom="20dp"
         android:text="DELETE"
         android:textSize="18sp"
-        android:background="#000000"
+        android:background="#FC6F71"
         android:textColor="@android:color/white"/>
 
     </LinearLayout>

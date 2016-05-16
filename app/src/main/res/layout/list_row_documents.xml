@@ -12,28 +12,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        >
+       >
 
 
 
-        <RelativeLayout
-            android:id="@+id/imageLayout"
-            android:layout_width="wrap_content"
-            android:background="@color/listimagebackgroundcolor"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_alignBottom="@+id/textLayout">
-
-            <ImageView
-                android:id="@+id/pdfImage"
+            <RelativeLayout
+                android:id="@+id/imageLayout"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="19dp"
-                android:paddingRight="18dp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/newsletterslist" />
+                android:layout_alignParentTop="true"
+                android:background="@color/listimagebackgroundcolor"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/textLayout">
 
-        </RelativeLayout>
+                <ImageView
+                    android:id="@+id/pdfImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="19dp"
+                    android:paddingRight="18dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/documentslist" />
+
+            </RelativeLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -73,17 +73,17 @@
 
 
 
-        <com.app.sircle.custom.RobotoLightTextView
-            android:id="@+id/pdfTime"
-            android:textColor="#666666"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="22dp"
-            android:layout_marginTop="20dp"
-            android:textSize="14dp"
-            android:text="11:00" />
+            <com.app.sircle.custom.RobotoLightTextView
+                android:id="@+id/pdfTime"
+                android:textColor="#666666"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="22dp"
+                android:layout_marginTop="20dp"
+                android:textSize="14dp"
+                android:text="11:00" />
 
 
 

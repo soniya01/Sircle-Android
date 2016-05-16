@@ -4,36 +4,24 @@ package com.app.sircle.UI.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TabHost;
-
 import com.app.sircle.R;
-import com.app.sircle.UI.Activity.AddLinksActivity;
 import com.app.sircle.UI.Activity.EventActivity;
-import com.app.sircle.UI.Activity.EventsListActivity;
 import com.app.sircle.UI.Activity.HolidayActivity;
 import com.app.sircle.UI.Activity.SchoolHolidayActivity;
 import com.app.sircle.Utility.Constants;
-import com.astuetz.PagerSlidingTabStrip;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
-import java.util.List;
-import java.util.Vector;
 
-
-public class CalendarFragment extends Fragment  {
+public class CalendarFragment extends Fragment {
 
    // private PagerSlidingTabStrip tabs;
    // private ViewPager pager;
@@ -46,14 +34,10 @@ public class CalendarFragment extends Fragment  {
     CalendarMonthFragment calendarMonthFragment;
     CalendarTodayFragment calendarTodayFragment;
     CalendarListFragment calendarListFragment;
+    MyAdapter pagerAdapter;
     private SharedPreferences loginSharedPreferences;
 
 
-
-
-    public CalendarFragment() {
-        // Required empty public constructor
-    }
 
 
     @Override
@@ -66,17 +50,16 @@ public class CalendarFragment extends Fragment  {
         calendarListFragment = new CalendarListFragment();
         //calendarTodayFragment.setListener(this);
 
-        View viewFragment = inflater.inflate(R.layout.fragment_calendar, container, false);
 
-        tabLayout = (TabLayout) viewFragment.findViewById(R.id.tabs);
-        viewPager = (ViewPager) viewFragment.findViewById(R.id.viewpager);
+        /**
+         *Inflate tab_layout and setup Views.
+         */
+        View x =  inflater.inflate(R.layout.fragment_calendar,null);
+        tabLayout = (TabLayout) x.findViewById(R.id.tabs);
+        viewPager = (ViewPager) x.findViewById(R.id.viewpager);
 
 
-      //  tabs = (PagerSlidingTabStrip) viewFragment.findViewById(R.id.tabs);
-      //  pager = (ViewPager) viewFragment.findViewById(R.id.pager);
-
-
-         menuMultipleActions = (FloatingActionsMenu)viewFragment.findViewById(R.id.multiple_actions);
+        menuMultipleActions = (FloatingActionsMenu)x.findViewById(R.id.multiple_actions);
 
         loginSharedPreferences = getActivity().getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = loginSharedPreferences.edit();
@@ -87,7 +70,7 @@ public class CalendarFragment extends Fragment  {
             menuMultipleActions.setVisibility(View.GONE);
         }
 
-        final com.getbase.floatingactionbutton.FloatingActionButton actionHoliday = (com.getbase.floatingactionbutton.FloatingActionButton)viewFragment.findViewById(R.id.actionHoliday);
+        final com.getbase.floatingactionbutton.FloatingActionButton actionHoliday = (com.getbase.floatingactionbutton.FloatingActionButton)x.findViewById(R.id.actionHoliday);
         actionHoliday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,7 +80,7 @@ public class CalendarFragment extends Fragment  {
             }
         });
 
-        final com.getbase.floatingactionbutton.FloatingActionButton actionEvent = (com.getbase.floatingactionbutton.FloatingActionButton)viewFragment.findViewById(R.id.actionEvent);
+        final com.getbase.floatingactionbutton.FloatingActionButton actionEvent = (com.getbase.floatingactionbutton.FloatingActionButton)x.findViewById(R.id.actionEvent);
         actionEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,7 +91,7 @@ public class CalendarFragment extends Fragment  {
         });
 
 
-        final com.getbase.floatingactionbutton.FloatingActionButton actionSchoolHoliday = (com.getbase.floatingactionbutton.FloatingActionButton)viewFragment.findViewById(R.id.actionSchoolHoliday);
+        final com.getbase.floatingactionbutton.FloatingActionButton actionSchoolHoliday = (com.getbase.floatingactionbutton.FloatingActionButton)x.findViewById(R.id.actionSchoolHoliday);
         actionSchoolHoliday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,37 +102,13 @@ public class CalendarFragment extends Fragment  {
         });
 
 
-//        List<android.support.v4.app.Fragment> fragments = new Vector<android.support.v4.app.Fragment>();
-//        fragments.add(android.support.v4.app.Fragment.instantiate(getActivity(), CalendarMonthFragment.class.getName()));
-//        fragments.add(android.support.v4.app.Fragment.instantiate(getActivity(), CalendarListFragment.class.getName()));
-//        fragments.add(android.support.v4.app.Fragment.instantiate(getActivity(), CalendarTodayFragment.class.getName()));
-//
-//       // Context mycontext = getActivity();
-//        FragmentActivity myContext = (FragmentActivity)getActivity();
-//
-//        FragmentManager fragManager = myContext.getSupportFragmentManager();
-//
-//        adapter = new MyPagerAdapter(fragManager,fragments);
-//
-//        pager.setAdapter(adapter);
-//
-////        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources()
-////                .getDisplayMetrics());
-////        pager.setPageMargin(pageMargin);
-//
-//        tabs.setViewPager(pager);
+        /**
+         *Set an Apater for the View Pager
+         */
 
-       // tabs.setTextColor(Color.parseColor("#FFFFFF"));
+        pagerAdapter = new MyAdapter(getChildFragmentManager());
 
-        FragmentActivity myContext = (FragmentActivity)getActivity();
-//
-       FragmentManager fragManager = myContext.getSupportFragmentManager();
-
-        viewPager.setAdapter(new MyAdapter(fragManager));
-
-
-         //viewPager.(2);
-
+        viewPager.setAdapter(pagerAdapter);
 
         /**
          * Now , this is a workaround ,
@@ -165,9 +124,13 @@ public class CalendarFragment extends Fragment  {
         });
 
 
+
+
+
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+
                 calendarListFragment.populateDummyData();
                 viewPager.setCurrentItem(tab.getPosition()); // call this to fix the conflict
             }
@@ -190,37 +153,47 @@ public class CalendarFragment extends Fragment  {
             }
 
             public void onPageSelected(int position) {
-                if (position==1)
-                calendarListFragment.populateDummyData();
+                if (position==1) {
+                    calendarListFragment.populateDummyData();
+                    //viewPager.invalidate();
+                    //pagerAdapter.notifyDataSetChanged();
+                }
+//                Fragment fragment= pagerAdapter.getItem(position);
+//
+//                if(fragment instanceof CalendarListFragment ){
+//                    ((CalendarListFragment)fragment).populateDummyData();
+//                }
                 // Check if this is the page you want.
             }
         });
 
-//        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-//        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//                viewPager.setCurrentItem(tab.getPosition());
-//            }
-//            // Other overridden methods
-//        });
+        /*
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+            // Other overridden methods
+        });
 
-//        if (ViewCompat.isLaidOut(tabLayout)) {
-//            tabLayout.setupWithViewPager(viewPager);
-//        } else {
-//            tabLayout.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-//                @Override
-//                public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-//                    tabLayout.setupWithViewPager(viewPager);
-//                    tabLayout.removeOnLayoutChangeListener(this);
-//                }
-//            });
-//        }
+        if (ViewCompat.isLaidOut(tabLayout)) {
+            tabLayout.setupWithViewPager(viewPager);
+        } else {
+            tabLayout.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+                @Override
+                public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                    tabLayout.setupWithViewPager(viewPager);
+                    tabLayout.removeOnLayoutChangeListener(this);
+                }
+            });
+        }
 
-       // return x;
+        return x;
+       */
 
+        return x;
 
-        return viewFragment;
     }
 
 
@@ -260,7 +233,7 @@ public class CalendarFragment extends Fragment  {
 //
 //    }
 
-    class MyAdapter extends FragmentPagerAdapter {
+    class MyAdapter extends FragmentPagerAdapter{
 
         public MyAdapter(FragmentManager fm) {
             super(fm);
@@ -271,9 +244,8 @@ public class CalendarFragment extends Fragment  {
          */
 
         @Override
-        public android.support.v4.app.Fragment getItem(int position)
+        public Fragment getItem(int position)
         {
-
             switch (position){
                 case 0 : return calendarMonthFragment;
                 case 1 : return calendarListFragment;
@@ -308,11 +280,59 @@ public class CalendarFragment extends Fragment  {
         }
     }
 
+//    class MyAdapter extends FragmentPagerAdapter {
+//
+//        public MyAdapter(FragmentManager fm) {
+//            super(fm);
+//        }
+//
+//        /**
+//         * Return fragment with respect to Position .
+//         */
+//
+//        @Override
+//        public android.support.v4.app.Fragment getItem(int position)
+//        {
+//
+//            switch (position){
+//                case 0 : return calendarMonthFragment;
+//                case 1 : return calendarListFragment;
+//                case 2 : return calendarTodayFragment;
+//            }
+//            return null;
+//        }
+//
+//        @Override
+//        public int getCount() {
+//
+//            return int_items;
+//
+//        }
+//
+//        /**
+//         * This method returns the title of the tab according to the position.
+//         */
+//
+//        @Override
+//        public CharSequence getPageTitle(int position) {
+//
+//            switch (position){
+//                case 0 :
+//                    return "Month";
+//                case 1 :
+//                    return "List";
+//                case 2 :
+//                    return "Term";
+//            }
+//            return null;
+//        }
+//    }
+
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-       // tabs.removeAllViews();
+        tabLayout.removeAllViews();
     }
 
 

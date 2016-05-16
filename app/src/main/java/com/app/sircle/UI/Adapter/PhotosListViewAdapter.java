@@ -53,7 +53,7 @@ public class PhotosListViewAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             convertView = inflater.inflate(R.layout.list_view_photos_row,
                     parent, false);
-            viewHolder.albumImageView = (ImageView) convertView.findViewById(R.id.photos_row_album_image);
+           // viewHolder.albumImageView = (ImageView) convertView.findViewById(R.id.photos_row_album_image);
             viewHolder.albumLabelName = (TextView) convertView.findViewById(R.id.notification_row_title_label_name);
             viewHolder.imagesCountLabel = (TextView) convertView.findViewById(R.id.notification_row_desc_label);
             viewHolder.albumDate = (TextView) convertView.findViewById(R.id.links_row_publish_label_day);
@@ -64,21 +64,21 @@ public class PhotosListViewAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        Picasso.with(mContext)
-                .load(photoList.get(position).albumCoverImageURL)
-                .into(viewHolder.albumImageView, new Callback() {
-                    @Override
-                    public void onSuccess() {
+//        Picasso.with(mContext)
+//                .load(photoList.get(position).albumCoverImageURL)
+//                .into(viewHolder.albumImageView, new Callback() {
+//                    @Override
+//                    public void onSuccess() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError() {
+//
+//                    }
+//                });
 
-                    }
-
-                    @Override
-                    public void onError() {
-
-                    }
-                });
-
-        viewHolder.imagesCountLabel.setText(String.valueOf(photoList.get(position).numberOfPhotos));
+        viewHolder.imagesCountLabel.setText(String.valueOf(photoList.get(position).numberOfPhotos)+"Photos");
         viewHolder.albumLabelName.setText(photoList.get(position).albumTitle);
         viewHolder.albumDate.setText(photoList.get(position).getPublishDate());
         viewHolder.albumTime.setText(photoList.get(position).getTime());
@@ -88,7 +88,7 @@ public class PhotosListViewAdapter extends BaseAdapter {
 
     static class ViewHolder {
 
-        private ImageView albumImageView;
+      //  private ImageView albumImageView;
         private TextView albumLabelName, imagesCountLabel;
         private TextView albumDate, albumTime;
     }

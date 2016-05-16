@@ -1,10 +1,12 @@
 package com.app.sircle.UI.Adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.sircle.R;
@@ -56,6 +58,7 @@ public class CalendarMonthListAdapter extends BaseAdapter {
             viewHolder.eventTitleLabel = (TextView) convertView.findViewById(R.id.eventTitle);
             viewHolder.eventDateLabel = (TextView) convertView.findViewById(R.id.eventDate);
             viewHolder.eventTimeLabel = (TextView) convertView.findViewById(R.id.eventTime);
+            viewHolder.eventImage = (ImageView) convertView.findViewById(R.id.eventImage);
 
             convertView.setTag(viewHolder);
         } else {
@@ -66,6 +69,37 @@ public class CalendarMonthListAdapter extends BaseAdapter {
         viewHolder.eventDateLabel.setText(calendarMonthList.get(position).getStartDate());
         viewHolder.eventTimeLabel.setText(calendarMonthList.get(position).getStartTime());
 
+        if (calendarMonthList.get(position).getIconId()==1)
+        {
+         // .setBackgroundResource(R.drawable.arts);
+            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.arts));
+        }
+        else if (calendarMonthList.get(position).getIconId()==2)
+        {
+           // viewHolder.eventImage.setBackgroundResource(R.drawable.sports);
+            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.sports));
+        }
+        else if (calendarMonthList.get(position).getIconId()==3)
+        {
+           // viewHolder.eventImage.setBackgroundResource(R.drawable.event_image);
+            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.event_image));
+        }
+        else if (calendarMonthList.get(position).getIconId()==4)
+        {
+            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.academics));
+        }
+        else if (calendarMonthList.get(position).getIconId()==5)
+        {
+            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.performance));
+        }
+        else if (calendarMonthList.get(position).getIconId()==6)
+        {
+            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.others));
+        }
+
+
+
+
         return convertView;
     }
 
@@ -73,6 +107,7 @@ public class CalendarMonthListAdapter extends BaseAdapter {
         private TextView eventTitleLabel;
         private TextView eventDateLabel;
         private TextView eventTimeLabel;
+        private ImageView eventImage;
     }
 }
 

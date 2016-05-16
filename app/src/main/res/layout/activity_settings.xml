@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:textColor="#ffffff"
-        android:background="#000000"
+        android:background="#FC6F71"
         android:text="Save" />
 
 </RelativeLayout>

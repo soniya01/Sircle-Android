@@ -17,7 +17,7 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
         android:textColor="#ffffff"
-        android:background="#000000"
+        android:background="#FC6F71"
         android:text="Today" />
 
 

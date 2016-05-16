@@ -56,7 +56,7 @@ public class LinksListViewAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.list_view_links,
                     parent, false);
 
-            viewHolder.linksImageView = (ImageView) convertView.findViewById(R.id.links_row_image);
+          //  viewHolder.linksImageView = (ImageView) convertView.findViewById(R.id.links_row_image);
             viewHolder.linksTitleLabel = (TextView) convertView.findViewById(R.id.notification_row_title_label_name);
             viewHolder.linksLabel = (TextView) convertView.findViewById(R.id.notification_row_desc_label);
             viewHolder.linkDateLabel = (TextView) convertView.findViewById(R.id.links_row_publish_label_day);
@@ -71,21 +71,21 @@ public class LinksListViewAdapter extends BaseAdapter {
         viewHolder.linksLabel.setText(linksList.get(position).getUrl());
 
         // get screen dimensions
-        if (linksList.get(position).getFavIcon() != null){
-            Picasso.with(context)
-                    .load(linksList.get(position).getFavIcon())
-                    .into(viewHolder.linksImageView, new Callback() {
-                        @Override
-                        public void onSuccess() {
-
-                        }
-
-                        @Override
-                        public void onError() {
-
-                        }
-                    });
-        }
+//        if (linksList.get(position).getFavIcon() != null){
+//            Picasso.with(context)
+//                    .load(linksList.get(position).getFavIcon())
+//                    .into(viewHolder.linksImageView, new Callback() {
+//                        @Override
+//                        public void onSuccess() {
+//
+//                        }
+//
+//                        @Override
+//                        public void onError() {
+//
+//                        }
+//                    });
+//        }
 
 
         viewHolder.linkTimeLabel.setText(linksList.get(position).getTimeString());
@@ -121,7 +121,7 @@ public class LinksListViewAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-        private ImageView linksImageView;
+       // private ImageView linksImageView;
         private TextView linksTitleLabel;
         private TextView linksLabel;
         private TextView linkDateLabel;

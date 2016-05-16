@@ -1,18 +1,19 @@
 package com.app.sircle.UI.Activity;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,33 +42,41 @@ import com.app.sircle.Utility.Constants;
 import java.util.Date;
 
 
-public class BaseActivity extends ActionBarActivity implements CalendarMonthFragment.OnFragmentInteractionListener,CalendarTodayFragment.OnFragmentInteractionListener,CalendarListFragment.OnFragmentInteractionListener {
+public class BaseActivity extends AppCompatActivity implements CalendarMonthFragment.OnFragmentInteractionListener,CalendarTodayFragment.OnFragmentInteractionListener,CalendarListFragment.OnFragmentInteractionListener {
 
     private final static String SHOULD_SELECT_LIST_VIEW_ITEM = "shouldSelectListViewItem";
     private final static String SELECTED_MODULE = "selectedModuleIndex";
     public static Integer selectedModuleIndex;
     private boolean shouldSelectListViewItem = true;
     private Fragment fragmentToLoad = null;
+    private Fragment calendarFragmentToLoad = null;
     private ListView mDrawerList;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private String[] menuList;
     public static boolean jumpToFragment;
     private  Intent loginIntent = null;
+    FragmentManager mFragmentManager;
+    FragmentTransaction mFragmentTransaction;
 
-    private void loadFragment(Context context, Fragment fragment) {
+    private void loadFragment(Context context, android.support.v4.app.Fragment fragment) {
 
-        FragmentManager fragmentManager = ((Activity) context)
-                .getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+//        FragmentManager fragmentManager = ((Activity) context)
+//                .getFragmentManager();
+//        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        mFragmentManager = getSupportFragmentManager();
+        mFragmentTransaction = mFragmentManager.beginTransaction();
+
 
         if (fragment != null) {
-
-            transaction.replace(R.id.main_layout_container, fragment);
-
+            mFragmentTransaction.replace(R.id.main_layout_container, fragment).commit();
         }
-        transaction.commit();
-        fragmentManager.executePendingTransactions();
+
+
+
+    //    fragmentManager.executePendingTransactions();
 
         mDrawerList.setItemChecked(selectedModuleIndex, true);
         mDrawerList.setSelection(selectedModuleIndex);
@@ -230,7 +239,9 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
                 fragmentToLoad = new HomeFragment();
                 break;
             case 1:
-                fragmentToLoad = new CalendarFragment();
+                if (calendarFragmentToLoad==null) {
+                    calendarFragmentToLoad = new CalendarFragment();
+                }
 
                 break;
             case 2:
@@ -271,7 +282,12 @@ public class BaseActivity extends ActionBarActivity implements CalendarMonthFrag
                 break;
         }
 
-        if (fragmentToLoad != null) {
+        if (selectedModuleIndex==1)
+        {
+            loadFragment(BaseActivity.this, calendarFragmentToLoad);
+        }
+
+        else if (fragmentToLoad != null) {
             loadFragment(BaseActivity.this, fragmentToLoad);
 
         }

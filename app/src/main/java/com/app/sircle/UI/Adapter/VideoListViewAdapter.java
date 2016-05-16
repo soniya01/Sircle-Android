@@ -53,7 +53,7 @@ public class VideoListViewAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             convertView = inflater.inflate(R.layout.list_view_video_row,
                     parent, false);
-            viewHolder.videoImageView = (ImageView)convertView.findViewById(R.id.fragment_video_image_view);
+           // viewHolder.videoImageView = (ImageView)convertView.findViewById(R.id.fragment_video_image_view);
             viewHolder.videoSourceLabel = (TextView)convertView.findViewById(R.id.fragment_video_source_label);
             viewHolder.videoDate = (TextView) convertView.findViewById(R.id.links_row_publish_label_day);
             viewHolder.videoTime = (TextView) convertView.findViewById(R.id.links_row_publish_label_time);
@@ -70,20 +70,20 @@ public class VideoListViewAdapter extends BaseAdapter {
         viewHolder.videoDate.setText(videoList.get(position).getPublishDate());
         viewHolder.videoTime.setText(videoList.get(position).getTime());
 
-        if (!videoThumbnailUrl.equals("")){
-            Picasso.with(context)
-                    .load(videoThumbnailUrl)
-                    .into(viewHolder.videoImageView, new Callback() {
-                        @Override
-                        public void onSuccess() {
-
-                        }
-
-                        @Override
-                        public void onError() {
-                        }
-                    });
-        }
+//        if (!videoThumbnailUrl.equals("")){
+//            Picasso.with(context)
+//                    .load(videoThumbnailUrl)
+//                    .into(viewHolder.videoImageView, new Callback() {
+//                        @Override
+//                        public void onSuccess() {
+//
+//                        }
+//
+//                        @Override
+//                        public void onError() {
+//                        }
+//                    });
+//        }
 
         return convertView;
     }
@@ -109,7 +109,7 @@ public class VideoListViewAdapter extends BaseAdapter {
 
     static class ViewHolder {
 
-        private ImageView videoImageView;
+      //  private ImageView videoImageView;
         private TextView videoSourceLabel;
         private TextView videoDate, videoTime;
     }

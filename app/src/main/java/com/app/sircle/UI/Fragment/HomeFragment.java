@@ -1,13 +1,13 @@
 package com.app.sircle.UI.Fragment;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.view.Gravity;
@@ -40,6 +40,8 @@ public class HomeFragment extends Fragment {
     private TextView emailLabel;
     private ProgressBar progressBar;
     private Fragment fragmentToLoad = null;
+    FragmentManager mFragmentManager;
+    FragmentTransaction mFragmentTransaction;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -212,17 +214,17 @@ public class HomeFragment extends Fragment {
 
     private void loadFragment(Context context, Fragment fragment,String title) {
 
-        FragmentManager fragmentManager = ((Activity) context)
-                .getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-        if (fragment != null) {
-
-            transaction.replace(R.id.main_layout_container, fragment);
-
-        }
-        transaction.commit();
-        fragmentManager.executePendingTransactions();
+//        FragmentManager fragmentManager = ((Activity) context)
+//                .getFragmentManager();
+//        FragmentTransaction transaction = fragmentManager.beginTransaction();
+//
+//        if (fragment != null) {
+//
+//            transaction.replace(R.id.main_layout_container, fragment);
+//
+//        }
+//        transaction.commit();
+//        fragmentManager.executePendingTransactions();
 
 //        mDrawerList.setItemChecked(selectedModuleIndex, true);
 //        mDrawerList.setSelection(selectedModuleIndex);
@@ -234,6 +236,14 @@ public class HomeFragment extends Fragment {
 
         //getActivity().getActionBar().setTitle(title);
       //  (BaseActivity)context.setTitle(title);
+
+        mFragmentManager = getActivity().getSupportFragmentManager();
+        mFragmentTransaction = mFragmentManager.beginTransaction();
+
+
+        if (fragment != null) {
+            mFragmentTransaction.replace(R.id.main_layout_container, fragment).commit();
+        }
 
         ((BaseActivity)context)
                 .setActionBarTitle(title);

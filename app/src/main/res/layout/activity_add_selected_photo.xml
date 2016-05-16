@@ -41,7 +41,7 @@
         android:layout_marginTop="40dp"
         android:layout_gravity="bottom"
         android:textColor="@android:color/white"
-        android:background="#000000"/>
+        android:background="#FC6F71"/>
 
 </LinearLayout>
 </ScrollView>

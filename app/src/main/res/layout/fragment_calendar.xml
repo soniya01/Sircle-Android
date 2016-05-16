@@ -62,7 +62,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            fab:fab_addButtonColorNormal="#000000"
+            fab:fab_addButtonColorNormal="#FE6E6E"
             fab:fab_addButtonColorPressed="@color/white_pressed"
             fab:fab_addButtonPlusIconColor="#ffffff"
             fab:fab_labelStyle="@style/menu_labels_style"

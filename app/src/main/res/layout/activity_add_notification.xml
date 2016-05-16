@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/white"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -24,7 +25,12 @@
         android:text="Title: "
         android:textColor="#303030"
         android:textSize="16sp" />
-
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/titleTextContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                app:counterMaxLength="140">
     <EditText
         android:id="@+id/activity_add_notification_title_edit_text"
         android:layout_width="match_parent"
@@ -32,8 +38,22 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/custom_edit_text_border"
         android:padding="15dp"
+        android:maxLength="140"
         android:textColor="#303030"
         android:textSize="14sp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!--<TextView-->
+                <!--android:id="@+id/activity_add_desc_count_title"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="right"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:text="0/140"-->
+                <!--android:textSize="15sp"-->
+                <!--android:textColor="#303030"/>-->
 
     <TextView
         android:layout_width="wrap_content"
@@ -42,6 +62,13 @@
         android:text="Details: "
         android:textColor="#303030"
         android:textSize="16sp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/detailsTextContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                app:counterMaxLength="255">
 
     <EditText
         android:id="@+id/activity_add_notification_desc_edit_text"
@@ -54,16 +81,18 @@
         android:textColor="#303030"
         android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/activity_add_desc_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:text="0/255"
-        android:textSize="15sp"
-        android:textColor="#303030"/>
+            </android.support.design.widget.TextInputLayout>
+
+    <!--<TextView-->
+        <!--android:id="@+id/activity_add_desc_count"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="right"-->
+        <!--android:gravity="center"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:text="0/255"-->
+        <!--android:textSize="15sp"-->
+        <!--android:textColor="#303030"/>-->
 
     <LinearLayout
         android:layout_width="fill_parent"

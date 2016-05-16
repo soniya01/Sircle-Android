@@ -25,7 +25,7 @@
         android:layout_marginRight="20dp"
         android:padding="20dp"
         android:src="@drawable/ic_add_white"
-        app:backgroundTint="#000000"
+        app:backgroundTint="#FE6E6E"
         app:borderWidth="0dp"
         app:elevation="12dp"
         app:pressedTranslationZ="12dp" />
