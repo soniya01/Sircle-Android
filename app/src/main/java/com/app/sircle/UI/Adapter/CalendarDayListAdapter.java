@@ -81,7 +81,7 @@ public class CalendarDayListAdapter extends BaseAdapter {
         else if (calendarMonthList.get(position).getIconId()==3)
         {
             // viewHolder.eventImage.setBackgroundResource(R.drawable.event_image);
-            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.event_image));
+            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.documentslist));
         }
         else if (calendarMonthList.get(position).getIconId()==4)
         {
