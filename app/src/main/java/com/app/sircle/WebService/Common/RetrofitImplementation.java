@@ -15,6 +15,7 @@ import com.app.sircle.WebService.LoginResponse;
 import com.app.sircle.WebService.TermsResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -114,8 +115,12 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
         WebserviceApi postWebservice = restAdapter.create(WebserviceApi.class);
 
+
+
+
         switch (url){
             case Constants.LOGIN_API_PATH:
+               // postWebservice.login(params.get("email"), params.get("password"), params.get("device_token"), params.get("device_type"), new Callback<JsonElement>() {
                 postWebservice.login(params.get("loginId"), params.get("pwd"), params.get("regId"), new Callback<JsonElement>() {
                     @Override
                     public void success(JsonElement jsonElement, Response response) {
@@ -134,11 +139,18 @@ public class RetrofitImplementation implements WebServiceProtocol{
                                 } else {
                                     // parsing jsonelement if unauthorised
                                     JsonObject jobject = jsonElement.getAsJsonObject();
+                                  //  JsonArray jsonArray = jobject.getAsJsonArray("data");
                                     jobject = jobject.getAsJsonObject("data");
                                     if (jobject == null){
                                         // responseClass =
                                         webserviceListener.onCompletion(null, new AppError());
-                                    }else {
+                                    }
+//                                    else if (jsonArray.size()==0) {
+//
+//                                        webserviceListener.onCompletion(null, new AppError());
+//                                    }
+                                    else{
+
                                         object = gson.fromJson(jsonElement, responseClass);
                                         webserviceListener.onCompletion(object, new AppError());
                                     }
@@ -642,8 +654,8 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
         @FormUrlEncoded
         @POST("/")
-        void login(@Field("loginId") String loginId, @Field("pwd") String password, @Field("regId") String regId, Callback<JsonElement> callback);
-
+      //  void login(@Field("email") String loginId, @Field("password") String password, @Field("device_token") String regId,@Field("device_type") String deviceType ,Callback<JsonElement> callback);
+      void login(@Field("loginId") String loginId, @Field("pwd") String password, @Field("regId") String regId ,Callback<JsonElement> callback);
         @FormUrlEncoded
         @POST("/")
         void post(@Field("eventId") String eventId, Callback<JsonElement> callback);

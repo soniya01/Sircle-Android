@@ -86,8 +86,9 @@ public class CaldroidSampleCustomAdapter extends CaldroidGridAdapter {
 
 		// Customize for selected dates
 		if (selectedDates != null && selectedDates.indexOf(dateTime) != -1) {
-			cellView.setBackgroundColor(resources
-					.getColor(com.caldroid.R.color.caldroid_sky_blue));
+//			cellView.setBackgroundColor(resources
+//					.getColor(com.caldroid.R.color.caldroid_sky_blue));
+			cellView.setBackgroundResource(R.drawable.circular_border);
 
 			tv1.setTextColor(Color.BLACK);
 
@@ -98,7 +99,8 @@ public class CaldroidSampleCustomAdapter extends CaldroidGridAdapter {
 		if (shouldResetDiabledView && shouldResetSelectedView) {
 			// Customize for today
 			if (dateTime.equals(getToday())) {
-				cellView.setBackgroundResource(com.caldroid.R.drawable.red_border);
+				cellView.setBackgroundResource(R.drawable.circular);
+				tv1.setTextColor(Color.WHITE);
 			} else {
 				cellView.setBackgroundResource(com.caldroid.R.drawable.cell_bg);
 			}
@@ -146,8 +148,7 @@ if ((dateTime.getDay()==cal.get(Calendar.DATE))&&(dateTime.getMonth()==cal.get(C
 
 		// Somehow after setBackgroundResource, the padding collapse.
 		// This is to recover the padding
-		cellView.setPadding(leftPadding, topPadding, rightPadding,
-				bottomPadding);
+		//cellView.setPadding(leftPadding, topPadding, rightPadding,bottomPadding);
 
 		// Set custom color if required
 		setCustomResources(dateTime, cellView, tv1);

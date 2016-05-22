@@ -22,6 +22,7 @@ import com.app.sircle.R;
 import com.app.sircle.UI.Adapter.AlbumDetailsGridAdapter;
 import com.app.sircle.UI.Fragment.PhotosFragment;
 import com.app.sircle.UI.Model.AlbumDetails;
+import com.app.sircle.UI.cam.activity.CameraActivity;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.Utility.Constants;
 import com.app.sircle.WebService.AlbumResponse;
@@ -105,7 +106,7 @@ public class AlbumDetailsActivity extends ActionBarActivity implements SwipeRefr
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent albumIntent = new Intent(AlbumDetailsActivity.this, AddPhotoTabbedActivity.class);
+                Intent albumIntent = new Intent(AlbumDetailsActivity.this, CameraActivity.class);
                 startActivity(albumIntent);
             }
         });

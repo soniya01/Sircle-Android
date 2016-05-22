@@ -4,10 +4,15 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="android:actionBarStyle">@style/MyActionBar</item>
+
     </style>
 
     <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">@color/actionbarBlue</item>
+        <item name="colorControlNormal">@color/secondarytextcolor</item>
+        <item name="colorControlActivated">@color/secondarytextcolor</item>
+        <item name="colorControlHighlight">@color/secondarytextcolor</item>
+
     </style>
 
     <style name="menu_labels_style">

@@ -82,7 +82,7 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
         //swipeRefreshLayout.setOnRefreshListener(this);
 
         if (notificationGroupList.size() <= 0){
-            populateDummyData();
+           populateDummyData();
         }
 
         /**

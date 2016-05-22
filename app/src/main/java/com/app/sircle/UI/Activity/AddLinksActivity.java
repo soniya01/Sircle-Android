@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.app.sircle.Manager.LinksManager;
 import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
+import com.app.sircle.UI.Adapter.AddGroupAdapter;
 import com.app.sircle.UI.Adapter.NotificationsGroupAdapter;
 import com.app.sircle.UI.Fragment.LinksFragment;
 import com.app.sircle.UI.Model.Links;
@@ -41,7 +42,7 @@ public class AddLinksActivity extends ActionBarActivity {
     private List<NotificationGroups> notificationGroupList = new ArrayList<NotificationGroups>();
     private List<String> groupNames = new ArrayList<String>();
     private Button addButton;
-    private NotificationsGroupAdapter notificationsGroupAdapter;
+    private AddGroupAdapter notificationsGroupAdapter;
     public static CheckBox allCheckBox;
 
     @Override
@@ -51,7 +52,8 @@ public class AddLinksActivity extends ActionBarActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        Constants.isAllChecked = -1;
+
+        NotificationManager.grpIds.clear();
 
         addListView = (ListView) findViewById(R.id.activity_add_group_list_view);
         allCheckBox = (CheckBox) findViewById(R.id.checkAll);
@@ -59,11 +61,17 @@ public class AddLinksActivity extends ActionBarActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Constants.isAllChecked = 1;
+                    for (int i = 0; i < notificationGroupList.size(); i++) {
+                        // listData[i] = listView.getAdapter().getItem(i).toString();
+                        notificationGroupList.get(i).setActive(1);
+                    }
                 } else {
-                    Constants.isAllChecked = 0;
+                    for (int i = 0; i < notificationGroupList.size(); i++) {
+                        // listData[i] = listView.getAdapter().getItem(i).toString();
+                        notificationGroupList.get(i).setActive(0);
+                    }
                 }
-                NotificationManager.grpIds.clear();
+              //  NotificationManager.grpIds.clear();
                 notificationsGroupAdapter.notifyDataSetChanged();
             }
         });
@@ -80,7 +88,7 @@ public class AddLinksActivity extends ActionBarActivity {
        }
 
         notificationGroupList = NotificationManager.groupList;
-        notificationsGroupAdapter = new NotificationsGroupAdapter(AddLinksActivity.this, notificationGroupList);
+        notificationsGroupAdapter = new AddGroupAdapter(AddLinksActivity.this, notificationGroupList);
         addListView.setAdapter(notificationsGroupAdapter);
 
         addListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
@@ -99,7 +107,27 @@ public class AddLinksActivity extends ActionBarActivity {
 //                        }
 //                    }
 
-                    String grpIdString = NotificationManager.getSharedInstance().getGroupIds(AddLinksActivity.this);
+                    String grpIdString = "";
+
+                    for (int i = 0; i < notificationGroupList.size(); i++) {
+                        // listData[i] = listView.getAdapter().getItem(i).toString();
+                        // notificationGroupList.get(i).setActive(1);
+
+
+                        if (notificationGroupList.get(i).getActive()==1)
+                        {
+                            if (grpIdString.equals(""))
+                            {
+                                grpIdString = notificationGroupList.get(i).getId() ;
+                            }
+                            else {
+                                grpIdString = grpIdString + "," + notificationGroupList.get(i).getId();
+                            }
+                            //NotificationManager.grpIds.add( notificationGroupList.get(i).getId());
+                        }
+                    }
+
+                   // String grpIdString = NotificationManager.getSharedInstance().getGroupIds(AddLinksActivity.this);
 
                     HashMap params = new HashMap();
                     params.put("name", title.getText().toString());

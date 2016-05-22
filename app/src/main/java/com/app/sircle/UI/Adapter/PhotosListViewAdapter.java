@@ -78,7 +78,7 @@ public class PhotosListViewAdapter extends BaseAdapter {
 //                    }
 //                });
 
-        viewHolder.imagesCountLabel.setText(String.valueOf(photoList.get(position).numberOfPhotos)+"Photos");
+        viewHolder.imagesCountLabel.setText(String.valueOf(photoList.get(position).numberOfPhotos)+" Photos");
         viewHolder.albumLabelName.setText(photoList.get(position).albumTitle);
         viewHolder.albumDate.setText(photoList.get(position).getPublishDate());
         viewHolder.albumTime.setText(photoList.get(position).getTime());

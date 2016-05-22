@@ -8,27 +8,23 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.app.sircle.DownLoader.ImageManager;
 import com.app.sircle.Manager.PhotoManager;
 import com.app.sircle.R;
-import com.app.sircle.UI.Fragment.CameraFragment;
+import com.app.sircle.UI.Fragment.CameraFragmentUI;
 import com.app.sircle.UI.Fragment.PhotosFragment;
-import com.app.sircle.UI.Model.AlbumDetails;
 import com.app.sircle.UI.Model.ImageData;
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.Utility.Constants;
 import com.app.sircle.WebService.PhotoUploadResponse;
 
 import java.io.File;
@@ -64,7 +60,13 @@ public class AddSelectedPhoto extends ActionBarActivity {
         desc = (EditText)findViewById(R.id.activity_add_new_photo_desc);
         addPhotoButton = (Button)findViewById(R.id.activity_add_new_photo);
 
-        displayClickedImage();
+       // Bundle extras = getIntent().getExtras();
+
+       // Bitmap bitmap = (Bitmap)extras.get("data");
+
+        newPhoto.setImageBitmap(Constants.myBitmap);
+
+      // displayClickedImage();
 
         addPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,7 +122,7 @@ public class AddSelectedPhoto extends ActionBarActivity {
             public void onGlobalLayout() {
 
                 Bundle extras = getIntent().getExtras();
-                backCameraShown = extras.getBoolean(CameraFragment.INTENT_EXTRA_BACK_CAMERA_SHOWN);
+                backCameraShown = extras.getBoolean(CameraFragmentUI.INTENT_EXTRA_BACK_CAMERA_SHOWN);
 
                 if (extras != null && extras.containsKey("data")) {
                     data = (ImageData) extras.get("data");
@@ -196,7 +198,7 @@ public class AddSelectedPhoto extends ActionBarActivity {
             ImageManager instance = ImageManager.getInstance();
             Bitmap bitmap = null;
             if (data == null) {
-                    bitmap = instance.decodeSampledBitmapFromByteArray(CameraFragment.imageData, 400, 400);
+                    bitmap = instance.decodeSampledBitmapFromByteArray(CameraFragmentUI.imageData, 400, 400);
 
 
                 if (backCameraShown) {

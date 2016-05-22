@@ -12,14 +12,12 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="5dp"
         android:background="@android:color/white">
 
         <ImageView
             android:id="@+id/grid_album_image_view"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="136dp"
             android:background="?attr/selectableItemBackground"
             android:src="@drawable/scene1" />
 

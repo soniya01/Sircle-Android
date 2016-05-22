@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
+import com.app.sircle.UI.Adapter.AddGroupAdapter;
 import com.app.sircle.UI.Adapter.NotificationsGroupAdapter;
 import com.app.sircle.UI.Fragment.NotificationFragment;
 import com.app.sircle.UI.Model.Notification;
@@ -45,7 +46,7 @@ public class AddNotificationActivity extends ActionBarActivity {
     private List<String> groupNames = new ArrayList<String>();
     private Button addButton;
     private TextView descCountLabel;
-    private NotificationsGroupAdapter notificationsGroupAdapter;
+    private AddGroupAdapter notificationsGroupAdapter;
     public static CheckBox allCheckBox;
     ProgressDialog ringProgressDialog;
    // public static int isAllChecked = -1;
@@ -58,7 +59,7 @@ public class AddNotificationActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        Constants.isAllChecked = -1;
+        NotificationManager.grpIds.clear();
 
         addListView = (ListView)findViewById(R.id.activity_add_group_list_view);
         allCheckBox = (CheckBox) findViewById(R.id.checkAll);
@@ -66,11 +67,17 @@ public class AddNotificationActivity extends ActionBarActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Constants.isAllChecked = 1;
+                    for (int i = 0; i < notificationGroupList.size(); i++) {
+                        // listData[i] = listView.getAdapter().getItem(i).toString();
+                        notificationGroupList.get(i).setActive(1);
+                    }
                 } else {
-                    Constants.isAllChecked = 0;
+                    for (int i = 0; i < notificationGroupList.size(); i++) {
+                        // listData[i] = listView.getAdapter().getItem(i).toString();
+                        notificationGroupList.get(i).setActive(0);
+                    }
                 }
-                NotificationManager.grpIds.clear();
+
                 notificationsGroupAdapter.notifyDataSetChanged();
             }
         });
@@ -86,7 +93,7 @@ public class AddNotificationActivity extends ActionBarActivity {
 
 
         notificationGroupList = NotificationManager.groupList;
-        notificationsGroupAdapter = new NotificationsGroupAdapter(AddNotificationActivity.this, notificationGroupList);
+        notificationsGroupAdapter = new AddGroupAdapter(AddNotificationActivity.this, notificationGroupList);
         addListView.setAdapter(notificationsGroupAdapter);
         addListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
@@ -117,7 +124,27 @@ public class AddNotificationActivity extends ActionBarActivity {
 //                        }
 //                    }
 
-                    String grpIdString = NotificationManager.getSharedInstance().getGroupIds(AddNotificationActivity.this);
+                 //   String grpIdString = NotificationManager.getSharedInstance().getGroupIds(AddNotificationActivity.this);
+
+                    String grpIdString = "";
+
+                    for (int i = 0; i < notificationGroupList.size(); i++) {
+                        // listData[i] = listView.getAdapter().getItem(i).toString();
+                        // notificationGroupList.get(i).setActive(1);
+
+
+                        if (notificationGroupList.get(i).getActive()==1)
+                        {
+                            if (grpIdString.equals(""))
+                            {
+                                grpIdString = notificationGroupList.get(i).getId() ;
+                            }
+                            else {
+                                grpIdString = grpIdString + "," + notificationGroupList.get(i).getId();
+                            }
+                            //NotificationManager.grpIds.add( notificationGroupList.get(i).getId());
+                        }
+                    }
 
                     HashMap params = new HashMap();
                     params.put("subject",title.getText().toString());

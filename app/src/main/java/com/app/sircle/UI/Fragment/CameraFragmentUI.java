@@ -34,7 +34,7 @@ import com.app.sircle.UI.Model.ImageData;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 
-public class CameraFragment extends Fragment implements View.OnClickListener {
+public class CameraFragmentUI extends Fragment implements View.OnClickListener {
 
 
     public static final String INTENT_EXTRA_BACK_CAMERA_SHOWN = "com.propaganda3.boulevardia.backCameraShown";

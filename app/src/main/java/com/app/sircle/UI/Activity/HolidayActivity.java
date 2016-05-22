@@ -27,6 +27,7 @@ public class HolidayActivity extends ActionBarActivity {
     Calendar myCalendar;
     EditText startDateEditText,endDateEditText, title;
     private Button add;
+    String dateType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +92,7 @@ public class HolidayActivity extends ActionBarActivity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
              //   Date date = new Date();
+                dateType = "StartDate";
                 new DatePickerDialog(HolidayActivity.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -106,6 +108,7 @@ public class HolidayActivity extends ActionBarActivity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 //   Date date = new Date();
+                dateType = "EndDate";
                 new DatePickerDialog(HolidayActivity.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -122,8 +125,16 @@ public class HolidayActivity extends ActionBarActivity {
         String myFormat = "MM/dd/yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
-        startDateEditText.setText(sdf.format(myCalendar.getTime()));
-        endDateEditText.setText(sdf.format(myCalendar.getTime()));
+        if (dateType.equals("StartDate"))
+        {
+            startDateEditText.setText(sdf.format(myCalendar.getTime()));
+        }
+else
+        {
+            endDateEditText.setText(sdf.format(myCalendar.getTime()));
+        }
+
+
     }
 
     @Override

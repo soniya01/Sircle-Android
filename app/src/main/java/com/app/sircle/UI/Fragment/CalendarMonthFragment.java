@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -111,12 +112,15 @@ public class CalendarMonthFragment extends Fragment {
        // caldroidFragment = new CaldroidFragment();
         caldroidFragment = new CaldroidSampleCustomFragment();
 
+
+
         // caldroidFragment.setMinDate(new Date());
 
         if (Constants.dateAvailabe.equals(""))
         {
             Bundle args = new Bundle();
             final Calendar cal = Calendar.getInstance();
+            args.putInt(CaldroidFragment.THEME_RESOURCE, com.caldroid.R.style.CaldroidDefaultDark);
             args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
             args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
             caldroidFragment.setArguments(args);
@@ -140,7 +144,7 @@ public class CalendarMonthFragment extends Fragment {
 
             Calendar cal = Calendar.getInstance();
             cal.setTime(convertedDate);
-
+            args.putInt(CaldroidFragment.THEME_RESOURCE, com.caldroid.R.style.CaldroidDefaultDark);
             args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
             args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
             caldroidFragment.setArguments(args);
@@ -194,6 +198,10 @@ public class CalendarMonthFragment extends Fragment {
 
             @Override
             public void onCaldroidViewCreated() {
+                caldroidFragment.setShowNavigationArrows(false);
+             //  caldroidFragment.monthTitleTextView.setPaintFlags(monthTitleTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+               // monthTitleTextView.setText(monthTitle.toUpperCase(Locale.getDefault()));
+
                // Toast.makeText(getActivity().getApplicationContext(),"Caldroid view is created",Toast.LENGTH_SHORT).show();
             }
 
@@ -328,7 +336,7 @@ public class CalendarMonthFragment extends Fragment {
                                             .parse(dateString);
 
 
-                                    dates.put(date, android.R.color.holo_blue_light);
+                                    dates.put(date,R.drawable.circular_border);
                                    // dates.put(date,R.drawable.camera_icon);
                                     System.out.println("Date ->" + date);
                                 } catch (Exception e) {

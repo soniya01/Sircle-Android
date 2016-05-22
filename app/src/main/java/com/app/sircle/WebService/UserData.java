@@ -17,6 +17,7 @@ public class UserData {
     public String userType;
 
     public String email;
+
     public AuthenticationData oauth;
 
     public String getUserId() {
@@ -58,4 +59,30 @@ public class UserData {
     public void setOauth(AuthenticationData oauth) {
         this.oauth = oauth;
     }
+
+//       @SerializedName("customer_details")
+//        public String customerDetails;
+//
+//    @SerializedName("auth_token")
+//    public String authToken;
+//
+//
+//        public String getCustomerDetails() {
+//        return customerDetails;
+//    }
+//
+//    public void setCustomerDetails(String customerDetails) {
+//        this.customerDetails = customerDetails;
+//    }
+//
+//
+//    public String getAuthToken() {
+//        return authToken;
+//    }
+//
+//    public void setAuthToken(String authToken) {
+//        this.authToken = authToken;
+//    }
+
+
 }

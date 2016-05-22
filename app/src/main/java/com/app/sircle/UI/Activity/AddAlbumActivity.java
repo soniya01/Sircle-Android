@@ -19,8 +19,10 @@ import android.widget.Toast;
 import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.Manager.PhotoManager;
 import com.app.sircle.R;
+import com.app.sircle.UI.Adapter.AddGroupAdapter;
 import com.app.sircle.UI.Adapter.NotificationsGroupAdapter;
 import com.app.sircle.UI.Model.NotificationGroups;
+import com.app.sircle.UI.cam.activity.CameraActivity;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.Utility.Constants;
 import com.app.sircle.WebService.AddAlbumResponse;
@@ -39,7 +41,7 @@ public class AddAlbumActivity extends ActionBarActivity {
     private List<String> groupNames = new ArrayList<String>();
     private Button addButton;
     ArrayAdapter<String> arrayAdapter;
-    private NotificationsGroupAdapter notificationsGroupAdapter;
+    private AddGroupAdapter notificationsGroupAdapter;
 
     public static CheckBox allCheckBox;
 
@@ -51,7 +53,7 @@ public class AddAlbumActivity extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        Constants.isAllChecked = -1;
+        NotificationManager.grpIds.clear();
 
 
         addListView = (ListView) findViewById(R.id.activity_add_group_list_view);
@@ -60,11 +62,17 @@ public class AddAlbumActivity extends ActionBarActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Constants.isAllChecked = 1;
+                    for (int i = 0; i < notificationGroupList.size(); i++) {
+                        // listData[i] = listView.getAdapter().getItem(i).toString();
+                        notificationGroupList.get(i).setActive(1);
+                    }
                 } else {
-                    Constants.isAllChecked = 0;
+                    for (int i = 0; i < notificationGroupList.size(); i++) {
+                        // listData[i] = listView.getAdapter().getItem(i).toString();
+                        notificationGroupList.get(i).setActive(0);
+                    }
                 }
-                NotificationManager.grpIds.clear();
+                //  NotificationManager.grpIds.clear();
                 notificationsGroupAdapter.notifyDataSetChanged();
             }
         });
@@ -78,7 +86,7 @@ public class AddAlbumActivity extends ActionBarActivity {
 
 
         notificationGroupList = NotificationManager.groupList;
-        notificationsGroupAdapter = new NotificationsGroupAdapter(AddAlbumActivity.this, notificationGroupList);
+        notificationsGroupAdapter = new AddGroupAdapter(AddAlbumActivity.this, notificationGroupList);
         addListView.setAdapter(notificationsGroupAdapter);
         addListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
@@ -98,7 +106,29 @@ public class AddAlbumActivity extends ActionBarActivity {
 //                        grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
 //                    }
 //                }
-                String grpIdString = NotificationManager.getSharedInstance().getGroupIds(AddAlbumActivity.this);
+              //  String grpIdString = NotificationManager.getSharedInstance().getGroupIds(AddAlbumActivity.this);
+
+                String grpIdString = "";
+
+                for (int i = 0; i < notificationGroupList.size(); i++) {
+                    // listData[i] = listView.getAdapter().getItem(i).toString();
+                    // notificationGroupList.get(i).setActive(1);
+
+
+                    if (notificationGroupList.get(i).getActive()==1)
+                    {
+                        if (grpIdString.equals(""))
+                        {
+                            grpIdString = notificationGroupList.get(i).getId() ;
+                        }
+                        else {
+                            grpIdString = grpIdString + "," + notificationGroupList.get(i).getId();
+                        }
+                        //NotificationManager.grpIds.add( notificationGroupList.get(i).getId());
+                    }
+                }
+
+
                 HashMap params = new HashMap();
                 params.put("albumName",title.getText().toString());
                 params.put("grp",grpIdString);
@@ -108,7 +138,7 @@ public class AddAlbumActivity extends ActionBarActivity {
                         if (addAlbumResponse != null) {
                             if (addAlbumResponse.getStatus() == 200) {
 
-                                Intent tabIntent = new Intent(AddAlbumActivity.this, AddPhotoTabbedActivity.class);
+                                Intent tabIntent = new Intent(AddAlbumActivity.this, CameraActivity.class);
                                 tabIntent.putExtra("albumId", addAlbumResponse.getData().getAlbumId());
                                 startActivity(tabIntent);
                             } else {

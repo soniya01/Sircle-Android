@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.app.sircle.Manager.EventManager;
 import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
+import com.app.sircle.UI.Adapter.AddGroupAdapter;
 import com.app.sircle.UI.Adapter.NotificationsGroupAdapter;
 import com.app.sircle.UI.Model.EventCategory;
 import com.app.sircle.UI.Model.NotificationGroups;
@@ -48,16 +49,16 @@ import java.util.List;
 public class EventActivity extends ActionBarActivity implements View.OnClickListener{
 
     AlertDialog alert;
-    private Button selectCategoryButton, addButton;
+    private Button addButton;
     private ListView addListView;
     private List<NotificationGroups> notificationGroupList = new ArrayList<NotificationGroups>();
     private List<String> groupNames = new ArrayList<String>();
     private List<String> eventCategory = new ArrayList<>();
-    private NotificationsGroupAdapter notificationsGroupAdapter;
+    private AddGroupAdapter notificationsGroupAdapter;
     private ListView categoryListView;
     private ArrayAdapter<String> adapter;
-    private EditText title, location, detail,afterCount;
-    private Button categoryButton, minutes, hours, days,startDate, endDate, startTime, endTime,repeatTypes,repeatForDays,occurrencesDate;
+    private EditText title, location, detail,afterCount,categoryButton,startDate,endDate,startTime,endTime;
+    private Button  minutes, hours, days,repeatTypes,repeatForDays,occurrencesDate;
     private DatePickerDialog datePickerDialog;
     private CheckBox repeat,repeatNever,repeatNumber,repeatOccurences,monday,tuesday,wednesday,thursday,friday,saturday,sunday,dayOfMonth,dayOfWeek;
     private int isRepeat;
@@ -86,7 +87,7 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
         populateHour();
 
         repeatMonthlyOnStr = "day of the month";
-        Constants.isAllChecked = -1;
+        NotificationManager.grpIds.clear();
 
         addListView = (ListView) findViewById(R.id.activity_schoolHoliday_list_view);
         allCheckBox = (CheckBox) findViewById(R.id.checkAll);
@@ -94,11 +95,17 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Constants.isAllChecked = 1;
+                    for (int i = 0; i < notificationGroupList.size(); i++) {
+                        // listData[i] = listView.getAdapter().getItem(i).toString();
+                        notificationGroupList.get(i).setActive(1);
+                    }
                 } else {
-                    Constants.isAllChecked = 0;
+                    for (int i = 0; i < notificationGroupList.size(); i++) {
+                        // listData[i] = listView.getAdapter().getItem(i).toString();
+                        notificationGroupList.get(i).setActive(0);
+                    }
                 }
-                NotificationManager.grpIds.clear();
+                //  NotificationManager.grpIds.clear();
                 notificationsGroupAdapter.notifyDataSetChanged();
             }
         });
@@ -107,18 +114,18 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
         setListViewHeightBasedOnChildren(addListView);
 
         notificationGroupList = NotificationManager.groupList;
-        notificationsGroupAdapter = new NotificationsGroupAdapter(EventActivity.this, notificationGroupList);
+        notificationsGroupAdapter = new AddGroupAdapter(EventActivity.this, notificationGroupList);
         addListView.setAdapter(notificationsGroupAdapter);
 
 
-        title = (EditText)findViewById(R.id.eventTypeEditText);
-        detail = (EditText)findViewById(R.id.eventTypeEditText);
-        location = (EditText)findViewById(R.id.eventTypeEditText);
-        startDate = (Button)findViewById(R.id.holidayEventStartDate);
-        endDate = (Button)findViewById(R.id.holidayEventEndDate);
-        startTime = (Button)findViewById(R.id.startTime);
-        endTime = (Button)findViewById(R.id.endTime);
-        categoryButton = (Button)findViewById(R.id.selectCategoryButton);
+        title = (EditText)findViewById(R.id.holidayEventTitle);
+        detail = (EditText)findViewById(R.id.eventDetails);
+        location = (EditText)findViewById(R.id.location);
+        startDate = (EditText) findViewById(R.id.holidayEventStartDate);
+        endDate = (EditText) findViewById(R.id.holidayEventEndDate);
+        startTime = (EditText) findViewById(R.id.startTime);
+        endTime = (EditText) findViewById(R.id.endTime);
+        categoryButton = (EditText) findViewById(R.id.selectCategoryButton);
         days = (Button)findViewById(R.id.days);
         hours = (Button)findViewById(R.id.hours);
         minutes = (Button)findViewById(R.id.minutes);
@@ -381,7 +388,28 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
 //                    }
 //                }
 
-                String grpIdString = NotificationManager.getSharedInstance().getGroupIds(EventActivity.this);
+           //     String grpIdString = NotificationManager.getSharedInstance().getGroupIds(EventActivity.this);
+
+                String grpIdString = "";
+
+                for (int i = 0; i < notificationGroupList.size(); i++) {
+                    // listData[i] = listView.getAdapter().getItem(i).toString();
+                    // notificationGroupList.get(i).setActive(1);
+
+
+                    if (notificationGroupList.get(i).getActive()==1)
+                    {
+                        if (grpIdString.equals(""))
+                        {
+                            grpIdString = notificationGroupList.get(i).getId() ;
+                        }
+                        else {
+                            grpIdString = grpIdString + "," + notificationGroupList.get(i).getId();
+                        }
+                        //NotificationManager.grpIds.add( notificationGroupList.get(i).getId());
+                    }
+                }
+
 
                 HashMap params = new HashMap();
                 params.put("event_type","2");
@@ -467,9 +495,9 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
                 });
             }
         });
-        selectCategoryButton = (Button) findViewById(R.id.selectCategoryButton);
 
-        selectCategoryButton.setOnClickListener(new View.OnClickListener() {
+
+        categoryButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 //String names[] = {"Arts", "Sports", "Excursion", "Academics", "Performance", "Other"};
@@ -538,7 +566,7 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
                                             long id) {
                         TextView textView = (TextView) view.findViewById(android.R.id.text1);
                         String text = textView.getText().toString();
-                        selectCategoryButton.setText(text);
+                        categoryButton.setText(text);
                         alert.dismiss();
                     }
                 });
