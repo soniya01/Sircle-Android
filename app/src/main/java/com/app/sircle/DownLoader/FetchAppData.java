@@ -94,14 +94,14 @@ private FetchedDataDelegate fetchedDataDelegate;
             }
         });
 
-        DocumentManager.getSharedInstance().getAllDocs(request, new DocumentManager.GetNewsManagerListener() {
+        DocumentManager.getSharedInstance().getAllDocs(request, new DocumentManager.GetDocumentManagerListener() {
             @Override
             public void onCompletion(DocumentsResponse response, AppError error) {
 
             }
         });
 
-        DocumentManager.getSharedInstance().getAllNewsLetters(request, new DocumentManager.GetNewsManagerListener() {
+        DocumentManager.getSharedInstance().getAllNewsLetters(request, new DocumentManager.GetDocumentManagerListener() {
             @Override
             public void onCompletion(DocumentsResponse response, AppError error) {
 

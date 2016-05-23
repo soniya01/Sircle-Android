@@ -3,7 +3,6 @@ package com.app.sircle.UI.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -11,10 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.app.sircle.Manager.DocumentManager;
@@ -22,9 +18,7 @@ import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.PDFViewer;
 import com.app.sircle.UI.Adapter.DocumentsViewAdapter;
-import com.app.sircle.UI.Adapter.NewsLettersViewAdapter;
 import com.app.sircle.UI.Model.NewsLetter;
-import com.app.sircle.UI.SlidingPane.SlidingPaneInterface;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.Utility.Constants;
 import com.app.sircle.WebService.DocumentsResponse;
@@ -100,7 +94,7 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                 Toast.makeText(getActivity(), "File downloaded " + selectedItem.getName(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), PDFViewer.class);
-                intent.putExtra("PdfUrl",selectedItem.getNewsFile());
+                intent.putExtra("PdfUrl",selectedItem.getPath());
                 startActivity(intent);
             }
         });
@@ -122,11 +116,11 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
         String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         HashMap object = new HashMap();
-        object.put("regId", Constants.GCM_REG_ID);
-        object.put("groupId", grpIdString);
-        object.put("page", 1);
+        //object.put("regId", Constants.GCM_REG_ID);
+        //object.put("groupId", grpIdString);
+        object.put("page", "1");
 
-        DocumentManager.getSharedInstance().getAllDocs(object, new DocumentManager.GetNewsManagerListener() {
+        DocumentManager.getSharedInstance().getAllDocs(object, new DocumentManager.GetDocumentManagerListener() {
             @Override
             public void onCompletion(DocumentsResponse data, AppError error) {
                 //progressBar.setVisibility(View.GONE);
@@ -134,7 +128,8 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
                 if (data != null) {
                     if (data.getStatus() == 200) {
                         if (data.getData().getDocs().size() > 0) {
-                            totalRecord = data.getData().getTotalRecords();
+                            // no totalRecord in new aPI call
+                            //totalRecord = data.getData().getTotalRecords();
                             newsLetterList.clear();
                             newsLetterList.addAll(DocumentManager.docsList);
                             newsLetterListViewAdapter.notifyDataSetChanged();
@@ -220,11 +215,11 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
         String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         HashMap object = new HashMap();
-        object.put("regId", Constants.GCM_REG_ID);
-        object.put("groupId", grpIdString);
-        object.put("page", pageCount);
+        //object.put("regId", Constants.GCM_REG_ID);
+        //object.put("groupId", grpIdString);
+        object.put("page", "1");
 
-        DocumentManager.getSharedInstance().getAllDocs(object, new DocumentManager.GetNewsManagerListener() {
+        DocumentManager.getSharedInstance().getAllDocs(object, new DocumentManager.GetDocumentManagerListener() {
             @Override
             public void onCompletion(DocumentsResponse data, AppError error) {
                 isLoading = false;

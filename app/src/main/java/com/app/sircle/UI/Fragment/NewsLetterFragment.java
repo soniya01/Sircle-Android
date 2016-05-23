@@ -93,7 +93,7 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
 
                 Toast.makeText(getActivity(), "File downloaded " + selectedItem.getName(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), PDFViewer.class);
-                intent.putExtra("PdfUrl",selectedItem.getNewsFile());
+                intent.putExtra("PdfUrl",selectedItem.getPath());
                 startActivity(intent);
             }
         });
@@ -123,13 +123,13 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
         String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         HashMap map = new HashMap();
-        map.put("regId", Constants.GCM_REG_ID);
-        map.put("groupId", grpIdString);
-        map.put("page", 1);
+        //map.put("regId", Constants.GCM_REG_ID);
+       // map.put("groupId", grpIdString);
+        map.put("page", "1");
 
         System.out.println("Map " + map);
 
-        DocumentManager.getSharedInstance().getAllNewsLetters(map, new DocumentManager.GetNewsManagerListener() {
+        DocumentManager.getSharedInstance().getAllNewsLetters(map, new DocumentManager.GetDocumentManagerListener() {
             @Override
             public void onCompletion(DocumentsResponse response, AppError error) {
               //  progressBar.setVisibility(View.GONE);
@@ -137,9 +137,9 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                     if (response != null) {
                         if (response.getStatus() == 200) {
-                            if (response.getData().getNewsLetters().size() > 0) {
+                            if (response.getData().getDocs().size() > 0) {
 
-                                totalRecord = response.getData().getTotalRecords();
+                                //totalRecord = response.getData().getTotalRecords();
                                 newsLetterList.clear();
                                 newsLetterList.addAll(DocumentManager.newsLetterList);
                                 newsLetterListViewAdapter.notifyDataSetChanged();
@@ -233,17 +233,17 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
         String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         HashMap object = new HashMap();
-        object.put("regId", Constants.GCM_REG_ID);
-        object.put("groupId", grpIdString);
-        object.put("page", pageCount);
+       // object.put("regId", Constants.GCM_REG_ID);
+        //object.put("groupId", grpIdString);
+        object.put("page", "1");
 
-        DocumentManager.getSharedInstance().getAllNewsLetters(object, new DocumentManager.GetNewsManagerListener() {
+        DocumentManager.getSharedInstance().getAllNewsLetters(object, new DocumentManager.GetDocumentManagerListener() {
             @Override
             public void onCompletion(DocumentsResponse data, AppError error) {
                 isLoading = false;
                 if (data != null) {
                     if (data.getStatus() == 200) {
-                        if (data.getData().getNewsLetters().size() > 0) {
+                        if (data.getData().getDocs().size() > 0) {
                             newsLetterList.addAll(DocumentManager.newsLetterList);
                             newsLetterListViewAdapter.notifyDataSetChanged();
 

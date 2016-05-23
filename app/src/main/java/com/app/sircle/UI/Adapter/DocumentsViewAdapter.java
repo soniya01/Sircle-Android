@@ -61,8 +61,8 @@ public class DocumentsViewAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.pdfTitleLabel.setText(newsLettersList.get(position).getName());
-        viewHolder.pdfDateLabel.setText(newsLettersList.get(position).getPdfDate());
-        viewHolder.pdfTimeLabel.setText(newsLettersList.get(position).getPdfTime());
+        viewHolder.pdfDateLabel.setText(newsLettersList.get(position).getDate());
+        //viewHolder.pdfTimeLabel.setText(newsLettersList.get(position).getPdfTime());
         return convertView;
 
     }

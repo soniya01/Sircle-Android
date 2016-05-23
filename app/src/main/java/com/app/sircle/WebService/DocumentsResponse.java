@@ -10,16 +10,16 @@ import java.util.List;
  */
 public class DocumentsResponse {
 
-    public int status;
+    public int code;
     public String message;
     public DocumentResponseData data;
 
     public int getStatus() {
-        return status;
+        return code;
     }
 
     public void setStatus(int status) {
-        this.status = status;
+        this.code = status;
     }
 
     public String getMessage() {

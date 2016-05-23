@@ -197,7 +197,7 @@ public class HomeFragment extends Fragment {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         Set<String> grpIds = sharedPreferences.getStringSet(Constants.GROUP_IDS,null);
         NotificationManager.grpIds.clear();
-        NotificationManager.grpIds.addAll(grpIds);
+        //NotificationManager.grpIds.addAll(grpIds);
 
         SharedPreferences loginSharedPreferences = getActivity().getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
         LoginManager.accessToken = loginSharedPreferences.getString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY,null);

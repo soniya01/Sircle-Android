@@ -33,7 +33,7 @@ public class DocumentService {
     }
 
     public void getAllNewsLetters(HashMap object, final GetNewsWebServiceListener getNewsWebServiceListener){
-        retrofitImplementation.executeGetWithURL(Constants.NEWSLETTERS_GET_API_PATH, object, null, DocumentsResponse.class, new WebServiceListener() {
+        retrofitImplementation.executePostWithURL(Constants.NEWSLETTERS_GET_API_PATH, object, null, DocumentsResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
                // List<NewsLetter> newsLetters = ((DocumentsResponse) responseObject).getData();
@@ -43,7 +43,7 @@ public class DocumentService {
     }
 
     public void getAllDocs(HashMap object, final GetNewsWebServiceListener getNewsWebServiceListener){
-        retrofitImplementation.executeGetWithURL(Constants.DOCUMENTS_GET_API_PATH, object, null, DocumentsResponse.class, new WebServiceListener() {
+        retrofitImplementation.executePostWithURL(Constants.DOCUMENTS_GET_API_PATH, object, null, DocumentsResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
                 getNewsWebServiceListener.onCompletion(((DocumentsResponse) responseObject), error);

@@ -10,14 +10,23 @@ import java.util.Date;
 public class NewsLetter {
 
 
-    public String name;
-    @SerializedName("news_file")
-    public String newsFile;
+    @SerializedName("file_id")
+    public String id;
 
-    @SerializedName("created_on")
-    public String pdfDate;
-    @SerializedName("time_string")
-    public String pdfTime;
+    @SerializedName("file_name")
+    public String name;
+
+    @SerializedName("file_path")
+    public String path;
+
+    @SerializedName("document_name")
+    public String docName;
+
+    @SerializedName("newspaper_name")
+    public String newspaperName;
+
+    public String date;
+
 
     public String getName() {
         return name;
@@ -27,27 +36,43 @@ public class NewsLetter {
         this.name = name;
     }
 
-    public String getNewsFile() {
-        return newsFile;
+    public String getId() {
+        return id;
     }
 
-    public void setNewsFile(String newsFile) {
-        this.newsFile = newsFile;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getPdfDate() {
-        return pdfDate;
+    public String getPath() {
+        return path;
     }
 
-    public void setPdfDate(String pdfDate) {
-        this.pdfDate = pdfDate;
+    public void setPath(String path) {
+        this.path = path;
     }
 
-    public String getPdfTime() {
-        return pdfTime;
+    public String getDocName() {
+        return docName;
     }
 
-    public void setPdfTime(String pdfTime) {
-        this.pdfTime = pdfTime;
+    public void setDocName(String docName) {
+        this.docName = docName;
+    }
+
+    public String getNewspaperName() {
+        return newspaperName;
+    }
+
+    public void setNewspaperName(String newspaperName) {
+        this.newspaperName = newspaperName;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }
