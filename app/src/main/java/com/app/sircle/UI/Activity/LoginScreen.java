@@ -168,14 +168,19 @@ public class LoginScreen extends Activity {
         HashMap<String, String> loginMap = new HashMap<String, String>();
 
 
-//        loginMap.put("loginId",usernameField.getText().toString());
-//        loginMap.put("pwd",passwordEditText.getText().toString());
-//        loginMap.put("regId", Constants.GCM_REG_ID);
+       // loginMap.put("loginId",usernameField.getText().toString());
+        //loginMap.put("pwd",passwordEditText.getText().toString());
+        //loginMap.put("regId", Constants.GCM_REG_ID);
 
         loginMap.put("email",usernameField.getText().toString());
         loginMap.put("password",passwordEditText.getText().toString());
         loginMap.put("device_token", Constants.GCM_REG_ID);
-        loginMap.put("device_type", "android");
+        loginMap.put("device_type", "Android");
+
+//        loginMap.put("email",usernameField.getText().toString());
+//        loginMap.put("password",passwordEditText.getText().toString());
+//        loginMap.put("device_token", Constants.GCM_REG_ID);
+      //  loginMap.put("device_type", "android");
 
         LoginManager.getSharedInstance().login(loginMap, new LoginManager.LoginManagerListener() {
             @Override
@@ -191,19 +196,18 @@ public class LoginScreen extends Activity {
 
                             NotificationManager.getSharedInstance().grpIds.clear();
                             sessionExpiryDate = new Date();
-                           LoginManager.accessToken = response.getUserData().getOauth().getAccessToken();//  //getOauth().getAccessToken();
-                            //LoginManager.expiresIn = response.getUserData().getOauth().getExpiresIn();
-                            //LoginManager.loggedInTime = new Date().getTime();
-                          //  LoginManager.accessToken = response.getUserData().get(0).getAuthToken();
-                            editor.putString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, response.getUserData().getOauth().getAccessToken());
-                            editor.putString(Constants.LOGIN_LOGGED_IN_USER_TYPE, response.getUserData().getUserType());
-                            editor.putLong(Constants.LOGIN_EXPIRES_IN_PREFS_KEY, response.getUserData().getOauth().getExpiresIn());
+
+                            LoginManager.accessToken = response.getUserData().getAuthToken();
+
+                            editor.putString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, response.getUserData().getAuthToken());
+                            editor.putString(Constants.LOGIN_LOGGED_IN_USER_TYPE, response.getUserData().getDetails());
+                            editor.putLong(Constants.LOGIN_EXPIRES_IN_PREFS_KEY, 120000);
                             editor.putLong(Constants.LOGIN_LOGGED_IN_PREFS_KEY, new Date().getTime() / 1000);
 
-                       //     editor.putString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, response.getUserData().get(0).getAuthToken());
-                        //    editor.putString(Constants.LOGIN_LOGGED_IN_USER_TYPE, response.getUserData().get(0).getCustomerDetails());
-                           // editor.putLong(Constants.LOGIN_EXPIRES_IN_PREFS_KEY, response.getUserData().getOauth().getExpiresIn());
-                           // editor.putLong(Constants.LOGIN_LOGGED_IN_PREFS_KEY, new Date().getTime() / 1000);
+//                            editor.putString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, response.getUserData().getOauth().getAccessToken());
+//                            editor.putString(Constants.LOGIN_LOGGED_IN_USER_TYPE, response.getUserData().getUserType());
+//                            editor.putLong(Constants.LOGIN_EXPIRES_IN_PREFS_KEY, response.getUserData().getOauth().getExpiresIn());
+//                            editor.putLong(Constants.LOGIN_LOGGED_IN_PREFS_KEY, new Date().getTime() / 1000);
 
                             editor.apply();
                             Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();

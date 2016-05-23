@@ -10,10 +10,12 @@ import java.util.List;
  */
 public class LoginResponse {
 
-   public  UserData data;
+   //public  UserData data;
+
+    public Customer data;
    // public List<UserData> data = new ArrayList<UserData>();
     public String message;
-    public int status;
+    public int code;
 
 //    public List<UserData>  getUserData() {
 //        return data;
@@ -23,12 +25,12 @@ public class LoginResponse {
 //        this.data = data;
 //    }
 
-    public UserData getUserData()
+    public Customer getUserData()
     {
         return data;
     }
 
-    public void setUserData(UserData data)
+    public void setCustomer(Customer data)
     {
         this.data = data;
     }
@@ -36,11 +38,11 @@ public class LoginResponse {
 
 
     public int getStatus() {
-        return status;
+        return code;
     }
 
     public void setStatus(int status) {
-        this.status = status;
+        this.code = status;
     }
 
     public String getMessage() {

@@ -121,7 +121,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
         switch (url){
             case Constants.LOGIN_API_PATH:
                // postWebservice.login(params.get("email"), params.get("password"), params.get("device_token"), params.get("device_type"), new Callback<JsonElement>() {
-                postWebservice.login(params.get("loginId"), params.get("pwd"), params.get("regId"), new Callback<JsonElement>() {
+                postWebservice.login(params.get("email"), params.get("password"), params.get("device_token"), params.get("device_type"), new Callback<JsonElement>() {
                     @Override
                     public void success(JsonElement jsonElement, Response response) {
 
@@ -655,7 +655,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
         @FormUrlEncoded
         @POST("/")
       //  void login(@Field("email") String loginId, @Field("password") String password, @Field("device_token") String regId,@Field("device_type") String deviceType ,Callback<JsonElement> callback);
-      void login(@Field("loginId") String loginId, @Field("pwd") String password, @Field("regId") String regId ,Callback<JsonElement> callback);
+      void login(@Field("email") String loginId, @Field("password") String password, @Field("device_token") String regId, @Field("device_type") String deviceType, Callback<JsonElement> callback);
         @FormUrlEncoded
         @POST("/")
         void post(@Field("eventId") String eventId, Callback<JsonElement> callback);

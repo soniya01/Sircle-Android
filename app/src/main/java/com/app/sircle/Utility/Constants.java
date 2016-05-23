@@ -29,11 +29,11 @@ public class Constants {
     public static String dateAvailabe = "";
     public static String term ="";
     public static String termPeriod = "";
-    public static final String BASE_URL = "http://52.3.172.189/testapi/";
-   //  public static final String BASE_URL = "http://54.251.157.35/event/api/";
+    //public static final String BASE_URL = "http://52.3.172.189/testapi/";
+    public static final String BASE_URL = "http://54.251.157.35/event/api/";
     //public static final String BASE_URL = "http://demo.snaptech.in/";
-    public static final String LOGIN_API_PATH = "user/user_get/";
-   // public static final String LOGIN_API_PATH = "login";
+   // public static final String LOGIN_API_PATH = "user/user_get/";
+    public static final String LOGIN_API_PATH = "login";
     
     public static final String GROUP_UPDATE_ALL_NOTIFICATION = "user/device_group_update_all";
     public static final String GROUP_UPDATE_NOTIFICATION = "user/device_group_save";
