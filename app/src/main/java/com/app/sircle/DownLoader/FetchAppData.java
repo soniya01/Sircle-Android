@@ -78,7 +78,7 @@ private FetchedDataDelegate fetchedDataDelegate;
         HashMap request = new HashMap();
         request.put("regId", Constants.GCM_REG_ID);
         request.put("groupId",grpIdString);
-        request.put("page", 1);
+        request.put("page", "1");
 
         EventManager.getSharedInstance().getAllEvents(request, new EventManager.GetMonthwiseEventsManagerListener() {
             @Override
