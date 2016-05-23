@@ -476,17 +476,10 @@ public class RetrofitImplementation implements WebServiceProtocol{
                 .setRequestInterceptor(new RequestInterceptor() {
                     @Override
                     public void intercept(RequestFacade request) {
+                        request.addHeader("Authorization", LoginManager.accessToken);
 
-                        if (responseClass != LoginResponse.class) {
-                            request.addHeader("Authorization", LoginManager.accessToken);
-                        }
                         //request.addHeader("Authorization", "3ec8e9ed13ad96b6b979517f5bf34545891f4958");
-
-//                        if (params != null){
-//                            for (String key : params.keySet()){
-//                                request.addQueryParam(key, String.valueOf(params.get(key)));
-//                            }
-//                        }
+                        
                     }
                 })
                 .setConverter(new GsonCustomConverter(gson))
