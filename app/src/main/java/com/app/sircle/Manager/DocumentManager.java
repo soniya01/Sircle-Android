@@ -31,14 +31,14 @@ public class DocumentManager {
         return sharedInstance;
     }
 
-    public void getAllNewsLetters(HashMap object, final GetDocumentManagerListener getNewsManagerListener){
+    public void getAllNewsLetters(HashMap object, final GetNewsManagerListener getNewsManagerListener){
         DocumentService.getSharedInstance().getAllNewsLetters(object, new DocumentService.GetNewsWebServiceListener() {
             @Override
             public void onCompletion(DocumentsResponse response, AppError error) {
                 if (response != null){
-                    if (response.getData() != null && response.getData().getDocs() != null){
+                    if (response.getData() != null && response.getData().getNewsLetters() != null){
 
-                        newsLetterList = response.getData().getDocs();
+                        newsLetterList = response.getData().getNewsLetters();
                     }
                 }
 
@@ -47,7 +47,7 @@ public class DocumentManager {
         });
     }
 
-    public void getAllDocs(HashMap object, final GetDocumentManagerListener getNewsManagerListener){
+    public void getAllDocs(HashMap object, final GetNewsManagerListener getNewsManagerListener){
         DocumentService.getSharedInstance().getAllDocs(object, new DocumentService.GetNewsWebServiceListener() {
             @Override
             public void onCompletion(DocumentsResponse response, AppError error) {
@@ -63,7 +63,7 @@ public class DocumentManager {
         });
     }
 
-    public interface GetDocumentManagerListener{
+    public interface GetNewsManagerListener{
         public void onCompletion(DocumentsResponse response, AppError error);
     }
 

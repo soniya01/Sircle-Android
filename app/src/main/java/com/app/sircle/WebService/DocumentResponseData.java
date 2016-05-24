@@ -11,69 +11,54 @@ import java.util.List;
  */
 public class DocumentResponseData {
 
-//    @SerializedName("total_records")
-//    public int totalRecords;
-//
-//    public int page;
-//
-//    @SerializedName("page_records")
-//    public int pageRecords;
+    @SerializedName("total_records")
+    public int totalRecords;
+    public int page;
 
-    @SerializedName("method_type")
-    public String methodType;
-
+    @SerializedName("page_records")
+    public int pageRecords;
     public List<NewsLetter> documents = new ArrayList<NewsLetter>();
 
-   // public List<NewsLetter> newsletters = new ArrayList<NewsLetter>();
+    public List<NewsLetter> newsletters = new ArrayList<NewsLetter>();
 
-//    public int getTotalRecords() {
-//        return totalRecords;
-//    }
-//
-//    public void setTotalRecords(int totalRecords) {
-//        this.totalRecords = totalRecords;
-//    }
-//
-//    public int getPage() {
-//        return page;
-//    }
-//
-//    public void setPage(int page) {
-//        this.page = page;
-//    }
-//
-//    public int getPageRecords() {
-//        return pageRecords;
-//    }
-//
-//    public void setPageRecords(int pageRecords) {
-//        this.pageRecords = pageRecords;
-//    }
+    public int getTotalRecords() {
+        return totalRecords;
+    }
 
+    public void setTotalRecords(int totalRecords) {
+        this.totalRecords = totalRecords;
+    }
 
-//    public List<NewsLetter> getNewsLetters() {
-//        return newsletters;
-//    }
-//
-//    public void setNewsLetters(List<NewsLetter> newsLetters) {
-//        this.newsletters = newsLetters;
-//    }
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getPageRecords() {
+        return pageRecords;
+    }
+
+    public void setPageRecords(int pageRecords) {
+        this.pageRecords = pageRecords;
+    }
 
     public List<NewsLetter> getDocs() {
         return documents;
     }
 
-    public void setDocs(List<NewsLetter> docs) {
-        this.documents = docs;
+    public void setDocs(List<NewsLetter> links) {
+        this.documents = links;
     }
 
-
-
-    public String getMethodType() {
-        return methodType;
+    public List<NewsLetter> getNewsLetters() {
+        return newsletters;
     }
 
-    public void setMethodType(String methodType) {
-        this.methodType = methodType;
+    public void setNewsLetters(List<NewsLetter> newsLetters) {
+        this.newsletters = newsLetters;
     }
+
 }

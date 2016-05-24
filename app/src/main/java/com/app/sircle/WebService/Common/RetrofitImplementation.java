@@ -175,86 +175,6 @@ public class RetrofitImplementation implements WebServiceProtocol{
                 });
                 break;
 
-            case Constants.DOCUMENTS_GET_API_PATH :
-                postWebservice.postDocs(Integer.parseInt(params.get("page")) ,new Callback<JsonElement>() {
-                    @Override
-                    public void success(JsonElement jsonElement, Response response) {
-                        if (!jsonElement.isJsonNull()) {
-
-                            Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
-
-                            if (responseClass != null) {
-                                Object object = Common.createObjectForClass(responseClass);
-
-                                if (jsonElement.isJsonArray()) {
-                                    Type collectionType = new TypeToken<Collection<Object>>() {
-                                    }.getType();
-                                    Collection<Object> data = gson.fromJson(jsonElement, collectionType);
-                                    webserviceListener.onCompletion(data, new AppError());
-                                } else {
-                                    object = gson.fromJson(jsonElement, responseClass);
-                                    webserviceListener.onCompletion(object, new AppError());
-                                }
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        AppError appError = new AppError();
-                        appError.setErrorCode(getRetrofitErrorcode(error));
-                        appError.setErrorMessage(error.getLocalizedMessage());
-
-                        // Send empty object
-                        if (responseClass != null) {
-                            webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
-                        } else {
-                            webserviceListener.onCompletion(null, appError);
-                        }
-                    }
-                });
-                break;
-
-            case Constants.NEWSLETTERS_GET_API_PATH:
-                postWebservice.postDocs(Integer.parseInt(params.get("page")), new Callback<JsonElement>() {
-                    @Override
-                    public void success(JsonElement jsonElement, Response response) {
-                        if (!jsonElement.isJsonNull()) {
-
-                            Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
-
-                            if (responseClass != null) {
-                                Object object = Common.createObjectForClass(responseClass);
-
-                                if (jsonElement.isJsonArray()) {
-                                    Type collectionType = new TypeToken<Collection<Object>>() {
-                                    }.getType();
-                                    Collection<Object> data = gson.fromJson(jsonElement, collectionType);
-                                    webserviceListener.onCompletion(data, new AppError());
-                                } else {
-                                    object = gson.fromJson(jsonElement, responseClass);
-                                    webserviceListener.onCompletion(object, new AppError());
-                                }
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void failure(RetrofitError error) {
-                        AppError appError = new AppError();
-                        appError.setErrorCode(getRetrofitErrorcode(error));
-                        appError.setErrorMessage(error.getLocalizedMessage());
-
-                        // Send empty object
-                        if (responseClass != null) {
-                            webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
-                        } else {
-                            webserviceListener.onCompletion(null, appError);
-                        }
-                    }
-                });
-                break;
-
             case Constants.NOTIFICATION_ADD_GROUPS:
                 postWebservice.postNotification(params.get("subject"), params.get("msg"), params.get("grp"), new Callback<JsonElement>() {
                     @Override
@@ -541,7 +461,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
     }
 
 
-    public void executeGetWithURL(String url, final HashMap<String,String> params,final Object requestObject,final Class responseClass, final WebServiceListener webserviceListener) {
+    public void executeGetWithURL(  String url, final HashMap<String,String> params,final Object requestObject,final Class responseClass, final WebServiceListener webserviceListener) {
         // Setup Adapter for Rest Operations
 
         this.generator = new UrlGenerator(params, url);
@@ -559,7 +479,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                         request.addHeader("Authorization", LoginManager.accessToken);
 
                         //request.addHeader("Authorization", "3ec8e9ed13ad96b6b979517f5bf34545891f4958");
-
+                        
                     }
                 })
                 .setConverter(new GsonCustomConverter(gson))
@@ -727,9 +647,6 @@ public class RetrofitImplementation implements WebServiceProtocol{
      */
     private interface WebserviceApi {
 
-
-        @POST("/")
-        void postDocs(@Field("page") int page, Callback<JsonElement> callback);
 
         @FormUrlEncoded
         @POST("/")
