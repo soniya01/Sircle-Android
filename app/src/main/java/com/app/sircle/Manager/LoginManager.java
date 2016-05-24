@@ -39,17 +39,6 @@ public class LoginManager {
     }
 
 
-    public void loginStatus(final LoginManagerListener loginManagerListener){
-
-        LoginService.loginStatus( new LoginService.GetLoginResponseWebServiceListener() {
-            @Override
-            public void onCompletion(LoginResponse response, AppError error) {
-                loginManagerListener.onCompletion(response, error);
-            }
-        });
-    }
-
-
     public interface LoginManagerListener{
 
         public void onCompletion(LoginResponse response, AppError error);

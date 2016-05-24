@@ -24,19 +24,6 @@ public class LoginService {
         });
     }
 
-    public static  void loginStatus(final GetLoginResponseWebServiceListener getLoginResponseWebServiceListener){
-
-        RetrofitImplementation retrofitImplementation = new RetrofitImplementation();
-        retrofitImplementation.executeGetWithURL(Constants.LOGIN_API_PATH, null, null,LoginResponse.class, new WebServiceListener() {
-            @Override
-            public void onCompletion(Object response, AppError error) {
-                LoginResponse loginResponse = (LoginResponse)response;
-                getLoginResponseWebServiceListener.onCompletion(loginResponse, error);
-            }
-        });
-
-    }
-
     public interface GetLoginResponseWebServiceListener{
 
         public void onCompletion(LoginResponse loginResponse, AppError error);

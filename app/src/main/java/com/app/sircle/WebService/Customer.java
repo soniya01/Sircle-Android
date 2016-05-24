@@ -14,12 +14,6 @@ public class Customer {
     private String authToken;
 
 
-    @SerializedName("method_type")
-    private String methodType;
-
-    @SerializedName("login_status")
-    private String loginStatus;
-
     public String getDetails() {
         return details;
     }
@@ -34,21 +28,5 @@ public class Customer {
 
     public void setAuthToken(String authToken) {
         this.authToken = authToken;
-    }
-
-    public String getMethodType() {
-        return methodType;
-    }
-
-    public void setMethodType(String methodType) {
-        this.methodType = methodType;
-    }
-
-    public String getLoginStatus() {
-        return loginStatus;
-    }
-
-    public void setLoginStatus(String loginStatus) {
-        this.loginStatus = loginStatus;
     }
 }
