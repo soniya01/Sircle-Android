@@ -728,7 +728,6 @@ public class RetrofitImplementation implements WebServiceProtocol{
     private interface WebserviceApi {
 
 
-        @FormUrlEncoded
         @POST("/")
         void postDocs(@Field("page") int page, Callback<JsonElement> callback);
 
