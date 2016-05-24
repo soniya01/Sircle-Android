@@ -168,14 +168,14 @@ public class LoginScreen extends Activity {
         HashMap<String, String> loginMap = new HashMap<String, String>();
 
 
-//        loginMap.put("loginId",usernameField.getText().toString());
-//        loginMap.put("pwd",passwordEditText.getText().toString());
-//        loginMap.put("regId", Constants.GCM_REG_ID);
+        loginMap.put("loginId",usernameField.getText().toString());
+        loginMap.put("pwd",passwordEditText.getText().toString());
+        loginMap.put("regId", Constants.GCM_REG_ID);
 
-        loginMap.put("email",usernameField.getText().toString());
-        loginMap.put("password",passwordEditText.getText().toString());
-        loginMap.put("device_token", Constants.GCM_REG_ID);
-        loginMap.put("device_type", "android");
+//        loginMap.put("email",usernameField.getText().toString());
+//        loginMap.put("password",passwordEditText.getText().toString());
+//        loginMap.put("device_token", Constants.GCM_REG_ID);
+      //  loginMap.put("device_type", "android");
 
         LoginManager.getSharedInstance().login(loginMap, new LoginManager.LoginManagerListener() {
             @Override
