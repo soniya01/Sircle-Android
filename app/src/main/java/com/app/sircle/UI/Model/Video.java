@@ -9,25 +9,26 @@ import java.util.Date;
  */
 public class Video {
 
+    @SerializedName("caption_name")
     public String name;
 
-    @SerializedName("url")
+    @SerializedName("video_url")
     public String videoEmbedURL;
 
-    @SerializedName("video_thumb")
-    public String videoThumbURL;
+//    @SerializedName("video_thumb")
+//    public String videoThumbURL;
+//
+//    @SerializedName("time_string")
+//    public String time;
 
-    @SerializedName("time_string")
-    public String time;
-
-    @SerializedName("created_on")
+    @SerializedName("date")
     public String publishDate;
 
-    @SerializedName("video_from")
-    public String videoType;
+//    @SerializedName("video_from")
+//    public String videoType;
 
-    @SerializedName("video_provider_id")
-    public  String videoId;
+    @SerializedName("file_id")
+    public String videoId;
 
 
     public String getVideoEmbedURL() {
@@ -47,36 +48,12 @@ public class Video {
         this.name = name;
     }
 
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
     public String getPublishDate() {
         return publishDate;
     }
 
     public void setPublishDate(String publishDate) {
         this.publishDate = publishDate;
-    }
-
-    public String getVideoThumbURL() {
-        return videoThumbURL;
-    }
-
-    public void setVideoThumbURL(String videoThumbURL) {
-        this.videoThumbURL = videoThumbURL;
-    }
-
-    public String getVideoType() {
-        return videoType;
-    }
-
-    public void setVideoType(String videoType) {
-        this.videoType = videoType;
     }
 
     public String getVideoId() {
@@ -86,5 +63,35 @@ public class Video {
     public void setVideoId(String videoId) {
         this.videoId = videoId;
     }
+
+
+
+//    public String getTime() {
+//        return time;
+//    }
+//
+//    public void setTime(String time) {
+//        this.time = time;
+//    }
+//
+//
+//
+//    public String getVideoThumbURL() {
+//        return videoThumbURL;
+//    }
+//
+//    public void setVideoThumbURL(String videoThumbURL) {
+//        this.videoThumbURL = videoThumbURL;
+//    }
+//
+//    public String getVideoType() {
+//        return videoType;
+//    }
+//
+//    public void setVideoType(String videoType) {
+//        this.videoType = videoType;
+//    }
+
+
 
 }

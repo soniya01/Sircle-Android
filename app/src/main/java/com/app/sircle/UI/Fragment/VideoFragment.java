@@ -109,8 +109,7 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 
-                if (videoList.get(position).getVideoType().equals("youtube")) {
-
+                //if (videoList.get(position).getVideoType().equals("youtube")) {
                     Intent intent = YouTubeStandalonePlayer.createVideoIntent(
                             getActivity(), DeveloperKey.DEVELOPER_KEY, videoList.get(position).getVideoId(), 0, false, false);
 
@@ -123,12 +122,12 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                                     .getErrorDialog(getActivity(), REQ_RESOLVE_SERVICE_MISSING).show();
                         }
                     }
-                } else {
-                    Intent intent = new Intent(getActivity(), VimeoWebviewActivity.class);
-                    intent.putExtra("VideoUrl", videoList.get(position).getVideoEmbedURL());
-                    startActivity(intent);
-
-                }
+//                } else {
+//                    Intent intent = new Intent(getActivity(), VimeoWebviewActivity.class);
+//                    intent.putExtra("VideoUrl", videoList.get(position).getVideoEmbedURL());
+//                    startActivity(intent);
+//
+//                }
 
             }
         });
@@ -157,9 +156,9 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         HashMap object = new HashMap();
-        object.put("regId", Constants.GCM_REG_ID);
-        object.put("groupId", grpIdString);
-        object.put("page", 1);
+       // object.put("regId", Constants.GCM_REG_ID);
+        //object.put("groupId", grpIdString);
+        object.put("page", "1");
 
         VideoManager.getSharedInstance().getAllVideos(object, new VideoManager.VideoManagerListener() {
             @Override
@@ -171,7 +170,7 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                         if (response.getStatus() == 200) {
                             if (response.getData().getVideos().size() > 0) {
 
-                                totalRecord = response.getData().getTotalRecords();
+                               // totalRecord = response.getData().getTotalRecords();
                                 videoList.clear();
                                 videoList.addAll(VideoManager.videoList);
 
@@ -261,9 +260,9 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         HashMap object = new HashMap();
-        object.put("regId", Constants.GCM_REG_ID);
-        object.put("groupId", grpIdString);
-        object.put("page", pageCount);
+       // object.put("regId", Constants.GCM_REG_ID);
+        //object.put("groupId", grpIdString);
+        object.put("page", "1");
 
         VideoManager.getSharedInstance().getAllVideos(object, new VideoManager.VideoManagerListener() {
             @Override

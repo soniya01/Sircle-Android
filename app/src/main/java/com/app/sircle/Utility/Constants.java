@@ -61,8 +61,8 @@ public class Constants {
 
     public static final String NOTIFICATION_GET_API  = "user/notifications_group";//"user/notifications_group/format/json";
     public static final String LINKS_GET_ALL_API  = "user/links_group";//"user/links_group/format/json";
-    public static final String VIDEOS_GET_ALL_API  = "user/videos_group";//"user/videos_group/format/json";
-
+    //public static final String VIDEOS_GET_ALL_API  = "user/videos_group";//"user/videos_group/format/json";
+    public static final String VIDEOS_GET_ALL_API = "file/getVideos";
 
     public static final String GROUP_IDS = "groupIds";
     public static final String TOKEN_TO_SERVER = "tokenToServer";

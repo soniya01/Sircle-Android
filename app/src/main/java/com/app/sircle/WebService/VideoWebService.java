@@ -31,7 +31,7 @@ public class VideoWebService {
     }
 
     public void getAllVideos(HashMap object, final VideoWebServiceListener videoWebServiceListener){
-        retrofitImplementation.executeGetWithURL(Constants.VIDEOS_GET_ALL_API, object, null, VideoResponse.class, new WebServiceListener() {
+        retrofitImplementation.executePostWithURL(Constants.VIDEOS_GET_ALL_API, object, null, VideoResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
                 //List<Video> videoList = (ArrayList<Video>) responseObject;
