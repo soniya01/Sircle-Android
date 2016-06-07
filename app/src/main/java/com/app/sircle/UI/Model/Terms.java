@@ -7,22 +7,22 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Terms {
 
-    public String id;
+//    public String id;
 
-    @SerializedName("title")
+    @SerializedName("term")
     public String termTitle;
 
-    @SerializedName("start_date")
+    @SerializedName("from")
     public String termStartDate;
 
-    @SerializedName("start_icon_id")
-    public String startIconId;
+//    @SerializedName("start_icon_id")
+//    public String startIconId;
 
-    @SerializedName("end_date")
+    @SerializedName("to")
     public String termEndDate;
 
-    @SerializedName("end_icon_id")
-    public String endIconId;
+//    @SerializedName("end_icon_id")
+//    public String endIconId;
 
 
     public String getTermTitle() {
@@ -46,31 +46,31 @@ public class Terms {
         return termEndDate;
     }
 
-    public void setTermEndDate(String eventTime) {
+    public void setTermEndDate(String termEndDate) {
         this.termEndDate = termEndDate;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getStartIconId() {
-        return startIconId;
-    }
-
-    public void setStartIconId(String startIconId) {
-        this.startIconId = startIconId;
-    }
-
-    public String getEndIconId() {
-        return endIconId;
-    }
-
-    public void setEndIconId(String endIconId) {
-        this.endIconId = endIconId;
-    }
+//    public String getId() {
+//        return id;
+//    }
+//
+//    public void setId(String id) {
+//        this.id = id;
+//    }
+//
+//    public String getStartIconId() {
+//        return startIconId;
+//    }
+//
+//    public void setStartIconId(String startIconId) {
+//        this.startIconId = startIconId;
+//    }
+//
+//    public String getEndIconId() {
+//        return endIconId;
+//    }
+//
+//    public void setEndIconId(String endIconId) {
+//        this.endIconId = endIconId;
+//    }
 }

@@ -7,36 +7,54 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Event {
 
+
+//            "": "asdfasdf",
+//            "": "asdfasdf",
+//            "": "01-06-2016 12:00 AM",
+//            "": "02-06-2016 11:30 PM",
+//            "": "12:00 AM",
+//            "": "11:30 PM",
+//            "": "M"
+
+    @SerializedName("event_id")
     public String id;
 
-    @SerializedName("unq_id")
-    public String uniqueId;
+//    @SerializedName("unq_id")
+//    public String uniqueId;
+
+    @SerializedName("event_title")
     public String title;
 
-    @SerializedName("event_type_id")
-    public String eventTypeId;
+//    @SerializedName("event_type_id")
+//    public String eventTypeId;
 
-    @SerializedName("icon_id")
-    public int iconId;
+//    @SerializedName("icon_id")
+//    public int iconId;
 
-    @SerializedName("start_date")
+    @SerializedName("event_start_date")
     public String startDate;
 
-    @SerializedName("end_date")
+    @SerializedName("event_end_date")
     public String endDate;
 
-    @SerializedName("start_time")
+    @SerializedName("event_from")
     public String startTime;
 
     @SerializedName("end_time")
     public String endTime;
 
+    @SerializedName("event_to")
     public String location;
 
-    @SerializedName("event_category")
-    public String category;
+//    @SerializedName("event_category")
+//    public String category;
 
+    @SerializedName("event_description")
     public String detail;
+
+    @SerializedName("event_priority")
+    public String eventPriority;
+
 
     public String getId() {
         return id;
@@ -46,13 +64,13 @@ public class Event {
         this.id = id;
     }
 
-    public String getUniqueId() {
-        return uniqueId;
-    }
-
-    public void setUniqueId(String uniqueId) {
-        this.uniqueId = uniqueId;
-    }
+//    public String getUniqueId() {
+//        return uniqueId;
+//    }
+//
+//    public void setUniqueId(String uniqueId) {
+//        this.uniqueId = uniqueId;
+//    }
 
     public String getTitle() {
         return title;
@@ -62,21 +80,21 @@ public class Event {
         this.title = title;
     }
 
-    public String getEventTypeId() {
-        return eventTypeId;
-    }
-
-    public void setEventTypeId(String eventTypeId) {
-        this.eventTypeId = eventTypeId;
-    }
-
-    public int getIconId() {
-        return iconId;
-    }
-
-    public void setIconId(int iconId) {
-        this.iconId = iconId;
-    }
+//    public String getEventTypeId() {
+//        return eventTypeId;
+//    }
+//
+//    public void setEventTypeId(String eventTypeId) {
+//        this.eventTypeId = eventTypeId;
+//    }
+//
+//    public int getIconId() {
+//        return iconId;
+//    }
+//
+//    public void setIconId(int iconId) {
+//        this.iconId = iconId;
+//    }
 
     public String getStartDate() {
         return startDate;
@@ -118,13 +136,13 @@ public class Event {
         this.location = location;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
+//    public String getCategory() {
+//        return category;
+//    }
+//
+//    public void setCategory(String category) {
+//        this.category = category;
+//    }
 
     public String getDetail() {
         return detail;
@@ -132,6 +150,14 @@ public class Event {
 
     public void setDetail(String detail) {
         this.detail = detail;
+    }
+
+    public String getEventPriority() {
+        return eventPriority;
+    }
+
+    public void setEventPriority(String eventPriority) {
+        this.eventPriority = eventPriority;
     }
 
 

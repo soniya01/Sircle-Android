@@ -44,7 +44,7 @@ public class EventWebService {
 
     public void getAllTerms(HashMap<String, String> map, final GetAllTermsServiceListener getAllTermsServiceListener){
 
-        retrofitImplementation.executeGetWithURL(Constants.EVENTS_GET_ALL_TERMS_API_PATH, null, null, TermsResponse.class, new WebServiceListener() {
+        retrofitImplementation.executePostWithURL(Constants.EVENTS_GET_ALL_TERMS_API_PATH, null, null, TermsResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
                 termsList = (ArrayList<Terms>) ((TermsResponse)responseObject).getData();
@@ -60,7 +60,7 @@ public class EventWebService {
 
     public void getMonthWiseEvents(HashMap object, final GetMonthwiseEventsServiceListener getMonthwiseEventsServiceListener){
 
-        retrofitImplementation.executeGetWithURL(Constants.EVENTS_GET_MONTH_WISE_API_PATH, object, null, EventDataReponse.class, new WebServiceListener() {
+        retrofitImplementation.executePostWithURL(Constants.EVENTS_GET_MONTH_WISE_API_PATH, object, null, EventDataReponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
                 if (error.getErrorCode() == AppError.NO_ERROR && responseObject != null){
@@ -88,7 +88,7 @@ public class EventWebService {
     }
 
     public void getAllEventCategory( final GetEventsCategoryServiceListener getEventsCategoryServiceListener){
-        retrofitImplementation.executeGetWithURL(Constants.EVENTS_GET_CATEGORY_API_PATH, null, null, CategoryResponse.class, new WebServiceListener() {
+        retrofitImplementation.executePostWithURL(Constants.EVENTS_GET_CATEGORY_API_PATH, null, null, CategoryResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
                 //TODO: decide what will be the eventcategory data
@@ -103,7 +103,7 @@ public class EventWebService {
     }
 
     public void getEventDetails(HashMap map, final EventWebServiceListener eventWebServiceListener){
-        retrofitImplementation.executeGetWithURL(Constants.EVENTS_GET_DETAILS_API_PATH, map, null, EventDetailResponse.class, new WebServiceListener() {
+        retrofitImplementation.executePostWithURL(Constants.EVENTS_GET_DETAILS_API_PATH, map, null, EventDetailResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
                 if (error.getErrorCode() == AppError.NO_ERROR && responseObject != null){

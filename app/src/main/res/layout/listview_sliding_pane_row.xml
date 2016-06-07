@@ -9,18 +9,20 @@
     app:mrl_rippleOverlay="true">
 
     <LinearLayout
+        android:id="@+id/mainPaneLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="#ECECEC"
         android:padding="0dp"
+        android:layout_margin="0dp"
         android:orientation="horizontal">
 
-        <!--<View-->
-            <!--android:id="@+id/sliding_pane_row_selected_view"-->
-            <!--android:layout_width="8dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:background="@android:color/holo_blue_dark"-->
-            <!--android:visibility="gone" />-->
+        <View
+            android:id="@+id/sliding_pane_row_selected_view"
+            android:layout_width="6dp"
+            android:layout_height="match_parent"
+            android:background="#70F8BA"
+            android:visibility="visible" />
 
         <ImageView
             android:id="@+id/sliding_pane_module_image_view"
@@ -31,7 +33,8 @@
             android:contentDescription="@string/description_image_default"
             android:src="@android:drawable/ic_menu_add" />
 
-        <TextView
+        <com.app.sircle.custom.RobotoLightTextView
+            android:textSize="18dp"
             android:id="@+id/sliding_pane_text_module_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,7 +42,7 @@
             android:layout_marginLeft="10dp"
             android:padding="0dp"
             android:text="Home"
-            android:textColor="@android:color/darker_gray" />
+            android:textColor="#333333" />
 
     </LinearLayout>
 </com.balysv.materialripple.MaterialRippleLayout>

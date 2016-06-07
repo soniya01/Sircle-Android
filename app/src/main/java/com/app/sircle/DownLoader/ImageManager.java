@@ -120,13 +120,18 @@ public class ImageManager {
 
     public Bitmap decodeSampledBitmapFromImageData(ImageData imageData, int reqWidth, int reqHeight) {
 
+        Bitmap b = BitmapFactory.decodeFile(imageData.getPath());
+        int height = b.getHeight();
+        int width = b.getWidth();
+        b = null;
+
         // First decode with inJustDecodeBounds=true to check dimensions
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(imageData.getPath(), options);
 
         // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+        options.inSampleSize = calculateInSampleSize(options, width, height);
 
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
@@ -175,10 +180,12 @@ public class ImageManager {
         options.inJustDecodeBounds = true;
 
         Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length, options);
+        int height = bitmap.getHeight();
+        int width = bitmap.getWidth();
         bitmap = null;
 
         // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+        options.inSampleSize = calculateInSampleSize(options, width, height);
 
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;

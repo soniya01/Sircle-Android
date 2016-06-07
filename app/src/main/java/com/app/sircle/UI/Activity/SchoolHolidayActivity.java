@@ -67,12 +67,12 @@ public class SchoolHolidayActivity extends ActionBarActivity {
                 if (isChecked) {
                     for (int i = 0; i < notificationGroupList.size(); i++) {
                         // listData[i] = listView.getAdapter().getItem(i).toString();
-                        notificationGroupList.get(i).setActive(1);
+                        notificationGroupList.get(i).setActive(Boolean.TRUE);
                     }
                 } else {
                     for (int i = 0; i < notificationGroupList.size(); i++) {
                         // listData[i] = listView.getAdapter().getItem(i).toString();
-                        notificationGroupList.get(i).setActive(0);
+                        notificationGroupList.get(i).setActive(Boolean.FALSE);
                     }
                 }
                 //  NotificationManager.grpIds.clear();
@@ -118,7 +118,7 @@ public class SchoolHolidayActivity extends ActionBarActivity {
                         // notificationGroupList.get(i).setActive(1);
 
 
-                        if (notificationGroupList.get(i).getActive()==1)
+                        if (notificationGroupList.get(i).getActive()==Boolean.TRUE)
                         {
                             if (grpIdString.equals(""))
                             {
@@ -132,11 +132,11 @@ public class SchoolHolidayActivity extends ActionBarActivity {
                     }
 
                     HashMap params = new HashMap();
-                    params.put("event_type", "3");
-                    params.put("grp", grpIdString);
-                    params.put("title", title.getText().toString());
-                    params.put("strdate", startDateEditText.getText().toString());
-                    params.put("enddate", endDateEditText.getText().toString());
+                    params.put("event_type", "SH");
+                    params.put("group_id", grpIdString);
+                    params.put("event_name", title.getText().toString());
+                    params.put("event_from_date", startDateEditText.getText().toString());
+                    params.put("event_to_date", endDateEditText.getText().toString());
 
                     EventManager.getSharedInstance().addEvent(params, new EventManager.AddEventsManagerListener() {
                         @Override
@@ -219,7 +219,10 @@ public class SchoolHolidayActivity extends ActionBarActivity {
 
     private void updateLabel() {
 
-        String myFormat = "MM/dd/yy"; //In which you need put here
+       // String myFormat = "MM/dd/yy"; //In which you need put here
+
+        String myFormat = "dd-MM-yyyy hh:mm:ss aa";
+
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         if (dateType.equals("StartDate"))
@@ -281,7 +284,7 @@ public class SchoolHolidayActivity extends ActionBarActivity {
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                     if (response != null) {
 
-                        if (response.getData().size() > 0){
+                        if (response.getData().getGroups().size() > 0){
                             SchoolHolidayActivity.this.notificationGroupList.addAll(NotificationManager.groupList);
                             notificationsGroupAdapter.notifyDataSetChanged();
                             setListViewHeightBasedOnChildren(addListView);

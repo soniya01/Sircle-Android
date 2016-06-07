@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -30,6 +32,9 @@ import com.app.sircle.UI.Activity.AddSelectedPhoto;
 import com.app.sircle.UI.Activity.BaseActivity;
 import com.app.sircle.UI.CustomView.CameraPreview;
 import com.app.sircle.UI.Model.ImageData;
+import com.app.sircle.UI.cam.listener.CameraFragmentListener;
+import com.app.sircle.UI.cam.listener.CameraOrientationListener;
+import com.app.sircle.Utility.Constants;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
@@ -41,22 +46,30 @@ public class CameraFragmentUI extends Fragment implements View.OnClickListener {
     private static final String TOAST_NO_FLASH = "Device does not support flash";
     private static final String TOAST_NO_FRONT_CAMERA = "Front camera does not exist";
     private static final String PICTURE = "picture";
+    private String albumId;
     //to store the image data of the clicked image
     public static byte[] imageData;
-    private ImageButton imageButtonSwitchCamera;
-    private ImageButton imageButtonClickPhoto;
-    private CheckBox checkBoxToggleFlash;
+  //  private ImageButton imageButtonSwitchCamera;
+  //  private ImageButton imageButtonClickPhoto;
+  //  private CheckBox checkBoxToggleFlash;
     private FrameLayout cameraPreviewLayout;
     private Camera camera;
     private CameraPreview cameraPreview;
     private boolean backCameraShown;
+
+    private int cameraId;
+    private int displayOrientation;
+    private int layoutOrientation;
+    private CameraOrientationListener orientationListener;
+ //   private CameraFragmentListener listener;
+
     //callback for handling picture taken by camera
     Camera.PictureCallback pictureCallback = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
 
             enableButtons(true);
-            imageData = data;
+         /*   imageData = data;
 
             final BitmapFactory.Options sizeOptions = new BitmapFactory.Options();
             sizeOptions.inJustDecodeBounds = true;
@@ -76,20 +89,68 @@ public class CameraFragmentUI extends Fragment implements View.OnClickListener {
             //final Bitmap result = BitmapFactory.decodeByteArray(data, 0, data.length,sizeOptions);
 
             Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length, sizeOptions);
-            //imageDataList  = ImageManager.getInstance().getCameraImagePaths(getActivity());
+            //imageDataList  = ImageManager.getInstance().getCameraImagePaths(getActivity());*/
+
+
+            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+            int rotation = 0;
+            if (cameraId == 1) {
+                rotation = (displayOrientation + orientationListener.getRememberedOrientation() + layoutOrientation) % (-360);
+
+                if (rotation == 90) {
+                    rotation = -90;
+                }
+                if (rotation == 270) {
+                    rotation = 90;
+                }
+
+                if (rotation == 0)
+                {
+                    rotation = 90;
+                }
+
+            } else if (cameraId == 0) {
+                rotation = (displayOrientation + orientationListener.getRememberedOrientation() + layoutOrientation) % 360;
+            }
+
+            if (rotation != 0) {
+                Bitmap oldBitmap = bitmap;
+                Matrix matrix = new Matrix();
+                matrix.postRotate(rotation);
+                bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+               // Constants.myBitmap = bitmap;
+                oldBitmap.recycle();
+            }
+
 
             String path = getRealPathFromURI(getImageUri(getActivity().getApplicationContext(), bitmap));
             ImageData imageData1 = new ImageData();
             imageData1.setPath(path);
 
+
+
             Intent intent = new Intent(getActivity(), AddSelectedPhoto.class);
             intent.putExtra("data", imageData1);
-            intent.putExtra(INTENT_EXTRA_BACK_CAMERA_SHOWN, backCameraShown);
+            intent.putExtra("albumId", albumId);
+            //intent.putExtra(INTENT_EXTRA_BACK_CAMERA_SHOWN, backCameraShown);
             startActivity(intent);
         }
     };
     private boolean flashOn;
     private List<ImageData> imageDataList;
+
+    /**
+     * activity getting attached.
+     */
+    @Override
+    public void onAttach(Context activity) {
+        super.onAttach(activity);
+        if (!(activity instanceof CameraFragmentListener))
+            throw new IllegalArgumentException("Activity has to implement CameraFragmentListener interface");
+
+       // listener = (CameraFragmentListener) activity;
+        orientationListener = new CameraOrientationListener(activity);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -104,19 +165,19 @@ public class CameraFragmentUI extends Fragment implements View.OnClickListener {
     private void setupViews(View view) {
 
         cameraPreviewLayout = (FrameLayout) view.findViewById(R.id.camera_preview);
-        imageButtonSwitchCamera = (ImageButton) view.findViewById(R.id.cam_image_button_switch_camera);
-        checkBoxToggleFlash = (CheckBox) view.findViewById(R.id.cam_checkbox_toggle_flash);
-        imageButtonClickPhoto = (ImageButton) view.findViewById(R.id.cam_image_button_snap);
+//        imageButtonSwitchCamera = (ImageButton) view.findViewById(R.id.cam_image_button_switch_camera);
+//        checkBoxToggleFlash = (CheckBox) view.findViewById(R.id.cam_checkbox_toggle_flash);
+//        imageButtonClickPhoto = (ImageButton) view.findViewById(R.id.cam_image_button_snap);
 
-        imageButtonSwitchCamera.setOnClickListener(this);
-        imageButtonClickPhoto.setOnClickListener(this);
-
-        checkBoxToggleFlash.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                toggleFlash(isChecked);
-            }
-        });
+//        imageButtonSwitchCamera.setOnClickListener(this);
+//        imageButtonClickPhoto.setOnClickListener(this);
+//
+//        checkBoxToggleFlash.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                toggleFlash(isChecked);
+//            }
+//        });
 
     }
 
@@ -126,20 +187,23 @@ public class CameraFragmentUI extends Fragment implements View.OnClickListener {
      * @param flag - send true to enable button and false to disable buttons.
      */
     private void enableButtons(boolean flag) {
-        imageButtonSwitchCamera.setEnabled(flag);
-        imageButtonClickPhoto.setEnabled(flag);
-        checkBoxToggleFlash.setEnabled(flag);
+//        imageButtonSwitchCamera.setEnabled(flag);
+//        imageButtonClickPhoto.setEnabled(flag);
+//        checkBoxToggleFlash.setEnabled(flag);
     }
 
     private void attachCameraToView(boolean isBackCameraShown) {
         cameraPreview = new CameraPreview(getActivity(), camera, isBackCameraShown);
         cameraPreviewLayout.addView(cameraPreview);
+        determineDisplayOrientation();
     }
 
     private Camera getCameraInstance(int cameraID) {
+        cameraId = cameraID;
         Camera c = null;
         try {
-            c = Camera.open(cameraID); // attempt to get a Camera instance
+            c = Camera.open(cameraID);
+            determineDisplayOrientation();// attempt to get a Camera instance
         } catch (Exception e) {
             // Camera is not available (in use or does not exist)
             e.printStackTrace();
@@ -151,6 +215,7 @@ public class CameraFragmentUI extends Fragment implements View.OnClickListener {
     private void showBackCamera() {
         releaseCamera();
         camera = getCameraInstance(Camera.CameraInfo.CAMERA_FACING_BACK);
+        cameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
         if (camera != null) {
             if (cameraPreview != null) {
                 removePreview();
@@ -167,17 +232,18 @@ public class CameraFragmentUI extends Fragment implements View.OnClickListener {
         if (numberOfCameras > 1) {
             releaseCamera();
             camera = getCameraInstance(Camera.CameraInfo.CAMERA_FACING_FRONT);
+            cameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
             backCameraShown = false;
             removePreview();
             attachCameraToView(backCameraShown);
-            toggleFlashButtonVisibility(View.INVISIBLE);
+           // toggleFlashButtonVisibility(View.INVISIBLE);
         } else {
             Toast.makeText(getActivity(), TOAST_NO_FRONT_CAMERA, Toast.LENGTH_SHORT).show();
         }
     }
 
     private void toggleFlashButtonVisibility(int visibility) {
-        checkBoxToggleFlash.setVisibility(visibility);
+        //checkBoxToggleFlash.setVisibility(visibility);
     }
 
     private void releaseCamera() {
@@ -199,23 +265,39 @@ public class CameraFragmentUI extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.cam_image_button_switch_camera:
-                enableButtons(false);
-                if (backCameraShown) {
-                    showFrontCamera();
-                } else {
-                    showBackCamera();
-                    checkBoxToggleFlash.setVisibility(View.VISIBLE);
-                }
-                enableButtons(true);
-                break;
-            case R.id.cam_image_button_snap:
-                enableButtons(false);
-                camera.takePicture(null, null, pictureCallback);
-                break;
+//            case R.id.cam_image_button_switch_camera:
+//                enableButtons(false);
+//                if (backCameraShown) {
+//                    showFrontCamera();
+//                } else {
+//                    showBackCamera();
+//                    checkBoxToggleFlash.setVisibility(View.VISIBLE);
+//                }
+//                enableButtons(true);
+//                break;
+//            case R.id.cam_image_button_snap:
+//                enableButtons(false);
+//                camera.takePicture(null, null, pictureCallback);
+//                break;
             default:
 
         }
+    }
+
+    public void takePicture(String albumId)
+    {
+        this.albumId = albumId;
+        camera.takePicture(null, null, pictureCallback);
+    }
+
+    public  void switchCam()
+    {
+        if (backCameraShown) {
+                    showFrontCamera();
+                } else {
+                    showBackCamera();
+
+                }
     }
 
     public void addImageToGallery(final String filePath) {
@@ -245,7 +327,7 @@ public class CameraFragmentUI extends Fragment implements View.OnClickListener {
     }
 
 
-    private void toggleFlash(boolean value) {
+    public void toggleFlash(boolean value) {
 
         if (isFlashSupported()) {
             Camera.Parameters parameters = camera.getParameters();
@@ -259,6 +341,32 @@ public class CameraFragmentUI extends Fragment implements View.OnClickListener {
         } else {
             Toast.makeText(getActivity(), "no flash", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void toggleFlash() {
+        if (hasFlash()) {
+            // Already checked that camera is not null in hasFlash() so bypassing null check for camera
+            Camera.Parameters parameters = camera.getParameters();
+            parameters.setFlashMode(Camera.Parameters.FLASH_MODE_ON == parameters.getFlashMode() ?
+                    Camera.Parameters.FLASH_MODE_OFF : Camera.Parameters.FLASH_MODE_ON);
+            camera.setParameters(parameters);
+        }
+    }
+
+    public boolean hasFlash() {
+        if (camera == null) {
+            return false;
+        }
+
+        Camera.Parameters parameters = camera.getParameters();
+
+        if (parameters.getFlashMode() == null) {
+            return false;
+        }
+
+        List<String> supportedFlashModes = parameters.getSupportedFlashModes();
+        return !(supportedFlashModes == null || supportedFlashModes.isEmpty()
+                || supportedFlashModes.size() == 1 && supportedFlashModes.get(0).equals(Camera.Parameters.FLASH_MODE_OFF));
     }
 
     private boolean isFlashSupported() {
@@ -290,4 +398,47 @@ public class CameraFragmentUI extends Fragment implements View.OnClickListener {
         releaseCamera();
     }
 
+    /**
+     * Determine the current display orientation and rotate the camera preview
+     * accordingly.
+     */
+    public void determineDisplayOrientation() {
+        Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
+        Camera.getCameraInfo(cameraId, cameraInfo);
+
+        int rotation = getActivity().getWindowManager().getDefaultDisplay().getRotation();
+        int degrees = 0;
+
+        switch (rotation) {
+            case Surface.ROTATION_0:
+                degrees = 0;
+                break;
+
+            case Surface.ROTATION_90:
+                degrees = 90;
+                break;
+
+            case Surface.ROTATION_180:
+                degrees = 180;
+                break;
+
+            case Surface.ROTATION_270:
+                degrees = 270;
+                break;
+        }
+
+        int displayOrientation;
+
+        if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+            displayOrientation = (cameraInfo.orientation + degrees) % 360;
+            displayOrientation = (360 - displayOrientation) % 360;
+        } else {
+            displayOrientation = (cameraInfo.orientation - degrees + 360) % 360;
+        }
+
+        this.displayOrientation = displayOrientation;
+        this.layoutOrientation = degrees;
+
+        camera.setDisplayOrientation(displayOrientation);
+    }
 }

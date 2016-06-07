@@ -69,12 +69,12 @@ public class AddNotificationActivity extends ActionBarActivity {
                 if (isChecked) {
                     for (int i = 0; i < notificationGroupList.size(); i++) {
                         // listData[i] = listView.getAdapter().getItem(i).toString();
-                        notificationGroupList.get(i).setActive(1);
+                        notificationGroupList.get(i).setActive(Boolean.TRUE);
                     }
                 } else {
                     for (int i = 0; i < notificationGroupList.size(); i++) {
                         // listData[i] = listView.getAdapter().getItem(i).toString();
-                        notificationGroupList.get(i).setActive(0);
+                        notificationGroupList.get(i).setActive(Boolean.FALSE);
                     }
                 }
 
@@ -133,7 +133,7 @@ public class AddNotificationActivity extends ActionBarActivity {
                         // notificationGroupList.get(i).setActive(1);
 
 
-                        if (notificationGroupList.get(i).getActive()==1)
+                        if (notificationGroupList.get(i).getActive()==Boolean.TRUE)
                         {
                             if (grpIdString.equals(""))
                             {
@@ -147,9 +147,9 @@ public class AddNotificationActivity extends ActionBarActivity {
                     }
 
                     HashMap params = new HashMap();
-                    params.put("subject",title.getText().toString());
-                    params.put("msg",desc.getText().toString());
-                    params.put("grp",grpIdString);
+                    params.put("notification_title",title.getText().toString());
+                    params.put("notification_message",desc.getText().toString());
+                    params.put("group_id",grpIdString);
                     // add notification api call
                     NotificationManager.getSharedInstance().addNotification(params, new NotificationManager.PostManagerListener() {
                         @Override
@@ -190,7 +190,7 @@ public class AddNotificationActivity extends ActionBarActivity {
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                     if (response != null) {
 
-                        if (response.getData().size() > 0){
+                        if (response.getData().getGroups().size() > 0){
                             AddNotificationActivity.this.notificationGroupList.addAll(NotificationManager.groupList);
                             notificationsGroupAdapter.notifyDataSetChanged();
                             setListViewHeightBasedOnChildren(addListView);

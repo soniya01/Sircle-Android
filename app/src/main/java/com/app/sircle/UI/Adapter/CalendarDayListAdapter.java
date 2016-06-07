@@ -68,33 +68,33 @@ public class CalendarDayListAdapter extends BaseAdapter {
         viewHolder.eventDateLabel.setText(calendarMonthList.get(position).getStartTime());
         viewHolder.eventTimeLabel.setText(calendarMonthList.get(position).getEndTime());
 
-        if (calendarMonthList.get(position).getIconId()==1)
-        {
-            // .setBackgroundResource(R.drawable.arts);
-            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.arts));
-        }
-        else if (calendarMonthList.get(position).getIconId()==2)
-        {
-            // viewHolder.eventImage.setBackgroundResource(R.drawable.sports);
-            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.sports));
-        }
-        else if (calendarMonthList.get(position).getIconId()==3)
-        {
-            // viewHolder.eventImage.setBackgroundResource(R.drawable.event_image);
-            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.event_image));
-        }
-        else if (calendarMonthList.get(position).getIconId()==4)
-        {
-            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.academics));
-        }
-        else if (calendarMonthList.get(position).getIconId()==5)
-        {
-            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.performance));
-        }
-        else if (calendarMonthList.get(position).getIconId()==6)
-        {
-            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.others));
-        }
+//        if (calendarMonthList.get(position).getIconId()==1)
+//        {
+//            // .setBackgroundResource(R.drawable.arts);
+//            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.arts));
+//        }
+//        else if (calendarMonthList.get(position).getIconId()==2)
+//        {
+//            // viewHolder.eventImage.setBackgroundResource(R.drawable.sports);
+//            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.sports));
+//        }
+//        else if (calendarMonthList.get(position).getIconId()==3)
+//        {
+//            // viewHolder.eventImage.setBackgroundResource(R.drawable.event_image);
+//            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.event_image));
+//        }
+//        else if (calendarMonthList.get(position).getIconId()==4)
+//        {
+//            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.academics));
+//        }
+//        else if (calendarMonthList.get(position).getIconId()==5)
+//        {
+//            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.performance));
+//        }
+//        else if (calendarMonthList.get(position).getIconId()==6)
+//        {
+//            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.others));
+//        }
 
 
         return convertView;

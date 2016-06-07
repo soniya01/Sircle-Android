@@ -200,7 +200,7 @@ public class LoginScreen extends Activity {
                             LoginManager.accessToken = response.getUserData().getAuthToken();
 
                             editor.putString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, response.getUserData().getAuthToken());
-                            editor.putString(Constants.LOGIN_LOGGED_IN_USER_TYPE, response.getUserData().getDetails());
+                            editor.putString(Constants.LOGIN_LOGGED_IN_USER_TYPE, response.getUserData().getCustomerType());
                             editor.putLong(Constants.LOGIN_EXPIRES_IN_PREFS_KEY, 120000);
                             editor.putLong(Constants.LOGIN_LOGGED_IN_PREFS_KEY, new Date().getTime() / 1000);
 
@@ -209,10 +209,27 @@ public class LoginScreen extends Activity {
 //                            editor.putLong(Constants.LOGIN_EXPIRES_IN_PREFS_KEY, response.getUserData().getOauth().getExpiresIn());
 //                            editor.putLong(Constants.LOGIN_LOGGED_IN_PREFS_KEY, new Date().getTime() / 1000);
 
-                            editor.apply();
+
                             Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
-                            Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);
-                            startActivity(homeIntent);
+
+                            if (response.getUserData().getCustomerType()!=null) {
+                                editor.apply();
+                                if (response.getUserData().getCustomerType().equals("admin")) {
+                                    Intent homeIntent = new Intent(LoginScreen.this, BaseActivity.class);
+                                    startActivity(homeIntent);
+                                } else {
+                                    Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);
+                                    startActivity(homeIntent);
+                                }
+                            }
+                            else
+                            {
+                                editor.putString(Constants.LOGIN_LOGGED_IN_USER_TYPE, "user");
+                                editor.apply();
+                                Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);
+                                startActivity(homeIntent);
+                            }
+
 
                         }else {
                             ringProgressDialog.dismiss();

@@ -41,14 +41,17 @@ import com.app.sircle.WebService.CategoryResponse;
 import com.app.sircle.WebService.GroupResponse;
 import com.app.sircle.WebService.PostResponse;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class EventActivity extends ActionBarActivity implements View.OnClickListener{
 
     AlertDialog alert;
+    Calendar myCalendar;
     private Button addButton;
     private ListView addListView;
     private List<NotificationGroups> notificationGroupList = new ArrayList<NotificationGroups>();
@@ -62,7 +65,7 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
     private DatePickerDialog datePickerDialog;
     private CheckBox repeat,repeatNever,repeatNumber,repeatOccurences,monday,tuesday,wednesday,thursday,friday,saturday,sunday,dayOfMonth,dayOfWeek;
     private int isRepeat;
-    private String startDateString, endDateStr, startTimeStr, endTimeStr,occurenceDateStr,repeatMonthlyOnStr;
+    private String startDateString, endDateStr, startTimeStr, endTimeStr,occurenceDateStr,repeatMonthlyOnStr,event_notification;
     public  List<String> hourList = new ArrayList<>();
     public  List<String> minList = new ArrayList<>();
     public  List<String> daysList = new ArrayList<>();
@@ -79,12 +82,17 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        event_notification = "D";
+
         setContentView(R.layout.activity_event);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
         populateHour();
+
+        myCalendar = Calendar.getInstance();
 
         repeatMonthlyOnStr = "day of the month";
         NotificationManager.grpIds.clear();
@@ -97,12 +105,12 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
                 if (isChecked) {
                     for (int i = 0; i < notificationGroupList.size(); i++) {
                         // listData[i] = listView.getAdapter().getItem(i).toString();
-                        notificationGroupList.get(i).setActive(1);
+                        notificationGroupList.get(i).setActive(Boolean.TRUE);
                     }
                 } else {
                     for (int i = 0; i < notificationGroupList.size(); i++) {
                         // listData[i] = listView.getAdapter().getItem(i).toString();
-                        notificationGroupList.get(i).setActive(0);
+                        notificationGroupList.get(i).setActive(Boolean.FALSE);
                     }
                 }
                 //  NotificationManager.grpIds.clear();
@@ -239,9 +247,12 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    repeatWeekDaysList.add("Monday");
+
+
+
+                    repeatWeekDaysList.add("Mon");
                 } else {
-                    repeatWeekDaysList.remove("Monday");
+                    repeatWeekDaysList.remove("Mon");
                 }
             }
         });
@@ -251,9 +262,9 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    repeatWeekDaysList.add("Tuesday");
+                    repeatWeekDaysList.add("Tue");
                 } else {
-                    repeatWeekDaysList.remove("Tuesday");
+                    repeatWeekDaysList.remove("Tue");
                 }
             }
         });
@@ -262,9 +273,10 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    repeatWeekDaysList.add("Wednesday");
+
+                    repeatWeekDaysList.add("Wed");
                 } else {
-                    repeatWeekDaysList.remove("Wednesday");
+                    repeatWeekDaysList.remove("Wed");
                 }
             }
         });
@@ -273,9 +285,9 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    repeatWeekDaysList.add("Thursday");
+                    repeatWeekDaysList.add("Thu");
                 } else {
-                    repeatWeekDaysList.remove("Thursday");
+                    repeatWeekDaysList.remove("Thu");
                 }
             }
         });
@@ -284,9 +296,9 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    repeatWeekDaysList.add("Friday");
+                    repeatWeekDaysList.add("Fri");
                 } else {
-                    repeatWeekDaysList.remove("Friday");
+                    repeatWeekDaysList.remove("Fri");
                 }
             }
         });
@@ -295,9 +307,9 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    repeatWeekDaysList.add("Saturday");
+                    repeatWeekDaysList.add("Sat");
                 } else {
-                    repeatWeekDaysList.remove("Saturday");
+                    repeatWeekDaysList.remove("Sat");
                 }
             }
         });
@@ -306,9 +318,9 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    repeatWeekDaysList.add("Sunday");
+                    repeatWeekDaysList.add("Sun");
                 } else {
-                    repeatWeekDaysList.remove("Sunday");
+                    repeatWeekDaysList.remove("Sun");
                 }
             }
         });
@@ -397,7 +409,7 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
                     // notificationGroupList.get(i).setActive(1);
 
 
-                    if (notificationGroupList.get(i).getActive()==1)
+                    if (notificationGroupList.get(i).getActive()==Boolean.TRUE)
                     {
                         if (grpIdString.equals(""))
                         {
@@ -412,32 +424,42 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
 
 
                 HashMap params = new HashMap();
-                params.put("event_type","2");
-                params.put("title",title.getText().toString());
-                params.put("loc",location.getText().toString());
-                params.put("event_cat",categoryButton.getText().toString());
-                params.put("grp",grpIdString);
-                params.put("strdate",startDateString);
-                params.put("enddate",endDateStr);
-                params.put("strtime",startTimeStr);
-                params.put("endtime",endTimeStr);
-                params.put("detail",detail.getText().toString());
-                params.put("rem_days",days.getText().toString());
-                params.put("rem_hours",hours.getText().toString());
-                params.put("rem_mins",minutes.getText().toString());
-                params.put("repeats",isRepeat);
+                params.put("event_type","N");
+                params.put("event_name",title.getText().toString());
+                params.put("event_location",location.getText().toString());
+                params.put("event_category",categoryButton.getText().toString());
+                params.put("group_id",grpIdString);
+                params.put("event_from_date",startDateString+startTimeStr);
+                params.put("event_to_date",endDateStr+endTimeStr);
+               // params.put("strtime",startTimeStr);
+               // params.put("endtime",endTimeStr);
+                params.put("event_description",detail.getText().toString());
+
+
+                //notification_week
+
+                params.put("event_notification",event_notification);
+                params.put("notification_day",days.getText().toString());
+                params.put("notification_hour",hours.getText().toString());
+                params.put("notification_min",minutes.getText().toString());
+
+              //  params.put("repeats",isRepeat);
 
                 if (isRepeat==1)
                 {
-                    params.put("repeat_type_id",repeatTypeId);
-                    params.put("repeat_type", repeatTypes.getText().toString());
-                    params.put("repeat_every",repeat_every);
+                  //  params.put("repeat_type_id",repeatTypeId);
+                  //  params.put("repeat_type", repeatTypes.getText().toString());
+                    params.put("event_every",repeat_every);
 
 
 
                     if (repeatTypes.getText().toString().equals("Weekly"))
 
                     {
+                       // (if event recurring is weakly then pass(Sun,Mon,Tue,Wed,Thu,Fri,Sat))
+
+                        params.put("event_recurring","W");
+
                         String repeat_week_days = "";
                         for (int i = 0; i< repeatWeekDaysList.size(); i++){
                             if (i == 0){
@@ -446,35 +468,65 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
                                 repeat_week_days = repeat_week_days + "," + repeatWeekDaysList.get(i) ;
                             }
                         }
-                        params.put("repeat_week_days",repeat_week_days);
+                        params.put("event_week_day",repeat_week_days);
 
                     }
                     if (repeatTypes.getText().toString().equals("Monthly"))
                     {
-                        params.put("repeat_monthly_on",repeatMonthlyOnStr);
+                       // for recurring (pass N(None),D(Daily),and Y(Yearly))
+
+                        params.put("event_recurring","M");
+
+                      //  params.put("repeat_monthly_on",repeatMonthlyOnStr);
                     }
+
+
+                    if (repeatTypes.getText().toString().equals("Daily"))
+                    {
+                        // for recurring (pass N(None),D(Daily),and Y(Yearly))
+
+                        params.put("event_recurring","D");
+
+                    }
+
+                    if (repeatTypes.getText().toString().equals("Yearly"))
+                    {
+                        // for recurring (pass N(None),D(Daily),and Y(Yearly))
+
+                        params.put("event_recurring","Y");
+
+                    }
+
+
 
                     if (repeatNever.isChecked())
                     {
-                        params.put("repeat_end_type_id",1);
-                        params.put("repeat_end_type","Never");
+                        //params.put("repeat_end_type_id",1);
+                       // params.put("repeat_end_type","Never");
                     }
                     if (repeatNumber.isChecked())
                     {
-                        params.put("repeat_end_type_id",2);
-                        params.put("repeat_end_type","after_occurences");
-                        params.put("rep_after_occurence",afterCount.getText().toString());
+                       // params.put("repeat_end_type_id",2);
+                       // params.put("repeat_end_type","after_occurences");
+                       // params.put("rep_after_occurence",afterCount.getText().toString());
 
                     }
 
                     if (repeatOccurences.isChecked())
                     {
-                        params.put("repeat_end_type_id",3);
-                        params.put("repeat_end_type","on_date");
-                        params.put("rep_ondate",occurrencesDate.getText().toString());
+                       // params.put("repeat_end_type_id",3);
+                       // params.put("repeat_end_type","on_date");
+                        params.put("event_recurring_end",occurrencesDate.getText().toString());
                     }
 
 
+                }
+
+                else
+                {
+                    // for recurring (pass N(None),D(Daily),and Y(Yearly))
+
+                    params.put("event_recurring","N");
                 }
 
 
@@ -506,9 +558,9 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
                     @Override
                     public void onCompletion(CategoryResponse response, AppError error) {
                         if (response != null){
-                            if (response.getData().size() > 0){
+                            if (response.getData().getCategories().size() > 0){
                                 eventCategory.clear();
-                                for (EventCategory eventCategory : response.getData()){
+                                for (EventCategory eventCategory : response.getData().getCategories()){
                                     EventActivity.this.eventCategory.add(eventCategory.getCategory());
                                 }
                                 adapter = new ArrayAdapter<String>(getApplicationContext(),
@@ -631,7 +683,7 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                     if (response != null) {
 
-                        if (response.getData().size() > 0){
+                        if (response.getData().getGroups().size() > 0){
                             EventActivity.this.notificationGroupList.addAll(NotificationManager.groupList);
                             notificationsGroupAdapter.notifyDataSetChanged();
                             setListViewHeightBasedOnChildren(addListView);
@@ -708,10 +760,27 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
                 startDay = dayOfMonth;
 
                 if (v == startDate){
-                    startDateString = dayOfMonth + "/" + monthOfYear+ "/" +year;
+
+
+                    myCalendar.set(Calendar.YEAR, year);
+                    myCalendar.set(Calendar.MONTH, monthOfYear);
+                    myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                    String myFormat = "dd-MM-yyyy"; //In which you need put here
+                    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+                    startDateString = sdf.format(myCalendar.getTime());
                     startDate.setText(startDateString);
                 }else if (v == endDate){
-                    endDateStr = dayOfMonth + "/" + monthOfYear+ "/" +year;
+
+                    myCalendar.set(Calendar.YEAR, year);
+                    myCalendar.set(Calendar.MONTH, monthOfYear);
+                    myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                    String myFormat = "dd-MM-yyyy"; //In which you need put here
+                    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+                    endDateStr = sdf.format(myCalendar.getTime());
                     endDate.setText(endDateStr);
                 }
                 else if (v==occurrencesDate)
@@ -729,10 +798,26 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
                 mins = minute;
 
                 if (v == startTime){
-                    startTimeStr = hour + ":"+mins+ ":00";
+
+                    myCalendar.set(Calendar.HOUR, hourOfDay);
+                    myCalendar.set(Calendar.MONTH, minute);
+                    myCalendar.set(Calendar.SECOND, 0);
+
+                    String myFormat = "hh:mm:ss aa"; //In which you need put here
+                    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+                    startTimeStr = sdf.format(myCalendar.getTime());
                     startTime.setText(startTimeStr);
                 }else if (v == endTime){
-                    endTimeStr = hour + ":"+mins+ ":00";
+
+                    myCalendar.set(Calendar.HOUR, hourOfDay);
+                    myCalendar.set(Calendar.MONTH, minute);
+                    myCalendar.set(Calendar.SECOND, 0);
+
+                    String myFormat = "hh:mm:ss aa"; //In which you need put here
+                    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+                    endTimeStr = sdf.format(myCalendar.getTime());
                     endTime.setText(endTimeStr);
                 }
             }
@@ -781,6 +866,7 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
                                         long id) {
                     TextView textView = (TextView) view.findViewById(android.R.id.text1);
                     String text = textView.getText().toString();
+                    event_notification = "-";
                     days.setText(text);
                     alert.dismiss();
                 }
@@ -818,6 +904,7 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
                                         long id) {
                     TextView textView = (TextView) view.findViewById(android.R.id.text1);
                     String text = textView.getText().toString();
+                    event_notification = "-";
                     minutes.setText(text);
                     alert.dismiss();
                 }
@@ -855,6 +942,7 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
                                         long id) {
                     TextView textView = (TextView) view.findViewById(android.R.id.text1);
                     String text = textView.getText().toString();
+                    event_notification = "-";
                     hours.setText(text);
                     alert.dismiss();
                 }

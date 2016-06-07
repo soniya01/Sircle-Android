@@ -44,11 +44,11 @@ public class HolidayActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 HashMap params = new HashMap();
-                params.put("event_type","1");
+                params.put("event_type","PH");
                 //params.put("grp",1);
-                params.put("title",title.getText().toString());
-                params.put("strdate",startDateEditText.getText().toString());
-                params.put("enddate",endDateEditText.getText().toString());
+                params.put("event_name",title.getText().toString());
+                params.put("event_from_date",startDateEditText.getText().toString());
+                params.put("event_to_date",endDateEditText.getText().toString());
 
                 EventManager.getSharedInstance().addEvent(params, new EventManager.AddEventsManagerListener() {
                     @Override
@@ -122,7 +122,7 @@ public class HolidayActivity extends ActionBarActivity {
 
     private void updateLabel() {
 
-        String myFormat = "MM/dd/yy"; //In which you need put here
+        String myFormat = "dd-MM-yyyy hh:mm:ss aa"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
         if (dateType.equals("StartDate"))

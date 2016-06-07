@@ -1,6 +1,7 @@
 package com.app.sircle.WebService;
 
 import com.app.sircle.UI.Model.Photo;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.List;
  */
 public class PhotoResponse {
 
+
+   @SerializedName("code")
     public int status;
     public String message;
     public PhotoResponseData data;

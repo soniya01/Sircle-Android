@@ -87,9 +87,11 @@ public class LinksListViewAdapter extends BaseAdapter {
 //                    });
 //        }
 
+        String str = linksList.get(position).getCreatedOn();
+        String[] splited = str.split("\\s+");
 
-        viewHolder.linkTimeLabel.setText(linksList.get(position).getTimeString());
-        viewHolder.linkDateLabel.setText(linksList.get(position).getCreatedOn());
+        viewHolder.linkTimeLabel.setText(splited[1]);
+        viewHolder.linkDateLabel.setText(splited[0]);
         return convertView;
     }
 

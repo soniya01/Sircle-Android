@@ -32,7 +32,7 @@ public class LinksWebService {
     }
 
     public void getAllLinks(HashMap object, final GetAllLinksServiceListener getAllLinksServiceListener){
-        retrofitImplementation.executeGetWithURL(Constants.LINKS_GET_ALL_API, object, null, LinksResponse.class, new WebServiceListener() {
+        retrofitImplementation.executePostWithURL(Constants.LINKS_GET_ALL_API, object, null, LinksResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
               // LinksResponseData linksResponseData = ().getData();

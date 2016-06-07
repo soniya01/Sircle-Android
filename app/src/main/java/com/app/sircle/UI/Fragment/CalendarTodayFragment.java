@@ -43,7 +43,7 @@ public class CalendarTodayFragment extends Fragment {
     private ListView termsListView;
     private CaldroidFragment dialogCaldroidFragment;
     private TermsAdapter termsListViewAdapter;
-    private List<Terms> termsList = new ArrayList<Terms>();
+    List<Terms> termsList = new ArrayList<Terms>();
     private View footerView;
     CaldroidListener listener;
     Bundle state ;
@@ -113,11 +113,11 @@ public class CalendarTodayFragment extends Fragment {
         state = savedInstanceState;
 
         termsListView = (ListView)viewFragment.findViewById(R.id.fragment_term_list_view);
-        termsListViewAdapter = new TermsAdapter(getActivity(), EventManager.termsList,this);
+        termsListViewAdapter = new TermsAdapter(getActivity(),termsList,this);
         termsListView.setAdapter(termsListViewAdapter);
 
         if (EventManager.getSharedInstance().termsList.size() <= 0){
-            populateDummyData();
+          populateDummyData();
 
         }
 
@@ -219,11 +219,13 @@ public class CalendarTodayFragment extends Fragment {
 
         EventManager.getSharedInstance().getAllTerms(null, new EventManager.GetAllTermsManagerListener() {
             @Override
-            public void onCompletion(List<Terms> termsList, AppError error) {
+            public void onCompletion(List<Terms> termslist, AppError error) {
 
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
-                    if (termsList.size() > 0) {
+                    if (termslist.size() > 0) {
 
+                        termsList.clear();
+                       termsList.addAll(termslist);
                         termsListViewAdapter.notifyDataSetChanged();
 //                        if (CalendarTodayFragment.this.termsList.size() > 0) {
 //                            CalendarTodayFragment.this.termsList.clear();

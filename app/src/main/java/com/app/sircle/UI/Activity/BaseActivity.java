@@ -1,11 +1,15 @@
 package com.app.sircle.UI.Activity;
 
+import android.app.ActionBar;
 import android.app.Activity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,13 +18,20 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.TypefaceSpan;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.app.sircle.Manager.LoginManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Fragment.CalendarFragment;
 import com.app.sircle.UI.Fragment.CalendarListFragment;
@@ -36,8 +47,10 @@ import com.app.sircle.UI.Fragment.SettingsFragment;
 import com.app.sircle.UI.Fragment.MyTabFragment;
 import com.app.sircle.UI.Fragment.VideoFragment;
 import com.app.sircle.UI.SlidingPane.SlidingPaneAdapter;
+import com.app.sircle.Utility.AppError;
 import com.app.sircle.Utility.Common;
 import com.app.sircle.Utility.Constants;
+import com.app.sircle.WebService.LoginResponse;
 
 import java.util.Date;
 
@@ -58,6 +71,10 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
     private  Intent loginIntent = null;
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
+    com.app.sircle.custom.RobotoRegularTextView actionBarTitleView;
+    SlidingPaneAdapter adapter;
+    private SharedPreferences loginSharedPreferences;
+    String userType;
 
     private void loadFragment(Context context, android.support.v4.app.Fragment fragment) {
 
@@ -105,6 +122,22 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
         outState.putInt(SELECTED_MODULE, selectedModuleIndex);
     }
 
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        // getIntent() should always return the most recent
+        setIntent(intent);
+        if (getIntent().getExtras() != null)
+        {
+            Bundle b = getIntent().getExtras();
+            selectedModuleIndex = b.getInt("notificationActivity");
+            shouldSelectListViewItem = true;
+            didSelectListViewItemAtIndex(selectedModuleIndex);
+        }
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,7 +159,8 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
         }
 //""
         // if notifictaion is clicked
-        if (getIntent().getExtras() != null) {
+        if (getIntent().getExtras() != null)
+        {
             Bundle b = getIntent().getExtras();
             selectedModuleIndex = b.getInt("notificationActivity");
             shouldSelectListViewItem = true;
@@ -141,13 +175,60 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+       // int titleId = getResources().getIdentifier("action_bar_title", "id",
+                //"android");
+
+       // final int titleId = Resources.getSystem().getIdentifier("action_bar_title", "id", "android");
+
+//        try {
+//            Integer titleId = (Integer) Class.forName("com.android.internal.R$id")
+//                    .getField("action_bar_title").get(null);
+//            TextView title = (TextView) getWindow().findViewById(titleId);
+//            title.setTextColor(Color.WHITE);
+//            title.setTextSize(20);
+//
+//            // check for null and manipulate the title as see fit
+//        } catch (Exception e) {
+//            Log.e("Exception", "Failed to obtain action bar title reference");
+//        }
+
+
+//        TextView yourTextView = (TextView) findViewById(titleId);
+//        yourTextView.setTextColor(Color.WHITE);
+//        yourTextView.setTextSize(20);
+//        yourTextView.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/roboto-light.ttf"));
+
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        LayoutInflater inflator = LayoutInflater.from(this);
+        View v = inflator.inflate(R.layout.titleview, null);
+
+//if you need to customize anything else about the text, do it here.
+//I'm using a custom TextView with a custom font in my layout xml so all I need to do is set title
+      //  ((com.app.sircle.custom.RobotoRegularTextView)v.findViewById(R.id.title)).setText(this.getTitle());
+
+        actionBarTitleView = (com.app.sircle.custom.RobotoRegularTextView)v.findViewById(R.id.title);
 
 
 
-        menuList = getResources().getStringArray(
-                R.array.array_module_name);
+//assign the view to the actionbar
+        getSupportActionBar().setCustomView(v);
 
-        SlidingPaneAdapter adapter = new SlidingPaneAdapter(this,menuList);
+
+        loginSharedPreferences = getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = loginSharedPreferences.edit();
+        userType = loginSharedPreferences.getString(Constants.LOGIN_LOGGED_IN_USER_TYPE,null);
+
+        if (userType.equals("admin")) {
+            menuList = getResources().getStringArray(R.array.array_module_name_withou_settings);
+        }
+        else
+        {
+            menuList = getResources().getStringArray(R.array.array_module_name);
+        }
+
+        adapter = new SlidingPaneAdapter(this,menuList);
         mDrawerList.setAdapter(adapter);
 
         if (shouldSelectListViewItem){
@@ -164,6 +245,8 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
            @Override
            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               adapter.setSelectedIndex(position);
+               adapter.notifyDataSetChanged();
                selectedModuleIndex = position;
                mDrawerList.setItemChecked(position, true);
                mDrawerList.setSelection(position);
@@ -187,7 +270,8 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                getSupportActionBar().setTitle(menuList[selectedModuleIndex]);
+               // getSupportActionBar().setTitle(menuList[selectedModuleIndex]);
+                actionBarTitleView.setText(menuList[selectedModuleIndex]);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
@@ -236,6 +320,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                 // In this case fragmentToLoad = null and the previous fragment
                 // will
                 // be removed from the container
+                if (!(fragmentToLoad instanceof HomeFragment))
                 fragmentToLoad = new HomeFragment();
                 break;
             case 1:
@@ -245,30 +330,58 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
 
                 break;
             case 2:
+                if (!(fragmentToLoad instanceof PhotosFragment))
                 fragmentToLoad = new PhotosFragment();
                 break;
             case 3:
+                if (!(fragmentToLoad instanceof NotificationFragment))
                 fragmentToLoad = new NotificationFragment();
                 break;
             case 4:
+                if (!(fragmentToLoad instanceof NewsLetterFragment))
                 fragmentToLoad = new NewsLetterFragment();
                 break;
             case 5:
+                if (!(fragmentToLoad instanceof DocumentFragment))
                 fragmentToLoad = new DocumentFragment();
                 break;
             case 6:
+                if (!(fragmentToLoad instanceof VideoFragment))
                 fragmentToLoad = new VideoFragment();
                 break;
             case 7:
+                if (!(fragmentToLoad instanceof LinksFragment))
                 fragmentToLoad = new LinksFragment();
                 break;
             case 8:
-                fragmentToLoad = new SettingsFragment();
+                if (userType.equals("admin")) {
+
+                    fragmentToLoad = new HomeFragment();
+                    Common.sendEmailToSupport(this);
+                }
+                else
+                {
+                    fragmentToLoad = new SettingsFragment();
+                }
                 break;
             case 9:
-                fragmentToLoad = new HomeFragment();
-                // support email clickable
-                Common.sendEmailToSupport(this);
+                if (userType.equals("admin")) {
+
+                    mDrawerLayout.closeDrawer(mDrawerList);
+                    fragmentToLoad = null;
+                    selectedModuleIndex = 0;
+                    handleSharedPreferencesOnLogout();
+                    Intent loginIntent = new Intent(BaseActivity.this, LoginScreen.class);
+                    startActivity(loginIntent);
+                    finish();
+                }
+                else
+                {
+                    fragmentToLoad = new HomeFragment();
+                    // support email clickable
+                    Common.sendEmailToSupport(this);
+                }
+
                 break;
             case 10:
                 // add sign out functionality and show LoginScreen
@@ -278,6 +391,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                 handleSharedPreferencesOnLogout();
                 Intent loginIntent = new Intent(BaseActivity.this, LoginScreen.class);
                 startActivity(loginIntent);
+                finish();
             default:
                 break;
         }
@@ -362,6 +476,11 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
 
     public void handleSharedPreferencesOnLogout()
     {
+        LoginManager.getSharedInstance().logout(new LoginManager.LoginManagerListener() {
+            @Override
+            public void onCompletion(LoginResponse response, AppError error) {
+
+            }});
         SharedPreferences loginSharedPrefs = BaseActivity.this.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor  editor = loginSharedPrefs.edit();
         editor.putString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, null);

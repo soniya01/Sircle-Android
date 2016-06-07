@@ -175,11 +175,11 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
         String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         HashMap object = new HashMap();
-        object.put("regId", Constants.GCM_REG_ID);
-        object.put("groupId",grpIdString);
-        object.put("page", pageCount);
+      //  object.put("regId", Constants.GCM_REG_ID);
+       // object.put("groupId",grpIdString);
+        object.put("page", ""+pageCount);
 
-        System.out.println("REG" + Constants.GCM_REG_ID);
+       // System.out.println("REG" + Constants.GCM_REG_ID);
 
         NotificationManager.getSharedInstance().getAllNotifications(object, new NotificationManager.NotificationManagerListener() {
             @Override
@@ -192,7 +192,7 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
                     if (data.getStatus() == 200){
                         if (data.getData().getNotifications().size() > 0){
                             //NotificationManager.notificationList.clear()
-                            totalRecord = data.getData().getTotalRecords();
+                          //  totalRecord = data.getData().getTotalRecords();
                             notificationList.clear();
                             notificationList.addAll(NotificationManager.notificationList);
                             notificationListviewAdapter.notifyDataSetChanged();
@@ -215,7 +215,7 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
     @Override
     public void onResume() {
         super.onResume();
-        populateDummyData();
+       // populateDummyData();
         //notificationListviewAdapter.notifyDataSetChanged();
     }
 
@@ -241,9 +241,9 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
         String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         HashMap object = new HashMap();
-        object.put("regId", Constants.GCM_REG_ID);
-        object.put("groupId",grpIdString);
-        object.put("page", pageCount);
+      //  object.put("regId", Constants.GCM_REG_ID);
+      //  object.put("groupId",grpIdString);
+        object.put("page", ""+pageCount);
 
         System.out.println("REG" + Constants.GCM_REG_ID);
 

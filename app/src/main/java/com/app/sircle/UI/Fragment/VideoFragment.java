@@ -109,25 +109,34 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 
-                //if (videoList.get(position).getVideoType().equals("youtube")) {
-                    Intent intent = YouTubeStandalonePlayer.createVideoIntent(
-                            getActivity(), DeveloperKey.DEVELOPER_KEY, videoList.get(position).getVideoId(), 0, false, false);
+                if (videoList.get(position).getVideoType() != null){
 
-                    if (intent != null) {
-                        if (canResolveIntent(intent)) {
-                            startActivityForResult(intent, REQ_START_STANDALONE_PLAYER);
-                        } else {
-                            // Could not resolve the intent - must need to install or update the YouTube API service.
-                            YouTubeInitializationResult.SERVICE_MISSING
-                                    .getErrorDialog(getActivity(), REQ_RESOLVE_SERVICE_MISSING).show();
+                    if (videoList.get(position).getVideoType().equals("youtube")) {
+                        Intent intent = YouTubeStandalonePlayer.createVideoIntent(
+                                getActivity(), DeveloperKey.DEVELOPER_KEY, videoList.get(position).getVideoId(), 0, false, false);
+
+                        if (intent != null) {
+                            if (canResolveIntent(intent)) {
+                                startActivityForResult(intent, REQ_START_STANDALONE_PLAYER);
+                            } else {
+                                // Could not resolve the intent - must need to install or update the YouTube API service.
+                                YouTubeInitializationResult.SERVICE_MISSING
+                                        .getErrorDialog(getActivity(), REQ_RESOLVE_SERVICE_MISSING).show();
+                            }
                         }
+                    } else {
+                        Intent intent = new Intent(getActivity(), VimeoWebviewActivity.class);
+                        intent.putExtra("VideoUrl", videoList.get(position).getVideoEmbedURL());
+                        startActivity(intent);
+
                     }
-//                } else {
-//                    Intent intent = new Intent(getActivity(), VimeoWebviewActivity.class);
-//                    intent.putExtra("VideoUrl", videoList.get(position).getVideoEmbedURL());
-//                    startActivity(intent);
-//
-//                }
+
+            }
+                else
+                {
+
+                    Toast.makeText(getActivity(), "Something went wrong please try after some time", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -160,6 +169,8 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         //object.put("groupId", grpIdString);
         object.put("page", "1");
 
+        System.out.println("Populate Dummy");
+
         VideoManager.getSharedInstance().getAllVideos(object, new VideoManager.VideoManagerListener() {
             @Override
             public void onCompletion(VideoResponse response, AppError error) {
@@ -173,7 +184,6 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                                // totalRecord = response.getData().getTotalRecords();
                                 videoList.clear();
                                 videoList.addAll(VideoManager.videoList);
-
                                 videoListViewAdapter.notifyDataSetChanged();
 
                             } else {
@@ -202,10 +212,7 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     @Override
     public void onResume() {
         super.onResume();
-        populateDummyData();
-//        if (VideoFragment.this.videoList.size() > 0) {
-//            videoListViewAdapter.notifyDataSetChanged();
-//        }
+       // populateDummyData();
     }
 
     private void isScrollCompleted() {
@@ -231,7 +238,7 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     @Override
     public void onRefresh() {
-        populateDummyData();
+        //populateDummyData();
     }
 
     @Override
@@ -258,6 +265,8 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 //        }
 
         String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
+
+        System.out.println("Load Dummy");
 
         HashMap object = new HashMap();
        // object.put("regId", Constants.GCM_REG_ID);

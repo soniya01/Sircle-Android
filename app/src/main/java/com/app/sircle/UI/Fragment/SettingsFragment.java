@@ -79,12 +79,12 @@ public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnR
                     // Constants.isAllChecked = 1;
                     for (int i = 0; i < notificationGroupList.size(); i++) {
                         // listData[i] = listView.getAdapter().getItem(i).toString();
-                        notificationGroupList.get(i).setActive(1);
+                        notificationGroupList.get(i).setActive(Boolean.TRUE);
                     }
                 } else {
                     for (int i = 0; i < notificationGroupList.size(); i++) {
                         // listData[i] = listView.getAdapter().getItem(i).toString();
-                        notificationGroupList.get(i).setActive(0);
+                        notificationGroupList.get(i).setActive(Boolean.FALSE);
                     }
                     //notificationGroupList.get(i).setActive(1);
                     // Constants.isAllChecked = 0;
@@ -177,7 +177,7 @@ public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnR
                 for (int i = 0; i < notificationGroupList.size(); i++) {
                     // listData[i] = listView.getAdapter().getItem(i).toString();
                     // notificationGroupList.get(i).setActive(1);
-                    if (notificationGroupList.get(i).getActive()==1)
+                    if (notificationGroupList.get(i).getActive()==Boolean.TRUE)
                     {
                         NotificationManager.getSharedInstance().grpIds.add( notificationGroupList.get(i).getId());
                     }
@@ -185,23 +185,33 @@ public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                 JSONArray arrayObject = new JSONArray();
 
+                String grpIdString = "";
+
                 if ( NotificationManager.grpIds.size() > 0){
                     ringProgressDialog = ProgressDialog.show(getActivity(), "", "", true);
                     for (int i =0 ; i<  NotificationManager.grpIds.size(); i++){
-                        try {
-                            JSONObject object = new JSONObject();
-                            object.put("group_id",NotificationManager.grpIds.get(i));
-                            object.put("val", 1);
+//                        try {
+//                            JSONObject object = new JSONObject();
+//                            object.put("group_id",NotificationManager.grpIds.get(i));
+//                            object.put("val", 1);
+//
+//                            arrayObject.put(object);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
 
-                            arrayObject.put(object);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        if (grpIdString.equals(""))
+                        {
+                            grpIdString = NotificationManager.grpIds.get(i) ;
+                        }
+                        else {
+                            grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i);
                         }
                     }
 
                     HashMap map = new HashMap();
-                    map.put("regId", Constants.GCM_REG_ID);
-                    map.put("groupValString", arrayObject.toString());
+                 //   map.put("regId", Constants.GCM_REG_ID);
+                    map.put("groupValString", grpIdString);
 
                     NotificationManager.getSharedInstance().updateGroupNotification(map, new NotificationManager.PostManagerListener() {
                         @Override
@@ -256,7 +266,7 @@ public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnR
                     if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                         if (response != null) {
                             if (response.getStatus() == 200){
-                                if (response.getData().size() > 0) {
+                                if (response.getData().getGroups().size() > 0) {
                                     notificationGroupList.clear();
                                     notificationGroupList.addAll(NotificationManager.groupList);
                                     notificationsGroupAdapter.notifyDataSetChanged();

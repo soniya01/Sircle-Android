@@ -37,6 +37,28 @@ public class LoginService {
 
     }
 
+    public static void logout(final GetLoginResponseWebServiceListener getLoginResponseWebServiceListener){
+
+//        RetrofitImplementation retrofitImplementation = new RetrofitImplementation();
+//        retrofitImplementation.executePostWithURL(Constants.LOGOUT_API_PATH, null, null,PostResponse.class, new WebServiceListener() {
+//            @Override
+//            public void onCompletion(Object response, AppError error) {
+//               // LoginResponse loginResponse = (LoginResponse)response;
+//                //getLoginResponseWebServiceListener.onCompletion(loginResponse, error);
+//            }
+//        });
+
+        RetrofitImplementation retrofitImplementation = new RetrofitImplementation();
+        retrofitImplementation.executeGetWithURL(Constants.LOGOUT_API_PATH, null, null,PostResponse.class, new WebServiceListener() {
+            @Override
+            public void onCompletion(Object response, AppError error) {
+               // LoginResponse loginResponse = (LoginResponse)response;
+               // getLoginResponseWebServiceListener.onCompletion(loginResponse, error);
+            }
+        });
+    }
+
+
     public interface GetLoginResponseWebServiceListener{
 
         public void onCompletion(LoginResponse loginResponse, AppError error);

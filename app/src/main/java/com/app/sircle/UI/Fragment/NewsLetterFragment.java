@@ -17,6 +17,7 @@ import com.app.sircle.Manager.DocumentManager;
 import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.PDFViewer;
+import com.app.sircle.UI.Activity.PDFWebViewer;
 import com.app.sircle.UI.Adapter.NewsLettersViewAdapter;
 import com.app.sircle.UI.Model.NewsLetter;
 import com.app.sircle.Utility.AppError;
@@ -94,7 +95,11 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
                 Toast.makeText(getActivity(), "File downloaded " + selectedItem.getName(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), PDFViewer.class);
                 intent.putExtra("PdfUrl",selectedItem.getPath());
+                intent.putExtra("PdfName",selectedItem.getName());
                 startActivity(intent);
+//                Intent intent = new Intent(getActivity(), PDFWebViewer.class);
+//                intent.putExtra("PdfUrl",selectedItem.getPath());
+//                startActivity(intent);
             }
         });
 
@@ -127,7 +132,7 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
        // map.put("groupId", grpIdString);
         map.put("page", "1");
 
-        System.out.println("Map " + map);
+      //  System.out.println("Map " + map);
 
         DocumentManager.getSharedInstance().getAllNewsLetters(map, new DocumentManager.GetDocumentManagerListener() {
             @Override
@@ -172,7 +177,7 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
     @Override
     public void onResume() {
         super.onResume();
-        populateDummyData();
+       // populateDummyData();
     }
 
     @Override

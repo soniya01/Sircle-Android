@@ -95,6 +95,7 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
                 Toast.makeText(getActivity(), "File downloaded " + selectedItem.getName(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), PDFViewer.class);
                 intent.putExtra("PdfUrl",selectedItem.getPath());
+                intent.putExtra("PdfName",selectedItem.getName());
                 startActivity(intent);
             }
         });

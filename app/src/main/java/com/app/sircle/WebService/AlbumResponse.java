@@ -1,5 +1,7 @@
 package com.app.sircle.WebService;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -7,7 +9,13 @@ import java.util.List;
  */
 public class AlbumResponse {
 
+
+   // "code": 200,
+
+
     public String message;
+
+    @SerializedName("code")
     public int status;
 
     public AlbumResponseData data;

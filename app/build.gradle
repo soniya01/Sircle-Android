@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.app.sircle"
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -36,5 +36,6 @@ dependencies {
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
     compile 'com.roomorama:caldroid:2.1.0'
     compile 'com.getbase:floatingactionbutton:1.10.0'
-
+    //compile 'com.android.support:multidex:1.0.1'
+    //compile 'com.google.code.gson:gson:2.2.4'
 }

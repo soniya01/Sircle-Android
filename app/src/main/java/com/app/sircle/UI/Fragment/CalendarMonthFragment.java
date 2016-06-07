@@ -131,7 +131,7 @@ public class CalendarMonthFragment extends Fragment {
         else
         {
            // String dateString = "03/26/2012 11:49:00 AM";
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date convertedDate = new Date();
         try {
             convertedDate = dateFormat.parse(Constants.dateAvailabe);
@@ -161,8 +161,8 @@ public class CalendarMonthFragment extends Fragment {
         getCalendarEvents();
 
 
-        String myFormat = "MM/dd/yy"; //In which you need put here
-      final  SimpleDateFormat formatter = new SimpleDateFormat(myFormat, Locale.US);
+//        String myFormat = "MM/dd/yy"; //In which you need put here
+//      final  SimpleDateFormat formatter = new SimpleDateFormat(myFormat, Locale.US);
 
         final CaldroidListener listener = new CaldroidListener() {
 
@@ -306,11 +306,11 @@ public class CalendarMonthFragment extends Fragment {
         String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         HashMap object = new HashMap();
-        object.put("regId", Constants.GCM_REG_ID);
-        object.put("month",month);
-        object.put("year", year);
-        object.put("page", 1);
-        object.put("groupId", grpIdString);
+        //object.put("regId", Constants.GCM_REG_ID);
+        object.put("filter_month",""+month);
+        object.put("filter_year", ""+year);
+        object.put("page", "1");
+      //  object.put("groupId", grpIdString);
         final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
         progressBar.setIndeterminate(true);
         progressBar.setVisibility(View.VISIBLE);
@@ -324,16 +324,18 @@ public class CalendarMonthFragment extends Fragment {
             public void onCompletion(EventDataReponse data, AppError error) {
 
                 if (data != null){
-                    if (data.getEventData().getEvents() != null){
-                        if (data.getEventData().getEvents().size() > 0){
+                    if (data.getEvents() != null){
+                        if (data.getEvents().size() > 0){
                             HashMap<Date,Integer> dates = new HashMap();
-                            for (Event event:  data.getEventData().getEvents()){
-                                String dateString = event.getStartDate();
+                            for (Event event:  data.getEvents()){
+
                                 Date date;
-                                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                                String str = event.getStartDate();
+                                String[] splited = str.split("\\s+");
+                                String dateString = splited[0];
+                                SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
                                 try {
-                                    date = format
-                                            .parse(dateString);
+                                    date = format.parse(dateString);
 
 
                                     dates.put(date,R.drawable.circular_border);

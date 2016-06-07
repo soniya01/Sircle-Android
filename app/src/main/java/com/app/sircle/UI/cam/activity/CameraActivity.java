@@ -2,6 +2,7 @@ package com.app.sircle.UI.cam.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.media.MediaScannerConnection;
@@ -11,17 +12,22 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.AddSelectedPhoto;
+import com.app.sircle.UI.Fragment.CameraFragmentUI;
+import com.app.sircle.UI.Model.ImageData;
 import com.app.sircle.UI.cam.Config;
 import com.app.sircle.UI.cam.fragment.CameraFragment;
 import com.app.sircle.UI.cam.listener.CameraFragmentListener;
 import com.app.sircle.Utility.Constants;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -37,7 +43,7 @@ import java.util.Locale;
 public class CameraActivity extends FragmentActivity implements CameraFragmentListener {
 
     private Context mContext, aContext;
-    private CameraFragment fragment;
+    private CameraFragmentUI fragment;
 
     private int height;
     private int width;
@@ -45,12 +51,31 @@ public class CameraActivity extends FragmentActivity implements CameraFragmentLi
     private Config.CameraFace face;
     private CompressFormat format;
     private int PICK_IMAGE_REQUEST = 1;
-
+    private String albumId;
     private ImageButton btnCapture, btnSwap, btnFlash,btnClose,btnGallery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+//        View decorView = getWindow().getDecorView();
+//        // Hide both the navigation bar and the status bar.
+//        // SYSTEM_UI_FLAG_FULLSCREEN is only available on Android 4.1 and higher, but as
+//        // a general rule, you should design your app to hide the status bar whenever you
+//        // hide the navigation bar.
+//        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+//                | View.SYSTEM_UI_FLAG_FULLSCREEN;
+//        decorView.setSystemUiVisibility(uiOptions);
+
+        //Remove title bar
+      //  this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+//Remove notification bar
+      //  this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        if (getIntent().getExtras() != null){
+            albumId = getIntent().getStringExtra("albumId");
+        }
         setContentView(R.layout.activity_camera);
 
         initVals();
@@ -83,15 +108,22 @@ public class CameraActivity extends FragmentActivity implements CameraFragmentLi
 //        Bitmap bitmap = Bitmap.createScaledBitmap(actualBitmap, length, length, true);
         Bitmap bitmap = Bitmap.createBitmap(actualBitmap, 0, 0, length, length);
 
+        String path = getRealPathFromURI(getImageUri(getApplicationContext(), bitmap));
+        ImageData imageData1 = new ImageData();
+        imageData1.setPath(path);
 
-        Constants.myBitmap = bitmap;
+//        Constants.myBitmap = bitmap;
+
+
 
         Intent intent = new Intent(CameraActivity.this, AddSelectedPhoto.class);
 
 
-       // intent.putExtra("data", bitmap);
+        intent.putExtra("data", imageData1);
        // intent.putExtra(INTENT_EXTRA_BACK_CAMERA_SHOWN, backCameraShown);
         startActivity(intent);
+
+        finish();
 
 
 //        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
@@ -140,8 +172,8 @@ public class CameraActivity extends FragmentActivity implements CameraFragmentLi
         btnClose = (ImageButton) findViewById(R.id.closeCamera);
         btnGallery = (ImageButton) findViewById(R.id.gallery);
 
-        fragment = (CameraFragment) getSupportFragmentManager().findFragmentById(R.id.camera_fragment);
-        fragment.setCam(height, width, compress, face);
+        fragment = (CameraFragmentUI) getSupportFragmentManager().findFragmentById(R.id.camera_fragment);
+       // fragment.setCam(height, width, compress, face);
 //        setFlashVisibility();
         btnCapture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,7 +246,7 @@ public class CameraActivity extends FragmentActivity implements CameraFragmentLi
      */
     private void takePicture() {
         btnCapture.setEnabled(false);
-        fragment.takePicture();
+        fragment.takePicture(albumId);
     }
 
 //    private void setFlashVisibility() {
@@ -247,13 +279,18 @@ public class CameraActivity extends FragmentActivity implements CameraFragmentLi
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
 
-                Constants.myBitmap = bitmap;
+              //  Constants.myBitmap = bitmap;
+
+                String path = getRealPathFromURI(getImageUri(getApplicationContext(), bitmap));
+                ImageData imageData1 = new ImageData();
+                imageData1.setPath(path);
 
                 Intent intent = new Intent(CameraActivity.this, AddSelectedPhoto.class);
 
 
-                // intent.putExtra("data", bitmap);
+                intent.putExtra("data", imageData1);
                 // intent.putExtra(INTENT_EXTRA_BACK_CAMERA_SHOWN, backCameraShown);
+                intent.putExtra("albumId", albumId);
                 startActivity(intent);
 
                 // Log.d(TAG, String.valueOf(bitmap));
@@ -264,6 +301,21 @@ public class CameraActivity extends FragmentActivity implements CameraFragmentLi
                 e.printStackTrace();
             }
         }
+    }
+
+    public String getRealPathFromURI(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx);
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        inImage.recycle();
+        return Uri.parse(path);
     }
 
 }

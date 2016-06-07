@@ -11,42 +11,58 @@ import java.util.List;
  */
 public class EventDetailResponseData {
 
+
     @SerializedName("event_id")
     public String id;
 
-    @SerializedName("event_type")
-    public EventDetailType eventType;
+    @SerializedName("event_title")
+    public String eventTitle;
 
-    @SerializedName("event_info")
-    public Event eventInfo;
+    @SerializedName("event_description")
+    public String eventDescription;
 
-    @SerializedName("event_groups")
-    public List<EventDetailGroups> eventGroups;
+    @SerializedName("event_location")
+    public String eventLocation;
 
-    @SerializedName("event_repeats_type")
-    public List<EventDetailGroups> eventRepeatsType;
+    @SerializedName("event_start_date")
+    public String eventStartDate;
 
-    @SerializedName("event_repeats")
-    public List<EventRepeats> eventRepeats;
+    @SerializedName("event_end_date")
+    public String eventEndDate;
 
-    @SerializedName("event_repeats_days")
-    public List<EventRepeatsDays> eventRepeatDays;
+//    @SerializedName("event_type")
+//    public EventDetailType eventType;
 
-    @SerializedName("event_repeats_months")
-    public List<EventRepeatsDays> eventRepeatMonths;
+//    @SerializedName("event_info")
+//    public Event eventInfo;
 
-    @SerializedName("event_repeats_years")
-    public List<EventRepeatsDays> eventRepeatYears;
+//    @SerializedName("event_groups")
+//    public List<EventDetailGroups> eventGroups;
 
-    @SerializedName("event_repeats_weeks")
-    public List<EventRepeatsDays> eventRepeatWeeks;
+//    @SerializedName("event_repeats_type")
+//    public List<EventDetailGroups> eventRepeatsType;
+
+//    @SerializedName("event_repeats")
+//    public List<EventRepeats> eventRepeats;
+
+//    @SerializedName("event_repeats_days")
+//    public List<EventRepeatsDays> eventRepeatDays;
+
+//    @SerializedName("event_repeats_months")
+//    public List<EventRepeatsDays> eventRepeatMonths;
+
+//    @SerializedName("event_repeats_years")
+//    public List<EventRepeatsDays> eventRepeatYears;
+
+//    @SerializedName("event_repeats_weeks")
+//    public List<EventRepeatsDays> eventRepeatWeeks;
    // public List<EventRepeatsDays> eventWeekDays;
 
-    @SerializedName("event_repeats_monthly")
-    public List<EventRepeatsMonthly> eventRepeatsMonthly;
+//    @SerializedName("event_repeats_monthly")
+//    public List<EventRepeatsMonthly> eventRepeatsMonthly;
 
-    @SerializedName("event_repeats_weekly_dys")
-    public List<EventRepeatsMonthly> eventRepeatsWeeklyDys;
+//    @SerializedName("event_repeats_weekly_dys")
+//    public List<EventRepeatsMonthly> eventRepeatsWeeklyDys;
 
     //data -> event_id, event_type (Array), event_info (Obj),
     // event_groups (Array), event_repeats (Array), event_repeats_type (Array),
@@ -73,91 +89,131 @@ public class EventDetailResponseData {
         this.id = id;
     }
 
-    public EventDetailType getEventType() {
-        return eventType;
+    public String getEventTitle() {
+        return eventTitle;
     }
 
-    public void setEventType(EventDetailType eventType) {
-        this.eventType = eventType;
+    public void setEventTitle(String eventTitle) {
+        this.eventTitle = eventTitle;
     }
 
-    public Event getEventInfo() {
-        return eventInfo;
+    public String getEventDescription() {
+        return eventDescription;
     }
 
-    public void setEventInfo(Event eventInfo) {
-        this.eventInfo = eventInfo;
+    public void setEventDescription(String eventDescription) {
+        this.eventDescription = eventDescription;
     }
 
-    public List<EventDetailGroups> getEventGroups() {
-        return eventGroups;
+    public String getEventLocation() {
+        return eventLocation;
     }
 
-    public void setEventGroups(List<EventDetailGroups> eventGroups) {
-        this.eventGroups = eventGroups;
+    public void setEventLocation(String eventLocation) {
+        this.eventLocation = eventLocation;
     }
 
-    public List<EventDetailGroups> getEventRepeatsType() {
-        return eventRepeatsType;
+    public String getEventStartDate() {
+        return eventStartDate;
     }
 
-    public void setEventRepeatsType(List<EventDetailGroups> eventRepeatsType) {
-        this.eventRepeatsType = eventRepeatsType;
+    public void setEventStartDate(String eventStartDate) {
+        this.eventStartDate = eventStartDate;
     }
 
-    public List<EventRepeats> getEventRepeats() {
-        return eventRepeats;
+    public String getEventEndDate() {
+        return eventEndDate;
     }
 
-    public void setEventRepeats(List<EventRepeats> eventRepeats) {
-        this.eventRepeats = eventRepeats;
+    public void setEventEndDate(String eventEndDate) {
+        this.eventEndDate = eventEndDate;
     }
 
-    public List<EventRepeatsDays> getEventRepeatDays() {
-        return eventRepeatDays;
-    }
+//    public EventDetailType getEventType() {
+//        return eventType;
+//    }
+//
+//    public void setEventType(EventDetailType eventType) {
+//        this.eventType = eventType;
+//    }
 
-    public void setEventRepeatDays(List<EventRepeatsDays> eventRepeatDays) {
-        this.eventRepeatDays = eventRepeatDays;
-    }
+//    public Event getEventInfo() {
+//        return eventInfo;
+//    }
+//
+//    public void setEventInfo(Event eventInfo) {
+//        this.eventInfo = eventInfo;
+//    }
 
-    public List<EventRepeatsDays> getEventRepeatMonths() {
-        return eventRepeatMonths;
-    }
+//    public List<EventDetailGroups> getEventGroups() {
+//        return eventGroups;
+//    }
+//
+//    public void setEventGroups(List<EventDetailGroups> eventGroups) {
+//        this.eventGroups = eventGroups;
+//    }
 
-    public void setEventRepeatMonths(List<EventRepeatsDays> eventRepeatMonths) {
-        this.eventRepeatMonths = eventRepeatMonths;
-    }
+//    public List<EventDetailGroups> getEventRepeatsType() {
+//        return eventRepeatsType;
+//    }
+//
+//    public void setEventRepeatsType(List<EventDetailGroups> eventRepeatsType) {
+//        this.eventRepeatsType = eventRepeatsType;
+//    }
 
-    public List<EventRepeatsDays> getEventRepeatYears() {
-        return eventRepeatYears;
-    }
+//    public List<EventRepeats> getEventRepeats() {
+//        return eventRepeats;
+//    }
+//
+//    public void setEventRepeats(List<EventRepeats> eventRepeats) {
+//        this.eventRepeats = eventRepeats;
+//    }
 
-    public void setEventRepeatYears(List<EventRepeatsDays> eventRepeatYears) {
-        this.eventRepeatYears = eventRepeatYears;
-    }
+//    public List<EventRepeatsDays> getEventRepeatDays() {
+//        return eventRepeatDays;
+//    }
+//
+//    public void setEventRepeatDays(List<EventRepeatsDays> eventRepeatDays) {
+//        this.eventRepeatDays = eventRepeatDays;
+//    }
 
-    public List<EventRepeatsDays> getEventRepeatWeeks() {
-        return eventRepeatWeeks;
-    }
+//    public List<EventRepeatsDays> getEventRepeatMonths() {
+//        return eventRepeatMonths;
+//    }
+//
+//    public void setEventRepeatMonths(List<EventRepeatsDays> eventRepeatMonths) {
+//        this.eventRepeatMonths = eventRepeatMonths;
+//    }
 
-    public void setEventRepeatWeeks(List<EventRepeatsDays> eventRepeatWeeks) {
-        this.eventRepeatWeeks = eventRepeatWeeks;
-    }
+//    public List<EventRepeatsDays> getEventRepeatYears() {
+//        return eventRepeatYears;
+//    }
+//
+//    public void setEventRepeatYears(List<EventRepeatsDays> eventRepeatYears) {
+//        this.eventRepeatYears = eventRepeatYears;
+//    }
 
-    public List<EventRepeatsMonthly> getEventRepeatsMonthly() {
-        return eventRepeatsMonthly;
-    }
+//    public List<EventRepeatsDays> getEventRepeatWeeks() {
+//        return eventRepeatWeeks;
+//    }
+//
+//    public void setEventRepeatWeeks(List<EventRepeatsDays> eventRepeatWeeks) {
+//        this.eventRepeatWeeks = eventRepeatWeeks;
+//    }
 
-    public void setEventRepeatsMonthly(List<EventRepeatsMonthly> eventRepeatsMonthly) {
-        this.eventRepeatsMonthly = eventRepeatsMonthly;
-    }
+//    public List<EventRepeatsMonthly> getEventRepeatsMonthly() {
+//        return eventRepeatsMonthly;
+//    }
+//
+//    public void setEventRepeatsMonthly(List<EventRepeatsMonthly> eventRepeatsMonthly) {
+//        this.eventRepeatsMonthly = eventRepeatsMonthly;
+//    }
 
-    public List<EventRepeatsMonthly> getEventRepeatsWeeklyDys() {
-        return eventRepeatsWeeklyDys;
-    }
-
-    public void setEventRepeatsWeeklyDys(List<EventRepeatsMonthly> eventRepeatsWeeklyDys) {
-        this.eventRepeatsWeeklyDys = eventRepeatsWeeklyDys;
-    }
+//    public List<EventRepeatsMonthly> getEventRepeatsWeeklyDys() {
+//        return eventRepeatsWeeklyDys;
+//    }
+//
+//    public void setEventRepeatsWeeklyDys(List<EventRepeatsMonthly> eventRepeatsWeeklyDys) {
+//        this.eventRepeatsWeeklyDys = eventRepeatsWeeklyDys;
+//    }
 }

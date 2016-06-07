@@ -134,8 +134,8 @@ public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         HashMap map = new HashMap();
-        map.put("regId", Constants.GCM_REG_ID);
-        map.put("groupId", grpIdString);
+        //map.put("regId", Constants.GCM_REG_ID);
+      //  map.put("groupId", grpIdString);
         map.put("page", page);
 
         System.out.print("Map "+map);
@@ -148,8 +148,8 @@ public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                     if (response != null) {
                         if (response.getData().getLinks().size() > 0) {
-                            totalRecord = response.getData().getTotalRecords();
-                            pageRecords =  response.getData().getPageRecords();
+                          //  totalRecord = response.getData().getTotalRecords();
+                           // pageRecords =  response.getData().getPageRecords();
                             linksList.clear();
                             linksList.addAll(response.getData().getLinks());
                             linksListViewAdapter.notifyDataSetChanged();
@@ -258,8 +258,8 @@ public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         HashMap object = new HashMap();
-        object.put("regId", Constants.GCM_REG_ID);
-        object.put("groupId",grpIdString);
+     //   object.put("regId", Constants.GCM_REG_ID);
+      //  object.put("groupId",grpIdString);
         object.put("page", pageCount);
 
         System.out.println("REG" + Constants.GCM_REG_ID);

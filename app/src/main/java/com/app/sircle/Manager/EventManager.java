@@ -8,6 +8,7 @@ import com.app.sircle.WebService.CategoryResponse;
 import com.app.sircle.WebService.EventData;
 import com.app.sircle.WebService.EventDataReponse;
 import com.app.sircle.WebService.EventDetailResponse;
+import com.app.sircle.WebService.EventDetailResponseData;
 import com.app.sircle.WebService.EventWebService;
 import com.app.sircle.WebService.PostResponse;
 
@@ -26,6 +27,7 @@ public class EventManager {
     public  static List<Event> eventList = new ArrayList<>();
     public  static List<EventCategory> eventCategoryList = new ArrayList<>();
     public static Event eventDetail;
+    public static EventDetailResponseData eventDetailResponseData;
 
     private EventManager(){
 
@@ -77,9 +79,9 @@ public class EventManager {
             @Override
             public void onCompletion(EventDataReponse data, AppError error) {
                 if (error.getErrorCode() == AppError.NO_ERROR) {
-                    if (data != null && data.getEventData() != null){
+                    if (data != null && data.getEvents() != null){
                         eventList.clear();
-                        EventManager.eventList = data.getEventData().getEvents();
+                        EventManager.eventList = data.getEvents();
                     }
 
                     getMonthwiseEventsManagerListener.onCompletion(data, new AppError());
@@ -96,7 +98,7 @@ public class EventManager {
             public void onCompletion(CategoryResponse response, AppError error) {
                 if (response != null && response.getData() != null) {
                     eventCategoryList.clear();
-                    eventCategoryList = response.getData();
+                    eventCategoryList = response.getData().getCategories();
                     getEventsCategoryManagerListener.onCompletion(response, new AppError());
                 } else {
                     getEventsCategoryManagerListener.onCompletion(response, error);
@@ -129,9 +131,9 @@ public class EventManager {
             public void onCompletion(EventDetailResponse response, AppError error) {
                 if (response != null){
 
-                    if (response.getData() != null && response.getData().getEventInfo() != null){
-                        eventDetail = null;
-                        eventDetail = response.getData().getEventInfo();
+                    if (response.getData() != null && response.getData() != null){
+                      //  eventDetail = null;
+                        eventDetailResponseData = response.getData();
                     }
 
                 }

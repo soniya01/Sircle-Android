@@ -7,11 +7,14 @@ import com.google.gson.annotations.SerializedName;
  */
 public class EventCategory {
 
+
+    @SerializedName("category_id")
     public String id;
+    @SerializedName("name")
     public String category;
 
-    @SerializedName("created_on")
-    public String createdOn;
+//    @SerializedName("created_on")
+//    public String createdOn;
 
     public String getId() {
         return id;
@@ -29,11 +32,11 @@ public class EventCategory {
         this.category = category;
     }
 
-    public String getCreatedOn() {
-        return createdOn;
-    }
-
-    public void setCreatedOn(String createdOn) {
-        this.createdOn = createdOn;
-    }
+//    public String getCreatedOn() {
+//        return createdOn;
+//    }
+//
+//    public void setCreatedOn(String createdOn) {
+//        this.createdOn = createdOn;
+//    }
 }

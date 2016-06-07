@@ -1,6 +1,7 @@
 package com.app.sircle.WebService;
 
 import com.app.sircle.UI.Model.Notification;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
  */
 public class NotificationResponse {
 
+    @SerializedName("code")
     public int status;
     public String message;
     public NotificationResponseData data;

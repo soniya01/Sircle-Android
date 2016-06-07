@@ -67,8 +67,12 @@ public class VideoListViewAdapter extends BaseAdapter {
 
        // String videoThumbnailUrl =  videoList.get(position).getVideoThumbURL();//extractYoutubeThumbnail(videoUrl);
         viewHolder.videoSourceLabel.setText(videoList.get(position).getName());
-        viewHolder.videoDate.setText(videoList.get(position).getPublishDate());
-        //viewHolder.videoTime.setText(videoList.get(position).getTime());
+
+        String str = videoList.get(position).getPublishDate();
+        String[] splited = str.split("\\s+");
+
+        viewHolder.videoDate.setText(splited[0]);
+        viewHolder.videoTime.setText(splited[1]);
 
 //        if (!videoThumbnailUrl.equals("")){
 //            Picasso.with(context)

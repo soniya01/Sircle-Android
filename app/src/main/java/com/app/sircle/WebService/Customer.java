@@ -20,6 +20,17 @@ public class Customer {
     @SerializedName("login_status")
     private String loginStatus;
 
+    @SerializedName("show_setting")
+    private String showSettings;
+
+
+    @SerializedName("customer_type")
+    private String customerType;
+
+
+
+    //admin/parent/staff
+
     public String getDetails() {
         return details;
     }
@@ -50,5 +61,23 @@ public class Customer {
 
     public void setLoginStatus(String loginStatus) {
         this.loginStatus = loginStatus;
+    }
+
+    public  void setShowSettings(String showSettings)
+    {
+        this.showSettings = showSettings;
+    }
+
+    public String getShowSettings() {
+        return showSettings;
+    }
+
+    public  void setCustomerType(String customerType)
+    {
+        this.customerType = customerType;
+    }
+
+    public String getCustomerType() {
+        return customerType;
     }
 }

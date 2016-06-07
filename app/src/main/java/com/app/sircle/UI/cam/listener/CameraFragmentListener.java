@@ -2,6 +2,8 @@ package com.app.sircle.UI.cam.listener;
 
 import android.graphics.Bitmap;
 
+import com.app.sircle.UI.Model.ImageData;
+
 
 public interface CameraFragmentListener {
     /**

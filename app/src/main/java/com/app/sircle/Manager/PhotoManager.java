@@ -53,8 +53,8 @@ public class PhotoManager  {
             @Override
             public void onCompletion(AlbumResponse response, AppError error) {
                 if (response != null){
-                    if (response.getData() != null && response.getData().getPhotos() != null){
-                        albumDetailsList = response.getData().getPhotos();
+                    if (response.getData() != null && response.getData().getAlbum_images() != null){
+                        albumDetailsList = response.getData().getAlbum_images();
                     }
 
                 }
@@ -70,7 +70,8 @@ public class PhotoManager  {
             public void onCompletion(PhotoResponse response, AppError error) {
                 if (response != null){
                     if (response.getData() != null && response.getData().getAlbums() != null){
-                        albumsList.clear();
+                        System.out.println("Album List Clear "+ albumsList.size());
+                       // albumsList.clear();
                         albumsList = response.getData().getAlbums();
                     }
                 }

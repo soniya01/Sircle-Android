@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.app.sircle.R;
+import com.app.sircle.UI.Activity.BaseActivity;
 
 
 public class SlidingPaneFragment extends Fragment implements AdapterView.OnItemClickListener{
@@ -36,6 +37,8 @@ public class SlidingPaneFragment extends Fragment implements AdapterView.OnItemC
         slidingPaneArrayAdapter = new SlidingPaneAdapter(
                 getActivity(), getActivity().getResources().getStringArray(
                 R.array.array_module_name));
+      //  slidingPaneArrayAdapter.setSelectedIndex(BaseActivity.selectedModuleIndex);
+
         listViewSlidingPane.setAdapter(slidingPaneArrayAdapter);
 
         listViewSlidingPane.setDividerHeight(2);
@@ -50,6 +53,7 @@ public class SlidingPaneFragment extends Fragment implements AdapterView.OnItemC
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view,
                             int position, long id) {
+
         listViewSlidingPane.setItemChecked(position, true);
         refreshSlidingPaneListView(position);
        // ((SlidingPanDelegate) getActivity()).didSelectListViewItemAtIndex(position);

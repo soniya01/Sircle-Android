@@ -9,13 +9,18 @@ import java.util.Date;
  */
 public class Notification {
 
+
+    @SerializedName("notification_title")
     public String subject;
+
+    @SerializedName("notification_message")
     public String message;
 
-    @SerializedName("date_string")
+    @SerializedName("notification_time")
     public String publishDate;
-    @SerializedName("time_string")
-    public String time;
+
+    @SerializedName("notification_id")
+    public String Id;
 
     public String getSubject() {
         return subject;
@@ -41,11 +46,11 @@ public class Notification {
         this.publishDate = publishDate;
     }
 
-    public String getTime() {
-        return time;
+    public String getId() {
+        return Id;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setId(String Id) {
+        this.Id = Id;
     }
 }

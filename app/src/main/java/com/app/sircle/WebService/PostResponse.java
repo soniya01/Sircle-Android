@@ -1,5 +1,7 @@
 package com.app.sircle.WebService;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,8 @@ import java.util.List;
  * Created by soniya on 20/09/15.
  */
 public class PostResponse {
+
+    @SerializedName("code")
     public int status;
     public String message;
 

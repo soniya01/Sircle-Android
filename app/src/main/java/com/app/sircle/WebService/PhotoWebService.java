@@ -49,7 +49,7 @@ public class PhotoWebService {
     }
 
     public void getPhotos(HashMap object, final GetPhotoWebServiceListener getPhotoWebServiceListener){
-       retrofitImplementation.executeGetWithURL(Constants.PHOTOS_GET_API_PATH, object, null, AlbumResponse.class, new WebServiceListener() {
+       retrofitImplementation.executePostWithURL(Constants.PHOTOS_GET_API_PATH, object, null, AlbumResponse.class, new WebServiceListener() {
            @Override
            public void onCompletion(Object response, AppError error) {
                // albumDetailsList = (ArrayList<AlbumDetails>) response;
@@ -63,14 +63,16 @@ public class PhotoWebService {
     }
 
     public void getAlbums(HashMap object, final GetAlbumWebServiceListener getAlbumWebServiceListener){
-        retrofitImplementation.executeGetWithURL(Constants.PHOTOS_GET_ALBUM_API_PATH, object, null, PhotoResponse.class, new WebServiceListener() {
+        retrofitImplementation.executePostWithURL(Constants.PHOTOS_GET_ALBUM_API_PATH, object, null, PhotoResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object responseObject, AppError error) {
-                if (error.getErrorCode() == AppError.NO_ERROR || error == null) {
-                    getAlbumWebServiceListener.onCompletion((PhotoResponse)responseObject, new AppError());
-                } else {
+//                if (error.getErrorCode() == AppError.NO_ERROR || error == null) {
+//                    System.out.println("Some Error ");
+//                    getAlbumWebServiceListener.onCompletion((PhotoResponse)responseObject, new AppError());
+//                } else {
+                    System.out.println("Else No Error");
                     getAlbumWebServiceListener.onCompletion((PhotoResponse)responseObject, error);
-                }
+               // }
             }
         });
     }

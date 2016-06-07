@@ -49,21 +49,26 @@ TextView pdfPageCount;
 
         String pdfUrl = getIntent().getExtras().getString("PdfUrl");
 
-        view(pdfUrl);
+        String pdfFile = getIntent().getExtras().getString("PdfName");
+
+        view(pdfUrl,pdfFile);
     }
     
 
-    public void download(String url)
+    public void download(String url,String fileName)
     {
         Uri uri = Uri.parse(url);
-        String fileName = uri.getLastPathSegment();
+        //String fileName = uri.getLastPathSegment();
         new DownloadFile().execute(url, fileName);
     }
 
-    public void view(String url)
+    public void view(String url,String filename)
     {
         Uri uri = Uri.parse(url);
-        String fileName = uri.getLastPathSegment();
+     //   String fileName = uri.getLastPathSegment();
+
+        String fileName = filename;
+
 
         File pdfFile = new File(Environment.getExternalStorageDirectory() + "/Sircle/" + fileName);  // -> filename
         long len = pdfFile.length();
@@ -72,7 +77,7 @@ TextView pdfPageCount;
             pdfPageCount.setText(pdfView.getCurrentPage()+"/"+pdfView.getPageCount());
         }
         else {
-            download(url);
+            download(url,fileName);
         }
 
     }

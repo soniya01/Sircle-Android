@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/camera_fragment"
-        class="com.app.sircle.UI.cam.fragment.CameraFragment"
+        class="com.app.sircle.UI.Fragment.CameraFragmentUI"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center" />

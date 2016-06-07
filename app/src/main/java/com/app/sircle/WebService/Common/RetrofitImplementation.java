@@ -2,6 +2,7 @@ package com.app.sircle.WebService.Common;
 
 import android.content.Context;
 
+import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.widget.Switch;
 
@@ -13,6 +14,7 @@ import com.app.sircle.Utility.Constants;
 import com.app.sircle.WebService.GroupResponse;
 import com.app.sircle.WebService.LoginResponse;
 import com.app.sircle.WebService.TermsResponse;
+import com.app.sircle.custom.App;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -87,7 +89,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
 //            @Override
 //            public void failure(RetrofitError error) {
 //
-//            }
+//            }ƒ
 //        };
     }
 
@@ -97,6 +99,11 @@ public class RetrofitImplementation implements WebServiceProtocol{
         this.generator = new UrlGenerator(params, url);
         Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
 
+
+       // RestAdapter myreAdapter = new RestAdapter().Builder();
+
+      //  RestAdapter adapter = new RestAdapter.Builder().setEndpoint(url).build();
+
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint(this.baseURL + this.generator.subUrl)
                 .setRequestInterceptor(new RequestInterceptor() {
@@ -104,7 +111,13 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     public void intercept(RequestFacade request) {
 
                         if (responseClass != LoginResponse.class) {
-                            request.addHeader("Authorization", LoginManager.accessToken);
+
+                            SharedPreferences sharedpreferences = App.getAppContext().getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
+                            String accessToken = sharedpreferences.getString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, null);
+
+                            request.addHeader("Authorization", accessToken);
+
+                           // System.out.println("access "+LoginManager.accessToken);
 
 
                         }
@@ -296,8 +309,215 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
                 break;
 
-            case Constants.NOTIFICATION_ADD_GROUPS:
-                postWebservice.postNotification(params.get("subject"), params.get("msg"), params.get("grp"), new Callback<JsonElement>() {
+            case Constants.NOTIFICATION_GET_API :
+                postWebservice.postApi(Integer.parseInt(params.get("page")) ,new Callback<JsonElement>() {
+                    @Override
+                    public void success(JsonElement jsonElement, Response response) {
+                        if (!jsonElement.isJsonNull()) {
+
+                            Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
+
+                            if (responseClass != null) {
+                                Object object = Common.createObjectForClass(responseClass);
+
+                                if (jsonElement.isJsonArray()) {
+                                    Type collectionType = new TypeToken<Collection<Object>>() {
+                                    }.getType();
+                                    Collection<Object> data = gson.fromJson(jsonElement, collectionType);
+                                    webserviceListener.onCompletion(data, new AppError());
+                                } else {
+                                    object = gson.fromJson(jsonElement, responseClass);
+                                    webserviceListener.onCompletion(object, new AppError());
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        AppError appError = new AppError();
+                        appError.setErrorCode(getRetrofitErrorcode(error));
+                        appError.setErrorMessage(error.getLocalizedMessage());
+
+                        // Send empty object
+                        if (responseClass != null) {
+                            webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
+                        } else {
+                            webserviceListener.onCompletion(null, appError);
+                        }
+                    }
+                });
+                break;
+
+
+            case Constants.PHOTOS_GET_ALBUM_API_PATH :
+                postWebservice.postApi(Integer.parseInt(params.get("page")) ,new Callback<JsonElement>() {
+                    @Override
+                    public void success(JsonElement jsonElement, Response response) {
+                        if (!jsonElement.isJsonNull()) {
+
+                            Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
+
+                            if (responseClass != null) {
+                                Object object = Common.createObjectForClass(responseClass);
+
+                                if (jsonElement.isJsonArray()) {
+                                    Type collectionType = new TypeToken<Collection<Object>>() {
+                                    }.getType();
+                                    Collection<Object> data = gson.fromJson(jsonElement, collectionType);
+                                    webserviceListener.onCompletion(data, new AppError());
+                                } else {
+                                    object = gson.fromJson(jsonElement, responseClass);
+                                    webserviceListener.onCompletion(object, new AppError());
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        AppError appError = new AppError();
+                        appError.setErrorCode(getRetrofitErrorcode(error));
+                        appError.setErrorMessage(error.getLocalizedMessage());
+
+                        // Send empty object
+                        if (responseClass != null) {
+                            webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
+                        } else {
+                            webserviceListener.onCompletion(null, appError);
+                        }
+                    }
+                });
+                break;
+
+           //
+
+
+            case Constants.PHOTOS_GET_API_PATH :
+                postWebservice.postAlbumDetailsApi(Integer.parseInt(params.get("album_id")),new Callback<JsonElement>() {
+                    @Override
+                    public void success(JsonElement jsonElement, Response response) {
+                        if (!jsonElement.isJsonNull()) {
+
+                            Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
+
+                            if (responseClass != null) {
+                                Object object = Common.createObjectForClass(responseClass);
+
+                                if (jsonElement.isJsonArray()) {
+                                    Type collectionType = new TypeToken<Collection<Object>>() {
+                                    }.getType();
+                                    Collection<Object> data = gson.fromJson(jsonElement, collectionType);
+                                    webserviceListener.onCompletion(data, new AppError());
+                                } else {
+                                    object = gson.fromJson(jsonElement, responseClass);
+                                    webserviceListener.onCompletion(object, new AppError());
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        AppError appError = new AppError();
+                        appError.setErrorCode(getRetrofitErrorcode(error));
+                        appError.setErrorMessage(error.getLocalizedMessage());
+
+                        // Send empty object
+                        if (responseClass != null) {
+                            webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
+                        } else {
+                            webserviceListener.onCompletion(null, appError);
+                        }
+                    }
+                });
+                break;
+
+
+
+            case Constants.EVENTS_GET_MONTH_WISE_API_PATH :
+                postWebservice.postEventDetailsApi(Integer.parseInt(params.get("page")),params.get("filter_month"),params.get("filter_year"),new Callback<JsonElement>() {
+                    @Override
+                    public void success(JsonElement jsonElement, Response response) {
+                        if (!jsonElement.isJsonNull()) {
+
+                            Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
+
+                            if (responseClass != null) {
+                                Object object = Common.createObjectForClass(responseClass);
+
+                                if (jsonElement.isJsonArray()) {
+                                    Type collectionType = new TypeToken<Collection<Object>>() {
+                                    }.getType();
+                                    Collection<Object> data = gson.fromJson(jsonElement, collectionType);
+                                    webserviceListener.onCompletion(data, new AppError());
+                                } else {
+                                    object = gson.fromJson(jsonElement, responseClass);
+                                    webserviceListener.onCompletion(object, new AppError());
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        AppError appError = new AppError();
+                        appError.setErrorCode(getRetrofitErrorcode(error));
+                        appError.setErrorMessage(error.getLocalizedMessage());
+
+                        // Send empty object
+                        if (responseClass != null) {
+                            webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
+                        } else {
+                            webserviceListener.onCompletion(null, appError);
+                        }
+                    }
+                });
+                break;
+
+            case Constants.EVENTS_GET_DETAILS_API_PATH :
+                postWebservice.postEventDetailApi(Integer.parseInt(params.get("event_id")),new Callback<JsonElement>() {
+                    @Override
+                    public void success(JsonElement jsonElement, Response response) {
+                        if (!jsonElement.isJsonNull()) {
+
+                            Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
+
+                            if (responseClass != null) {
+                                Object object = Common.createObjectForClass(responseClass);
+
+                                if (jsonElement.isJsonArray()) {
+                                    Type collectionType = new TypeToken<Collection<Object>>() {
+                                    }.getType();
+                                    Collection<Object> data = gson.fromJson(jsonElement, collectionType);
+                                    webserviceListener.onCompletion(data, new AppError());
+                                } else {
+                                    object = gson.fromJson(jsonElement, responseClass);
+                                    webserviceListener.onCompletion(object, new AppError());
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        AppError appError = new AppError();
+                        appError.setErrorCode(getRetrofitErrorcode(error));
+                        appError.setErrorMessage(error.getLocalizedMessage());
+
+                        // Send empty object
+                        if (responseClass != null) {
+                            webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
+                        } else {
+                            webserviceListener.onCompletion(null, appError);
+                        }
+                    }
+                });
+                break;
+
+
+            case "notification/add":
+                postWebservice.postNotification(params.get("notification_title"), params.get("notification_message"), params.get("group_id"), new Callback<JsonElement>() {
                     @Override
                     public void success(JsonElement jsonElement, Response response) {
 
@@ -383,7 +603,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                 });
                 break;
             case Constants.GROUP_UPDATE_NOTIFICATION:
-                postWebservice.postGroupNotification(params.get("regId"), params.get("groupValString"), new Callback<JsonElement>() {
+                postWebservice.postGroupNotification(params.get("group_id"), new Callback<JsonElement>() {
                     @Override
                     public void success(JsonElement jsonElement, Response response) {
                         if (!jsonElement.isJsonNull()) {
@@ -422,8 +642,136 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     }
                 });
                 break;
+
+
+            case Constants.EVENTS_GET_CATEGORY_API_PATH:
+
+                postWebservice.postApiCategories(1,new Callback<JsonElement>() {
+                    @Override
+                    public void success(JsonElement jsonElement, Response response) {
+                        if (!jsonElement.isJsonNull()) {
+
+                            Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
+
+                            if (responseClass != null) {
+                                Object object = Common.createObjectForClass(responseClass);
+
+                                if (jsonElement.isJsonArray()) {
+                                    Type collectionType = new TypeToken<Collection<Object>>() {
+                                    }.getType();
+                                    Collection<Object> data = gson.fromJson(jsonElement, collectionType);
+                                    webserviceListener.onCompletion(data, new AppError());
+                                } else {
+                                    object = gson.fromJson(jsonElement, responseClass);
+                                    webserviceListener.onCompletion(object, new AppError());
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        AppError appError = new AppError();
+                        appError.setErrorCode(getRetrofitErrorcode(error));
+                        appError.setErrorMessage(error.getLocalizedMessage());
+
+                        // Send empty object
+                        if (responseClass != null) {
+                            webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
+                        } else {
+                            webserviceListener.onCompletion(null, appError);
+                        }
+                    }
+                });
+                break;
+
+
+
+            case Constants.LOGOUT_API_PATH:
+
+                postWebservice.postApiCategories(1,new Callback<JsonElement>() {
+                    @Override
+                    public void success(JsonElement jsonElement, Response response) {
+                        if (!jsonElement.isJsonNull()) {
+
+                            Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
+
+                            if (responseClass != null) {
+                                Object object = Common.createObjectForClass(responseClass);
+
+                                if (jsonElement.isJsonArray()) {
+                                    Type collectionType = new TypeToken<Collection<Object>>() {
+                                    }.getType();
+                                    Collection<Object> data = gson.fromJson(jsonElement, collectionType);
+                                    webserviceListener.onCompletion(data, new AppError());
+                                } else {
+                                    object = gson.fromJson(jsonElement, responseClass);
+                                    webserviceListener.onCompletion(object, new AppError());
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        AppError appError = new AppError();
+                        appError.setErrorCode(getRetrofitErrorcode(error));
+                        appError.setErrorMessage(error.getLocalizedMessage());
+
+                        // Send empty object
+                        if (responseClass != null) {
+                            webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
+                        } else {
+                            webserviceListener.onCompletion(null, appError);
+                        }
+                    }
+                });
+                break;
+
+
+            case Constants.EVENTS_GET_ALL_TERMS_API_PATH:
+                postWebservice.postApiCategories(1,new Callback<JsonElement>() {
+                    @Override
+                    public void success(JsonElement jsonElement, Response response) {
+                        if (!jsonElement.isJsonNull()) {
+
+                            Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
+
+                            if (responseClass != null) {
+                                Object object = Common.createObjectForClass(responseClass);
+
+                                if (jsonElement.isJsonArray()) {
+                                    Type collectionType = new TypeToken<Collection<Object>>() {
+                                    }.getType();
+                                    Collection<Object> data = gson.fromJson(jsonElement, collectionType);
+                                    webserviceListener.onCompletion(data, new AppError());
+                                } else {
+                                    object = gson.fromJson(jsonElement, responseClass);
+                                    webserviceListener.onCompletion(object, new AppError());
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        AppError appError = new AppError();
+                        appError.setErrorCode(getRetrofitErrorcode(error));
+                        appError.setErrorMessage(error.getLocalizedMessage());
+
+                        // Send empty object
+                        if (responseClass != null) {
+                            webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
+                        } else {
+                            webserviceListener.onCompletion(null, appError);
+                        }
+                    }
+                });
+                break;
+
+
             case Constants.ADD_NEW_LINK_API_PATH:
-                postWebservice.postLink(params.get("name"), params.get("url"), params.get("grp"), new Callback<JsonElement>() {
+                postWebservice.postLink(params.get("link_name"), params.get("link_url"), params.get("group_id"), new Callback<JsonElement>() {
                     @Override
                     public void success(JsonElement jsonElement, Response response) {
                         if (!jsonElement.isJsonNull()) {
@@ -462,7 +810,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                 });
                 break;
             case Constants.PHOTOS_ADD_NEW_ALBUM_API_PATH:
-                postWebservice.postAlbum(params.get("albumName"), params.get("grp"), new Callback<JsonElement>() {
+                postWebservice.postAlbum(params.get("album_name"), params.get("group_id"), new Callback<JsonElement>() {
                     @Override
                     public void success(JsonElement jsonElement, Response response) {
                         if (!jsonElement.isJsonNull()) {
@@ -539,6 +887,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     }
                 });
                 break;
+
             default:
                 postWebservice.post(params.get("eventId"), new Callback<JsonElement>() {
                     @Override
@@ -597,7 +946,12 @@ public class RetrofitImplementation implements WebServiceProtocol{
                 .setRequestInterceptor(new RequestInterceptor() {
                     @Override
                     public void intercept(RequestFacade request) {
-                        request.addHeader("Authorization", LoginManager.accessToken);
+
+
+                        SharedPreferences sharedpreferences = App.getAppContext().getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
+                        String accessToken = sharedpreferences.getString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, null);
+
+                        request.addHeader("Authorization", accessToken);
 
                         //request.addHeader("Authorization", "3ec8e9ed13ad96b6b979517f5bf34545891f4958");
 
@@ -622,9 +976,9 @@ public class RetrofitImplementation implements WebServiceProtocol{
                         webserviceListener.onCompletion(data, new AppError());
                     }else {
 
-                            JsonObject jobject = jsonElement.getAsJsonObject();
+                           // JsonObject jobject = jsonElement.getAsJsonObject();
                             try {
-                                jobject = jobject.getAsJsonObject("data");
+                               // jobject = jobject.getAsJsonObject("data");
                                 object = gson.fromJson(jsonElement, responseClass);
                                 webserviceListener.onCompletion(object, new AppError());
                             }catch (Exception e){
@@ -718,17 +1072,23 @@ public class RetrofitImplementation implements WebServiceProtocol{
                 .setRequestInterceptor(new RequestInterceptor() {
                     @Override
                     public void intercept(RequestFacade request) {
-                        request.addHeader("Authorization", LoginManager.accessToken);
+
+                        SharedPreferences sharedpreferences = App.getAppContext().getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
+                        String accessToken = sharedpreferences.getString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, null);
+
+                        request.addHeader("Authorization", accessToken);
+
+                        //request.addHeader("Authorization", LoginManager.accessToken);
                     }
                 })
                 .build();
 
-        TypedString id = new TypedString("alb_id");
-        TypedString name = new TypedString("caption");
+        TypedString id = new TypedString("album_id");
+        TypedString name = new TypedString("caption_name");
 
         WebserviceApi uploadImageService = restAdapter.create(WebserviceApi.class);
 
-        uploadImageService.uploadImage(params.get("alb_id"),params.get("caption"), typedFile, new Callback<JsonElement>() {
+        uploadImageService.uploadImage(params.get("album_id"),params.get("caption_name"), typedFile, new Callback<JsonElement>() {
             @Override
             public void success(JsonElement jsonElement, Response response) {
                 if (!jsonElement.isJsonNull()) {
@@ -775,6 +1135,22 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
         @FormUrlEncoded
         @POST("/")
+        void postApiCategories(@Field("page") int page,Callback<JsonElement> callback);
+
+        @FormUrlEncoded
+        @POST("/")
+        void postEventDetailApi(@Field("event_id") int page, Callback<JsonElement> callback);
+
+        @FormUrlEncoded
+        @POST("/")
+        void postEventDetailsApi(@Field("page") int page,@Field("filter_month") String filterMonth,@Field("filter_year") String filterYear, Callback<JsonElement> callback);
+
+        @FormUrlEncoded
+        @POST("/")
+        void postAlbumDetailsApi(@Field("album_id") int albumId, Callback<JsonElement> callback);
+
+        @FormUrlEncoded
+        @POST("/")
       //  void login(@Field("email") String loginId, @Field("password") String password, @Field("device_token") String regId,@Field("device_type") String deviceType ,Callback<JsonElement> callback);
       void login(@Field("email") String loginId, @Field("password") String password, @Field("device_token") String regId, @Field("device_type") String deviceType, Callback<JsonElement> callback);
         @FormUrlEncoded
@@ -788,19 +1164,19 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
         @FormUrlEncoded
         @POST("/")
-        void postGroupNotification(@Field("regId") String regId, @Field("groupValString") String subscribeVal, Callback<JsonElement> callback);
+        void postGroupNotification(@Field("group_id") String subscribeVal, Callback<JsonElement> callback);
 
         @FormUrlEncoded
         @POST("/")
-        void postNotification(@Field("subject") String subject, @Field("msg") String msg, @Field("grp") String grpAray, Callback<JsonElement> callback);
+        void postNotification(@Field("notification_title") String subject, @Field("notification_message") String msg, @Field("group_id") String grpAray, Callback<JsonElement> callback);
 
         @FormUrlEncoded
         @POST("/")
-        void postLink(@Field("name") String name, @Field("url") String url, @Field("grp") String grpArray, Callback<JsonElement> callback);
+        void postLink(@Field("link_name") String name, @Field("link_url") String url, @Field("group_id") String grpArray, Callback<JsonElement> callback);
 
         @FormUrlEncoded
         @POST("/")
-        void postAlbum(@Field("albumName") String albumName, @Field("grp") String grpArray, Callback<JsonElement> callback);
+        void postAlbum(@Field("album_name") String albumName, @Field("group_id") String grpArray, Callback<JsonElement> callback);
 
         @GET("/")
         void get(@QueryMap HashMap<String, String> params, Callback<JsonElement> callback);
@@ -815,7 +1191,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
         @Multipart
         @POST("/")
-        void uploadImage(@Part("alb_id")String id, @Part("caption") String title, @Part("files") TypedFile image, Callback<JsonElement> cb);
+        void uploadImage(@Part("album_id")String id, @Part("caption_name") String title, @Part("file") TypedFile image, Callback<JsonElement> cb);
 
     }
 

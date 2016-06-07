@@ -7,6 +7,9 @@ import com.google.gson.annotations.SerializedName;
  */
 public class AddAlbumResponseData {
 
+//            "data": {
+//        "method_type": "POST"
+
     @SerializedName("album_id")
     public String albumId;
 

@@ -63,12 +63,12 @@ public class AddLinksActivity extends ActionBarActivity {
                 if (isChecked) {
                     for (int i = 0; i < notificationGroupList.size(); i++) {
                         // listData[i] = listView.getAdapter().getItem(i).toString();
-                        notificationGroupList.get(i).setActive(1);
+                        notificationGroupList.get(i).setActive(Boolean.TRUE);
                     }
                 } else {
                     for (int i = 0; i < notificationGroupList.size(); i++) {
                         // listData[i] = listView.getAdapter().getItem(i).toString();
-                        notificationGroupList.get(i).setActive(0);
+                        notificationGroupList.get(i).setActive(Boolean.FALSE);
                     }
                 }
               //  NotificationManager.grpIds.clear();
@@ -114,7 +114,7 @@ public class AddLinksActivity extends ActionBarActivity {
                         // notificationGroupList.get(i).setActive(1);
 
 
-                        if (notificationGroupList.get(i).getActive()==1)
+                        if (notificationGroupList.get(i).getActive()==Boolean.TRUE)
                         {
                             if (grpIdString.equals(""))
                             {
@@ -130,21 +130,35 @@ public class AddLinksActivity extends ActionBarActivity {
                    // String grpIdString = NotificationManager.getSharedInstance().getGroupIds(AddLinksActivity.this);
 
                     HashMap params = new HashMap();
-                    params.put("name", title.getText().toString());
-                    params.put("url", desc.getText().toString());
-                    params.put("grp", grpIdString);
+
+                    params.put("link_name", title.getText().toString());
+
+                    String url = desc.getText().toString();
+
+                    if(!url.startsWith("http://")){
+                        url = "http://"+url;
+                    }
+
+                    params.put("link_url", url);
+                    params.put("group_id", grpIdString);
                     LinksManager.getSharedInstance().addLinks(params, new LinksManager.AddLinksManagerListener() {
                         @Override
                         public void onCompletion(PostResponse response, AppError error) {
                             if (response != null) {
                                 if (response.getStatus() == 200) {
                                     Toast.makeText(AddLinksActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                                    finish();
                                 }
-                            } else {
+                                else
+                                {
+                                    Toast.makeText(AddLinksActivity.this, "Some error occured", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            else {
                                 Toast.makeText(AddLinksActivity.this, "Some error occured", Toast.LENGTH_SHORT).show();
                             }
 
-                            finish();
+
                         }
                     });
                    // finish();
@@ -192,7 +206,7 @@ public class AddLinksActivity extends ActionBarActivity {
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                     if (response != null) {
 
-                        if (response.getData().size() > 0){
+                        if (response.getData().getGroups().size() > 0){
                             AddLinksActivity.this.notificationGroupList.addAll(NotificationManager.groupList);
                             notificationsGroupAdapter.notifyDataSetChanged();
                             setListViewHeightBasedOnChildren(addListView);

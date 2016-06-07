@@ -16,4 +16,6 @@
     <color name="secondarytextcolor">#666666</color>
     <!--<color name="background">#FFFFFF</color>-->
     <color name="transparent_toolbar">#80333332</color>
+    <color name="itemSelected">#F7F7F7</color>
+    <color name="itemNotSelected">#ECECEC</color>
 </resources>

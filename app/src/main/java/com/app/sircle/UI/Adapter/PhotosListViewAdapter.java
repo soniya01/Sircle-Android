@@ -80,8 +80,12 @@ public class PhotosListViewAdapter extends BaseAdapter {
 
         viewHolder.imagesCountLabel.setText(String.valueOf(photoList.get(position).numberOfPhotos)+" Photos");
         viewHolder.albumLabelName.setText(photoList.get(position).albumTitle);
-        viewHolder.albumDate.setText(photoList.get(position).getPublishDate());
-        viewHolder.albumTime.setText(photoList.get(position).getTime());
+
+        String str = photoList.get(position).getPublishDate();
+        String[] splited = str.split("\\s+");
+
+        viewHolder.albumDate.setText(splited[0]);
+        viewHolder.albumTime.setText(splited[1]);
 
         return convertView;
     }

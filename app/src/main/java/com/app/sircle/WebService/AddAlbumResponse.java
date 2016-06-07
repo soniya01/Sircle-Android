@@ -1,11 +1,15 @@
 package com.app.sircle.WebService;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by soniya on 23/09/15.
  */
 public class AddAlbumResponse {
 
     public String message;
+
+    @SerializedName("code")
     public int status;
 
     public AddAlbumResponseData data;

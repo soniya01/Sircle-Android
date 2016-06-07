@@ -62,10 +62,13 @@ public class NotificationListviewAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
+        String str = notificationList.get(position).getPublishDate();
+        String[] splited = str.split("\\s+");
+
         viewHolder.notificationDescLabel.setText(notificationList.get(position).getMessage());
         viewHolder.notificationTitleLabel.setText(notificationList.get(position).getSubject());
-        viewHolder.notificationTimeLabel.setText(notificationList.get(position).getTime());
-        viewHolder.notificationDateLabel.setText(notificationList.get(position).getPublishDate());
+        viewHolder.notificationTimeLabel.setText(splited[1]);
+        viewHolder.notificationDateLabel.setText(splited[0]);
 
         return convertView;
     }

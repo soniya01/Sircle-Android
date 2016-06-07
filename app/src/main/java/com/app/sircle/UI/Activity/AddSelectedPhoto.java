@@ -3,11 +3,15 @@ package com.app.sircle.UI.Activity;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,11 +32,16 @@ import com.app.sircle.Utility.Constants;
 import com.app.sircle.WebService.PhotoUploadResponse;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 import retrofit.mime.TypedFile;
 
-public class AddSelectedPhoto extends ActionBarActivity {
+public class AddSelectedPhoto extends AppCompatActivity {
 
     private ImageView newPhoto;
     private EditText desc;
@@ -64,9 +73,11 @@ public class AddSelectedPhoto extends ActionBarActivity {
 
        // Bitmap bitmap = (Bitmap)extras.get("data");
 
-        newPhoto.setImageBitmap(Constants.myBitmap);
+     //  newPhoto.setImageBitmap(Constants.myBitmap);
 
-      // displayClickedImage();
+
+
+       displayClickedImage();
 
         addPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,12 +97,14 @@ public class AddSelectedPhoto extends ActionBarActivity {
                 BaseActivity.jumpToFragment = true;
 
                 HashMap params = new HashMap();
-                params.put("alb_id", String.valueOf(PhotosFragment.albumId));
+
+                params.put("album_id", String.valueOf(albumId));
                 //params.put("alb_id",AlbumDetailsActivity.albumId);
-                params.put("caption", descText);
+                params.put("caption_name", descText);
 
                 String photoName = data.getPath();
-                File photo = new File(photoName );
+               // String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.ENGLISH).format(new Date());
+                File photo = new File(photoName);
                 TypedFile typedImage = new TypedFile("image/jpeg", photo);
 
                 PhotoManager.getSharedInstance().uploadImage(params, typedImage, new PhotoManager.PhotoManagerListener() {
@@ -210,11 +223,11 @@ public class AddSelectedPhoto extends ActionBarActivity {
                 bitmap = resizeBitMapForDisplay(bitmap);
             } else {
                 bitmap = instance.decodeSampledBitmapFromImageData(data, 400, 400);
-                try {
-                    bitmap = resizeGalleryImage(bitmap);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+//                try {
+//                    bitmap = resizeGalleryImage(bitmap);
+//                }catch (Exception e){
+//                    e.printStackTrace();
+//                }
             }
 
             return bitmap;
@@ -327,5 +340,48 @@ public class AddSelectedPhoto extends ActionBarActivity {
 
 
 
+    }
+
+    private File savebitmap(String filename) {
+        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+        OutputStream outStream = null;
+
+        File file = new File(filename + ".png");
+        if (file.exists()) {
+            file.delete();
+            file = new File(extStorageDirectory, filename + ".png");
+            Log.e("file exist", "" + file + ",Bitmap= " + filename);
+        }
+        try {
+            // make a new bitmap from your file
+            Bitmap bitmap = BitmapFactory.decodeFile(file.getName());
+
+            outStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+            outStream.flush();
+            outStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.e("file", "" + file);
+        return file;
+
+    }
+
+    private File persistImage(Bitmap bitmap, String name) {
+        File filesDir = getApplicationContext().getFilesDir();
+        File imageFile = new File(filesDir, name + ".jpg");
+
+        OutputStream os;
+        try {
+            os = new FileOutputStream(imageFile);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
+            os.flush();
+            os.close();
+        } catch (Exception e) {
+            Log.e("File Error", "Error writing bitmap", e);
+        }
+
+        return imageFile;
     }
 }

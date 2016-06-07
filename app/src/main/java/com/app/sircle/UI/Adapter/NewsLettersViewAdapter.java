@@ -65,9 +65,13 @@ public class NewsLettersViewAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.pdfTitleLabel.setText(newsLettersList.get(position).getName());
-        viewHolder.pdfDateLabel.setText(newsLettersList.get(position).getDate());
-        //viewHolder.pdfTimeLabel.setText(newsLettersList.get(position).getPdfTime());
+        viewHolder.pdfTitleLabel.setText(newsLettersList.get(position).getNewspaperName());
+
+        String str = newsLettersList.get(position).getDate();
+        String[] splited = str.split("\\s+");
+
+        viewHolder.pdfDateLabel.setText(splited[0]);
+        viewHolder.pdfTimeLabel.setText(splited[1]);
         return convertView;
 
     }

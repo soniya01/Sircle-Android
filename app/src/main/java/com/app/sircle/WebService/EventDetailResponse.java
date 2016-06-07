@@ -1,12 +1,17 @@
 package com.app.sircle.WebService;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
  * Created by soniya on 22/09/15.
  */
 public class EventDetailResponse {
+
+
     public String message;
+    @SerializedName("code")
     public int status;
 
     public EventDetailResponseData data;

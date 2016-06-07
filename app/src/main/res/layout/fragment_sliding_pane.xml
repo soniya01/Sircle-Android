@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ECECEC"
     tools:context="com.app.sircle.UI.SlidingPane.SlidingPaneFragment">
 
 
@@ -11,8 +12,8 @@
         android:layout_height="match_parent"
         android:background="?android:attr/selectableItemBackground"
         android:cacheColorHint="@android:color/transparent"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="1dp"
+        android:divider="#DBDBDB"
+        android:dividerHeight="5dp"
         android:listSelector="@android:color/transparent"
         android:overScrollMode="never"
         android:scrollbars="none" />

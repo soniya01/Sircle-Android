@@ -59,13 +59,13 @@ public class AlbumImagePagerAdapter extends PagerAdapter {
         titleLabel = (TextView)viewLayout.findViewById(R.id.album_image_title_label);
         countLabel = (TextView)viewLayout.findViewById(R.id.albums_image_no_label);
 
-        titleLabel.setText(albumDetailsList.get(position).getPhotoCaption());
+        titleLabel.setText(albumDetailsList.get(position).getFileName());
 
         countLabel.setText((position+1)+"/"+albumDetailsList.size());
 
         // get screen dimensions
         Picasso.with(context)
-                .load(albumDetailsList.get(position).getPhotoLargeURL())
+                .load(albumDetailsList.get(position).getFilePath())
                 .into(photoImageView, new Callback() {
                     @Override
                     public void onSuccess() {

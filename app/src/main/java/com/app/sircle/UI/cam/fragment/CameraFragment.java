@@ -1,13 +1,16 @@
 package com.app.sircle.UI.cam.fragment;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.Size;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,11 +20,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.app.sircle.UI.Model.ImageData;
 import com.app.sircle.UI.cam.Config;
 import com.app.sircle.UI.cam.listener.CameraFragmentListener;
 import com.app.sircle.UI.cam.listener.CameraOrientationListener;
 import com.app.sircle.UI.cam.view.CameraPreview;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 /**
@@ -103,6 +108,10 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
             bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
             oldBitmap.recycle();
         }
+
+//        String path = getRealPathFromURI(getImageUri(getActivity().getApplicationContext(), bitmap));
+//        ImageData imageData1 = new ImageData();
+//        imageData1.setPath(path);
 
         listener.onPictureTaken(bitmap);
     }
@@ -331,5 +340,20 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
                     Camera.Parameters.FLASH_MODE_OFF : Camera.Parameters.FLASH_MODE_ON);
             camera.setParameters(parameters);
         }
+    }
+
+    public String getRealPathFromURI(Uri uri) {
+        Cursor cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx);
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        inImage.recycle();
+        return Uri.parse(path);
     }
 }

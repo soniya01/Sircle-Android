@@ -113,7 +113,7 @@ public class CaldroidSampleCustomAdapter extends CaldroidGridAdapter {
 
 		if (!Constants.dateAvailabe.equals("")) {
 
-			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			Date convertedDate = new Date();
 			try {
 				convertedDate = dateFormat.parse(Constants.dateAvailabe);

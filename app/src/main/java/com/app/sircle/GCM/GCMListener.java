@@ -26,6 +26,8 @@ import com.app.sircle.UI.Activity.EventDetailActivity;
 import com.app.sircle.Utility.Constants;
 import com.google.android.gms.gcm.GcmListenerService;
 
+import org.json.JSONObject;
+
 import java.util.Set;
 
 /**
@@ -39,12 +41,41 @@ public class GCMListener extends GcmListenerService {
     public void onMessageReceived(String from, Bundle data) {
         super.onMessageReceived(from, data);
         count++;
+
+        //Bundle[{payload={"id":23,"other_id":23,"type":"notification"}, title=NOTIFICATION, message=NOTIFICATION: Well, collapse_key=do_not_collapse}]
+
         String title = data.getString("title");
-        String type = title.split(":")[0];
+        String type = data.getString("payload");
         String message = data.getString("message");
-        String url = data.getString("url");
+
+
+
+
+       // String url = data.getString("url");
+
+
         Log.d("App", "From: " + from);
         Log.d("App", "Message: " + message);
+
+//        String jsonStr = data.getString("payload");
+//        JSONObject json =
+//
+//
+
+      //  String json = {"phonetype":"N95","cat":"WP"};
+
+        try {
+
+            JSONObject obj = new JSONObject(type);
+
+            Log.d("My App", obj.getString("type"));
+
+
+
+        } catch (Throwable t) {
+            Log.e("My App", "Could not parse malformed JSON: \"" + "\"");
+        }
+
 
         sendNotification(data);
     }
@@ -55,7 +86,7 @@ public class GCMListener extends GcmListenerService {
     }
 
     private void sendNotification(Bundle data) {
-        String title = "", eventId = "", url = "", albumId = "", message = "";
+        String title = "", eventId = "", url = "", Id = "", message = "";
 
 
         SharedPreferences loginSharedPrefs = getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
@@ -75,46 +106,66 @@ public class GCMListener extends GcmListenerService {
 
         System.out.println("REG"+ Constants.GCM_REG_ID);
 
+
+//        String title = data.getString("title");
+         String type = data.getString("payload");
+//        String message = data.getString("message");
+
+
+        try {
+
+            JSONObject obj = new JSONObject(type);
+
+            Log.d("My App",obj.getString("type") );
+
+            url = obj.getString("type");
+            Id = obj.getString("id");
+
+        } catch (Throwable t) {
+            Log.e("My App", "Could not parse malformed JSON: \"" + "\"");
+        }
+
         Class intentClass = null;
         Intent intent;
-        url = data.getString("url");
 
 //        Toast.makeText(getBaseContext(), title + "\n" + message,Toast.LENGTH_SHORT).show();
         System.out.println("message: "+ title + "\n" + message);
         title = data.getString("title");
-        if (url.equals("notificationsPage")){
-            message = data.getString("message");
+        message = data.getString("message");
+
+        if (url.equals("notification")){
+
             title = title + "\n" + message;
             BaseActivity.selectedModuleIndex = 3;
             intentClass = BaseActivity.class;
 
-        }else if(url.equals("eventPage")){
+        }else if(url.equals("calendar")){
             intentClass = EventDetailActivity.class;
             BaseActivity.selectedModuleIndex = 1;
         }
-        else if(url.equals("albumPage")){
-                intentClass = BaseActivity.class;
-                BaseActivity.selectedModuleIndex = 2;
+        else if(url.equals("album")){
+                intentClass = AlbumDetailsActivity.class;
+               // BaseActivity.selectedModuleIndex = 2;
             }
         else if (url.equals("PhotoListViewPage")){
                 intentClass = AlbumDetailsActivity.class;
                 BaseActivity.selectedModuleIndex = 2;
         }
-        else if (url.equals("documentsPage"))
+        else if (url.equals("document"))
         {
             intentClass = BaseActivity.class;
             BaseActivity.selectedModuleIndex = 5;
         }
-        else if (url.equals("newslettersPage"))
+        else if (url.equals("newspaper"))
         {
             intentClass = BaseActivity.class;
             BaseActivity.selectedModuleIndex = 4;
         }
-        else if (url.equals("videoPage")) {
+        else if (url.equals("video")) {
             intentClass = BaseActivity.class;
             BaseActivity.selectedModuleIndex = 6;
         }
-        else if (url.equals("linkPage")) {
+        else if (url.equals("link")) {
             intentClass = BaseActivity.class;
             BaseActivity.selectedModuleIndex = 7;
         }
@@ -126,9 +177,12 @@ public class GCMListener extends GcmListenerService {
 
         intent = new Intent(this, intentClass);
         intent.putExtra("notificationActivity", BaseActivity.selectedModuleIndex);
+        intent.putExtra("albumId", Id);
+        intent.putExtra("eventId", Id);
+
         if (url.equals("PhotoListViewPage")){
-            albumId = data.getString("albumId");
-            intent.putExtra("albumId", albumId);
+//            albumId = data.getString("albumId");
+//            intent.putExtra("albumId", albumId);
         }
         if (url.equals("eventPage")){
             try{
@@ -142,6 +196,8 @@ public class GCMListener extends GcmListenerService {
         //System.out.println("extras: "+ eventId + "\n" + albumId);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
+        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -151,7 +207,7 @@ public class GCMListener extends GcmListenerService {
                     .setContentTitle(getResources().getString(R.string.app_name))
                     .setSmallIcon(android.R.drawable.stat_notify_voicemail)
                     .setContentIntent(pendingIntent)
-                    .setContentText(title)
+                    .setContentText(message)
                     .setDefaults(Notification.DEFAULT_SOUND)
                     .build();
 
@@ -160,7 +216,7 @@ public class GCMListener extends GcmListenerService {
             notification = new NotificationCompat.Builder(this)
                     .setSmallIcon(android.R.drawable.stat_notify_voicemail)
                     .setContentTitle(getResources().getString(R.string.app_name))
-                    .setContentText(title)
+                    .setContentText(message)
                     .setDefaults(Notification.DEFAULT_SOUND)
                     .setContentIntent(pendingIntent)
             .build();

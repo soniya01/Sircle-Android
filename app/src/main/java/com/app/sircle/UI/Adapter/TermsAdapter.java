@@ -70,7 +70,7 @@ public class TermsAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.termsTitleLabel.setText(termsList.get(position).getTermTitle());
+        viewHolder.termsTitleLabel.setText("Term"+termsList.get(position).getTermTitle());
         viewHolder.termsStartDateLabel.setText(termsList.get(position).getTermStartDate().substring(0, 10));
          viewHolder.termsEndDateLabel.setText(termsList.get(position).getTermEndDate().substring(0,10));
 

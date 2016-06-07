@@ -1,6 +1,7 @@
 package com.app.sircle.WebService;
 
 import com.app.sircle.UI.Model.EventCategory;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
@@ -9,10 +10,13 @@ import java.util.List;
  */
 public class CategoryResponse {
 
+
+
     public String message;
+        @SerializedName("code")
     public int status;
 
-    public List<EventCategory> data;
+    public CategoryResponseData data;
 
     public String getMessage() {
         return message;
@@ -30,11 +34,11 @@ public class CategoryResponse {
         this.status = status;
     }
 
-    public List<EventCategory> getData() {
+    public CategoryResponseData getData() {
         return data;
     }
 
-    public void setData(List<EventCategory> data) {
+    public void setData(CategoryResponseData data) {
         this.data = data;
     }
 }

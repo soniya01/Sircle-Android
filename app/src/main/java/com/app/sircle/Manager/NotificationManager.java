@@ -74,7 +74,7 @@ public class NotificationManager {
                 if (groupResponse != null){
                     if (groupResponse.getData() != null){
                         groupList.clear();
-                        groupList = groupResponse.getData();
+                        groupList = groupResponse.getData().getGroups();
                     }
 
                 }

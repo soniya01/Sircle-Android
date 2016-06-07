@@ -1,6 +1,8 @@
 package com.app.sircle.Manager;
 
 import com.app.sircle.Utility.AppError;
+import com.app.sircle.WebService.CategoryResponse;
+import com.app.sircle.WebService.EventWebService;
 import com.app.sircle.WebService.LoginResponse;
 import com.app.sircle.WebService.LoginService;
 
@@ -34,6 +36,16 @@ public class LoginManager {
             @Override
             public void onCompletion(LoginResponse response, AppError error) {
                 loginManagerListener.onCompletion(response, error);
+            }
+        });
+    }
+
+    public void logout(final LoginManagerListener loginManagerListener){
+
+        LoginService.logout(new LoginService.GetLoginResponseWebServiceListener() {
+            @Override
+            public void onCompletion(LoginResponse response, AppError error) {
+               // loginManagerListener.onCompletion(response, error);
             }
         });
     }

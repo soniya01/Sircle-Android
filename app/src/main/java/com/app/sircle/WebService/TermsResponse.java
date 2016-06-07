@@ -1,6 +1,7 @@
 package com.app.sircle.WebService;
 
 import com.app.sircle.UI.Model.Terms;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,8 @@ import java.util.List;
  * Created by soniya on 18/09/15.
  */
 public class TermsResponse {
+
+    @SerializedName("code")
     public int status;
     public String message;
     public List<Terms> data = new ArrayList<Terms>();

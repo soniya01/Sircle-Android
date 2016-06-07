@@ -86,7 +86,7 @@ public class AddGroupAdapter extends BaseAdapter {
 //            NotificationManager.grpIds.add(notificationsGroupList.get(position).getId());
 //        }else {
         //  if (Constants.isAllChecked == -1){
-        if (notificationsGroupList.get(position).getActive() == 1){
+        if (notificationsGroupList.get(position).getActive() == Boolean.TRUE){
             // NotificationManager.grpIds.add( notificationsGroupList.get(position).getId());
             viewHolder.checkBox.setChecked(true);
         }
@@ -105,12 +105,12 @@ public class AddGroupAdapter extends BaseAdapter {
                 if (isChecked){
                     //  NotificationManager.grpIds.add( notificationsGroupList.get(pos).getId());
                     // Constants.isAllChecked = -1;
-                    notificationsGroupList.get(pos).setActive(1);
+                    notificationsGroupList.get(pos).setActive(Boolean.TRUE);
                 }else{
                     // if (SettingsActivity.allCheckBox!=null)
                     // SettingsActivity.allCheckBox.setChecked(false);
                     //Constants.isAllChecked = -1;
-                    notificationsGroupList.get(pos).setActive(0);
+                    notificationsGroupList.get(pos).setActive(Boolean.FALSE);
                     //NotificationManager.grpIds.remove(notificationsGroupList.get(pos).getId());
                 }
 

@@ -5,12 +5,15 @@ import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -86,6 +89,7 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_album_full_screen, menu);
+
         return true;
     }
 
@@ -99,7 +103,7 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
         if (item.getItemId() == R.id.action_download) {
             //TODO: download
             int position = imageViewPager.getCurrentItem();
-            String imageUrl = albumDetailsList.get(position).getPhotoLargeURL();
+            String imageUrl = albumDetailsList.get(position).getFilePath();
             new ImageDownloader().execute(imageUrl);
             return true;
         }if (item.getItemId() == android.R.id.home){

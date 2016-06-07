@@ -38,7 +38,7 @@ import java.util.Set;
 public class HomeFragment extends Fragment {
 
     private TextView emailLabel;
-    private ProgressBar progressBar;
+  //  private ProgressBar progressBar;
     private Fragment fragmentToLoad = null;
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
@@ -55,21 +55,21 @@ public class HomeFragment extends Fragment {
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         emailLabel.setText(content);
 
-        progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
-        progressBar.setIndeterminate(true);
-        progressBar.setVisibility(View.VISIBLE);
-        LinearLayout.LayoutParams pbParam = new LinearLayout.LayoutParams(
-                100,
-                100);
-        pbParam.gravity = Gravity.CENTER;
+//        progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
+//        progressBar.setIndeterminate(true);
+//        progressBar.setVisibility(View.VISIBLE);
+//        LinearLayout.LayoutParams pbParam = new LinearLayout.LayoutParams(
+//                100,
+//                100);
+//        pbParam.gravity = Gravity.CENTER;
 
         //pb.setLayoutParams(pbParam);
 
        // RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
         //layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-                ((LinearLayout) viewFragment).addView(progressBar, pbParam);
+             //   ((LinearLayout) viewFragment).addView(progressBar, pbParam);
 
-        fetchAppData();
+      //  fetchAppData();
 
         ImageButton calendar = (ImageButton) viewFragment.findViewById(R.id.calendarButton);
         calendar.setOnClickListener(new View.OnClickListener() {
@@ -208,7 +208,7 @@ public class HomeFragment extends Fragment {
     private FetchAppData.FetchedDataDelegate fetchedDataDelegate = new FetchAppData.FetchedDataDelegate() {
         @Override
         public void fetchDataDone() {
-            progressBar.setVisibility(View.GONE);
+          //  progressBar.setVisibility(View.GONE);
         }
     };
 

@@ -218,26 +218,26 @@ public class CalendarListFragment extends Fragment implements AbsListView.OnScro
 
 
         HashMap map = new HashMap();
-        map.put("regId", Constants.GCM_REG_ID);
-        map.put("month", CalendarMonthFragment.month);
-        map.put("year", CalendarMonthFragment.year);
-        map.put("page", pageCount);
-        map.put("groupId", grpIdString);
+      //  map.put("regId", Constants.GCM_REG_ID);
+        map.put("month",""+CalendarMonthFragment.month);
+        map.put("year", ""+CalendarMonthFragment.year);
+        map.put("page", ""+pageCount);
+     //   map.put("groupId", grpIdString);
 
         EventManager.getSharedInstance().getEventsMonthWise(map, new EventManager.GetMonthwiseEventsManagerListener() {
             @Override
             public void onCompletion(EventDataReponse data, AppError error) {
                 isLoading = false;
                 if (data != null){
-                    if (data.getEventData().getEvents() != null){
-                        if (data.getEventData().getEvents().size() > 0){
+                    if (data.getEvents() != null){
+                        if (data.getEvents().size() > 0){
                             if (calendarMonthList.size() == 0){
-                                calendarMonthList.addAll(data.getEventData().getEvents());
+                                calendarMonthList.addAll(data.getEvents());
                                 calendarMonthListViewAdapter = new CalendarMonthListAdapter(myContext, calendarMonthList);
                                 calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
 
                             }else {
-                                calendarMonthList.addAll(data.getEventData().getEvents());
+                                calendarMonthList.addAll(data.getEvents());
                                 calendarMonthListViewAdapter.notifyDataSetChanged();
                             }
                         }else {
@@ -274,7 +274,7 @@ public class CalendarListFragment extends Fragment implements AbsListView.OnScro
     @Override
     public void onResume() {
         super.onResume();
-        populateDummyData();
+       // populateDummyData();
     }
 
     public void populateDummyData(){
@@ -291,11 +291,11 @@ public class CalendarListFragment extends Fragment implements AbsListView.OnScro
        // String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         HashMap map = new HashMap();
-        map.put("regId", Constants.GCM_REG_ID);
-        map.put("month",CalendarMonthFragment.month);
-        map.put("year", CalendarMonthFragment.year);
-        map.put("page", 1);
-        map.put("groupId", grpIdString);
+      //  map.put("regId", Constants.GCM_REG_ID);
+        map.put("filter_month",""+CalendarMonthFragment.month);
+        map.put("filter_year", ""+CalendarMonthFragment.year);
+        map.put("page", "1");
+      //  map.put("groupId", grpIdString);
 
         //ringProgressDialog = ProgressDialog.show(getActivity(), "", "", true);
 
@@ -314,24 +314,24 @@ public class CalendarListFragment extends Fragment implements AbsListView.OnScro
                 progressBar.setVisibility(View.GONE);
                 //isLoading = false;
                 if (data != null){
-                    if (data.getEventData().getEvents() != null){
-                        if (data.getEventData().getEvents().size() > 0){
+                    if (data.getEvents() != null){
+                        if (data.getEvents().size() > 0){
                             if (calendarMonthList.size() == 0){
-                                totalRecord = data.getEventData().getTotalRecords();
+                               // totalRecord = data.getEventData().getTotalRecords();
                                 calendarMonthList.clear();
-                                calendarMonthList.addAll(data.getEventData().getEvents());
+                                calendarMonthList.addAll(data.getEvents());
                                 calendarMonthListViewAdapter = new CalendarMonthListAdapter(myContext, calendarMonthList);
                                 calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
 
                             }else {
                                 calendarMonthList.clear();
-                                calendarMonthList.addAll(data.getEventData().getEvents());
+                                calendarMonthList.addAll(data.getEvents());
                                 calendarMonthListViewAdapter.notifyDataSetChanged();
                             }
                         }else {
-                            calendarMonthList.clear();
+                       //     calendarMonthList.clear();
 //                            //
-                            calendarMonthListViewAdapter.notifyDataSetChanged();
+                         //   calendarMonthListViewAdapter.notifyDataSetChanged();
                             Toast.makeText(myContext, data.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }else {

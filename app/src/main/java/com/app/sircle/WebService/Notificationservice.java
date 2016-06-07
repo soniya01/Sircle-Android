@@ -52,7 +52,7 @@ public class Notificationservice {
     }
 
     public void getAllNotifications(HashMap object, final NotificationServiceListener notificationServiceListener){
-        retrofitImplementation.executeGetWithURL(Constants.NOTIFICATION_GET_API, object, null, NotificationResponse.class, new WebServiceListener() {
+        retrofitImplementation.executePostWithURL(Constants.NOTIFICATION_GET_API, object, null, NotificationResponse.class, new WebServiceListener() {
             @Override
             public void onCompletion(Object response, AppError error) {
                 notificationServiceListener.onCompletion((NotificationResponse) response, error);

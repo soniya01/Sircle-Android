@@ -7,17 +7,20 @@ public class Links  {
 
     //links -> (Array) name, url, created_on, time_string, favicon
 
+    @SerializedName("link_name")
     public String name;
+
+    @SerializedName("link_url")
     public String url;
 
-    @SerializedName("created_on")
+    @SerializedName("date_added")
     public String createdOn;
 
-    @SerializedName("time_string")
-    public String timeString;
+    @SerializedName("link_id")
+    public String linkID;
 
-    @SerializedName("favicon")
-    public String favIcon;
+//    @SerializedName("favicon")
+//    public String favIcon;
 
     public String getName() {
         return name;
@@ -43,19 +46,19 @@ public class Links  {
         this.createdOn = createdOn;
     }
 
-    public String getTimeString() {
-        return timeString;
+    public String getLinkID() {
+        return linkID;
     }
 
-    public void setTimeString(String timeString) {
-        this.timeString = timeString;
+    public void setLinkID(String linkID) {
+        this.linkID = linkID;
     }
-
-    public String getFavIcon() {
-        return favIcon;
-    }
-
-    public void setFavIcon(String favIcon) {
-        this.favIcon = favIcon;
-    }
+//
+//    public String getFavIcon() {
+//        return favIcon;
+//    }
+//
+//    public void setFavIcon(String favIcon) {
+//        this.favIcon = favIcon;
+//    }
 }

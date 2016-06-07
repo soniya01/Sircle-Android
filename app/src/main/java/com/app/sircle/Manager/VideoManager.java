@@ -35,7 +35,7 @@ public class VideoManager {
             public void onCompletion(VideoResponse response, AppError error) {
                 if (response != null){
                     if (response.getData() != null && response.getData().getVideos() != null){
-                        videoList.clear();
+                     //   videoList.clear();
                         videoList = response.getData().getVideos();
                     }
                 }

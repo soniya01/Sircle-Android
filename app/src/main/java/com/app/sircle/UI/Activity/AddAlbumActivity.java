@@ -64,12 +64,12 @@ public class AddAlbumActivity extends ActionBarActivity {
                 if (isChecked) {
                     for (int i = 0; i < notificationGroupList.size(); i++) {
                         // listData[i] = listView.getAdapter().getItem(i).toString();
-                        notificationGroupList.get(i).setActive(1);
+                        notificationGroupList.get(i).setActive(Boolean.TRUE);
                     }
                 } else {
                     for (int i = 0; i < notificationGroupList.size(); i++) {
                         // listData[i] = listView.getAdapter().getItem(i).toString();
-                        notificationGroupList.get(i).setActive(0);
+                        notificationGroupList.get(i).setActive(Boolean.FALSE);
                     }
                 }
                 //  NotificationManager.grpIds.clear();
@@ -115,7 +115,7 @@ public class AddAlbumActivity extends ActionBarActivity {
                     // notificationGroupList.get(i).setActive(1);
 
 
-                    if (notificationGroupList.get(i).getActive()==1)
+                    if (notificationGroupList.get(i).getActive()==Boolean.TRUE)
                     {
                         if (grpIdString.equals(""))
                         {
@@ -130,8 +130,8 @@ public class AddAlbumActivity extends ActionBarActivity {
 
 
                 HashMap params = new HashMap();
-                params.put("albumName",title.getText().toString());
-                params.put("grp",grpIdString);
+                params.put("album_name",title.getText().toString());
+                params.put("group_id",grpIdString);
                 PhotoManager.getSharedInstance().addNewAlbum(params, new PhotoManager.AddPhotoManagerListener() {
                     @Override
                     public void onCompletion(AddAlbumResponse addAlbumResponse, AppError error) {
@@ -141,6 +141,7 @@ public class AddAlbumActivity extends ActionBarActivity {
                                 Intent tabIntent = new Intent(AddAlbumActivity.this, CameraActivity.class);
                                 tabIntent.putExtra("albumId", addAlbumResponse.getData().getAlbumId());
                                 startActivity(tabIntent);
+                                finish();
                             } else {
                                 Toast.makeText(AddAlbumActivity.this, addAlbumResponse.getMessage(), Toast.LENGTH_SHORT).show();
                             }
@@ -166,7 +167,7 @@ public class AddAlbumActivity extends ActionBarActivity {
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                     if (response != null) {
 
-                        if (response.getData().size() > 0){
+                        if (response.getData().getGroups().size() > 0){
                             AddAlbumActivity.this.notificationGroupList.addAll(NotificationManager.groupList);
                             notificationsGroupAdapter.notifyDataSetChanged();
                             setListViewHeightBasedOnChildren(addListView);

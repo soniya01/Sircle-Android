@@ -74,9 +74,9 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
         }
 
         // get screen dimensions
-        if (!albumDetailsList.get(position).getPhotoLargeURL().equals("")) {
+        if (!albumDetailsList.get(position).getFilePath().equals("")) {
             Picasso.with(this.mContext)
-                    .load(albumDetailsList.get(position).getPhotoLargeURL())
+                    .load(albumDetailsList.get(position).getFilePath())
                     .into(viewHolder.albumImageView, new Callback() {
                         @Override
                         public void onSuccess() {
@@ -117,8 +117,8 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
             Toast.makeText(mContext, "image clicked", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(mContext, AlbumFullScreenActivity.class);
             i.putExtra("position", _postion);
-            i.putExtra("url",albumDetailsList.get(_postion).getPhotoLargeURL());
-            i.putExtra("caption",albumDetailsList.get(_postion).getPhotoCaption());
+            i.putExtra("url",albumDetailsList.get(_postion).getFilePath());
+            i.putExtra("caption",albumDetailsList.get(_postion).getFileName());
             mContext.startActivity(i);
         }
 

@@ -39,7 +39,21 @@
 
     </string-array>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <string-array name="array_module_name_withou_settings">
+        <item>Home</item>
+        <item>Calendar</item>
+        <item>Photos</item>
+        <item>Notifications</item>
+        <item>NewsLetters</item>
+        <item>Documents</item>
+        <item>Videos</item>
+        <item>Links</item>
+        <item>Support</item>
+        <item>Signout</item>
+
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fragment_home_development_title">Sircle Development School</string>
     <string name="fragment_home_school_moto">Inspire. Integrate. Innovate</string>
@@ -76,7 +90,7 @@
     <string name="title_activity_holiday">Holiday</string>
     <string name="title_activity_school_holiday">School Holiday</string>
     <string name="title_activity_event">Event</string>
-    <string name="title_activity_event_detail">View Event</string>
+    <string name="title_activity_event_detail">Event Details</string>
     <string name="title_activity_vimeo_webview">VimeoWebviewActivity</string>
 
 </resources>

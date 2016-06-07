@@ -1,6 +1,7 @@
 package com.app.sircle.WebService;
 
 import com.app.sircle.UI.Model.NotificationGroups;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +11,13 @@ import java.util.List;
  */
 public class GroupResponse {
 
+    @SerializedName("code")
     public int status;
-    public List<NotificationGroups> data = new ArrayList<NotificationGroups>();
+
+    GroupResponseData data;
+
+//    public List<NotificationGroups> data = new ArrayList<NotificationGroups>();
+
     public String message;
 
 
@@ -23,11 +29,11 @@ public class GroupResponse {
         this.status = status;
     }
 
-    public List<NotificationGroups> getData() {
+    public GroupResponseData getData() {
         return data;
     }
 
-    public void setData(List<NotificationGroups> data) {
+    public void setData(GroupResponseData data) {
         this.data = data;
     }
 

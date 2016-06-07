@@ -3,7 +3,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="#ECECEC">
 
     <FrameLayout
         android:id="@+id/main_layout_container"
@@ -18,9 +18,9 @@
         android:layout_gravity="left|start"
         android:overScrollMode="never"
         android:scrollbars="none"
-        android:divider="@android:color/white"
-        android:dividerHeight="0dp"
+        android:divider="#DBDBDB"
+        android:dividerHeight="1dp"
         android:listSelector="@drawable/menu_list_selector"
-        android:background="#ffffff"/>
+        android:background="#ECECEC"/>
 
 </android.support.v4.widget.DrawerLayout>

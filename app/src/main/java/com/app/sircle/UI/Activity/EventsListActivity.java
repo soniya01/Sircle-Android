@@ -18,6 +18,7 @@ import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Adapter.CalendarDayListAdapter;
 import com.app.sircle.UI.Adapter.CalendarMonthListAdapter;
+import com.app.sircle.UI.Fragment.CalendarMonthFragment;
 import com.app.sircle.UI.Model.Event;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.Utility.Constants;
@@ -153,21 +154,21 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
         String grpIdString = NotificationManager.getSharedInstance().getGroupIds(EventsListActivity.this);
 
         HashMap map = new HashMap();
-        map.put("regId", Constants.GCM_REG_ID);
-        map.put("month",month);
-        map.put("year",year);
-        map.put("page", 1);
-        map.put("groupId", grpIdString);
+     //   map.put("regId", Constants.GCM_REG_ID);
+        map.put("filter_month",""+month);
+        map.put("filter_year", ""+year);
+        map.put("page", "1");
+      //  map.put("groupId", grpIdString);
         //ringProgressDialog = ProgressDialog.show(this, "", "", true);
         EventManager.getSharedInstance().getEventsMonthWise(map, new EventManager.GetMonthwiseEventsManagerListener() {
             @Override
             public void onCompletion(EventDataReponse data, AppError error) {
                 if (data != null) {
                     if (data.getStatus() == 200) {
-                        if (data.getEventData().getEvents() != null){
-                            if (data.getEventData().getEvents().size() > 0) {
+                        if (data.getEvents() != null){
+                            if (data.getEvents().size() > 0) {
                                 calendarMonthList.clear();
-                                calendarMonthList = data.getEventData().getEvents();
+                                calendarMonthList = data.getEvents();
 
 
                                     if (day != 0){
@@ -226,9 +227,11 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
         if (day / 10 < 1)  dayStr = "0"+day;
         if (month / 10 < 1) monthStr = "0"+month;
 
-        String selectedDate = dayStr + "/" + monthStr + "/" +year;
+        String selectedDate = dayStr + "-" + monthStr + "-" +year;
         for (Event event : calendarMonthList){
-            String sDate = event.getStartDate(); //03/09/2015
+            String str = event.getStartDate();
+            String[] splited = str.split("\\s+");
+            String sDate = splited[0]; //03/09/2015
             if (selectedDate.equals(sDate)){
                 filteredList.add(event);
             }
@@ -257,11 +260,11 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
         String grpIdString = NotificationManager.getSharedInstance().getGroupIds(EventsListActivity.this);
 
         HashMap map = new HashMap();
-        map.put("regId", Constants.GCM_REG_ID);
-        map.put("month", month);
-        map.put("year", year);
-        map.put("page", 1);
-        map.put("groupId", grpIdString);
+      //  map.put("regId", Constants.GCM_REG_ID);
+        map.put("filter_month",""+month);
+        map.put("filter_year", ""+year);
+        map.put("page", "1");
+        //map.put("groupId", grpIdString);
         //ringProgressDialog = ProgressDialog.show(this, "", "", true);
         EventManager.getSharedInstance().getEventsMonthWise(map, new EventManager.GetMonthwiseEventsManagerListener() {
             @Override
@@ -269,10 +272,10 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
                 isLoading = false;
                 if (data != null) {
                     if (data.getStatus() == 200) {
-                        if (data.getEventData().getEvents() != null){
-                            if (data.getEventData().getEvents().size() > 0) {
-                                calendarMonthList = data.getEventData().getEvents();
-                                totalRecord = data.getEventData().getTotalRecords();
+                        if (data.getEvents() != null){
+                            if (data.getEvents().size() > 0) {
+                                calendarMonthList = data.getEvents();
+                               //      totalRecord = data.getEventData().getTotalRecords();
 
                                 if (day != 0){
                                     // search data for a particular date

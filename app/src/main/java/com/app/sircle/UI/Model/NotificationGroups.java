@@ -9,13 +9,21 @@ import java.util.Date;
  */
 public class NotificationGroups {
 
-    @SerializedName("group_name")
+
+//            "sort_order": "0",
+//
+//            "description": "",
+//            "select": false,
+//            "is_staff": false
+
+    //@SerializedName("group_name")
     public String name;
 
-    @SerializedName("group_id")
+    @SerializedName("customer_group_id")
     public String id;
 
-    public int active;
+    @SerializedName("select")
+    public boolean active;
 
 
     public String getId() {
@@ -34,11 +42,11 @@ public class NotificationGroups {
         this.name = name;
     }
 
-    public int getActive() {
+    public boolean getActive() {
         return active;
     }
 
-    public void setActive(int active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 }

@@ -114,6 +114,8 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
                 albumName = photos.get(position).getAlbumTitle();
                 populateAlbumData(photos.get(position).getAlbumID());
 
+                System.out.println("Photos "+photos.size());
+
             }
         });
 
@@ -137,7 +139,7 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
     @Override
     public void onResume() {
         super.onResume();
-        populateDummyData();
+       // populateDummyData();
     }
 
     private void populateDummyData() {
@@ -161,59 +163,72 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
         String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         HashMap map = new HashMap();
-        map.put("regId", Constants.GCM_REG_ID);
-        map.put("groupId", grpIdString);
-        map.put("page",1);
+      //  map.put("regId", Constants.GCM_REG_ID);
+      //  map.put("groupId", grpIdString);
+        map.put("page","1");
 
         PhotoManager.getSharedInstance().getAlbums(map, new PhotoManager.GetAlbumsManagerListener() {
             @Override
             public void onCompletion(PhotoResponse response, AppError error) {
                 //isLoading = false;
-               // progressBar.setVisibility(View.GONE);
+                // progressBar.setVisibility(View.GONE);
                 swipeRefreshLayout.setRefreshing(false);
-                if (response != null) {
-                    if (response.getStatus() == 200) {
-                        if (response.getData().getAlbums().size() > 0) {
-                          //  photos = response.getData().getAlbums();
-                          //  photosListViewAdapter.notifyDataSetChanged();
-                            totalRecord = response.getData().getTotalRecords();
-                            photos.clear();
-                            photos.addAll(PhotoManager.albumsList);
-                            photosListViewAdapter.notifyDataSetChanged();
+                if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
+                    if (response != null) {
+                        if (response.getStatus() == 200) {
+                            if (response.getData().getAlbums().size() > 0) {
+                                //  photos = response.getData().getAlbums();
+                                //  photosListViewAdapter.notifyDataSetChanged();
+                                //   totalRecord = response.getData().getTotalRecords();
+                                photos.clear();
+                                photos.addAll(PhotoManager.albumsList);
+                                photosListViewAdapter.notifyDataSetChanged();
 
+                            }
+                        } else {
+                            Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                            Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Check internet connectivity", Toast.LENGTH_SHORT).show();
                     }
-                }else {
-                    Toast.makeText(getActivity(), "Check internet connectivity", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection", Toast.LENGTH_SHORT).show();
                 }
             }
+
         });
 
     }
 
     void populateAlbumData(int albumId){
 
-        HashMap params = new HashMap();
-        params.put("album_id",albumId);
-        params.put("page",1);
+//        HashMap params = new HashMap();
+//        params.put("album_id",albumId);
 
-        PhotoManager.getSharedInstance().getImages(params, new PhotoManager.GetPhotosManagerListener() {
-            @Override
-            public void onCompletion(AlbumResponse response, AppError error) {
-                Intent albumIntent = new Intent(getActivity(), AlbumDetailsActivity.class);
+       // params.put("page","1");
+
+//        PhotoManager.getSharedInstance().getImages(params, new PhotoManager.GetPhotosManagerListener() {
+//            @Override
+//            public void onCompletion(AlbumResponse response, AppError error) {
+//                Intent albumIntent = new Intent(getActivity(), AlbumDetailsActivity.class);
+//                //albumIntent.putExtra("albumId",photos.get(position).getAlbumID());
+//                //albumIntent.putExtra("albumName",photos.get(position).getAlbumTitle());
+//                startActivity(albumIntent);
+//            }
+//        });
+        Intent albumIntent = new Intent(getActivity(), AlbumDetailsActivity.class);
                 //albumIntent.putExtra("albumId",photos.get(position).getAlbumID());
                 //albumIntent.putExtra("albumName",photos.get(position).getAlbumTitle());
+        albumIntent.putExtra("albumId",""+albumId);
                 startActivity(albumIntent);
-            }
-        });
+
     }
 
 
     @Override
     public void onRefresh() {
-        //populateDummyData();
+        populateDummyData();
     }
 
     @Override
@@ -261,16 +276,16 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
 //            }
 //        }
         HashMap map = new HashMap();
-        map.put("regId", Constants.GCM_REG_ID);
-        map.put("groupId", grpIdString);
-        map.put("page",pageCount);
+       // map.put("regId", Constants.GCM_REG_ID);
+       // map.put("groupId", grpIdString);
+        map.put("page",""+pageCount);
 
         PhotoManager.getSharedInstance().getAlbums(map, new PhotoManager.GetAlbumsManagerListener() {
             @Override
             public void onCompletion(PhotoResponse response, AppError error) {
                 isLoading = false;
                 if (response != null) {
-                    if (response.getStatus() == 200) {
+                    if (response.getStatus() == 0) {
                         if (response.getData().getAlbums().size() > 0) {
                             photos.addAll(PhotoManager.albumsList);
                             photosListViewAdapter.notifyDataSetChanged();
