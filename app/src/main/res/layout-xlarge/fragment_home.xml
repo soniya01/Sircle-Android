@@ -21,6 +21,7 @@
         <TextView
             android:id="@+id/activity_home_address_label"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="wrap_content"
             android:text="Sircle"
             android:gravity="center"
@@ -39,6 +40,7 @@
             android:layout_marginTop="4dp"
             android:autoLink="phone"
             android:gravity="center"
+            android:visibility="gone"
             android:textAlignment="center"
             android:text="Mazgoan, Mumbai -10, India."
             android:textColor="#424241"
@@ -53,6 +55,7 @@
             android:lineSpacingExtra="1dp"
             android:text="@string/activity_login_email_address"
             android:textColor="#424241"
+            android:visibility="gone"
             android:textColorLink="#424241"
             android:textSize="30px"
             android:gravity="center"
@@ -73,6 +76,7 @@
             android:textColorLink="#424241"
             android:textSize="30px"
             android:gravity="center"
+            android:visibility="gone"
             android:textAlignment="center"
             />
 
@@ -99,7 +103,7 @@
                 android:textColor="#333332"
                 android:scaleType="fitXY"
                 android:layout_gravity="center"
-                android:src="@drawable/calendarhome"
+                android:src="@drawable/calendarblack"
                 android:background="@color/white"/>
             <TextView
                 android:textSize="24px"

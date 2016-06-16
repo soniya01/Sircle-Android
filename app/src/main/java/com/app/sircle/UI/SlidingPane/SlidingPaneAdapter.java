@@ -44,12 +44,12 @@ public class SlidingPaneAdapter extends ArrayAdapter<String>{
 
         if (userType.equals("admin"))
         {
-           menuIcons = new int[]{R.drawable.home, R.drawable.calendar, R.drawable.photos, R.drawable.notifications, R.drawable.newsletters, R.drawable.documents,R.drawable.videos, R.drawable.links, R.drawable.email, R.drawable.signout};
+           menuIcons = new int[]{R.drawable.homeblack, R.drawable.calendarblack, R.drawable.photosblack, R.drawable.notificationblack, R.drawable.newslettersblack, R.drawable.documentsblack,R.drawable.videosblack, R.drawable.linksblack, R.drawable.emailblack, R.drawable.signoutblack};
             menuIconsSelected = new int[]{R.drawable.homeselected, R.drawable.calendarselected, R.drawable.photosselected, R.drawable.notificationsselected, R.drawable.newslettersselected, R.drawable.documentsselected,R.drawable.videosselected, R.drawable.linksselected, R.drawable.emailselected, R.drawable.signout};
         }
         else
         {
-            menuIcons = new int[]{R.drawable.home, R.drawable.calendar, R.drawable.photos, R.drawable.notifications, R.drawable.newsletters, R.drawable.documents,R.drawable.videos, R.drawable.links, R.drawable.settings, R.drawable.email, R.drawable.signout};
+            menuIcons = new int[]{R.drawable.homeblack, R.drawable.calendarblack, R.drawable.photosblack, R.drawable.notificationblack, R.drawable.newslettersblack, R.drawable.documentsblack,R.drawable.videosblack, R.drawable.linksblack, R.drawable.settingsblack, R.drawable.emailblack, R.drawable.signoutblack};
 
             menuIconsSelected = new int[]{R.drawable.homeselected, R.drawable.calendarselected, R.drawable.photosselected, R.drawable.notificationsselected, R.drawable.newslettersselected, R.drawable.documentsselected,R.drawable.videosselected, R.drawable.linksselected, R.drawable.settingsselected, R.drawable.emailselected, R.drawable.signout};
         }

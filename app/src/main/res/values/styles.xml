@@ -1,29 +1,89 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
-        <!-- Customize your theme here. -->
-        <item name="android:actionBarStyle">@style/MyActionBar</item>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
 
     </style>
 
-    <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:background">@color/actionbarBlue</item>
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/actionbarBlue</item>
+        <item name="colorPrimaryDark">@color/statusbarBlue</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+
+        <item name="android:textColorSecondary">@color/secondarytextcolor</item>
         <item name="colorControlNormal">@color/secondarytextcolor</item>
         <item name="colorControlActivated">@color/secondarytextcolor</item>
         <item name="colorControlHighlight">@color/secondarytextcolor</item>
-
     </style>
+
+
+    <!--&lt;!&ndash; Base application theme. &ndash;&gt;-->
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light">-->
+        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+        <!--<item name="android:actionBarStyle">@style/MyActionBar</item>-->
+
+    <!--</style>-->
+
+    <!--<style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">-->
+        <!--<item name="colorPrimary">@color/actionbarBlue</item>-->
+        <!--<item name="colorPrimaryDark">@color/statusbarBlue</item>-->
+        <!--<item name="android:textColorPrimary">@android:color/white</item>-->
+
+        <!--<item name="android:textColorSecondary">@color/secondarytextcolor</item>-->
+        <!--<item name="colorControlNormal">@color/secondarytextcolor</item>-->
+        <!--<item name="colorControlActivated">@color/secondarytextcolor</item>-->
+        <!--<item name="colorControlHighlight">@color/secondarytextcolor</item>-->
+
+    <!--</style>-->
 
     <style name="menu_labels_style">
         <item name="android:background">@drawable/fab_label_background</item>
         <item name="android:textColor">@color/white</item>
     </style>
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+
+    <!--<style name="AppTheme.NoActionBar">-->
+        <!--<item name="windowActionBar">false</item>-->
+        <!--<item name="windowNoTitle">true</item>-->
+    <!--</style>-->
+    <!--<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
+    <!--<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
+
+
+
+    <!-- Dark theme. -->
+    <style name="CaldroidDefaultDark" parent="CaldroidDefault">
+        <item name="styleCaldroidViewLayout">@style/CaldroidDefaultDarkCalendarViewLayout</item>
+        <item name="styleCaldroidMonthName">@style/CaldroidDefaultDarkMonthName</item>
+        <item name="styleCaldroidNormalCell">@style/CaldroidDefaultDarkNormalCell</item>
+        <item name="styleCaldroidSquareCell">@style/CaldroidDefaultDarkSquareCell</item>
+        <item name="styleCaldroidGridView">@style/CaldroidDefaultDarkGridView</item>
+        <!--<item name="styleCaldroidWeekdayView">@style/CaldroidDefaultWeekday</item>-->
     </style>
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="CaldroidDefaultDarkCalendarViewLayout">
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+    <style name="CaldroidDefaultDarkMonthName" parent="CaldroidDefaultMonthName">
+        <item name="android:textColor">@color/secondarytextcolor</item>
+        <item name="android:layout_marginBottom">20dp</item>
+    </style>
+
+    <style name="CaldroidDefaultDarkGridView" parent="CaldroidDefaultGridView">
+        <item name="android:background">@android:color/white</item>
+
+    </style>
+
+    <style name="CaldroidDefaultDarkCell" parent="CaldroidDefaultCell">
+        <item name="android:textColor">@color/cell_text_color_dark</item>
+        <item name="android:background">@drawable/cell_bg_dark</item>
+    </style>
+
+    <style name="CaldroidDefaultDarkNormalCell" parent="CaldroidDefaultDarkCell">
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="CaldroidDefaultDarkSquareCell" parent="CaldroidDefaultDarkCell" />
 
 </resources>

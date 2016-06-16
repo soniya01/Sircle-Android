@@ -74,7 +74,7 @@ app:mrl_rippleOverlay="true">
 
 
     <com.app.sircle.custom.RobotoLightTextView
-        android:id="@+id/eventTime"
+        android:id="@+id/startEventTime"
         android:textColor="#666666"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -82,6 +82,18 @@ app:mrl_rippleOverlay="true">
         android:layout_alignParentRight="true"
         android:layout_marginRight="22dp"
         android:layout_marginTop="20dp"
+        android:textSize="14dp"
+        android:text="11:00" />
+
+    <com.app.sircle.custom.RobotoLightTextView
+        android:id="@+id/endEventTime"
+        android:textColor="#666666"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="22dp"
+        android:layout_marginTop="13dp"
+        android:layout_below="@+id/startEventTime"
         android:textSize="14dp"
         android:text="11:00" />
 

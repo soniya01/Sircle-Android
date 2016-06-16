@@ -1,5 +1,6 @@
 package com.app.sircle.UI.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -42,7 +43,7 @@ public class AddAlbumActivity extends ActionBarActivity {
     private Button addButton;
     ArrayAdapter<String> arrayAdapter;
     private AddGroupAdapter notificationsGroupAdapter;
-
+    ProgressDialog ringProgressDialog;
     public static CheckBox allCheckBox;
 
     @Override
@@ -108,6 +109,9 @@ public class AddAlbumActivity extends ActionBarActivity {
 //                }
               //  String grpIdString = NotificationManager.getSharedInstance().getGroupIds(AddAlbumActivity.this);
 
+
+                ringProgressDialog = ProgressDialog.show(AddAlbumActivity.this, "", "Adding Album", true);
+
                 String grpIdString = "";
 
                 for (int i = 0; i < notificationGroupList.size(); i++) {
@@ -136,6 +140,7 @@ public class AddAlbumActivity extends ActionBarActivity {
                     @Override
                     public void onCompletion(AddAlbumResponse addAlbumResponse, AppError error) {
                         if (addAlbumResponse != null) {
+                            ringProgressDialog.dismiss();
                             if (addAlbumResponse.getStatus() == 200) {
 
                                 Intent tabIntent = new Intent(AddAlbumActivity.this, CameraActivity.class);
@@ -239,34 +244,34 @@ public class AddAlbumActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (BaseActivity.jumpToFragment){
-            String grpIdString = "";
-            for (int i = 0; i< NotificationManager.grpIds.size(); i++){
-                if (i == 0){
-                    grpIdString = NotificationManager.grpIds.get(i);
-                }else {
-                    grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
-                }
-            }
-            HashMap params = new HashMap();
-            params.put("albumName",title.getText().toString());
-            params.put("grp",grpIdString);
-            PhotoManager.getSharedInstance().addNewAlbum(params, new PhotoManager.AddPhotoManagerListener() {
-                @Override
-                public void onCompletion(AddAlbumResponse response, AppError error) {
-                    if (response != null) {
-                        if (response.getStatus() == 200) {
-                            Toast.makeText(AddAlbumActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
-                    } else {
-                        Toast.makeText(AddAlbumActivity.this, "Some error occured", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-
-
-    }
+//        if (BaseActivity.jumpToFragment){
+//            String grpIdString = "";
+//            for (int i = 0; i< NotificationManager.grpIds.size(); i++){
+//                if (i == 0){
+//                    grpIdString = NotificationManager.grpIds.get(i);
+//                }else {
+//                    grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
+//                }
+//            }
+//            HashMap params = new HashMap();
+//            params.put("albumName",title.getText().toString());
+//            params.put("grp",grpIdString);
+//            PhotoManager.getSharedInstance().addNewAlbum(params, new PhotoManager.AddPhotoManagerListener() {
+//                @Override
+//                public void onCompletion(AddAlbumResponse response, AppError error) {
+//                    if (response != null) {
+//                        if (response.getStatus() == 200) {
+//                            Toast.makeText(AddAlbumActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+//                            finish();
+//                        }
+//                    } else {
+//                        Toast.makeText(AddAlbumActivity.this, "Some error occured", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            });
+//
+//
+//    }
 
 
 }

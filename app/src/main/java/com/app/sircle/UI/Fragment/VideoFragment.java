@@ -126,7 +126,7 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                         }
                     } else {
                         Intent intent = new Intent(getActivity(), VimeoWebviewActivity.class);
-                        intent.putExtra("VideoUrl", videoList.get(position).getVideoEmbedURL());
+                        intent.putExtra("VideoUrl", videoList.get(position).getVideoId());
                         startActivity(intent);
 
                     }

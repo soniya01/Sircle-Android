@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.net.http.SslError;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
@@ -19,6 +21,12 @@ public class PDFWebViewer extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        String UrlTitle = "";
+
         setContentView(R.layout.activity_pdfweb_viewer);
 
         WebView webView = (WebView) findViewById(R.id.webview);
@@ -28,7 +36,17 @@ public class PDFWebViewer extends AppCompatActivity {
 
 
 
-       // webView = (WebView) findViewById(R.id.webview_compontent);
+        String videoUrl = "";
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            videoUrl = extras.getString("VideoUrl");
+            UrlTitle = extras.getString("UrlTitle");
+        }
+
+        getSupportActionBar().setTitle(UrlTitle);
+
+        // webView = (WebView) findViewById(R.id.webview_compontent);
 
 
 
@@ -81,8 +99,34 @@ public class PDFWebViewer extends AppCompatActivity {
 //
 //        });
 
-        webView.loadUrl("http://54.251.157.35/event/index.php?route=tool/upload/view&code=916a22c70a507d7791f4969c6ac6f41f5dab1edf&view_type=newspaper");
+        webView.loadUrl(videoUrl);
 
       //  browser.loadUrl("");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_add_album, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        if (id == android.R.id.home){
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

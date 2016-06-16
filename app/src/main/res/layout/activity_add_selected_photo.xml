@@ -19,7 +19,6 @@
         android:layout_weight="1"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        android:src="@drawable/scene_small"
         android:contentDescription="@string/description_image_default" />
 
     <EditText
@@ -31,7 +30,7 @@
         android:layout_marginRight="19dp"
         android:layout_marginLeft="19dp"
         android:textColor="#000000"
-        android:hint="Add description"
+        android:hint="Add Caption"
         android:textColorHint="@color/secondarytextcolor"
         android:text=""
         android:maxLength="255"/>
@@ -40,9 +39,11 @@
         android:id="@+id/activity_add_new_photo"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="Add photo"
+        style="?android:textAppearanceSmall"
+        android:text="Add Photo"
         android:layout_marginTop="17dp"
         android:layout_gravity="bottom"
+        android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:background="#FC6F71"/>
 

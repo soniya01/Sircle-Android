@@ -82,7 +82,7 @@ app:mrl_rippleOverlay="true">
             android:textSize="14dp"
             android:textColor="#666666"
             android:text="Wed 27 July 2015"
-            android:autoLink="web"/>
+            android:autoLink="none"/>
 
 
 

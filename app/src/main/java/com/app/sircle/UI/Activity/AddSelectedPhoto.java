@@ -94,7 +94,7 @@ public class AddSelectedPhoto extends AppCompatActivity {
 
                 ringProgressDialog = ProgressDialog.show(AddSelectedPhoto.this, "", "Uploading image..", true);
                 String descText = desc.getText().toString();
-                BaseActivity.jumpToFragment = true;
+//                BaseActivity.jumpToFragment = true;
 
                 HashMap params = new HashMap();
 
@@ -114,7 +114,8 @@ public class AddSelectedPhoto extends AppCompatActivity {
                         ringProgressDialog.dismiss();
                         if (response != null) {
                             if (response.getStatus() == 200) {
-                                Toast.makeText(AddSelectedPhoto.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddSelectedPhoto.this, "Photo Saved Successfully", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                                 finish();
                             } else {
                                 Toast.makeText(AddSelectedPhoto.this, response.getMessage(), Toast.LENGTH_SHORT).show();

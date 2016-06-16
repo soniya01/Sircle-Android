@@ -92,6 +92,8 @@ public class CameraFragmentUI extends Fragment implements View.OnClickListener {
             //imageDataList  = ImageManager.getInstance().getCameraImagePaths(getActivity());*/
 
 
+
+
             Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
             int rotation = 0;
             if (cameraId == 1) {
@@ -127,13 +129,15 @@ public class CameraFragmentUI extends Fragment implements View.OnClickListener {
             ImageData imageData1 = new ImageData();
             imageData1.setPath(path);
 
-
-
             Intent intent = new Intent(getActivity(), AddSelectedPhoto.class);
             intent.putExtra("data", imageData1);
             intent.putExtra("albumId", albumId);
             //intent.putExtra(INTENT_EXTRA_BACK_CAMERA_SHOWN, backCameraShown);
             startActivity(intent);
+
+            getActivity().finish();
+
+
         }
     };
     private boolean flashOn;
@@ -203,7 +207,7 @@ public class CameraFragmentUI extends Fragment implements View.OnClickListener {
         Camera c = null;
         try {
             c = Camera.open(cameraID);
-            determineDisplayOrientation();// attempt to get a Camera instance
+           // attempt to get a Camera instance
         } catch (Exception e) {
             // Camera is not available (in use or does not exist)
             e.printStackTrace();
@@ -215,7 +219,11 @@ public class CameraFragmentUI extends Fragment implements View.OnClickListener {
     private void showBackCamera() {
         releaseCamera();
         camera = getCameraInstance(Camera.CameraInfo.CAMERA_FACING_BACK);
+
         cameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
+
+        determineDisplayOrientation();
+
         if (camera != null) {
             if (cameraPreview != null) {
                 removePreview();
@@ -233,6 +241,7 @@ public class CameraFragmentUI extends Fragment implements View.OnClickListener {
             releaseCamera();
             camera = getCameraInstance(Camera.CameraInfo.CAMERA_FACING_FRONT);
             cameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
+            determineDisplayOrientation();
             backCameraShown = false;
             removePreview();
             attachCameraToView(backCameraShown);
@@ -382,9 +391,9 @@ public class CameraFragmentUI extends Fragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
         imageData = null;
-        if (BaseActivity.jumpToFragment) {
-            getActivity().finish();
-        }
+//        if (BaseActivity.jumpToFragment) {
+//            getActivity().finish();
+//        }
 
         toggleFlashButtonVisibility(View.VISIBLE);
         showBackCamera();
@@ -441,4 +450,7 @@ public class CameraFragmentUI extends Fragment implements View.OnClickListener {
 
         camera.setDisplayOrientation(displayOrientation);
     }
+
+
+
 }

@@ -14,6 +14,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -37,7 +38,7 @@ import java.util.Set;
  */
 public class HomeFragment extends Fragment {
 
-    private TextView emailLabel;
+   // private TextView emailLabel;
   //  private ProgressBar progressBar;
     private Fragment fragmentToLoad = null;
     FragmentManager mFragmentManager;
@@ -49,11 +50,11 @@ public class HomeFragment extends Fragment {
         View viewFragment = inflater.inflate(R.layout.fragment_home,
                 null, true);
 
-        emailLabel = (TextView)viewFragment.findViewById(R.id.activity_home_email_address_label);
+      //  emailLabel = (TextView)viewFragment.findViewById(R.id.activity_home_email_address_label);
         // underlines the email address
-        SpannableString content = new SpannableString(getResources().getString(R.string.activity_login_email_address).toString());
-        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-        emailLabel.setText(content);
+      //  SpannableString content = new SpannableString(getResources().getString(R.string.activity_login_email_address).toString());
+      //  content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+      //  emailLabel.setText(content);
 
 //        progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
 //        progressBar.setIndeterminate(true);
@@ -71,7 +72,7 @@ public class HomeFragment extends Fragment {
 
       //  fetchAppData();
 
-        ImageButton calendar = (ImageButton) viewFragment.findViewById(R.id.calendarButton);
+        Button calendar = (Button) viewFragment.findViewById(R.id.calendarButton);
         calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,7 +85,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        ImageButton photos = (ImageButton) viewFragment.findViewById(R.id.photosButton);
+        Button photos = (Button) viewFragment.findViewById(R.id.photosButton);
         photos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,7 +98,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        ImageButton newsletter = (ImageButton) viewFragment.findViewById(R.id.newsletterButton);
+        Button newsletter = (Button) viewFragment.findViewById(R.id.newsletterButton);
         newsletter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,7 +111,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        ImageButton documents = (ImageButton) viewFragment.findViewById(R.id.documentsButton);
+        Button documents = (Button) viewFragment.findViewById(R.id.documentsButton);
         documents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,7 +124,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        ImageButton videos = (ImageButton) viewFragment.findViewById(R.id.videosButton);
+        Button videos = (Button) viewFragment.findViewById(R.id.videosButton);
         videos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,7 +137,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        ImageButton links = (ImageButton) viewFragment.findViewById(R.id.linksButton);
+        Button links = (Button) viewFragment.findViewById(R.id.linksButton);
         links.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,7 +150,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        ImageButton settings = (ImageButton) viewFragment.findViewById(R.id.settingsButton);
+        Button settings = (Button) viewFragment.findViewById(R.id.settingsButton);
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,7 +163,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        ImageButton notifications = (ImageButton) viewFragment.findViewById(R.id.notificationsButton);
+        Button notifications = (Button) viewFragment.findViewById(R.id.notificationsButton);
         notifications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,7 +176,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        ImageButton information = (ImageButton) viewFragment.findViewById(R.id.informationButton);
+        Button information = (Button) viewFragment.findViewById(R.id.informationButton);
         information.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

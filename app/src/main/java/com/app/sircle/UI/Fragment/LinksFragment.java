@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,12 +22,17 @@ import com.app.sircle.Manager.LinksManager;
 import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
 import com.app.sircle.UI.Activity.AddLinksActivity;
+import com.app.sircle.UI.Activity.PDFWebViewer;
+import com.app.sircle.UI.Activity.VimeoWebviewActivity;
 import com.app.sircle.UI.Adapter.LinksListViewAdapter;
 import com.app.sircle.UI.Model.Links;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.Utility.Constants;
+import com.app.sircle.Utility.DeveloperKey;
 import com.app.sircle.WebService.LinksResponse;
 import com.app.sircle.WebService.NotificationResponse;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubeStandalonePlayer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -102,6 +108,23 @@ public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 startActivity(addLinkIntent);
             }
         });
+
+
+        linksListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent = new Intent(getActivity(), PDFWebViewer.class);
+                intent.putExtra("VideoUrl",linksList.get(position).getUrl());
+                intent.putExtra("UrlTitle",linksList.get(position).getName());
+                startActivity(intent);
+
+
+
+
+            }
+        });
+
         // set up custom listview
 
 //        linksListView.setOnScrollListener(new AbsListView.OnScrollListener() {

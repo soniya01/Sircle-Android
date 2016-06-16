@@ -67,7 +67,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private String[] menuList;
-    public static boolean jumpToFragment;
+//    public static boolean jumpToFragment;
     private  Intent loginIntent = null;
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
@@ -88,6 +88,8 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
 
 
         if (fragment != null) {
+           // mFragmentTransaction.replace(R.id.main_layout_container, fragment).addToBackStack(null).commit();
+
             mFragmentTransaction.replace(R.id.main_layout_container, fragment).commit();
         }
 
@@ -107,11 +109,11 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
     @Override
     protected void onResume() {
         super.onResume();
-        if (jumpToFragment)
-        {
-            jumpToFragment = false;
-            this.didSelectListViewItemAtIndex(2);
-        }
+//        if (jumpToFragment)
+//        {
+//            jumpToFragment = false;
+//            this.didSelectListViewItemAtIndex(2);
+//        }
 
     }
 

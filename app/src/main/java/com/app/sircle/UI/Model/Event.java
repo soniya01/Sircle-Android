@@ -19,6 +19,9 @@ public class Event {
     @SerializedName("event_id")
     public String id;
 
+    @SerializedName("category_name")
+    public  String categoryName;
+
 //    @SerializedName("unq_id")
 //    public String uniqueId;
 
@@ -136,13 +139,13 @@ public class Event {
         this.location = location;
     }
 
-//    public String getCategory() {
-//        return category;
-//    }
-//
-//    public void setCategory(String category) {
-//        this.category = category;
-//    }
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+  }
 
     public String getDetail() {
         return detail;

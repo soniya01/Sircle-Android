@@ -1,8 +1,9 @@
 package com.app.sircle.UI.Adapter;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +12,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.app.sircle.R;
-import com.app.sircle.UI.Activity.AlbumDetailsActivity;
 import com.app.sircle.UI.Activity.AlbumFullScreenActivity;
 import com.app.sircle.UI.Model.AlbumDetails;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +76,8 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
 
         // get screen dimensions
         if (!albumDetailsList.get(position).getFilePath().equals("")) {
+
+          //  loadImageInBackground(mContext, viewHolder.albumImageView, albumDetailsList.get(position).getFilePath());
             Picasso.with(this.mContext)
                     .load(albumDetailsList.get(position).getFilePath())
                     .into(viewHolder.albumImageView, new Callback() {
@@ -82,14 +85,14 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
                         public void onSuccess() {
 
                             if (position == albumDetailsList.size() - 1){
-                                AlbumDetailsActivity.ringProgressDialog.dismiss();
+                               // AlbumDetailsActivity.ringProgressDialog.dismiss();
                             }
                     }
 
 
                         @Override
                         public void onError() {
-                            AlbumDetailsActivity.ringProgressDialog.dismiss();
+                           // AlbumDetailsActivity.ringProgressDialog.dismiss();
                         }
                     });
         }
@@ -127,5 +130,27 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
     public static class ViewHolder {
 
         public ImageView albumImageView;
+    }
+
+    public void loadImageInBackground(Context context, final ImageView img, final String url) {
+        Target target = new Target() {
+
+            @Override
+            public void onPrepareLoad(Drawable arg0) {
+            }
+
+            @Override
+            public void onBitmapLoaded(Bitmap arg0, Picasso.LoadedFrom arg1) {
+                img.setImageBitmap(arg0);
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable arg0) {
+            }
+        };
+
+        Picasso.with(context)
+                .load(url)
+                .into(target);
     }
 }

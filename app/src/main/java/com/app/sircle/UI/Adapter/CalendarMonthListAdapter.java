@@ -57,7 +57,8 @@ public class CalendarMonthListAdapter extends BaseAdapter {
 
             viewHolder.eventTitleLabel = (TextView) convertView.findViewById(R.id.eventTitle);
             viewHolder.eventDateLabel = (TextView) convertView.findViewById(R.id.eventDate);
-            viewHolder.eventTimeLabel = (TextView) convertView.findViewById(R.id.eventTime);
+            viewHolder.eventTimeLabel = (TextView) convertView.findViewById(R.id.startEventTime);
+            viewHolder.eventEndTimeLabel = (TextView) convertView.findViewById(R.id.endEventTime);
             viewHolder.eventImage = (ImageView) convertView.findViewById(R.id.eventImage);
 
             convertView.setTag(viewHolder);
@@ -66,36 +67,48 @@ public class CalendarMonthListAdapter extends BaseAdapter {
         }
 
         viewHolder.eventTitleLabel.setText(calendarMonthList.get(position).getTitle());
-        viewHolder.eventDateLabel.setText(calendarMonthList.get(position).getStartDate());
-        viewHolder.eventTimeLabel.setText(calendarMonthList.get(position).getStartTime());
 
-//        if (calendarMonthList.get(position).getIconId()==1)
-//        {
-//         // .setBackgroundResource(R.drawable.arts);
-//            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.arts));
-//        }
-//        else if (calendarMonthList.get(position).getIconId()==2)
-//        {
-//           // viewHolder.eventImage.setBackgroundResource(R.drawable.sports);
-//            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.sports));
-//        }
-//        else if (calendarMonthList.get(position).getIconId()==3)
-//        {
-//           // viewHolder.eventImage.setBackgroundResource(R.drawable.event_image);
-//            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.documentslist));
-//        }
-//        else if (calendarMonthList.get(position).getIconId()==4)
-//        {
-//            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.academics));
-//        }
-//        else if (calendarMonthList.get(position).getIconId()==5)
-//        {
-//            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.performance));
-//        }
-//        else if (calendarMonthList.get(position).getIconId()==6)
-//        {
-//            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.others));
-//        }
+
+       String str = calendarMonthList.get(position).getStartDate();
+        String[] splited = str.split(" ");
+
+        viewHolder.eventDateLabel.setText(splited[0]);
+        viewHolder.eventTimeLabel.setText(splited[1]);
+
+        str = calendarMonthList.get(position).getEndDate();
+
+        String[] splited1 = str.split(" ");
+
+        viewHolder.eventEndTimeLabel.setText(splited1[1]);
+
+
+        if (calendarMonthList.get(position).getCategoryName().equals("Arts"))
+        {
+         // .setBackgroundResource(R.drawable.arts);
+            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.arts));
+        }
+        else if (calendarMonthList.get(position).getCategoryName().equals("Sports"))
+        {
+           // viewHolder.eventImage.setBackgroundResource(R.drawable.sports);
+            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.sports));
+        }
+        else if (calendarMonthList.get(position).getCategoryName().equals(""))
+        {
+           // viewHolder.eventImage.setBackgroundResource(R.drawable.event_image);
+            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.documentslist));
+        }
+        else if (calendarMonthList.get(position).getCategoryName().equals("Academics"))
+        {
+            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.academics));
+        }
+        else if (calendarMonthList.get(position).getCategoryName().equals("Performance"))
+        {
+            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.performance));
+        }
+        else if (calendarMonthList.get(position).getCategoryName().equals("Others"))
+        {
+            viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.others));
+        }
 
 
 
@@ -107,6 +120,7 @@ public class CalendarMonthListAdapter extends BaseAdapter {
         private TextView eventTitleLabel;
         private TextView eventDateLabel;
         private TextView eventTimeLabel;
+        private TextView eventEndTimeLabel;
         private ImageView eventImage;
     }
 }

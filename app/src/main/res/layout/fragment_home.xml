@@ -12,176 +12,157 @@
          />
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:orientation="horizontal"
+        android:layout_weight="0">
+
+        <!--<LinearLayout-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<ImageButton-->
+                <!--android:id="@+id/calendarButton"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="#333332"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:-->
+                <!--android:layout_gravity="center"-->
+                <!--android:src="@drawable/calendarblack"-->
+                <!--android:background="@color/white"/>-->
+            <!--<TextView-->
+                <!--android:textSize="30px"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentBottom="false"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_alignBottom="@+id/calendarButton"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:textColor="#333332"-->
+                <!--android:text="Calendar"/>-->
+
+
+
+        <!--</LinearLayout>-->
+
+
+
+        <Button
+            android:layout_margin="10dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/activity_home_address_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Sircle"
-                android:gravity="center"
-                android:layout_marginTop="10dp"
-                android:textAlignment="center"
-                android:textColor="#333332"
-                android:textSize="34px"
-                 />
-
-
-
-            <TextView
-                android:id="@+id/school_address_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:autoLink="phone"
-                android:gravity="center"
-                android:textAlignment="center"
-                android:text="Mazgoan, Mumbai -10, India."
-                android:textColor="#424241"
-                android:textSize="30px"
-                 />
-
-            <TextView
-                android:id="@+id/activity_home_email_address_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autoLink="email"
-                android:lineSpacingExtra="1dp"
-                android:text="@string/activity_login_email_address"
-                android:textColor="#424241"
-                android:textColorLink="#424241"
-                android:textSize="30px"
-                android:gravity="center"
-                android:textAlignment="center"
-                 />
+            android:drawableTop="@drawable/calendarblack"
+            android:textColor="#333332"
+            android:id="@+id/calendarButton"
+            android:paddingTop="32sp"
+            android:background="@color/white"
+            android:drawablePadding="20sp"
+            android:text="Calendar"></Button>
 
 
 
 
-            <TextView
-                android:id="@+id/activity_login_home_number_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autoLink="phone"
-                android:lineSpacingExtra="1dp"
-                android:text="@string/activity_login_contact_number"
-                android:textColor="#424241"
-                android:textColorLink="#424241"
-                android:textSize="30px"
-                android:gravity="center"
-                android:textAlignment="center"
-                 />
+        <!--<LinearLayout-->
+            <!--android:layout_weight="1"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<ImageButton-->
+                <!--android:id="@+id/photosButton"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="#333332"-->
+                <!--android:paddingTop="0dp"-->
+                <!--android:paddingBottom="0dp"-->
+                <!--android:paddingLeft="0dp"-->
+                <!--android:paddingRight="0dp"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:src="@drawable/photosblack"-->
+                <!--android:background="@color/white"/>-->
+            <!--<TextView-->
+                <!--android:textSize="30px"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentBottom="false"-->
+                <!--android:layout_alignBottom="@+id/photosButton"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:textColor="#333332"-->
+                <!--android:text="Photos"/>-->
 
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:orientation="horizontal"
-        android:layout_weight="1">
-
-        <LinearLayout
-            android:orientation="vertical"
+        <Button
+            android:layout_margin="10dp"
+            android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageButton
-                android:id="@+id/calendarButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#333332"
-                android:scaleType="fitXY"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_date_range_black_48dp"
-                android:background="@color/white"/>
-            <TextView
-                android:textSize="30px"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="false"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:layout_alignBottom="@+id/calendarButton"
-                android:layout_marginTop="10dp"
-                android:textColor="#333332"
-                android:text="Calendar"/>
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/photosblack"
+            android:textColor="#333332"
+            android:id="@+id/photosButton"
+            android:paddingTop="32sp"
+            android:background="@color/white"
+            android:drawablePadding="20sp"
+            android:text="Photos"></Button>
+
+        <!--<LinearLayout-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<ImageButton-->
+                <!--android:id="@+id/newsletterButton"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="#333332"-->
+                <!--android:paddingTop="0dp"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:paddingBottom="0dp"-->
+                <!--android:paddingLeft="0dp"-->
+                <!--android:paddingRight="0dp"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:src="@drawable/newslettersblack"-->
+                <!--android:background="@color/white"/>-->
+            <!--<TextView-->
+                <!--android:textSize="30px"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentBottom="false"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:textColor="#333332"-->
+                <!--android:layout_alignBottom="@+id/newsletterButton"-->
+                <!--android:text="Newsletter"/>-->
 
 
-        </LinearLayout>
 
+        <!--</LinearLayout>-->
 
-        <LinearLayout
+        <Button
+            android:layout_width="0dp"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageButton
-                android:id="@+id/photosButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#333332"
-                android:paddingTop="0dp"
-                android:paddingBottom="0dp"
-                android:paddingLeft="0dp"
-                android:paddingRight="0dp"
-                android:scaleType="fitXY"
-                android:layout_gravity="center"
-                android:src="@drawable/photoshome"
-                android:background="@color/white"/>
-            <TextView
-                android:textSize="30px"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="false"
-                android:layout_alignBottom="@+id/photosButton"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                android:textColor="#333332"
-                android:text="Photos"/>
+            android:background="@color/white"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/newslettersblack"
+            android:textColor="#333332"
+            android:id="@+id/newsletterButton"
+            android:paddingTop="32sp"
+            android:layout_margin="10dp"
+            android:drawablePadding="20sp"
+            android:text="Newsletter"></Button>
 
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageButton
-                android:id="@+id/newsletterButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#333332"
-                android:paddingTop="0dp"
-                android:layout_gravity="center"
-                android:paddingBottom="0dp"
-                android:paddingLeft="0dp"
-                android:paddingRight="0dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/newslettershome"
-                android:background="@color/white"/>
-            <TextView
-                android:textSize="30px"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="false"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:textColor="#333332"
-                android:layout_alignBottom="@+id/newsletterButton"
-                android:text="Newsletter"/>
-
-
-        </LinearLayout>
 
 
     </LinearLayout>
@@ -193,107 +174,146 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        android:layout_weight="1">
+        android:layout_weight="0">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <!--<LinearLayout-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<ImageButton-->
+                <!--android:id="@+id/documentsButton"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="#333332"-->
+                <!--android:paddingTop="0dp"-->
+                <!--android:paddingBottom="0dp"-->
+                <!--android:paddingLeft="0dp"-->
+                <!--android:paddingRight="0dp"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:src="@drawable/documentsblack"-->
+                <!--android:background="@color/white"/>-->
+            <!--<TextView-->
+                <!--android:textSize="30px"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentBottom="false"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_alignBottom="@+id/documentsButton"-->
+                <!--android:textColor="#333332"-->
+                <!--android:text="Documents"/>-->
+
+
+        <!--</LinearLayout>-->
+
+        <Button
+            android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageButton
-                android:id="@+id/documentsButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#333332"
-                android:paddingTop="0dp"
-                android:paddingBottom="0dp"
-                android:paddingLeft="0dp"
-                android:paddingRight="0dp"
-                android:scaleType="fitXY"
-                android:layout_gravity="center"
-                android:src="@drawable/documentshome"
-                android:background="@color/white"/>
-            <TextView
-                android:textSize="30px"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="false"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_alignBottom="@+id/documentsButton"
-                android:textColor="#333332"
-                android:text="Documents"/>
+            android:background="@color/white"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/documentsblack"
+            android:textColor="#333332"
+            android:id="@+id/documentsButton"
+            android:paddingTop="32sp"
+            android:layout_margin="10dp"
+            android:drawablePadding="20sp"
+            android:text="Documents"></Button>
 
 
-        </LinearLayout>
+        <!--<LinearLayout-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<ImageButton-->
+                <!--android:id="@+id/videosButton"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="#333332"-->
+                <!--android:paddingTop="0dp"-->
+                <!--android:paddingBottom="0dp"-->
+                <!--android:paddingLeft="0dp"-->
+                <!--android:paddingRight="0dp"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:src="@drawable/videosblack"-->
+                <!--android:background="@color/white"/>-->
+            <!--<TextView-->
+                <!--android:textSize="30px"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentBottom="false"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_alignBottom="@+id/videosButton"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:textColor="#333332"-->
+                <!--android:text="Videos"/>-->
 
 
-        <LinearLayout
-            android:orientation="vertical"
+        <!--</LinearLayout>-->
+
+        <Button
+            android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageButton
-                android:id="@+id/videosButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#333332"
-                android:paddingTop="0dp"
-                android:paddingBottom="0dp"
-                android:paddingLeft="0dp"
-                android:paddingRight="0dp"
-                android:layout_gravity="center"
-                android:scaleType="fitXY"
-                android:src="@drawable/videoshome"
-                android:background="@color/white"/>
-            <TextView
-                android:textSize="30px"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="false"
-                android:layout_centerHorizontal="true"
-                android:layout_alignBottom="@+id/videosButton"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:textColor="#333332"
-                android:text="Videos"/>
+            android:background="@color/white"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/videosblack"
+            android:textColor="#333332"
+            android:id="@+id/videosButton"
+            android:paddingTop="32sp"
+            android:layout_margin="10dp"
+            android:drawablePadding="20sp"
+            android:text="Videos"></Button>
+
+        <!--<LinearLayout-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<ImageButton-->
+                <!--android:id="@+id/linksButton"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="#333332"-->
+                <!--android:paddingTop="0dp"-->
+                <!--android:paddingBottom="0dp"-->
+                <!--android:paddingLeft="0dp"-->
+                <!--android:paddingRight="0dp"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:src="@drawable/linksblack"-->
+                <!--android:background="@color/white"/>-->
+            <!--<TextView-->
+                <!--android:textSize="30px"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentBottom="false"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_alignBottom="@+id/linksButton"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:textColor="#333332"-->
+                <!--android:text="Links"/>-->
 
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
-        <LinearLayout
-            android:orientation="vertical"
+        <Button
+            android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageButton
-                android:id="@+id/linksButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#333332"
-                android:paddingTop="0dp"
-                android:paddingBottom="0dp"
-                android:paddingLeft="0dp"
-                android:paddingRight="0dp"
-                android:layout_gravity="center"
-                android:scaleType="fitXY"
-                android:src="@drawable/linkshome"
-                android:background="@color/white"/>
-            <TextView
-                android:textSize="30px"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="false"
-                android:layout_centerHorizontal="true"
-                android:layout_alignBottom="@+id/linksButton"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:textColor="#333332"
-                android:text="Links"/>
-
-
-        </LinearLayout>
+            android:background="@color/white"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/linksblack"
+            android:textColor="#333332"
+            android:id="@+id/linksButton"
+            android:paddingTop="32sp"
+            android:layout_margin="10dp"
+            android:drawablePadding="20sp"
+            android:text="Links"></Button>
 
 
     </LinearLayout>
@@ -305,107 +325,147 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        android:layout_weight="1">
+        android:layout_weight="0">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <!--<LinearLayout-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<ImageButton-->
+                <!--android:id="@+id/settingsButton"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="#333332"-->
+                <!--android:paddingTop="0dp"-->
+                <!--android:paddingBottom="0dp"-->
+                <!--android:paddingLeft="0dp"-->
+                <!--android:paddingRight="0dp"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:src="@drawable/settingsblack"-->
+                <!--android:background="@color/white"/>-->
+            <!--<TextView-->
+                <!--android:textSize="30px"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentBottom="false"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_alignBottom="@+id/settingsButton"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:textColor="#333332"-->
+                <!--android:text="Settings"/>-->
+
+
+        <!--</LinearLayout>-->
+
+
+        <Button
+            android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageButton
-                android:id="@+id/settingsButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#333332"
-                android:paddingTop="0dp"
-                android:paddingBottom="0dp"
-                android:paddingLeft="0dp"
-                android:paddingRight="0dp"
-                android:layout_gravity="center"
-                android:scaleType="fitXY"
-                android:src="@drawable/settingshome"
-                android:background="@color/white"/>
-            <TextView
-                android:textSize="30px"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="false"
-                android:layout_centerHorizontal="true"
-                android:layout_alignBottom="@+id/settingsButton"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:textColor="#333332"
-                android:text="Settings"/>
+            android:background="@color/white"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/settingsblack"
+            android:textColor="#333332"
+            android:id="@+id/settingsButton"
+            android:paddingTop="32sp"
+            android:layout_margin="10dp"
+            android:drawablePadding="20sp"
+            android:text="Settings"></Button>
 
 
-        </LinearLayout>
+        <!--<LinearLayout-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<ImageButton-->
+                <!--android:id="@+id/notificationsButton"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="#333332"-->
+                <!--android:paddingTop="0dp"-->
+                <!--android:paddingBottom="0dp"-->
+                <!--android:paddingLeft="0dp"-->
+                <!--android:paddingRight="0dp"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:src="@drawable/notificationblack"-->
+                <!--android:background="@color/white"/>-->
+            <!--<TextView-->
+                <!--android:textSize="30px"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentBottom="false"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_alignBottom="@+id/notificationsButton"-->
+                <!--android:textColor="#333332"-->
+                <!--android:text="Notifications"/>-->
 
 
-        <LinearLayout
-            android:orientation="vertical"
+        <!--</LinearLayout>-->
+
+        <Button
+            android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageButton
-                android:id="@+id/notificationsButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#333332"
-                android:paddingTop="0dp"
-                android:paddingBottom="0dp"
-                android:paddingLeft="0dp"
-                android:paddingRight="0dp"
-                android:layout_gravity="center"
-                android:scaleType="fitXY"
-                android:src="@drawable/notificationshome"
-                android:background="@color/white"/>
-            <TextView
-                android:textSize="30px"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="false"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                android:layout_alignBottom="@+id/notificationsButton"
-                android:textColor="#333332"
-                android:text="Notifications"/>
+            android:background="@color/white"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/notificationblack"
+            android:textColor="#333332"
+            android:id="@+id/notificationsButton"
+            android:paddingTop="32sp"
+            android:layout_margin="10dp"
+            android:drawablePadding="20sp"
+            android:text="Messages"></Button>
+
+        <!--<LinearLayout-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<ImageButton-->
+                <!--android:id="@+id/informationButton"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="#333332"-->
+                <!--android:paddingTop="0dp"-->
+                <!--android:paddingBottom="0dp"-->
+                <!--android:paddingLeft="0dp"-->
+                <!--android:paddingRight="0dp"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:src="@drawable/informationhome"-->
+                <!--android:background="@color/white"/>-->
+            <!--<TextView-->
+                <!--android:textSize="30px"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentBottom="false"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_alignBottom="@+id/informationButton"-->
+                <!--android:textColor="#333332"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:text="Information"/>-->
 
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
-        <LinearLayout
-            android:orientation="vertical"
+        <Button
+            android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageButton
-                android:id="@+id/informationButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#333332"
-                android:paddingTop="0dp"
-                android:paddingBottom="0dp"
-                android:paddingLeft="0dp"
-                android:paddingRight="0dp"
-                android:layout_gravity="center"
-                android:scaleType="fitXY"
-                android:src="@drawable/informationhome"
-                android:background="@color/white"/>
-            <TextView
-                android:textSize="30px"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="false"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:layout_alignBottom="@+id/informationButton"
-                android:textColor="#333332"
-                android:layout_gravity="center"
-                android:text="Information"/>
-
-
-        </LinearLayout>
+            android:background="@color/white"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/informationblack"
+            android:textColor="#333332"
+            android:id="@+id/informationButton"
+            android:paddingTop="32sp"
+            android:layout_margin="10dp"
+            android:drawablePadding="20sp"
+            android:text="Information"></Button>
 
 
     </LinearLayout>
