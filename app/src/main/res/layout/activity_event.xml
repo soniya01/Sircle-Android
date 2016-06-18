@@ -1,0 +1,675 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:context="com.app.sircle.UI.Activity.EventActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_title"
+                android:layout_marginTop="22dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/holidayEventTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Title"
+                    android:drawableLeft="@drawable/linkstitleimage"
+                    android:maxLines="2"
+                    android:paddingBottom="20dp"
+                    android:paddingLeft="0dp"
+                    android:layout_marginLeft="15dp"
+                    android:drawablePadding="19dp"
+                    android:layout_marginRight="15dp"
+                    android:textColor="#303030"
+                    android:textSize="20dp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_location"
+                android:layout_marginTop="22dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Location"
+                    android:drawableLeft="@drawable/locationlabelimage"
+                    android:maxLines="2"
+                    android:paddingBottom="20dp"
+                    android:paddingLeft="0dp"
+                    android:layout_marginLeft="15dp"
+                    android:drawablePadding="19dp"
+                    android:layout_marginRight="15dp"
+                    android:textColor="#303030"
+                    android:textSize="20dp" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_below="@+id/input_layout_title"
+                android:id="@+id/input_layout_category"
+                android:layout_marginTop="22dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/selectCategoryButton"
+                    android:focusable="false"
+                    android:hint="Category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/categorytitleimage"
+                    android:paddingBottom="20dp"
+                    android:paddingLeft="0dp"
+                    android:layout_marginLeft="15dp"
+                    android:drawablePadding="25dp"
+                    android:layout_marginRight="15dp"
+                    android:textColor="#303030"
+                    android:textSize="20dp"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/layoutSelectAll">
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="27dp"
+                        android:layout_marginTop="20dp"
+                        android:src="@drawable/groupsicon"/>
+
+                    <TextView
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Groups"
+                        android:textSize="20dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_alignParentRight="true"
+                    android:layout_height="wrap_content">
+
+                    <CheckBox
+                        android:layout_marginRight="12dp"
+                        android:layout_marginTop="12dp"
+                        android:id="@+id/checkAll"
+                        android:checked="false"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="All"
+                        android:textSize="20dp" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+
+            <ListView
+                android:id="@+id/activity_schoolHoliday_list_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:overScrollMode="never"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:scrollbars="none"
+                />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_below="@+id/input_layout_title"
+                android:id="@+id/input_layout_startDate"
+                android:layout_marginTop="22dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/holidayEventStartDate"
+                    android:focusable="false"
+                    android:hint="Start Date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/urltitleimage"
+                    android:paddingBottom="20dp"
+                    android:paddingLeft="0dp"
+                    android:layout_marginLeft="15dp"
+                    android:drawablePadding="25dp"
+                    android:layout_marginRight="15dp"
+                    android:textColor="#303030"
+                    android:textSize="20dp"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_below="@+id/input_layout_startDate"
+                android:id="@+id/input_layout_url"
+                android:layout_marginTop="22dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/holidayEventEndDate"
+                    android:focusable="false"
+                    android:hint="End Date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/enddateicon"
+                    android:paddingBottom="20dp"
+                    android:paddingLeft="0dp"
+                    android:layout_marginLeft="15dp"
+                    android:drawablePadding="25dp"
+                    android:layout_marginRight="15dp"
+                    android:textColor="#303030"
+                    android:textSize="20dp" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_below="@+id/input_layout_startDate"
+                android:id="@+id/input_layout_startTime"
+                android:layout_marginTop="22dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/startTime"
+                    android:focusable="false"
+                    android:hint="Start Time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/urltitleimage"
+                    android:paddingBottom="20dp"
+                    android:paddingLeft="0dp"
+                    android:layout_marginLeft="15dp"
+                    android:drawablePadding="25dp"
+                    android:layout_marginRight="15dp"
+                    android:textColor="#303030"
+                    android:textSize="20dp" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_below="@+id/input_layout_startDate"
+                android:id="@+id/input_layout_endTime"
+                android:layout_marginTop="22dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/endTime"
+                    android:focusable="false"
+                    android:hint="End Time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/enddateicon"
+                    android:paddingBottom="20dp"
+                    android:paddingLeft="0dp"
+                    android:layout_marginLeft="15dp"
+                    android:drawablePadding="25dp"
+                    android:layout_marginRight="15dp"
+                    android:textColor="#303030"
+                    android:textSize="20dp" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_marginTop="22dp"
+                android:id="@+id/detailsTextContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                app:counterMaxLength="255">
+
+                <EditText
+                    android:id="@+id/eventDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="255"
+                    android:hint="Details"
+                    android:textColor="#303030"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reminder"
+                android:layout_marginTop="10dp"
+                android:textColor="#303030"
+                android:textSize="16sp" />
+            <Button
+                android:id="@+id/days"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/custom_edit_text_border"
+                android:maxLines="2"
+                android:padding="15dp"
+                android:text="1 Day"
+                android:textColor="#303030"
+                android:textSize="14sp" />
+            <Button
+                android:id="@+id/hours"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/custom_edit_text_border"
+                android:maxLines="2"
+                android:padding="15dp"
+                android:text="0 Hour"
+                android:textColor="#303030"
+                android:textSize="14sp" />
+            <Button
+                android:id="@+id/minutes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/custom_edit_text_border"
+                android:maxLines="2"
+                android:padding="15dp"
+                android:text="0 Minute"
+                android:textColor="#303030"
+                android:textSize="14sp" />
+
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_marginTop="5dp"
+                android:padding="15dp"
+                android:background="@drawable/custom_edit_text_border"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Repeat"
+                    android:textColor="#303030"
+                    android:textSize="16sp" />
+
+                <CheckBox
+                    android:id="@+id/activity_event_repeat"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/repeatLayout"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Repeats"/>
+                <Button
+                    android:id="@+id/repeatsType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/custom_edit_text_border"
+                    android:maxLines="2"
+                    android:padding="15dp"
+                    android:text="Daily"
+                    android:textColor="#303030"
+                    android:textSize="14sp" />
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Repeat For"/>
+                <Button
+                    android:id="@+id/repeatForDays"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/custom_edit_text_border"
+                    android:maxLines="2"
+                    android:padding="15dp"
+                    android:text="1 day"
+                    android:textColor="#303030"
+                    android:textSize="14sp" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/weeklyLayout"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Vertical:"/>
+                    <RelativeLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:padding="15dp"
+                        android:background="@drawable/custom_edit_text_border"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Monday"
+                            />
+
+                        <CheckBox
+                            android:id="@+id/verticalMonday"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:padding="15dp"
+                        android:background="@drawable/custom_edit_text_border"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tuesday"
+                            />
+
+                        <CheckBox
+                            android:id="@+id/verticalTuesday"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:padding="15dp"
+                        android:background="@drawable/custom_edit_text_border"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Wednesday"
+                            />
+
+                        <CheckBox
+                            android:id="@+id/verticalWednesday"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:padding="15dp"
+                        android:background="@drawable/custom_edit_text_border"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Thursday"
+                            />
+
+                        <CheckBox
+                            android:id="@+id/verticalThursday"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:padding="15dp"
+                        android:background="@drawable/custom_edit_text_border"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Friday"
+                            />
+
+                        <CheckBox
+                            android:id="@+id/verticalFriday"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:padding="15dp"
+                        android:background="@drawable/custom_edit_text_border"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Saturday"
+                            />
+
+                        <CheckBox
+                            android:id="@+id/verticalSaturday"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:padding="15dp"
+                        android:background="@drawable/custom_edit_text_border"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sunday"
+                            />
+
+                        <CheckBox
+                            android:id="@+id/verticalSunday"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/monthlyLayout"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:padding="15dp"
+                        android:background="@drawable/custom_edit_text_border"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="day of the month"
+                            />
+
+                        <CheckBox
+                            android:id="@+id/dayofthemonth"
+                            android:checked="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:padding="15dp"
+                        android:background="@drawable/custom_edit_text_border"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="day of the week"
+                            />
+
+                        <CheckBox
+                            android:id="@+id/dayoftheweek"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </RelativeLayout>
+                    </LinearLayout>
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Repeat Count"/>
+                <RelativeLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:padding="15dp"
+                    android:background="@drawable/custom_edit_text_border"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Never"
+                        />
+
+                    <CheckBox
+                        android:id="@+id/activity_event_repeat_never"
+                        android:checked="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:padding="15dp"
+                    android:background="@drawable/custom_edit_text_border"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="After"
+                        />
+
+                    <CheckBox
+                        android:id="@+id/activity_event_repeat_after"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <EditText
+                    android:id="@+id/afterCount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:inputType="number"
+                    android:background="@drawable/custom_edit_text_border"
+                    android:maxHeight="100dp"
+                    android:padding="15dp"
+                    android:textColor="#303030"
+                    android:textSize="14sp" />
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Occurrences"/>
+                <RelativeLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:padding="15dp"
+                    android:background="@drawable/custom_edit_text_border"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="After"
+                        />
+
+                    <CheckBox
+                        android:id="@+id/activity_event_repeat_occurencesOn"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+                <Button
+                    android:id="@+id/occurrencesDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/custom_edit_text_border"
+                    android:maxHeight="100dp"
+                    android:padding="15dp"
+                    android:textColor="#303030"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/add_button"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="0dp"
+                android:background="#FC6F71"
+                android:text="Add Event"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:padding="10dp">
+
+
+    <com.app.sircle.UI.CustomView.TouchImageView
+        android:id="@+id/album_pager_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/description_image_default"
+        android:layout_above="@+id/container"
+        android:src="@drawable/scene1" />
+
+
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/black"
+        android:padding="0dp">
+
+        <TextView
+            android:id="@+id/albums_image_no_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="26dp"
+            android:layout_marginLeft="26dp"
+            android:layout_marginBottom="40dp"
+
+            android:background="@drawable/roundedtextborder"
+            android:padding="10dp"
+            android:text="1/5"
+            android:textColor="#979797"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/album_image_title_label"
+            android:background="#000000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/albums_image_no_label"
+            android:text="Its a small scene."
+            android:maxLines="3"
+            android:layout_marginBottom="40dp"
+            android:maxLength="100"
+            android:textColor="#979797"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:layout_marginTop="30dp"-->
+        <!--android:layout_above="@id/container"-->
+        <!--android:background="@android:color/darker_gray" />-->
+
+
+</RelativeLayout>

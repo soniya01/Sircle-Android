@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.balysv.materialripple.MaterialRippleLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+app:mrl_rippleAlpha="0.2"
+app:mrl_rippleColor="#C0C0C0"
+app:mrl_rippleHover="true"
+app:mrl_rippleOverlay="true">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    >
+
+
+
+    <RelativeLayout
+        android:id="@+id/imageLayout"
+        android:layout_width="wrap_content"
+        android:background="@color/listimagebackgroundcolor"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignBottom="@+id/linearLayout">
+
+        <ImageView
+            android:id="@+id/eventImage"
+            android:src="@drawable/documentslist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="19dp"
+            android:paddingRight="18dp"
+            android:layout_centerVertical="true" />
+
+    </RelativeLayout>
+
+
+        <com.app.sircle.custom.RobotoLightTextView
+            android:id="@+id/eventTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imageLayout"
+            android:layout_marginLeft="14dp"
+            android:text="Sample pdf"
+            android:textColor="#333333"
+            />
+
+
+    <!--android:layout_alignParentTop="true"-->
+    <!--android:layout_alignParentRight="true"-->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="22dp"
+        android:id="@+id/linearLayout">
+
+        <com.app.sircle.custom.RobotoLightTextView
+            android:id="@+id/startTime"
+            android:textColor="#666666"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="14dp"
+            android:text="11:00" />
+
+        <com.app.sircle.custom.RobotoLightTextView
+            android:id="@+id/endTime"
+            android:textColor="#666666"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="22dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="14dp"
+            android:text="11:00" />
+
+    </LinearLayout>
+
+
+
+
+
+</RelativeLayout>
+</com.balysv.materialripple.MaterialRippleLayout>
