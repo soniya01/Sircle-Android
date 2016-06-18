@@ -44,14 +44,14 @@ public class SlidingPaneAdapter extends ArrayAdapter<String>{
 
         if (userType.equals("admin"))
         {
-           menuIcons = new int[]{R.drawable.homeblack, R.drawable.calendarblack, R.drawable.photosblack, R.drawable.notificationblack, R.drawable.newslettersblack, R.drawable.documentsblack,R.drawable.videosblack, R.drawable.linksblack, R.drawable.emailblack, R.drawable.signoutblack};
-            menuIconsSelected = new int[]{R.drawable.homeselected, R.drawable.calendarselected, R.drawable.photosselected, R.drawable.notificationsselected, R.drawable.newslettersselected, R.drawable.documentsselected,R.drawable.videosselected, R.drawable.linksselected, R.drawable.emailselected, R.drawable.signout};
+           menuIcons = new int[]{R.drawable.homeblack, R.drawable.calendarblack, R.drawable.photosblack, R.drawable.notificationblack, R.drawable.newslettersblack, R.drawable.documentsblack,R.drawable.videosblack, R.drawable.linksblack,R.drawable.instituteinfoblack, R.drawable.emailblack, R.drawable.signoutblack};
+            menuIconsSelected = new int[]{R.drawable.homeselected, R.drawable.calendarselected, R.drawable.photosselected, R.drawable.notificationsselected, R.drawable.newslettersselected, R.drawable.documentsselected,R.drawable.videosselected, R.drawable.linksselected,R.drawable.instituteinfoselected, R.drawable.emailselected, R.drawable.signout};
         }
         else
         {
-            menuIcons = new int[]{R.drawable.homeblack, R.drawable.calendarblack, R.drawable.photosblack, R.drawable.notificationblack, R.drawable.newslettersblack, R.drawable.documentsblack,R.drawable.videosblack, R.drawable.linksblack, R.drawable.settingsblack, R.drawable.emailblack, R.drawable.signoutblack};
+            menuIcons = new int[]{R.drawable.homeblack, R.drawable.calendarblack, R.drawable.photosblack, R.drawable.notificationblack, R.drawable.newslettersblack, R.drawable.documentsblack,R.drawable.videosblack, R.drawable.linksblack,R.drawable.instituteinfoblack ,R.drawable.settingsblack, R.drawable.emailblack, R.drawable.signoutblack};
 
-            menuIconsSelected = new int[]{R.drawable.homeselected, R.drawable.calendarselected, R.drawable.photosselected, R.drawable.notificationsselected, R.drawable.newslettersselected, R.drawable.documentsselected,R.drawable.videosselected, R.drawable.linksselected, R.drawable.settingsselected, R.drawable.emailselected, R.drawable.signout};
+            menuIconsSelected = new int[]{R.drawable.homeselected, R.drawable.calendarselected, R.drawable.photosselected, R.drawable.notificationsselected, R.drawable.newslettersselected, R.drawable.documentsselected,R.drawable.videosselected, R.drawable.linksselected,R.drawable.instituteinfoselected, R.drawable.settingsselected, R.drawable.emailselected, R.drawable.signout};
         }
         this.context = context;
         this.values = values;

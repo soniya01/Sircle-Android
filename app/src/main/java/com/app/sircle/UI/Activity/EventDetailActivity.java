@@ -231,10 +231,10 @@ public class EventDetailActivity extends AppCompatActivity {
                 public void onCompletion(PostResponse response, AppError error) {
                     if (response != null) {
                         if (response.getStatus() == 200) {
-                            Toast.makeText(EventDetailActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(EventDetailActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
-                            Toast.makeText(EventDetailActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(EventDetailActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                         }
 
                     } else {
@@ -285,11 +285,11 @@ public class EventDetailActivity extends AppCompatActivity {
                            // eventTitleString = eventDetailResponse.getData().getEventInfo().getTitle();
                            // eventDetail = eventDetailResponse.getData().getEventInfo().getDetail();
                         }else {
-                            Toast.makeText(EventDetailActivity.this,eventDetailResponse.getMessage(),Toast.LENGTH_SHORT).show();
+                         //   Toast.makeText(EventDetailActivity.this,eventDetailResponse.getMessage(),Toast.LENGTH_SHORT).show();
                         }
 
                     }else {
-                        Toast.makeText(EventDetailActivity.this,eventDetailResponse.getMessage(),Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(EventDetailActivity.this,eventDetailResponse.getMessage(),Toast.LENGTH_SHORT).show();
                     }
                 }else {
                     Toast.makeText(EventDetailActivity.this,"Some problem occurred",Toast.LENGTH_SHORT).show();

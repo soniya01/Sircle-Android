@@ -281,14 +281,14 @@ public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnR
 //                                    notificationListView.setAdapter(notificationsGroupAdapter);
 //                                }
                             }else {
-                                Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                             //   Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             Toast.makeText(getActivity(), "Some problem occurred",Toast.LENGTH_SHORT).show();
                         }
 
                     } else {
-                        Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
                 }

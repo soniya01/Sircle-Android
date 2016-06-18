@@ -198,10 +198,10 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
                             notificationListviewAdapter.notifyDataSetChanged();
 
                         }else {
-                            Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                         //   Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }else {
-                        Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
                 } else {
@@ -261,10 +261,10 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
                             notificationList.addAll(NotificationManager.notificationList);
                             notificationListviewAdapter.notifyDataSetChanged();
                         }else {
-                            Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                        //    Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }else {
-                        Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
                 } else {

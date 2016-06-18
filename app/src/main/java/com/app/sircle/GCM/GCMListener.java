@@ -77,7 +77,7 @@ public class GCMListener extends GcmListenerService {
         }
 
 
-       // sendNotification(data);
+        sendNotification(data);
     }
 
     @Override

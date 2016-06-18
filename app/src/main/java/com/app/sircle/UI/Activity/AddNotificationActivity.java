@@ -158,11 +158,11 @@ public class AddNotificationActivity extends ActionBarActivity {
                             if (postResponse != null) {
                                 if (postResponse.getStatus() == 200) {
                                     ringProgressDialog.dismiss();
-                                    Toast.makeText(AddNotificationActivity.this, postResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                   // Toast.makeText(AddNotificationActivity.this, postResponse.getMessage(), Toast.LENGTH_SHORT).show();
                                     finish();
                                 } else {
                                     ringProgressDialog.dismiss();
-                                    Toast.makeText(AddNotificationActivity.this, postResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                  //  Toast.makeText(AddNotificationActivity.this, postResponse.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             } else {
                                 ringProgressDialog.dismiss();

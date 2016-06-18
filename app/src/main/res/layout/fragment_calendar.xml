@@ -75,6 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 fab:fab_colorNormal="@color/white"
+                fab:fab_icon="@drawable/holidayicon"
                 fab:fab_title="Holiday"
                 fab:fab_colorPressed="@color/white_pressed"/>
 
@@ -83,6 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 fab:fab_colorNormal="@color/white"
+                fab:fab_icon="@drawable/eventicon"
                 fab:fab_title="Event"
                 fab:fab_colorPressed="@color/white_pressed"/>
 
@@ -91,6 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 fab:fab_colorNormal="@color/white"
+                fab:fab_icon="@drawable/schoolholidayicon"
                 fab:fab_title="School Holiday"
                 fab:fab_colorPressed="@color/white_pressed"/>
 

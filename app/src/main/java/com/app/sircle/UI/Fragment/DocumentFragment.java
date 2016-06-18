@@ -136,13 +136,13 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
                             newsLetterListViewAdapter.notifyDataSetChanged();
 
                         } else {
-                            Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                         //   Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -231,10 +231,10 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
                             newsLetterListViewAdapter.notifyDataSetChanged();
 
                         } else {
-                            Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                         //   Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();

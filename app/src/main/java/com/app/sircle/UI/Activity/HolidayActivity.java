@@ -54,7 +54,7 @@ public class HolidayActivity extends ActionBarActivity {
                     @Override
                     public void onCompletion(PostResponse response, AppError error) {
                         if (response != null){
-                            Toast.makeText(HolidayActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(HolidayActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                             if (response.getStatus() == 200){
                                 finish();
                             }

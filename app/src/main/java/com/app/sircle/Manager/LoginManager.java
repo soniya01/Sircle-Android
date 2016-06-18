@@ -3,6 +3,7 @@ package com.app.sircle.Manager;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.WebService.CategoryResponse;
 import com.app.sircle.WebService.EventWebService;
+import com.app.sircle.WebService.ForgotPasswordResponse;
 import com.app.sircle.WebService.LoginResponse;
 import com.app.sircle.WebService.LoginService;
 
@@ -40,6 +41,27 @@ public class LoginManager {
         });
     }
 
+    public void registerUser(HashMap<String,String> params, final ForgotLoginManagerListener loginManagerListener){
+
+        LoginService.registerUser(params, new LoginService.GetForgotPasswordWebServiceListener() {
+            @Override
+            public void onCompletion(ForgotPasswordResponse response, AppError error) {
+                loginManagerListener.onCompletion(response, error);
+            }
+        });
+    }
+
+    public void forgotPassword(HashMap<String,String> params, final ForgotLoginManagerListener loginManagerListener){
+
+        LoginService.forgotPassword(params, new LoginService.GetForgotPasswordWebServiceListener() {
+            @Override
+            public void onCompletion(ForgotPasswordResponse response, AppError error) {
+                loginManagerListener.onCompletion(response, error);
+            }
+        });
+    }
+
+
     public void logout(final LoginManagerListener loginManagerListener){
 
         LoginService.logout(new LoginService.GetLoginResponseWebServiceListener() {
@@ -65,5 +87,10 @@ public class LoginManager {
     public interface LoginManagerListener{
 
         public void onCompletion(LoginResponse response, AppError error);
+    }
+
+    public interface ForgotLoginManagerListener{
+
+        public void onCompletion(ForgotPasswordResponse response, AppError error);
     }
 }

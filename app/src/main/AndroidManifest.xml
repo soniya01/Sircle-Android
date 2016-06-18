@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.app.sircle"
-
     android:versionCode="1"
     android:versionName="1.0">
 
@@ -15,29 +14,30 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
-    <permission android:name="com.app.sircle.permission.C2D_MESSAGE"
+    <permission
+        android:name="com.app.sircle.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
+
     <uses-permission android:name="com.app.sircle.permission.C2D_MESSAGE" />
 
-    <!--<permission-->
-        <!--android:name="com.example.gcm.permission.C2D_MESSAGE"-->
-        <!--android:protectionLevel="signature" />-->
+    <!-- <permission -->
+    <!-- android:name="com.example.gcm.permission.C2D_MESSAGE" -->
+    <!-- android:protectionLevel="signature" /> -->
 
-    <!--<uses-permission android:name="com.example.gcm.permission.C2D_MESSAGE" />-->
+
+    <!-- <uses-permission android:name="com.example.gcm.permission.C2D_MESSAGE" /> -->
     <!-- Network State Permissions -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-
         android:name=".custom.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:largeHeap="true">
+        android:largeHeap="true"
+        android:theme="@style/AppTheme">
 
         <!-- [START gcm_receiver] -->
-
 
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
@@ -76,7 +76,7 @@
 
         <service
             android:name=".GCM.RegistrationIntentService"
-            android:exported="false"></service>
+            android:exported="false" />
 
         <activity
             android:name=".UI.Activity.SplashActivity"
@@ -102,8 +102,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".UI.Activity.AlbumDetailsActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.Activity.SettingsActivity"
             android:screenOrientation="portrait" />
@@ -113,49 +113,51 @@
         <activity
             android:name=".UI.Activity.AddLinksActivity"
             android:label="@string/title_activity_add_links"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.Activity.AddNotificationActivity"
             android:label="@string/title_activity_add_notification"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.Activity.AddAlbumActivity"
             android:label="@string/title_activity_add_album"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.Activity.EventsListActivity"
-            android:label="@string/title_activity_events_list"></activity>
+            android:label="@string/title_activity_events_list" />
         <activity
             android:name=".UI.Activity.AddPhotoTabbedActivity"
             android:label="@string/title_activity_add_photo_tabbed"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.cam.activity.CameraActivity"
             android:label="@string/title_activity_add_photo_tabbed"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"></activity>
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
         <activity
             android:name=".UI.Activity.AddSelectedPhoto"
             android:label="@string/title_activity_add_selected_photo"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.Activity.HolidayActivity"
-            android:label="@string/title_activity_holiday"></activity>
+            android:label="@string/title_activity_holiday" />
         <activity
             android:name=".UI.Activity.SchoolHolidayActivity"
-            android:label="@string/title_activity_school_holiday"></activity>
+            android:label="@string/title_activity_school_holiday" />
         <activity
             android:name=".UI.Activity.EventActivity"
-            android:label="@string/title_activity_event"></activity>
+            android:label="@string/title_activity_event" />
         <activity
             android:name=".UI.Activity.EventDetailActivity"
-            android:label="@string/title_activity_event_detail"></activity>
+            android:label="@string/title_activity_event_detail" />
         <activity
             android:name=".UI.Activity.VimeoWebviewActivity"
             android:label="@string/title_activity_vimeo_webview"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".UI.Activity.PDFWebViewer"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".UI.Activity.PDFWebViewer" />
+        <activity android:name=".UI.Activity.ForgotPasswordActivity" />
+        <activity android:name=".UI.Activity.SignUpScreen"></activity>
     </application>
 
 </manifest>

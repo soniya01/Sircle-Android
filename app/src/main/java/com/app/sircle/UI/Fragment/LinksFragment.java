@@ -178,7 +178,7 @@ public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                             linksListViewAdapter.notifyDataSetChanged();
 
                         } else {
-                            Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }else {
                         Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection", Toast.LENGTH_SHORT).show();
@@ -299,10 +299,10 @@ public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                             LinksFragment.this.linksList.addAll(LinksManager.linksList);
                             linksListViewAdapter.notifyDataSetChanged();
                         }else {
-                            Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }else {
-                        Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
                 } else {

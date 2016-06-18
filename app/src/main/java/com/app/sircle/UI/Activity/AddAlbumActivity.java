@@ -148,7 +148,7 @@ public class AddAlbumActivity extends ActionBarActivity {
                                 startActivity(tabIntent);
                                 finish();
                             } else {
-                                Toast.makeText(AddAlbumActivity.this, addAlbumResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                              //  Toast.makeText(AddAlbumActivity.this, addAlbumResponse.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             Toast.makeText(AddAlbumActivity.this, "Some error occurred", Toast.LENGTH_SHORT).show();
@@ -193,13 +193,13 @@ public class AddAlbumActivity extends ActionBarActivity {
 //
 //                        }
 
-                        Toast.makeText(AddAlbumActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                      // Toast.makeText(AddAlbumActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                     } else {
                         //Toast.makeText(SettingsActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
                     }
 
                 } else {
-                    Toast.makeText(AddAlbumActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(AddAlbumActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
             }

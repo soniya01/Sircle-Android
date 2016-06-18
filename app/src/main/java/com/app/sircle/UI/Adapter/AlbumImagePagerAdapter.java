@@ -65,7 +65,7 @@ public class AlbumImagePagerAdapter extends PagerAdapter {
 
         // get screen dimensions
         Picasso.with(context)
-                .load(albumDetailsList.get(position).getFilePath())
+                .load(albumDetailsList.get(position).getFilePath()).fit().centerCrop()
                 .into(photoImageView, new Callback() {
                     @Override
                     public void onSuccess() {

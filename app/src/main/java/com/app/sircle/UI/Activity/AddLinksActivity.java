@@ -226,13 +226,13 @@ public class AddLinksActivity extends ActionBarActivity {
 //                            addListView.setAdapter(notificationsGroupAdapter);
 //                        }
 
-                        Toast.makeText(AddLinksActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                     //   Toast.makeText(AddLinksActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(AddLinksActivity.this, "Some problem occurred",Toast.LENGTH_SHORT).show();
                     }
 
                 } else {
-                    Toast.makeText(AddLinksActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(AddLinksActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
             }

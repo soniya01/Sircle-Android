@@ -39,6 +39,7 @@ import com.app.sircle.UI.Fragment.CalendarMonthFragment;
 import com.app.sircle.UI.Fragment.CalendarTodayFragment;
 import com.app.sircle.UI.Fragment.DocumentFragment;
 import com.app.sircle.UI.Fragment.HomeFragment;
+import com.app.sircle.UI.Fragment.InstituteInfo;
 import com.app.sircle.UI.Fragment.LinksFragment;
 import com.app.sircle.UI.Fragment.NewsLetterFragment;
 import com.app.sircle.UI.Fragment.NotificationFragment;
@@ -67,6 +68,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private String[] menuList;
+    private String fragmentName;
 //    public static boolean jumpToFragment;
     private  Intent loginIntent = null;
     FragmentManager mFragmentManager;
@@ -76,12 +78,9 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
     private SharedPreferences loginSharedPreferences;
     String userType;
 
-    private void loadFragment(Context context, android.support.v4.app.Fragment fragment) {
+    Boolean closeApp;
 
-
-//        FragmentManager fragmentManager = ((Activity) context)
-//                .getFragmentManager();
-//        FragmentTransaction transaction = fragmentManager.beginTransaction();
+    private void loadFragment(Context context, android.support.v4.app.Fragment fragment ,String FragmentName) {
 
         mFragmentManager = getSupportFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
@@ -99,9 +98,10 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
 
         mDrawerList.setItemChecked(selectedModuleIndex, true);
         mDrawerList.setSelection(selectedModuleIndex);
-        if (selectedModuleIndex == 9){
-            setTitle(menuList[0]);
-        }else setTitle(menuList[selectedModuleIndex]);
+//        if (selectedModuleIndex == 9){
+//            setTitle(menuList[0]);
+//        }else setTitle(menuList[selectedModuleIndex]);
+        setTitle(FragmentName);
         mDrawerLayout.closeDrawer(mDrawerList);
 
     }
@@ -143,6 +143,8 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
         selectedModuleIndex = -1;
 
@@ -273,7 +275,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
                // getSupportActionBar().setTitle(menuList[selectedModuleIndex]);
-                actionBarTitleView.setText(menuList[selectedModuleIndex]);
+                actionBarTitleView.setText(fragmentName);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
@@ -322,89 +324,140 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                 // In this case fragmentToLoad = null and the previous fragment
                 // will
                 // be removed from the container
+                fragmentName = "Home";
                 if (!(fragmentToLoad instanceof HomeFragment))
-                fragmentToLoad = new HomeFragment();
+                {
+                    fragmentToLoad = new HomeFragment();
+                }
+                    closeApp = true;
+
                 break;
             case 1:
+                fragmentName = "Calendar";
                 if (calendarFragmentToLoad==null) {
                     calendarFragmentToLoad = new CalendarFragment();
                 }
-
+                closeApp = false;
                 break;
             case 2:
+                fragmentName = "Photos";
                 if (!(fragmentToLoad instanceof PhotosFragment))
                 fragmentToLoad = new PhotosFragment();
+                closeApp = false;
                 break;
             case 3:
+                fragmentName = "Messages";
                 if (!(fragmentToLoad instanceof NotificationFragment))
                 fragmentToLoad = new NotificationFragment();
+                closeApp = false;
                 break;
             case 4:
+                fragmentName = "Newsletters";
                 if (!(fragmentToLoad instanceof NewsLetterFragment))
                 fragmentToLoad = new NewsLetterFragment();
                 break;
             case 5:
+                fragmentName = "Documents";
                 if (!(fragmentToLoad instanceof DocumentFragment))
                 fragmentToLoad = new DocumentFragment();
+                closeApp = false;
                 break;
             case 6:
+                fragmentName = "Videos";
                 if (!(fragmentToLoad instanceof VideoFragment))
                 fragmentToLoad = new VideoFragment();
+                closeApp = false;
                 break;
             case 7:
+                fragmentName = "Links";
                 if (!(fragmentToLoad instanceof LinksFragment))
                 fragmentToLoad = new LinksFragment();
+                closeApp = false;
                 break;
+
             case 8:
                 if (userType.equals("admin")) {
 
-                    fragmentToLoad = new HomeFragment();
-                    Common.sendEmailToSupport(this);
+                    fragmentName = "Institute Info";
+                    fragmentToLoad = new InstituteInfo();
+                    closeApp = false;
+
+
                 }
                 else
                 {
+                    fragmentName = "Settings";
                     fragmentToLoad = new SettingsFragment();
                 }
+                closeApp = false;
                 break;
             case 9:
                 if (userType.equals("admin")) {
 
+
+
+
+                   // fragmentToLoad = new HomeFragment();
+                    Common.sendEmailToSupport(this);
+
+//                    mDrawerLayout.closeDrawer(mDrawerList);
+//                    fragmentToLoad = null;
+//                    selectedModuleIndex = 0;
+//                    handleSharedPreferencesOnLogout();
+//                    Intent loginIntent = new Intent(BaseActivity.this, LoginScreen.class);
+//                    startActivity(loginIntent);
+//                    finish();
+                }
+                else
+                {
+                    fragmentName = "Institute Info";
+                    fragmentToLoad = new InstituteInfo();
+                    closeApp = false;
+
+
+                }
+                closeApp = false;
+                break;
+            case 10:
+                // add sign out functionality and show LoginScreen
+
+                if (userType.equals("admin")) {
                     mDrawerLayout.closeDrawer(mDrawerList);
                     fragmentToLoad = null;
                     selectedModuleIndex = 0;
                     handleSharedPreferencesOnLogout();
+                    closeApp = false;
                     Intent loginIntent = new Intent(BaseActivity.this, LoginScreen.class);
                     startActivity(loginIntent);
                     finish();
                 }
                 else
                 {
-                    fragmentToLoad = new HomeFragment();
-                    // support email clickable
                     Common.sendEmailToSupport(this);
                 }
 
-                break;
-            case 10:
-                // add sign out functionality and show LoginScreen
+            case 11:
+
                 mDrawerLayout.closeDrawer(mDrawerList);
                 fragmentToLoad = null;
                 selectedModuleIndex = 0;
                 handleSharedPreferencesOnLogout();
+                closeApp = false;
                 Intent loginIntent = new Intent(BaseActivity.this, LoginScreen.class);
                 startActivity(loginIntent);
                 finish();
+
             default:
                 break;
         }
 
         if (selectedModuleIndex==1)
         {
-            loadFragment(BaseActivity.this, calendarFragmentToLoad);
+            loadFragment(BaseActivity.this, calendarFragmentToLoad,fragmentName);
         }
 
         else if (fragmentToLoad != null) {
-            loadFragment(BaseActivity.this, fragmentToLoad);
+            loadFragment(BaseActivity.this, fragmentToLoad,fragmentName);
 
         }
 
@@ -469,6 +522,23 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
     @Override
     public void onBackPressed() {
 
+        if (closeApp)
+        {
+            Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+            homeIntent.addCategory( Intent.CATEGORY_HOME );
+            homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(homeIntent);
+        }
+        else
+
+        {
+            closeApp=true;
+
+            fragmentToLoad = new HomeFragment();
+            loadFragment(BaseActivity.this, fragmentToLoad,"Home");
+            setActionBarTitle("Home");
+        }
+
     }
 
     @Override
@@ -490,6 +560,21 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
     }
 
     public void setActionBarTitle(String title) {
-        getSupportActionBar().setTitle(title);
+       View v = getSupportActionBar().getCustomView();
+
+        TextView dummy = (TextView) v.findViewById(R.id.title);
+
+        dummy.setText(title);
+    }
+
+
+    public void setFalse()
+    {
+        closeApp = false;
+    }
+
+    public void setFragmentName(String title)
+    {
+        fragmentName = title;
     }
 }

@@ -118,7 +118,7 @@ public class AddSelectedPhoto extends AppCompatActivity {
                                 //Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                                 finish();
                             } else {
-                                Toast.makeText(AddSelectedPhoto.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                              //  Toast.makeText(AddSelectedPhoto.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     }

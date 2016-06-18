@@ -222,18 +222,18 @@ public class AlbumDetailsActivity extends AppCompatActivity implements SwipeRefr
                         } else {
                            // ringProgressDialog.dismiss();
                            // AlbumDetailsActivity.ringProgressDialog.dismiss();
-                            Toast.makeText(AlbumDetailsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                         //   Toast.makeText(AlbumDetailsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                         }
 
                     } else {
                        // ringProgressDialog.dismiss();
 
-                        Toast.makeText(AlbumDetailsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(AlbumDetailsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     //ringProgressDialog.dismiss();
                    // AlbumDetailsActivity.ringProgressDialog.dismiss();
-                    Toast.makeText(AlbumDetailsActivity.this, "Some problem occurred.", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(AlbumDetailsActivity.this, "Some problem occurred.", Toast.LENGTH_SHORT).show();
                 }
 
 

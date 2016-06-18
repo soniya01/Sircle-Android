@@ -160,10 +160,10 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
 //                                    newsLetterListViewAdapter.notifyDataSetChanged();
 //                                }
                             } else {
-                                Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                              //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -253,10 +253,10 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
                             newsLetterListViewAdapter.notifyDataSetChanged();
 
                         } else {
-                            Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();

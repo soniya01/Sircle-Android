@@ -241,10 +241,10 @@ public class CalendarListFragment extends Fragment implements AbsListView.OnScro
                                 calendarMonthListViewAdapter.notifyDataSetChanged();
                             }
                         }else {
-                            Toast.makeText(myContext, data.getMessage(), Toast.LENGTH_SHORT).show();
+                         //   Toast.makeText(myContext, data.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }else {
-                        Toast.makeText(myContext, data.getMessage(), Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(myContext, data.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }else {
                     Toast.makeText(myContext, "Some problem occurred", Toast.LENGTH_SHORT).show();
@@ -332,7 +332,7 @@ public class CalendarListFragment extends Fragment implements AbsListView.OnScro
                        //     calendarMonthList.clear();
 //                            //
                          //   calendarMonthListViewAdapter.notifyDataSetChanged();
-                            Toast.makeText(myContext, data.getMessage(), Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(myContext, data.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }else {
 
@@ -341,7 +341,7 @@ public class CalendarListFragment extends Fragment implements AbsListView.OnScro
                             calendarMonthList.clear();
 //                            //
                             calendarMonthListViewAdapter.notifyDataSetChanged();
-                            Toast.makeText(myContext, data.getMessage(), Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(myContext, data.getMessage(), Toast.LENGTH_SHORT).show();
                         }
 
                     }

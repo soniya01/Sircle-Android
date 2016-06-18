@@ -79,7 +79,7 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
 
           //  loadImageInBackground(mContext, viewHolder.albumImageView, albumDetailsList.get(position).getFilePath());
             Picasso.with(this.mContext)
-                    .load(albumDetailsList.get(position).getFilePath())
+                    .load(albumDetailsList.get(position).getFilePath()).fit().centerCrop()
                     .into(viewHolder.albumImageView, new Callback() {
                         @Override
                         public void onSuccess() {

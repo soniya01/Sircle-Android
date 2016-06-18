@@ -34,6 +34,7 @@
         <item>Videos</item>
         <item>Links</item>
         <item>Settings</item>
+        <item>Institute Info</item>
         <item>Support</item>
         <item>Signout</item>
 
@@ -48,6 +49,7 @@
         <item>Documents</item>
         <item>Videos</item>
         <item>Links</item>
+        <item>Institute Info</item>
         <item>Support</item>
         <item>Signout</item>
 
@@ -92,5 +94,6 @@
     <string name="title_activity_event">Event</string>
     <string name="title_activity_event_detail">Event Details</string>
     <string name="title_activity_vimeo_webview">VimeoWebviewActivity</string>
+    <string name="title_activity_sign_up">SignUp</string>
 
 </resources>

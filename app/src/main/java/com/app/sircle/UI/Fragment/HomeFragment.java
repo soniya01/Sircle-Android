@@ -47,30 +47,13 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View viewFragment = inflater.inflate(R.layout.fragment_home,
+        View viewFragment = inflater.inflate(R.layout.fragment_home_new,
                 null, true);
 
-      //  emailLabel = (TextView)viewFragment.findViewById(R.id.activity_home_email_address_label);
-        // underlines the email address
-      //  SpannableString content = new SpannableString(getResources().getString(R.string.activity_login_email_address).toString());
-      //  content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-      //  emailLabel.setText(content);
 
-//        progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
-//        progressBar.setIndeterminate(true);
-//        progressBar.setVisibility(View.VISIBLE);
-//        LinearLayout.LayoutParams pbParam = new LinearLayout.LayoutParams(
-//                100,
-//                100);
-//        pbParam.gravity = Gravity.CENTER;
 
-        //pb.setLayoutParams(pbParam);
-
-       // RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
-        //layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-             //   ((LinearLayout) viewFragment).addView(progressBar, pbParam);
-
-      //  fetchAppData();
+        ((BaseActivity)getActivity())
+                .setActionBarTitle("Home");
 
         Button calendar = (Button) viewFragment.findViewById(R.id.calendarButton);
         calendar.setOnClickListener(new View.OnClickListener() {
@@ -181,10 +164,15 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Toast.makeText(TravelBite.this, "test", Toast.LENGTH_SHORT).show();
-                fragmentToLoad = new HomeFragment();
+//                fragmentToLoad = new HomeFragment();
+//                if (fragmentToLoad != null) {
+//                    Common.sendEmailToSupport(getActivity());
+//                    loadFragment(getActivity(), fragmentToLoad, "Support");
+//
+//                }
+                fragmentToLoad = new InstituteInfo();
                 if (fragmentToLoad != null) {
-                    Common.sendEmailToSupport(getActivity());
-                    loadFragment(getActivity(), fragmentToLoad, "Support");
+                    loadFragment(getActivity(), fragmentToLoad,"Institute Information");
 
                 }
             }
@@ -215,28 +203,18 @@ public class HomeFragment extends Fragment {
 
     private void loadFragment(Context context, Fragment fragment,String title) {
 
-//        FragmentManager fragmentManager = ((Activity) context)
-//                .getFragmentManager();
-//        FragmentTransaction transaction = fragmentManager.beginTransaction();
-//
-//        if (fragment != null) {
-//
-//            transaction.replace(R.id.main_layout_container, fragment);
-//
-//        }
-//        transaction.commit();
-//        fragmentManager.executePendingTransactions();
 
-//        mDrawerList.setItemChecked(selectedModuleIndex, true);
-//        mDrawerList.setSelection(selectedModuleIndex);
-//        if (selectedModuleIndex == 9){
-//            setTitle(menuList[0]);
-//        }else
-        //   getActivity().getSsetTitle(title);
-//        mDrawerLayout.closeDrawer(mDrawerList);
 
-        //getActivity().getActionBar().setTitle(title);
-      //  (BaseActivity)context.setTitle(title);
+        ((BaseActivity)context)
+                .setActionBarTitle(title);
+
+
+        ((BaseActivity)context)
+                .setFalse();
+
+        ((BaseActivity)context)
+                .setFragmentName(title);
+
 
         mFragmentManager = getActivity().getSupportFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
@@ -246,8 +224,8 @@ public class HomeFragment extends Fragment {
             mFragmentTransaction.replace(R.id.main_layout_container, fragment).commit();
         }
 
-        ((BaseActivity)context)
-                .setActionBarTitle(title);
+
+
 
     }
 }

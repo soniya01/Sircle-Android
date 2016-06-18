@@ -170,7 +170,7 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
                                     //finish();
                                 }
                             } else {
-                                Toast.makeText(SettingsActivity.this, "some error occurred", Toast.LENGTH_SHORT).show();
+                              //  Toast.makeText(SettingsActivity.this, "some error occurred", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -243,9 +243,9 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
                                 SettingsActivity.this.notificationGroupList.addAll(NotificationManager.groupList);
                                 notificationsGroupAdapter.notifyDataSetChanged();
                             }
-                            Toast.makeText(SettingsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                        //    Toast.makeText(SettingsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                         }else {
-                            Toast.makeText(SettingsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(SettingsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                         }
 
                         //Toast.makeText(SettingsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
@@ -254,7 +254,7 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
                     }
 
                 } else {
-                    Toast.makeText(SettingsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(SettingsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
             }

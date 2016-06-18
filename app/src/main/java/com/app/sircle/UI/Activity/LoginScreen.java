@@ -10,13 +10,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
-import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
+import android.text.Spannable;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,16 +26,12 @@ import com.app.sircle.GCM.RegistrationIntentService;
 import com.app.sircle.Manager.LoginManager;
 import com.app.sircle.Manager.NotificationManager;
 import com.app.sircle.R;
-import com.app.sircle.UI.Model.Notification;
 import com.app.sircle.Utility.AppError;
 import com.app.sircle.Utility.Constants;
 import com.app.sircle.WebService.LoginResponse;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.google.android.gms.iid.InstanceID;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -53,6 +48,7 @@ public class LoginScreen extends Activity {
     ProgressDialog ringProgressDialog;
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     SharedPreferences.Editor editor;
+    TextView signUpTextView,forgotPasswordView;
     // private TextView supportLabel;
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
@@ -65,9 +61,39 @@ public class LoginScreen extends Activity {
         passwordEditText = (EditText)findViewById(R.id.activity_login_password_edittext);
         usernameField = (EditText)findViewById(R.id.activity_login_email_text_view);
 
+        signUpTextView = (TextView)findViewById(R.id.signUPText);
+        forgotPasswordView = (TextView)findViewById(R.id.forgotPasswordText);
+
+        signUpTextView.setText("Don’t have an account, Sign up.", TextView.BufferType.SPANNABLE);
+        Spannable span = (Spannable) signUpTextView.getText();
+        span.setSpan(new ForegroundColorSpan(0xFFFF0000),22 , 31,
+                Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+
+        signUpTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent homeIntent = new Intent(LoginScreen.this, SignUpScreen.class);
+                startActivity(homeIntent);
+
+            }
+        });
+
+
+        forgotPasswordView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent homeIntent = new Intent(LoginScreen.this, ForgotPasswordActivity.class);
+                startActivity(homeIntent);
+
+            }
+        });
+
+
         // underlines the email address
-        SpannableString content = new SpannableString(getResources().getString(R.string.activity_login_email_address).toString());
-        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+       // SpannableString content = new SpannableString(getResources().getString(R.string.activity_login_email_address).toString());
+        //content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         //supportLabel.setText(content);
 
 
@@ -210,7 +236,7 @@ public class LoginScreen extends Activity {
 //                            editor.putLong(Constants.LOGIN_LOGGED_IN_PREFS_KEY, new Date().getTime() / 1000);
 
 
-                            Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
 
                             if (response.getUserData().getCustomerType()!=null) {
                                 editor.apply();
@@ -242,7 +268,7 @@ public class LoginScreen extends Activity {
                         ringProgressDialog.dismiss();
                         usernameField.setText("");
                         passwordEditText.setText("");
-                        Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                         Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }else {
                     ringProgressDialog.dismiss();

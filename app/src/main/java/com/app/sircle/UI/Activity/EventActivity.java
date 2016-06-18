@@ -536,7 +536,7 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
                     @Override
                     public void onCompletion(PostResponse response, AppError error) {
                         if (response != null){
-                            Toast.makeText(EventActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(EventActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
                             if (response.getStatus() == 200){
                                 finish();
                             }
@@ -576,7 +576,7 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
                                 };
                                 categoryListView.setAdapter(adapter);
                             }else {
-                                Toast.makeText(EventActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(EventActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
                             }
                         }else {
                             Toast.makeText(EventActivity.this, "some error occurred",Toast.LENGTH_SHORT).show();
@@ -704,13 +704,13 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
 //
 //                        }
 
-                        Toast.makeText(EventActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(EventActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                     } else {
                         //Toast.makeText(SettingsActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
                     }
 
                 } else {
-                    Toast.makeText(EventActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(EventActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
             }

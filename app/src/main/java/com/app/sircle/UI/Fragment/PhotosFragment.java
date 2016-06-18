@@ -186,7 +186,7 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
                             }
                         } else {
-                            Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         Toast.makeText(getActivity(), "Check internet connectivity", Toast.LENGTH_SHORT).show();
@@ -292,7 +292,7 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
                         }
                     } else {
-                        Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }else {
                     Toast.makeText(getActivity(), "Check internet connectivity", Toast.LENGTH_SHORT).show();

@@ -142,7 +142,7 @@ public class SchoolHolidayActivity extends ActionBarActivity {
                         @Override
                         public void onCompletion(PostResponse response, AppError error) {
                             if (response != null) {
-                                Toast.makeText(SchoolHolidayActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(SchoolHolidayActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                                 if (response.getStatus() == 200) {
                                     finish();
                                 }
@@ -305,13 +305,13 @@ public class SchoolHolidayActivity extends ActionBarActivity {
 //
 //                        }
 
-                        Toast.makeText(SchoolHolidayActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(SchoolHolidayActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(SchoolHolidayActivity.this, "Some error occurred!",Toast.LENGTH_SHORT).show();
                     }
 
                 } else {
-                    Toast.makeText(SchoolHolidayActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(SchoolHolidayActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
             }

@@ -187,10 +187,10 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                                 videoListViewAdapter.notifyDataSetChanged();
 
                             } else {
-                                Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                              //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                         }
 
                     } else {
@@ -286,10 +286,10 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                                 videoListViewAdapter.notifyDataSetChanged();
 
                             } else {
-                                Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                            //    Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                         }
 
                     } else {
