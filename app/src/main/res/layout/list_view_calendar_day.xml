@@ -38,7 +38,7 @@ app:mrl_rippleOverlay="true">
     </RelativeLayout>
 
 
-        <com.app.sircle.custom.RobotoLightTextView
+        <com.snaptech.msb.custom.RobotoLightTextView
             android:id="@+id/eventTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,7 +62,7 @@ app:mrl_rippleOverlay="true">
         android:layout_marginRight="22dp"
         android:id="@+id/linearLayout">
 
-        <com.app.sircle.custom.RobotoLightTextView
+        <com.snaptech.msb.custom.RobotoLightTextView
             android:id="@+id/startTime"
             android:textColor="#666666"
             android:layout_width="wrap_content"
@@ -71,7 +71,7 @@ app:mrl_rippleOverlay="true">
             android:textSize="14dp"
             android:text="11:00" />
 
-        <com.app.sircle.custom.RobotoLightTextView
+        <com.snaptech.msb.custom.RobotoLightTextView
             android:id="@+id/endTime"
             android:textColor="#666666"
             android:layout_width="wrap_content"

@@ -4,7 +4,7 @@
         android:layout_height="match_parent"
         android:background="#F4F4F4"
         android:orientation="vertical"
-        tools:context="com.app.sircle.UI.Activity.EventDetailActivity">
+        tools:context="com.snaptech.msb.UI.Activity.EventDetailActivity">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                     android:src="@drawable/eventtime"/>
 
 
-                <com.app.sircle.custom.RobotoLightTextView
+                <com.snaptech.msb.custom.RobotoLightTextView
                     android:id="@+id/event_detail_title"
                     android:layout_width="match_parent"
                     android:text="Event title"
@@ -69,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <com.app.sircle.custom.RobotoLightTextView
+                    <com.snaptech.msb.custom.RobotoLightTextView
                         android:layout_width="match_parent"
                         android:text="Starts"
                         android:textSize="12dp"
@@ -80,7 +80,7 @@
                         android:layout_height="wrap_content" />
 
 
-                    <com.app.sircle.custom.RobotoLightTextView
+                    <com.snaptech.msb.custom.RobotoLightTextView
                         android:id="@+id/event_start_date"
                         android:layout_width="match_parent"
                         android:text="Event Start Date"
@@ -112,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <com.app.sircle.custom.RobotoLightTextView
+                    <com.snaptech.msb.custom.RobotoLightTextView
                         android:layout_width="match_parent"
                         android:text="Ends"
                         android:textSize="12dp"
@@ -123,7 +123,7 @@
                         android:layout_height="wrap_content" />
 
 
-                    <com.app.sircle.custom.RobotoLightTextView
+                    <com.snaptech.msb.custom.RobotoLightTextView
                         android:id="@+id/event_end_date"
                         android:layout_width="match_parent"
                         android:text="Event End Date"
@@ -152,7 +152,7 @@
                     android:src="@drawable/locationlabelimage"/>
 
 
-                <com.app.sircle.custom.RobotoLightTextView
+                <com.snaptech.msb.custom.RobotoLightTextView
                     android:id="@+id/event_detail_location"
                     android:layout_width="match_parent"
                     android:text="Event location"
@@ -178,7 +178,7 @@
                     android:layout_marginLeft="17dp"
                     android:src="@drawable/categorytitleimage"/>
 
-                <com.app.sircle.custom.RobotoLightTextView
+                <com.snaptech.msb.custom.RobotoLightTextView
                     android:id="@+id/event_detail_category"
                     android:layout_width="match_parent"
                     android:text="Event category"
@@ -205,7 +205,7 @@
                     android:layout_marginLeft="17dp"
                     android:src="@drawable/groupsicon"/>
 
-                <com.app.sircle.custom.RobotoLightTextView
+                <com.snaptech.msb.custom.RobotoLightTextView
                     android:id="@+id/event_detail_groups"
                     android:layout_width="match_parent"
                     android:text="Event groups"

@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "618606474299",
-    "project_id": "polynomial-park-133123"
+    "project_number": "128695971960",
+    "project_id": "msbmumbai-1347"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:618606474299:android:6c3a5809ecb4fcd9",
+        "mobilesdk_app_id": "1:128695971960:android:8978f124faa349e5",
         "android_client_info": {
-          "package_name": "com.app.sircle"
+          "package_name": "com.snaptech.msb"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyC05GoTatQEaSjRH3NWtUuqou3qFKQ0Y1I"
+          "current_key": "AIzaSyAf9rcZshSpXQG8mxhrX7F4NHHADtSjcoY"
         }
       ],
       "services": {
