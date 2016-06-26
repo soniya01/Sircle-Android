@@ -243,9 +243,11 @@ public class LoginScreen extends Activity {
                                 if (response.getUserData().getCustomerType().equals("admin")) {
                                     Intent homeIntent = new Intent(LoginScreen.this, BaseActivity.class);
                                     startActivity(homeIntent);
+                                    finish();
                                 } else {
                                     Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);
                                     startActivity(homeIntent);
+                                    finish();
                                 }
                             }
                             else

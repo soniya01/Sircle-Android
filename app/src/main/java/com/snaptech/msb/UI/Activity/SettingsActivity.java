@@ -161,7 +161,7 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
 
                                     Intent homeIntent = new Intent(SettingsActivity.this, BaseActivity.class);
                                     startActivity(homeIntent);
-                                    //finish();
+                                    finish();
                                 }
                             } else {
                               //  Toast.makeText(SettingsActivity.this, "some error occurred", Toast.LENGTH_SHORT).show();
