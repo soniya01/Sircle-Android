@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical"
-    tools:context="com.snaptech.asb.UI.Activity.SchoolHolidayActivity">
+    tools:context="com.snaptech.tsm.UI.Activity.SchoolHolidayActivity">
 
     <ScrollView
         android:layout_width="match_parent"
