@@ -34,7 +34,12 @@ public class Constants {
 
     //public static final String BASE_URL = "http://54.251.157.35/event/api/";
 
-    public static final String BASE_URL = "http://msbmumbai.emissioapp.com/api/";
+    //MSB
+
+   // public static final String BASE_URL = "http://msbmumbai.emissioapp.com/api/";
+
+    //Nahar
+    public static final String BASE_URL = "http://naharintl.emissioapp.com/api/";
 
     //public static final String BASE_URL = "http://demo.snaptech.in/";
    // public static final String LOGIN_API_PATH = "user/user_get/";
