@@ -45,9 +45,10 @@ public class HomeFragment extends Fragment {
 
 
         ((BaseActivity)getActivity())
-                .setActionBarTitle("Home");
+                .setActionBarTitle(getResources().getStringArray(R.array.array_module_name)[0]);
 
         Button calendar = (Button) viewFragment.findViewById(R.id.calendarButton);
+        calendar.setText(getResources().getStringArray(R.array.array_module_name)[1]);
         Typeface robotLight = Typeface.createFromAsset(getActivity().getAssets(), "fonts/roboto-light.ttf");
         calendar.setTypeface(robotLight);
 
@@ -57,13 +58,14 @@ public class HomeFragment extends Fragment {
                 // Toast.makeText(TravelBite.this, "test", Toast.LENGTH_SHORT).show();
                 fragmentToLoad = new CalendarFragment();
                 if (fragmentToLoad != null) {
-                    loadFragment(getActivity(), fragmentToLoad, "Calendar",1);
+                    loadFragment(getActivity(), fragmentToLoad,getResources().getStringArray(R.array.array_module_name)[1],1);
 
                 }
             }
         });
 
         Button photos = (Button) viewFragment.findViewById(R.id.photosButton);
+        photos.setText(getResources().getStringArray(R.array.array_module_name)[2]);
         photos.setTypeface(robotLight);
         photos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,13 +73,14 @@ public class HomeFragment extends Fragment {
                 // Toast.makeText(TravelBite.this, "test", Toast.LENGTH_SHORT).show();
                 fragmentToLoad = new PhotosFragment();
                 if (fragmentToLoad != null) {
-                    loadFragment(getActivity(), fragmentToLoad,"Photos",2);
+                    loadFragment(getActivity(), fragmentToLoad,getResources().getStringArray(R.array.array_module_name)[2],2);
 
                 }
             }
         });
 
         Button newsletter = (Button) viewFragment.findViewById(R.id.newsletterButton);
+        newsletter.setText(getResources().getStringArray(R.array.array_module_name)[4]);
         newsletter.setTypeface(robotLight);
         newsletter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,13 +88,14 @@ public class HomeFragment extends Fragment {
                 // Toast.makeText(TravelBite.this, "test", Toast.LENGTH_SHORT).show();
                 fragmentToLoad = new NewsLetterFragment();
                 if (fragmentToLoad != null) {
-                    loadFragment(getActivity(), fragmentToLoad,"NewsLetters",4);
+                    loadFragment(getActivity(), fragmentToLoad,getResources().getStringArray(R.array.array_module_name)[4],4);
 
                 }
             }
         });
 
         Button documents = (Button) viewFragment.findViewById(R.id.documentsButton);
+        documents.setText(getResources().getStringArray(R.array.array_module_name)[5]);
         documents.setTypeface(robotLight);
         documents.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,13 +103,14 @@ public class HomeFragment extends Fragment {
                 // Toast.makeText(TravelBite.this, "test", Toast.LENGTH_SHORT).show();
                 fragmentToLoad = new DocumentFragment();
                 if (fragmentToLoad != null) {
-                    loadFragment(getActivity(), fragmentToLoad,"Documents",5);
+                    loadFragment(getActivity(), fragmentToLoad,getResources().getStringArray(R.array.array_module_name)[5],5);
 
                 }
             }
         });
 
         Button videos = (Button) viewFragment.findViewById(R.id.videosButton);
+        videos.setText(getResources().getStringArray(R.array.array_module_name)[6]);
         videos.setTypeface(robotLight);
         videos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,13 +118,14 @@ public class HomeFragment extends Fragment {
                 // Toast.makeText(TravelBite.this, "test", Toast.LENGTH_SHORT).show();
                 fragmentToLoad = new VideoFragment();
                 if (fragmentToLoad != null) {
-                    loadFragment(getActivity(), fragmentToLoad,"Videos",6);
+                    loadFragment(getActivity(), fragmentToLoad,getResources().getStringArray(R.array.array_module_name)[6],6);
 
                 }
             }
         });
 
         Button links = (Button) viewFragment.findViewById(R.id.linksButton);
+        links.setText(getResources().getStringArray(R.array.array_module_name)[7]);
         links.setTypeface(robotLight);
         links.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,13 +133,14 @@ public class HomeFragment extends Fragment {
                 // Toast.makeText(TravelBite.this, "test", Toast.LENGTH_SHORT).show();
                 fragmentToLoad = new LinksFragment();
                 if (fragmentToLoad != null) {
-                    loadFragment(getActivity(), fragmentToLoad,"Links",7);
+                    loadFragment(getActivity(), fragmentToLoad,getResources().getStringArray(R.array.array_module_name)[7],7);
 
                 }
             }
         });
 
         Button settings = (Button) viewFragment.findViewById(R.id.settingsButton);
+        settings.setText(getResources().getStringArray(R.array.array_module_name)[8]);
         settings.setTypeface(robotLight);
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,7 +154,7 @@ public class HomeFragment extends Fragment {
                     String  userType = loginSharedPreferences.getString(Constants.LOGIN_LOGGED_IN_USER_TYPE,null);
 
                     if (!userType.equals("admin")) {
-                        loadFragment(getActivity(), fragmentToLoad,"Settings",8);
+                        loadFragment(getActivity(), fragmentToLoad,getResources().getStringArray(R.array.array_module_name)[8],8);
                     }
                     else
                     {
@@ -175,6 +182,7 @@ public class HomeFragment extends Fragment {
         });
 
         Button information = (Button) viewFragment.findViewById(R.id.informationButton);
+        information.setText(getResources().getStringArray(R.array.array_module_name)[9]);
         information.setTypeface(robotLight);
         information.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,11 +202,11 @@ public class HomeFragment extends Fragment {
                     String  userType = loginSharedPreferences.getString(Constants.LOGIN_LOGGED_IN_USER_TYPE,null);
 
                     if (!userType.equals("admin")) {
-                        loadFragment(getActivity(), fragmentToLoad,"Institute Information",9);
+                        loadFragment(getActivity(), fragmentToLoad,getResources().getStringArray(R.array.array_module_name)[9],9);
                     }
                     else
                     {
-                        loadFragment(getActivity(), fragmentToLoad,"Institute Information",8);
+                        loadFragment(getActivity(), fragmentToLoad,getResources().getStringArray(R.array.array_module_name)[9],8);
                     }
 
 

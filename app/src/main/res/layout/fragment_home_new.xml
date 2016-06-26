@@ -37,6 +37,7 @@
             android:drawablePadding="10dp"
             android:paddingBottom="15dp"
             style="?android:attr/borderlessButtonStyle"
+            android:singleLine="true"
             android:text="Calendar"/>
 
         <Button
@@ -51,6 +52,7 @@
             android:background="@color/white"
             android:drawablePadding="10dp"
             android:paddingBottom="15dp"
+            android:singleLine="true"
             style="?android:attr/borderlessButtonStyle"
             android:text="Photos"/>
 
@@ -67,6 +69,7 @@
             android:layout_margin="10dp"
             android:drawablePadding="10dp"
             android:paddingBottom="15dp"
+            android:singleLine="true"
             style="?android:attr/borderlessButtonStyle"
             android:text="Messages"/>
 
@@ -117,6 +120,7 @@
             android:drawablePadding="10dp"
             android:paddingBottom="15dp"
             style="?android:attr/borderlessButtonStyle"
+            android:singleLine="true"
             android:text="Documents"/>
 
 
@@ -134,6 +138,7 @@
             android:drawablePadding="10dp"
             android:paddingBottom="15dp"
             style="?android:attr/borderlessButtonStyle"
+            android:singleLine="true"
             android:text="Videos"/>
 
 
@@ -165,6 +170,7 @@
             android:drawablePadding="10dp"
             android:paddingBottom="15dp"
             style="?android:attr/borderlessButtonStyle"
+            android:singleLine="true"
             android:text="Links"/>
 
 
@@ -181,6 +187,7 @@
             android:drawablePadding="10dp"
             android:paddingBottom="15dp"
             style="?android:attr/borderlessButtonStyle"
+            android:singleLine="true"
             android:text="Settings"/>
 
 

@@ -44,6 +44,7 @@ import com.snaptech.msb.WebService.LoginResponse;
 import com.snaptech.msb.custom.RobotoRegularTextView;
 
 import java.util.Date;
+import java.util.Locale;
 
 
 public class BaseActivity extends AppCompatActivity implements CalendarMonthFragment.OnFragmentInteractionListener,CalendarTodayFragment.OnFragmentInteractionListener,CalendarListFragment.OnFragmentInteractionListener {
@@ -77,20 +78,12 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
 
 
         if (fragment != null) {
-           // mFragmentTransaction.replace(R.id.main_layout_container, fragment).addToBackStack(null).commit();
-
             mFragmentTransaction.replace(R.id.main_layout_container, fragment).commit();
         }
 
 
-
-    //    fragmentManager.executePendingTransactions();
-
         mDrawerList.setItemChecked(selectedModuleIndex, true);
         mDrawerList.setSelection(selectedModuleIndex);
-//        if (selectedModuleIndex == 9){
-//            setTitle(menuList[0]);
-//        }else setTitle(menuList[selectedModuleIndex]);
         setTitle(FragmentName);
         mDrawerLayout.closeDrawer(mDrawerList);
 
@@ -98,13 +91,14 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
 
     @Override
     protected void onResume() {
-        super.onResume();
-//        if (jumpToFragment)
-//        {
-//            jumpToFragment = false;
-//            this.didSelectListViewItemAtIndex(2);
-//        }
 
+        super.onResume();
+        Locale locale = new Locale("es");
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
     }
 
     @Override
@@ -134,11 +128,16 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Locale locale = new Locale("es");
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
+
         closeApp = false;
 
         selectedModuleIndex = -1;
-
-     //   checkIfSessionExpired();
 
         if (selectedModuleIndex == null || selectedModuleIndex == 0){
             selectedModuleIndex = -1;
@@ -168,45 +167,13 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
-       // int titleId = getResources().getIdentifier("action_bar_title", "id",
-                //"android");
-
-       // final int titleId = Resources.getSystem().getIdentifier("action_bar_title", "id", "android");
-
-//        try {
-//            Integer titleId = (Integer) Class.forName("com.android.internal.R$id")
-//                    .getField("action_bar_title").get(null);
-//            TextView title = (TextView) getWindow().findViewById(titleId);
-//            title.setTextColor(Color.WHITE);
-//            title.setTextSize(20);
-//
-//            // check for null and manipulate the title as see fit
-//        } catch (Exception e) {
-//            Log.e("Exception", "Failed to obtain action bar title reference");
-//        }
-
-
-//        TextView yourTextView = (TextView) findViewById(titleId);
-//        yourTextView.setTextColor(Color.WHITE);
-//        yourTextView.setTextSize(20);
-//        yourTextView.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/roboto-light.ttf"));
-
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         LayoutInflater inflator = LayoutInflater.from(this);
         View v = inflator.inflate(R.layout.titleview, null);
 
-//if you need to customize anything else about the text, do it here.
-//I'm using a custom TextView with a custom font in my layout xml so all I need to do is set title
-      //  ((RobotoRegularTextView)v.findViewById(R.id.title)).setText(this.getTitle());
-
         actionBarTitleView = (RobotoRegularTextView)v.findViewById(R.id.title);
-
-
-
-//assign the view to the actionbar
         getSupportActionBar().setCustomView(v);
 
 
@@ -318,7 +285,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                 // In this case fragmentToLoad = null and the previous fragment
                 // will
                 // be removed from the container
-                fragmentName = "Home";
+                fragmentName = getResources().getStringArray(R.array.array_module_name)[0];
                 if (!(fragmentToLoad instanceof HomeFragment))
                 {
                     fragmentToLoad = new HomeFragment();
@@ -327,7 +294,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
 
                 break;
             case 1:
-                fragmentName = "Calendar";
+                fragmentName = getResources().getStringArray(R.array.array_module_name)[1];
                 if (!(fragmentToLoad instanceof CalendarFragment))
                 {
                     fragmentToLoad = new CalendarFragment();
@@ -335,7 +302,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                 closeApp = false;
                 break;
             case 2:
-                fragmentName = "Photos";
+                fragmentName = getResources().getStringArray(R.array.array_module_name)[2];
                 if (!(fragmentToLoad instanceof PhotosFragment))
                 fragmentToLoad = new PhotosFragment();
                 closeApp = false;
@@ -347,24 +314,24 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                 closeApp = false;
                 break;
             case 4:
-                fragmentName = "Newsletters";
+                fragmentName = getResources().getStringArray(R.array.array_module_name)[4];
                 if (!(fragmentToLoad instanceof NewsLetterFragment))
                 fragmentToLoad = new NewsLetterFragment();
                 break;
             case 5:
-                fragmentName = "Documents";
+                fragmentName = getResources().getStringArray(R.array.array_module_name)[5];
                 if (!(fragmentToLoad instanceof DocumentFragment))
                 fragmentToLoad = new DocumentFragment();
                 closeApp = false;
                 break;
             case 6:
-                fragmentName = "Videos";
+                fragmentName = getResources().getStringArray(R.array.array_module_name)[6];
                 if (!(fragmentToLoad instanceof VideoFragment))
                 fragmentToLoad = new VideoFragment();
                 closeApp = false;
                 break;
             case 7:
-                fragmentName = "Links";
+                fragmentName = getResources().getStringArray(R.array.array_module_name)[7];
                 if (!(fragmentToLoad instanceof LinksFragment))
                 fragmentToLoad = new LinksFragment();
                 closeApp = false;
@@ -373,7 +340,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
             case 8:
                 if (userType.equals("admin")) {
 
-                    fragmentName = "Institute Info";
+                    fragmentName = getResources().getStringArray(R.array.array_module_name)[9];
                     fragmentToLoad = new InstituteInfo();
                     closeApp = false;
 
@@ -381,32 +348,18 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                 }
                 else
                 {
-                    fragmentName = "Settings";
+                    fragmentName = getResources().getStringArray(R.array.array_module_name)[8];
                     fragmentToLoad = new SettingsFragment();
                 }
                 closeApp = false;
                 break;
             case 9:
                 if (userType.equals("admin")) {
-
-
-
-
-                   // fragmentToLoad = new HomeFragment();
-                //    mDrawerLayout.closeDrawer(mDrawerList);
                     Common.sendEmailToSupport(this);
-
-//                    mDrawerLayout.closeDrawer(mDrawerList);
-//                    fragmentToLoad = null;
-//                    selectedModuleIndex = 0;
-//                    handleSharedPreferencesOnLogout();
-//                    Intent loginIntent = new Intent(BaseActivity.this, LoginScreen.class);
-//                    startActivity(loginIntent);
-//                    finish();
                 }
                 else
                 {
-                    fragmentName = "Institute Info";
+                    fragmentName = getResources().getStringArray(R.array.array_module_name)[9];
                     fragmentToLoad = new InstituteInfo();
                     closeApp = false;
 
@@ -534,8 +487,8 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
         {
             closeApp=true;
             fragmentToLoad = new HomeFragment();
-            loadFragment(BaseActivity.this, fragmentToLoad,"Home");
-            setActionBarTitle("Home");
+            loadFragment(BaseActivity.this, fragmentToLoad,getResources().getStringArray(R.array.array_module_name)[0]);
+            setActionBarTitle(getResources().getStringArray(R.array.array_module_name)[0]);
         }
 
     }

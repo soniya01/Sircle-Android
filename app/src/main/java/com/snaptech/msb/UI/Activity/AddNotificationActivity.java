@@ -80,7 +80,7 @@ public class AddNotificationActivity extends ActionBarActivity {
 
         footerView = View.inflate(this, R.layout.list_view_add_footer, null);
         addButton = (Button)footerView.findViewById(R.id.add_button);
-        addButton.setText("Add Notification");
+        addButton.setText("AGREGAR NOTIFICACION");
         addListView.addFooterView(footerView);
 
 

@@ -3,15 +3,15 @@
 
 
     <!--Activity Add Album-->
-    <string name="title_placeholder">Title</string>
+    <string name="title_placeholder">TITULO</string>
     <string name="group_list_title">Groups</string>
-    <string name="checkbox_all_title">All</string>
+    <string name="checkbox_all_title">TODOS</string>
 
     <!--Activity Add Links-->
     <string name="url_placeholder">Url</string>
 
     <!--Activity Add Notifications-->
-    <string name="details_placeholder">Details</string>
+    <string name="details_placeholder">DETALLES</string>
 
 
     <!--Activity Add Selected Photos-->
@@ -34,13 +34,13 @@
     <string name="daily_button_title">Daily</string>
     <string name="repeat_for_title">Repeat For</string>
     <string name="vertical_title">Vertical:</string>
-    <string name="monday_checkbox_title">Monday</string>
-    <string name="tuesday_checkbox_title">Tuesday</string>
-    <string name="wednesday_checkbox_title">Wednesday</string>
-    <string name="thursday_checkbox_title">Thursday</string>
-    <string name="friday_checkbox_title">Friday</string>
-    <string name="saturday_checkbox_title">Saturday</string>
-    <string name="sunday_checkbox_title">Sunday</string>
+    <string name="monday_checkbox_title">LUNES</string>
+    <string name="tuesday_checkbox_title">MARTES</string>
+    <string name="wednesday_checkbox_title">MIERCOLES</string>
+    <string name="thursday_checkbox_title">JUEVES</string>
+    <string name="friday_checkbox_title">VIERNES</string>
+    <string name="saturday_checkbox_title">SABADO</string>
+    <string name="sunday_checkbox_title">DOMINGO</string>
     <string name="day_of_the_month_checkbox_title">day of the month</string>
     <string name="day_of_the_week_checkbox_title">day of the week</string>
     <string name="repeat_count_title">Repeat Count</string>
@@ -53,23 +53,25 @@
     <string name="starts_title">Starts</string>
     <string name="ends_title">Ends</string>
     <string name="save_event_button_title">SAVE Event</string>
+
     <!--Activity Settings-->
-    <string name="notification_groups_title">Notification Groups</string>
+    <string name="notification_groups_title">NOTIFICACIONES GRUPALES</string>
+    <string name="save_button_title">Save</string>
 
  <!--Activity Forgot Password-->
     <string name="email_id_placeholder">Email Id</string>
     <string name="Submit_button_title">Submit</string>
 
     <!--Fragment Calendar-->
-    <string name="floating_button_title_holiday">Holiday</string>
-    <string name="floating_button_title_event">Event</string>
-    <string name="floating_button_title_school_holiday">School Holiday</string>
+    <string name="floating_button_title_holiday">VACACION</string>
+    <string name="floating_button_title_event">EVENTO</string>
+    <string name="floating_button_title_school_holiday">FERIADOS ESCOLARES</string>
 
     <!--Fragment Calendar List -->
     <string name="no_events_title">No Events</string>
 
     <!--Fragment Calendar Month-->
-    <string name="today_button_title">Today</string>
+    <string name="today_button_title">HOY</string>
 
     <!--Footer Button-->
     <string name="add_link_button_title">ADD LINK</string>
@@ -79,13 +81,14 @@
     <string name="description_image_default">description_image_default</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Username</string>
-    <string name="prompt_password">Password</string>
+    <string name="prompt_email">USUARIO</string>
+    <string name="prompt_password">CONTRASEÑA</string>
     <string name="confirm_password_placeholder">Confirm Password</string>
     <string name="forgot_password_title">Forgot Password ?</string>
     <string name="register_button_title">Register</string>
-    <string name="action_sign_in">Login</string>
+    <string name="action_sign_in">INGRESAR</string>
     <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome_title">WELCOME</string>
 
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
@@ -102,33 +105,33 @@
 
     <!-- Sliding Pane -->
     <string-array name="array_module_name">
-        <item>Home</item>
-        <item>Calendar</item>
-        <item>Photos</item>
+        <item>INICIO</item>
+        <item>CALENDARIO</item>
+        <item>FOTOS</item>
         <item>Messages</item>
-        <item>NewsLetters</item>
-        <item>Documents</item>
-        <item>Videos</item>
-        <item>Links</item>
-        <item>Settings</item>
-        <item>Institute Info</item>
-        <item>Support</item>
-        <item>Signout</item>
+        <item>BOLETIN INFORMATIVO</item>
+        <item>DOCUMENTOS</item>
+        <item>VIDEOS</item>
+        <item>ENLACES</item>
+        <item>AJUSTES</item>
+        <item>INFORMACION</item>
+        <item>SOPORTE TECNICO</item>
+        <item>CERRAR SESION</item>
 
     </string-array>
 
     <string-array name="array_module_name_withou_settings">
-        <item>Home</item>
-        <item>Calendar</item>
-        <item>Photos</item>
+        <item>INICIO</item>
+        <item>CALENDARIO</item>
+        <item>FOTOS</item>
         <item>Messages</item>
-        <item>Newsletters</item>
-        <item>Documents</item>
-        <item>Videos</item>
-        <item>Links</item>
-        <item>Institute Info</item>
-        <item>Support</item>
-        <item>Signout</item>
+        <item>BOLETIN INFORMATIVO</item>
+        <item>DOCUMENTOS</item>
+        <item>VIDEOS</item>
+        <item>ENLACES</item>
+        <item>INFORMACION</item>
+        <item>SOPORTE TECNICO</item>
+        <item>CERRAR SESION</item>
 
     </string-array>
 
@@ -157,7 +160,7 @@
     <string name="fragment_documents_title">Documents</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_add_links">        Add   Links</string>
-    <string name="title_activity_add_notification">  Add  Notification</string>
+    <string name="title_activity_add_notification">AGREGAR NOTIFICACION</string>
     <string name="title_activity_add_album">New Album</string>
 
 

@@ -3,6 +3,7 @@ package com.snaptech.msb.UI.Fragment;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.snaptech.msb.Manager.EventManager;
 import com.snaptech.msb.Manager.NotificationManager;
@@ -34,6 +36,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -95,6 +98,9 @@ public class CalendarMonthFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+
         viewFragment = inflater.inflate(R.layout.fragment_calendar_month, container, false);
         // Inflate the layout for this fragment
        // caldroidFragment = new CaldroidFragment();
@@ -111,8 +117,8 @@ public class CalendarMonthFragment extends Fragment {
             args.putInt(CaldroidFragment.THEME_RESOURCE, com.caldroid.R.style.CaldroidDefaultDark);
             args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
             args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
+            //args.putString(CaldroidFragment.LANGUAGE, "fr");
             caldroidFragment.setArguments(args);
-
             month = cal.get(Calendar.MONTH) + 1;
             year = cal.get(Calendar.YEAR);
         }

@@ -24,7 +24,11 @@
                     android:background="#ffffff"
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/linearLayout2"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -47,7 +51,8 @@
                     android:layout_width="wrap_content"
                     android:orientation="horizontal"
                     android:layout_alignParentRight="true"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:id="@+id/linearLayout2">
 
                     <CheckBox
                         android:layout_marginRight="12dp"
@@ -92,6 +97,6 @@
         android:layout_alignParentBottom="true"
         android:textColor="#ffffff"
         android:background="#FC6F71"
-        android:text="Save" />
+        android:text="@string/save_button_title" />
 
 </RelativeLayout>
