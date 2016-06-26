@@ -11,7 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-=
+
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             app:tabGravity="fill"
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 fab:fab_colorNormal="@color/white"
                 fab:fab_icon="@drawable/holidayicon"
-                fab:fab_title="Holiday"
+                fab:fab_title="@string/floating_button_title_holiday"
                 fab:fab_colorPressed="@color/white_pressed"/>
 
             <com.getbase.floatingactionbutton.FloatingActionButton
@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 fab:fab_colorNormal="@color/white"
                 fab:fab_icon="@drawable/eventicon"
-                fab:fab_title="Event"
+                fab:fab_title="@string/floating_button_title_event"
                 fab:fab_colorPressed="@color/white_pressed"/>
 
             <com.getbase.floatingactionbutton.FloatingActionButton
@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 fab:fab_colorNormal="@color/white"
                 fab:fab_icon="@drawable/schoolholidayicon"
-                fab:fab_title="School Holiday"
+                fab:fab_title="@string/floating_button_title_school_holiday"
                 fab:fab_colorPressed="@color/white_pressed"/>
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>

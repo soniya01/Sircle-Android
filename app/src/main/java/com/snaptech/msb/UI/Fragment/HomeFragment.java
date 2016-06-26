@@ -1,5 +1,6 @@
 package com.snaptech.msb.UI.Fragment;
 
+import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -47,6 +48,9 @@ public class HomeFragment extends Fragment {
                 .setActionBarTitle("Home");
 
         Button calendar = (Button) viewFragment.findViewById(R.id.calendarButton);
+        Typeface robotLight = Typeface.createFromAsset(getActivity().getAssets(), "fonts/roboto-light.ttf");
+        calendar.setTypeface(robotLight);
+
         calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +64,7 @@ public class HomeFragment extends Fragment {
         });
 
         Button photos = (Button) viewFragment.findViewById(R.id.photosButton);
+        photos.setTypeface(robotLight);
         photos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +78,7 @@ public class HomeFragment extends Fragment {
         });
 
         Button newsletter = (Button) viewFragment.findViewById(R.id.newsletterButton);
+        newsletter.setTypeface(robotLight);
         newsletter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,6 +92,7 @@ public class HomeFragment extends Fragment {
         });
 
         Button documents = (Button) viewFragment.findViewById(R.id.documentsButton);
+        documents.setTypeface(robotLight);
         documents.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,6 +106,7 @@ public class HomeFragment extends Fragment {
         });
 
         Button videos = (Button) viewFragment.findViewById(R.id.videosButton);
+        videos.setTypeface(robotLight);
         videos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,6 +120,7 @@ public class HomeFragment extends Fragment {
         });
 
         Button links = (Button) viewFragment.findViewById(R.id.linksButton);
+        links.setTypeface(robotLight);
         links.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,6 +134,7 @@ public class HomeFragment extends Fragment {
         });
 
         Button settings = (Button) viewFragment.findViewById(R.id.settingsButton);
+        settings.setTypeface(robotLight);
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,6 +161,7 @@ public class HomeFragment extends Fragment {
         });
 
         Button notifications = (Button) viewFragment.findViewById(R.id.notificationsButton);
+        notifications.setTypeface(robotLight);
         notifications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,6 +175,7 @@ public class HomeFragment extends Fragment {
         });
 
         Button information = (Button) viewFragment.findViewById(R.id.informationButton);
+        information.setTypeface(robotLight);
         information.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

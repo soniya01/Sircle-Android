@@ -16,14 +16,12 @@ app:mrl_rippleOverlay="true">
 
 
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/imageLayout"
         android:layout_width="wrap_content"
         android:background="@color/listimagebackgroundcolor"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_alignBottom="@+id/linearLayout">
 
         <ImageView
@@ -33,9 +31,9 @@ app:mrl_rippleOverlay="true">
             android:layout_height="wrap_content"
             android:paddingLeft="19dp"
             android:paddingRight="18dp"
-            android:layout_centerVertical="true" />
+            android:layout_gravity="center_vertical" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
         <com.snaptech.msb.custom.RobotoLightTextView

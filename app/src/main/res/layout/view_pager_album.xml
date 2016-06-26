@@ -12,8 +12,7 @@
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
         android:contentDescription="@string/description_image_default"
-        android:layout_above="@+id/container"
-        android:src="@drawable/scene1" />
+        android:layout_above="@+id/container" />
 
 
     <RelativeLayout

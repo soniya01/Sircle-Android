@@ -190,37 +190,45 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     @Override
                     public void success(JsonElement jsonElement, Response response) {
 
-                        if (!jsonElement.isJsonNull() ){
+                        if (jsonElement!=null) {
 
-                            Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
+                            if (!jsonElement.isJsonNull()) {
 
-                            if (responseClass != null){
-                                Object object = Common.createObjectForClass(responseClass);
+                                Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
 
-                                if (jsonElement.isJsonArray()){
-                                    Type collectionType = new TypeToken<Collection<Object>>(){}.getType();
-                                    Collection<Object> data = gson.fromJson(jsonElement, collectionType);
-                                    webserviceListener.onCompletion(data, new AppError());
-                                } else {
-                                    // parsing jsonelement if unauthorised
-                                    JsonObject jobject = jsonElement.getAsJsonObject();
-                                    //  JsonArray jsonArray = jobject.getAsJsonArray("data");
-                                 //   jobject = jobject.getAsJsonObject("data");
-                                    if (jobject == null){
-                                        // responseClass =
-                                        webserviceListener.onCompletion(null, new AppError());
-                                    }
+                                if (responseClass != null) {
+                                    Object object = Common.createObjectForClass(responseClass);
+
+                                    if (jsonElement.isJsonArray()) {
+                                        Type collectionType = new TypeToken<Collection<Object>>() {
+                                        }.getType();
+                                        Collection<Object> data = gson.fromJson(jsonElement, collectionType);
+                                        webserviceListener.onCompletion(data, new AppError());
+                                    } else {
+                                        // parsing jsonelement if unauthorised
+                                        JsonObject jobject = jsonElement.getAsJsonObject();
+                                        //  JsonArray jsonArray = jobject.getAsJsonArray("data");
+                                        //   jobject = jobject.getAsJsonObject("data");
+                                        if (jobject == null) {
+                                            // responseClass =
+                                            webserviceListener.onCompletion(null, new AppError());
+                                        }
 //                                    else if (jsonArray.size()==0) {
 //
 //                                        webserviceListener.onCompletion(null, new AppError());
 //                                    }
-                                    else{
+                                        else {
 
-                                        object = gson.fromJson(jsonElement, responseClass);
-                                        webserviceListener.onCompletion(object, new AppError());
+                                            object = gson.fromJson(jsonElement, responseClass);
+                                            webserviceListener.onCompletion(object, new AppError());
+                                        }
                                     }
                                 }
                             }
+                        }
+                        else
+                        {
+                            webserviceListener.onCompletion(null, new AppError());
                         }
                     }
 
@@ -246,37 +254,46 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     @Override
                     public void success(JsonElement jsonElement, Response response) {
 
-                        if (!jsonElement.isJsonNull() ){
 
-                            Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
+                        if (jsonElement!=null) {
 
-                            if (responseClass != null){
-                                Object object = Common.createObjectForClass(responseClass);
+                            if (!jsonElement.isJsonNull()) {
 
-                                if (jsonElement.isJsonArray()){
-                                    Type collectionType = new TypeToken<Collection<Object>>(){}.getType();
-                                    Collection<Object> data = gson.fromJson(jsonElement, collectionType);
-                                    webserviceListener.onCompletion(data, new AppError());
-                                } else {
-                                    // parsing jsonelement if unauthorised
-                                    JsonObject jobject = jsonElement.getAsJsonObject();
-                                    //  JsonArray jsonArray = jobject.getAsJsonArray("data");
-                                    //   jobject = jobject.getAsJsonObject("data");
-                                    if (jobject == null){
-                                        // responseClass =
-                                        webserviceListener.onCompletion(null, new AppError());
-                                    }
+                                Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
+
+                                if (responseClass != null) {
+                                    Object object = Common.createObjectForClass(responseClass);
+
+                                    if (jsonElement.isJsonArray()) {
+                                        Type collectionType = new TypeToken<Collection<Object>>() {
+                                        }.getType();
+                                        Collection<Object> data = gson.fromJson(jsonElement, collectionType);
+                                        webserviceListener.onCompletion(data, new AppError());
+                                    } else {
+                                        // parsing jsonelement if unauthorised
+                                        JsonObject jobject = jsonElement.getAsJsonObject();
+                                        //  JsonArray jsonArray = jobject.getAsJsonArray("data");
+                                        //   jobject = jobject.getAsJsonObject("data");
+                                        if (jobject == null) {
+                                            // responseClass =
+                                            webserviceListener.onCompletion(null, new AppError());
+                                        }
 //                                    else if (jsonArray.size()==0) {
 //
 //                                        webserviceListener.onCompletion(null, new AppError());
 //                                    }
-                                    else{
+                                        else {
 
-                                        object = gson.fromJson(jsonElement, responseClass);
-                                        webserviceListener.onCompletion(object, new AppError());
+                                            object = gson.fromJson(jsonElement, responseClass);
+                                            webserviceListener.onCompletion(object, new AppError());
+                                        }
                                     }
                                 }
                             }
+                        }
+                        else
+                        {
+                            webserviceListener.onCompletion(null, new AppError());
                         }
                     }
 

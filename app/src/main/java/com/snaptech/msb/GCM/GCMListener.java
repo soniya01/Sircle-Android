@@ -38,42 +38,37 @@ public class GCMListener extends GcmListenerService {
         super.onMessageReceived(from, data);
         count++;
 
+
+        SharedPreferences   loginSharedPreferences = this.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
+       // SharedPreferences.Editor editor = loginSharedPreferences.edit();
+        String accessToken = loginSharedPreferences.getString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY,null);
+
         //Bundle[{payload={"id":23,"other_id":23,"type":"notification"}, title=NOTIFICATION, message=NOTIFICATION: Well, collapse_key=do_not_collapse}]
 
-        String title = data.getString("title");
-        String type = data.getString("payload");
-        String message = data.getString("message");
+     //   String title = data.getString("title");
+      //  String type = data.getString("payload");
+      //  String message = data.getString("message");
 
 
+        //Log.d("App", "From: " + from);
+       // Log.d("App", "Message: " + message);
 
 
-       // String url = data.getString("url");
-
-
-        Log.d("App", "From: " + from);
-        Log.d("App", "Message: " + message);
-
-//        String jsonStr = data.getString("payload");
-//        JSONObject json =
+//        try {
+//
+//            JSONObject obj = new JSONObject(type);
+//
+//            Log.d("My App", obj.getString("type"));
 //
 //
+//
+//        } catch (Throwable t) {
+//            Log.e("My App", "Could not parse malformed JSON: \"" + "\"");
+//        }
 
-      //  String json = {"phonetype":"N95","cat":"WP"};
-
-        try {
-
-            JSONObject obj = new JSONObject(type);
-
-            Log.d("My App", obj.getString("type"));
-
-
-
-        } catch (Throwable t) {
-            Log.e("My App", "Could not parse malformed JSON: \"" + "\"");
-        }
-
-
-        sendNotification(data);
+if (accessToken!=null) {
+    sendNotification(data);
+}
     }
 
     @Override
@@ -92,11 +87,6 @@ public class GCMListener extends GcmListenerService {
                 PreferenceManager.getDefaultSharedPreferences(this);
         //  boolean sentToken = sharedPreferences.getBoolean(Constants.SENT_TOKEN_TO_SERVER, false);
         Constants.GCM_REG_ID = sharedPreferences.getString(Constants.TOKEN_TO_SERVER, null);
-       // String grpIdString = NotificationManager.getSharedInstance().getGroupIds(GCMListener.this);
-//        Set<String> grpIds = sharedPreferences.getStringSet(Constants.GROUP_IDS,null);
-//        com.snaptech.msb.Manager.NotificationManager.grpIds.clear();
-//        com.snaptech.msb.Manager.NotificationManager.grpIds.addAll(grpIds);
-
 
         // Toast.makeText(getBaseContext(), Constants.GCM_REG_ID,Toast.LENGTH_SHORT).show();
 

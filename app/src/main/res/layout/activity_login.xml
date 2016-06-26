@@ -73,12 +73,6 @@
                         android:textSize="15sp" />
 
 
-                  <!--  <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_margin="2dp"
-                        android:background="@android:color/darker_gray" /> -->
-
 
                     <EditText
                         android:id="@+id/activity_login_password_edittext"
@@ -138,7 +132,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
-                android:text="Forgot Password ?"/>
+                android:text="@string/forgot_password_title"/>
 
 
         </LinearLayout>

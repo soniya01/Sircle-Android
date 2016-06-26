@@ -20,7 +20,7 @@
         android:textColor="#ffffff"
         android:background="#FC6F71"
         android:visibility="gone"
-        android:text="Today" />
+        android:text="@string/today_button_title" />
 
 
 </FrameLayout>

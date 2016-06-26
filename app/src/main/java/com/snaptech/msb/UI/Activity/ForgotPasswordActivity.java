@@ -108,7 +108,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         ringProgressDialog.dismiss();
                         usernameField.setText("");
 
-                        Toast.makeText(ForgotPasswordActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ForgotPasswordActivity.this, "Something went wrong please try again", Toast.LENGTH_SHORT).show();
                     }
                 }else {
                     ringProgressDialog.dismiss();

@@ -108,22 +108,6 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
 
     public void populateDummyData(){
 
-//        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
-//        progressBar.setIndeterminate(true);
-//        progressBar.setVisibility(View.VISIBLE);
-//        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
-//        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-//        ((RelativeLayout)viewFragment).addView(progressBar, layoutParams);
-
-//        String grpIdString = "";
-//        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
-//            if (i == 0){
-//                grpIdString = NotificationManager.grpIds.get(i);
-//            }else {
-//                grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
-//            }
-//        }
-
         String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         HashMap map = new HashMap();
@@ -255,6 +239,7 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
                           //  Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     } else {
+
                       //  Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 } else {

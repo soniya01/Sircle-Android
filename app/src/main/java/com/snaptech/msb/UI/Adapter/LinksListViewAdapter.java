@@ -97,27 +97,7 @@ public class LinksListViewAdapter extends BaseAdapter {
      * @param linkTitle - link for specific title
      * @return drawable resource for link icon corresponding to the link title
      */
-    private int getImageLink(String linkTitle){
 
-        int resourceId  = R.drawable.links_google;;
-        switch (linkTitle){
-            case "Google":
-                resourceId = R.drawable.links_google;
-                break;
-            case "Facebook":
-                resourceId = R.drawable.links_facebook;
-                break;
-            case "FlipKart":
-                resourceId = R.drawable.links_google;
-                break;
-            case "Lanvin":
-                resourceId = R.drawable.links_google;
-              break;
-
-        }
-
-        return resourceId;
-    }
 
     static class ViewHolder {
        // private ImageView linksImageView;

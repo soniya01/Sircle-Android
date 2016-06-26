@@ -37,7 +37,7 @@
             android:drawablePadding="10dp"
             android:paddingBottom="15dp"
             style="?android:attr/borderlessButtonStyle"
-            android:text="Calendar"></Button>
+            android:text="Calendar"/>
 
         <Button
             android:layout_margin="10dp"
@@ -52,7 +52,7 @@
             android:drawablePadding="10dp"
             android:paddingBottom="15dp"
             style="?android:attr/borderlessButtonStyle"
-            android:text="Photos"></Button>
+            android:text="Photos"/>
 
 
         <Button
@@ -68,7 +68,7 @@
             android:drawablePadding="10dp"
             android:paddingBottom="15dp"
             style="?android:attr/borderlessButtonStyle"
-            android:text="Messages"></Button>
+            android:text="Messages"/>
 
 
 
@@ -98,8 +98,9 @@
             android:layout_margin="10dp"
             android:drawablePadding="10dp"
             android:paddingBottom="15dp"
+            android:singleLine="true"
             style="?android:attr/borderlessButtonStyle"
-            android:text="Newsletter"></Button>
+            android:text="Newsletter"/>
 
 
 
@@ -116,7 +117,7 @@
             android:drawablePadding="10dp"
             android:paddingBottom="15dp"
             style="?android:attr/borderlessButtonStyle"
-            android:text="Documents"></Button>
+            android:text="Documents"/>
 
 
 
@@ -133,7 +134,7 @@
             android:drawablePadding="10dp"
             android:paddingBottom="15dp"
             style="?android:attr/borderlessButtonStyle"
-            android:text="Videos"></Button>
+            android:text="Videos"/>
 
 
 
@@ -164,7 +165,7 @@
             android:drawablePadding="10dp"
             android:paddingBottom="15dp"
             style="?android:attr/borderlessButtonStyle"
-            android:text="Links"></Button>
+            android:text="Links"/>
 
 
         <Button
@@ -180,7 +181,7 @@
             android:drawablePadding="10dp"
             android:paddingBottom="15dp"
             style="?android:attr/borderlessButtonStyle"
-            android:text="Settings"></Button>
+            android:text="Settings"/>
 
 
 
@@ -203,7 +204,7 @@
             android:paddingBottom="15dp"
             style="?android:attr/borderlessButtonStyle"
             android:singleLine="true"
-            android:text="Information"></Button>
+            android:text="Information"/>
 
     </LinearLayout>
 

@@ -26,7 +26,7 @@
             android:id="@+id/holidayEventTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Title"
+            android:hint="@string/title_placeholder"
             android:drawableLeft="@drawable/linkstitleimage"
             android:maxLines="2"
             android:paddingBottom="20dp"
@@ -49,7 +49,7 @@
         <EditText
             android:id="@+id/holidayEventStartDate"
             android:focusable="false"
-            android:hint="Start Date"
+            android:hint="@string/start_date_placeholder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/urltitleimage"
@@ -73,7 +73,7 @@
         <EditText
             android:id="@+id/holidayEventEndDate"
             android:focusable="false"
-            android:hint="End Date"
+            android:hint="@string/end_date_placeholder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/enddateicon"
@@ -109,7 +109,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Groups"
+                android:text="@string/group_list_title"
                 android:textSize="20dp" />
 
         </LinearLayout>
@@ -134,7 +134,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="All"
+                android:text="@string/checkbox_all_title"
                 android:textSize="20dp" />
 
         </LinearLayout>

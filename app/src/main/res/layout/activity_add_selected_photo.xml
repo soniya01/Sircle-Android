@@ -30,7 +30,7 @@
         android:layout_marginRight="19dp"
         android:layout_marginLeft="19dp"
         android:textColor="#000000"
-        android:hint="Add Caption"
+        android:hint="@string/add_caption_placeholder"
         android:textColorHint="@color/secondarytextcolor"
         android:text=""
         android:maxLength="255"/>
@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         style="?android:textAppearanceSmall"
-        android:text="Add Photo"
+        android:text="@string/add_photo_title"
         android:layout_marginTop="17dp"
         android:layout_gravity="bottom"
         android:textAllCaps="false"

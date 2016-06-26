@@ -105,7 +105,7 @@ public class SignUpScreen extends AppCompatActivity {
                         usernameField.setText("");
                         confirmPasswordFeild.setText("");
                         passwordField.setText("");
-                        Toast.makeText(SignUpScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUpScreen.this, "Something went wrong please try again", Toast.LENGTH_SHORT).show();
                     }
                 }else {
                     ringProgressDialog.dismiss();

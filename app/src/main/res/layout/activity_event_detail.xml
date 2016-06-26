@@ -40,7 +40,6 @@
                 <com.snaptech.msb.custom.RobotoLightTextView
                     android:id="@+id/event_detail_title"
                     android:layout_width="match_parent"
-                    android:text="Event title"
                     android:textSize="20dp"
                     android:layout_marginLeft="19dp"
                     android:layout_marginTop="22dp"
@@ -71,7 +70,7 @@
 
                     <com.snaptech.msb.custom.RobotoLightTextView
                         android:layout_width="match_parent"
-                        android:text="Starts"
+                        android:text="@string/starts_title"
                         android:textSize="12dp"
                         android:layout_marginLeft="19dp"
                         android:layout_marginTop="13dp"
@@ -83,7 +82,6 @@
                     <com.snaptech.msb.custom.RobotoLightTextView
                         android:id="@+id/event_start_date"
                         android:layout_width="match_parent"
-                        android:text="Event Start Date"
                         android:textSize="20dp"
                         android:layout_marginLeft="19dp"
                         android:layout_marginBottom="9dp"
@@ -114,7 +112,7 @@
 
                     <com.snaptech.msb.custom.RobotoLightTextView
                         android:layout_width="match_parent"
-                        android:text="Ends"
+                        android:text="@string/ends_title"
                         android:textSize="12dp"
                         android:layout_marginLeft="19dp"
                         android:layout_marginTop="13dp"
@@ -126,7 +124,6 @@
                     <com.snaptech.msb.custom.RobotoLightTextView
                         android:id="@+id/event_end_date"
                         android:layout_width="match_parent"
-                        android:text="Event End Date"
                         android:textSize="20dp"
                         android:layout_marginLeft="19dp"
                         android:layout_marginBottom="9dp"
@@ -155,7 +152,6 @@
                 <com.snaptech.msb.custom.RobotoLightTextView
                     android:id="@+id/event_detail_location"
                     android:layout_width="match_parent"
-                    android:text="Event location"
                     android:textSize="20dp"
                     android:layout_marginLeft="19dp"
                     android:layout_marginTop="22dp"
@@ -181,7 +177,6 @@
                 <com.snaptech.msb.custom.RobotoLightTextView
                     android:id="@+id/event_detail_category"
                     android:layout_width="match_parent"
-                    android:text="Event category"
                     android:textSize="20dp"
                     android:layout_marginLeft="19dp"
                     android:layout_marginTop="22dp"
@@ -208,7 +203,6 @@
                 <com.snaptech.msb.custom.RobotoLightTextView
                     android:id="@+id/event_detail_groups"
                     android:layout_width="match_parent"
-                    android:text="Event groups"
                     android:textSize="20dp"
                     android:layout_marginLeft="19dp"
                     android:layout_marginTop="22dp"
@@ -247,7 +241,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginTop="0dp"
-        android:text="SAVE Event"
+        android:text="@string/save_event_button_title"
         android:textSize="18sp"
         android:background="#FC6F71"
         android:layout_below="@+id/detailsLayout"

@@ -13,7 +13,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/input_layout_title"
@@ -25,7 +25,7 @@
                     android:id="@+id/holidayEventTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Title"
+                    android:hint="@string/title_placeholder"
                     android:drawableLeft="@drawable/linkstitleimage"
                     android:maxLines="2"
                     android:paddingBottom="20dp"
@@ -48,7 +48,7 @@
                     android:id="@+id/location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Location"
+                    android:hint="@string/location_placeholder"
                     android:drawableLeft="@drawable/locationlabelimage"
                     android:maxLines="2"
                     android:paddingBottom="20dp"
@@ -71,7 +71,7 @@
                 <EditText
                     android:id="@+id/selectCategoryButton"
                     android:focusable="false"
-                    android:hint="Category"
+                    android:hint="@string/category_placeholder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/categorytitleimage"
@@ -109,7 +109,7 @@
                         android:layout_marginTop="12dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Groups"
+                        android:text="@string/group_list_title"
                         android:textSize="20dp" />
 
                 </LinearLayout>
@@ -134,7 +134,7 @@
                         android:layout_marginTop="15dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="All"
+                        android:text="@string/checkbox_all_title"
                         android:textSize="20dp" />
 
                 </LinearLayout>
@@ -164,7 +164,7 @@
                 <EditText
                     android:id="@+id/holidayEventStartDate"
                     android:focusable="false"
-                    android:hint="Start Date"
+                    android:hint="@string/start_date_placeholder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/urltitleimage"
@@ -188,7 +188,7 @@
                 <EditText
                     android:id="@+id/holidayEventEndDate"
                     android:focusable="false"
-                    android:hint="End Date"
+                    android:hint="@string/end_date_placeholder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/enddateicon"
@@ -211,7 +211,7 @@
                 <EditText
                     android:id="@+id/startTime"
                     android:focusable="false"
-                    android:hint="Start Time"
+                    android:hint="@string/start_time_placeholder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/urltitleimage"
@@ -235,7 +235,7 @@
                 <EditText
                     android:id="@+id/endTime"
                     android:focusable="false"
-                    android:hint="End Time"
+                    android:hint="@string/end_time_placeholder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/enddateicon"
@@ -262,7 +262,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLength="255"
-                    android:hint="Details"
+                    android:hint="@string/details_placeholder"
                     android:textColor="#303030"
                     android:textSize="20dp"
                     android:layout_marginLeft="15dp"
@@ -274,7 +274,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Reminder"
+                android:text="@string/reminder_title"
                 android:layout_marginTop="10dp"
                 android:textColor="#303030"
                 android:textSize="16sp" />
@@ -286,7 +286,7 @@
                 android:background="@drawable/custom_edit_text_border"
                 android:maxLines="2"
                 android:padding="15dp"
-                android:text="1 Day"
+                android:text="@string/day_button_title"
                 android:textColor="#303030"
                 android:textSize="14sp" />
             <Button
@@ -297,7 +297,7 @@
                 android:background="@drawable/custom_edit_text_border"
                 android:maxLines="2"
                 android:padding="15dp"
-                android:text="0 Hour"
+                android:text="@string/hour_button_title"
                 android:textColor="#303030"
                 android:textSize="14sp" />
             <Button
@@ -308,7 +308,7 @@
                 android:background="@drawable/custom_edit_text_border"
                 android:maxLines="2"
                 android:padding="15dp"
-                android:text="0 Minute"
+                android:text="@string/minute_button_title"
                 android:textColor="#303030"
                 android:textSize="14sp" />
 
@@ -322,7 +322,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Repeat"
+                    android:text="@string/repeat_checkbox_title"
                     android:textColor="#303030"
                     android:textSize="16sp" />
 
@@ -343,7 +343,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Repeats"/>
+                    android:text="@string/repeats_title"/>
                 <Button
                     android:id="@+id/repeatsType"
                     android:layout_width="match_parent"
@@ -352,14 +352,14 @@
                     android:background="@drawable/custom_edit_text_border"
                     android:maxLines="2"
                     android:padding="15dp"
-                    android:text="Daily"
+                    android:text="@string/daily_button_title"
                     android:textColor="#303030"
                     android:textSize="14sp" />
                 <TextView
                     android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Repeat For"/>
+                    android:text="@string/repeat_for_title"/>
                 <Button
                     android:id="@+id/repeatForDays"
                     android:layout_width="match_parent"
@@ -368,7 +368,7 @@
                     android:background="@drawable/custom_edit_text_border"
                     android:maxLines="2"
                     android:padding="15dp"
-                    android:text="1 day"
+                    android:text="@string/day_button_title"
                     android:textColor="#303030"
                     android:textSize="14sp" />
                 <LinearLayout
@@ -381,7 +381,7 @@
                         android:layout_marginTop="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Vertical:"/>
+                        android:text="@string/vertical_title"/>
                     <RelativeLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
@@ -392,7 +392,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Monday"
+                            android:text="@string/monday_checkbox_title"
                             />
 
                         <CheckBox
@@ -410,7 +410,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Tuesday"
+                            android:text="@string/tuesday_checkbox_title"
                             />
 
                         <CheckBox
@@ -429,7 +429,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Wednesday"
+                            android:text="@string/wednesday_checkbox_title"
                             />
 
                         <CheckBox
@@ -447,7 +447,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Thursday"
+                            android:text="@string/thursday_checkbox_title"
                             />
 
                         <CheckBox
@@ -466,7 +466,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Friday"
+                            android:text="@string/friday_checkbox_title"
                             />
 
                         <CheckBox
@@ -485,7 +485,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Saturday"
+                            android:text="@string/saturday_checkbox_title"
                             />
 
                         <CheckBox
@@ -503,7 +503,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Sunday"
+                            android:text="@string/sunday_checkbox_title"
                             />
 
                         <CheckBox
@@ -530,7 +530,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="day of the month"
+                            android:text="@string/day_of_the_month_checkbox_title"
                             />
 
                         <CheckBox
@@ -550,7 +550,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="day of the week"
+                            android:text="@string/day_of_the_week_checkbox_title"
                             />
 
                         <CheckBox
@@ -564,7 +564,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Repeat Count"/>
+                    android:text="@string/repeat_count_title"/>
                 <RelativeLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -575,7 +575,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Never"
+                        android:text="@string/never_checkbox_title"
                         />
 
                     <CheckBox
@@ -595,7 +595,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="After"
+                        android:text="@string/after_checkbox_title"
                         />
 
                     <CheckBox
@@ -619,7 +619,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Occurrences"/>
+                    android:text="@string/occurrences_title"/>
                 <RelativeLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -630,7 +630,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="After"
+                        android:text="@string/after_checkbox_title"
                         />
 
                     <CheckBox
@@ -659,7 +659,7 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginBottom="0dp"
                 android:background="#FC6F71"
-                android:text="Add Event"
+                android:text="@string/add_event_button_title"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />

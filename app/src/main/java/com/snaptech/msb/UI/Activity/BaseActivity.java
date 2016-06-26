@@ -134,11 +134,11 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        closeApp = false;
 
         selectedModuleIndex = -1;
 
-        checkIfSessionExpired();
+     //   checkIfSessionExpired();
 
         if (selectedModuleIndex == null || selectedModuleIndex == 0){
             selectedModuleIndex = -1;
@@ -214,8 +214,12 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
         SharedPreferences.Editor editor = loginSharedPreferences.edit();
         userType = loginSharedPreferences.getString(Constants.LOGIN_LOGGED_IN_USER_TYPE,null);
 
-        if (userType.equals("admin")) {
-            menuList = getResources().getStringArray(R.array.array_module_name_withou_settings);
+        if(userType!=null) {
+            if (userType.equals("admin")) {
+                menuList = getResources().getStringArray(R.array.array_module_name_withou_settings);
+            } else {
+                menuList = getResources().getStringArray(R.array.array_module_name);
+            }
         }
         else
         {
@@ -324,8 +328,9 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                 break;
             case 1:
                 fragmentName = "Calendar";
-                if (calendarFragmentToLoad==null) {
-                    calendarFragmentToLoad = new CalendarFragment();
+                if (!(fragmentToLoad instanceof CalendarFragment))
+                {
+                    fragmentToLoad = new CalendarFragment();
                 }
                 closeApp = false;
                 break;
@@ -388,6 +393,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
 
 
                    // fragmentToLoad = new HomeFragment();
+                //    mDrawerLayout.closeDrawer(mDrawerList);
                     Common.sendEmailToSupport(this);
 
 //                    mDrawerLayout.closeDrawer(mDrawerList);
@@ -423,9 +429,11 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                 }
                 else
                 {
+                   // mDrawerLayout.closeDrawer(mDrawerList);
                     Common.sendEmailToSupport(this);
-                }
 
+                }
+                break;
             case 11:
 
                 mDrawerLayout.closeDrawer(mDrawerList);
@@ -441,12 +449,14 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                 break;
         }
 
-        if (selectedModuleIndex==1)
-        {
-            loadFragment(BaseActivity.this, calendarFragmentToLoad,fragmentName);
-        }
+//        if (selectedModuleIndex==1)
+//        {
+//            loadFragment(BaseActivity.this, calendarFragmentToLoad,fragmentName);
+//        }
+//
+//        else
 
-        else if (fragmentToLoad != null) {
+        if (fragmentToLoad != null) {
             loadFragment(BaseActivity.this, fragmentToLoad,fragmentName);
 
         }
@@ -515,7 +525,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
         if (closeApp)
         {
             Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-            homeIntent.addCategory( Intent.CATEGORY_HOME );
+            homeIntent.addCategory(Intent.CATEGORY_HOME );
             homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(homeIntent);
         }
@@ -523,7 +533,6 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
 
         {
             closeApp=true;
-
             fragmentToLoad = new HomeFragment();
             loadFragment(BaseActivity.this, fragmentToLoad,"Home");
             setActionBarTitle("Home");
