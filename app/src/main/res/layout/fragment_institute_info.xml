@@ -24,7 +24,7 @@
             android:textColor="#002E49"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:text="MSB Mumbai"
+            android:text="Nahar International School"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -35,7 +35,7 @@
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:gravity="center_horizontal"
-            android:text="Ground Floor,Taheri Manzil,\nNesbit Road,\nMazagaon. MUMBAI – 400010."
+            android:text="Nahar Amrit Shakti, Chandivali Farm Road, Andheri East. Mumbai-400072."
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -44,7 +44,7 @@
             android:textColor="#002E49"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:text="info@msbmumbai.in"
+            android:text="info@nahar-is.org"
             android:autoLink="email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -54,7 +54,7 @@
             android:textColor="#002E49"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:text="+912223746007"
+            android:text="+912228475511"
             android:autoLink="phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
