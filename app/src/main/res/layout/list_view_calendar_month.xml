@@ -43,7 +43,7 @@ app:mrl_rippleOverlay="true">
         android:layout_toRightOf="@+id/imageLayout"
         android:orientation="vertical">
 
-        <com.snaptech.msb.custom.RobotoLightTextView
+        <com.snaptech.naharInt.custom.RobotoLightTextView
             android:id="@+id/eventDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,7 +53,7 @@ app:mrl_rippleOverlay="true">
             android:textColor="#666666"
             android:text="Wed 27 July 2015" />
 
-        <com.snaptech.msb.custom.RobotoLightTextView
+        <com.snaptech.naharInt.custom.RobotoLightTextView
             android:id="@+id/eventTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -73,7 +73,7 @@ app:mrl_rippleOverlay="true">
 
 
 
-    <com.snaptech.msb.custom.RobotoLightTextView
+    <com.snaptech.naharInt.custom.RobotoLightTextView
         android:id="@+id/startEventTime"
         android:textColor="#666666"
         android:layout_width="wrap_content"
@@ -85,7 +85,7 @@ app:mrl_rippleOverlay="true">
         android:textSize="14dp"
         android:text="11:00" />
 
-    <com.snaptech.msb.custom.RobotoLightTextView
+    <com.snaptech.naharInt.custom.RobotoLightTextView
         android:id="@+id/endEventTime"
         android:textColor="#666666"
         android:layout_width="wrap_content"

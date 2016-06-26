@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical"
-    tools:context="com.snaptech.msb.UI.Activity.SchoolHolidayActivity">
+    tools:context="com.snaptech.naharInt.UI.Activity.SchoolHolidayActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -151,6 +151,18 @@
         android:divider="@null"
         android:dividerHeight="0dp"
         android:scrollbars="none" />
+
+            <Button
+                android:id="@+id/add_button"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="40dp"
+                android:background="#FC6F71"
+                android:text="@string/add_event_button_title"
+                android:layout_alignParentBottom="true"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
 
 
 </LinearLayout>
