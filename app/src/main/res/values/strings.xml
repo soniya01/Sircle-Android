@@ -1,14 +1,14 @@
 <resources>
-    <string name="app_name">MSB Mumbai</string>
+    <string name="app_name">EMISSIO</string>
 
 
     <!--Activity Add Album-->
     <string name="title_placeholder">TITULO</string>
-    <string name="group_list_title">Groups</string>
+    <string name="group_list_title">Grupos</string>
     <string name="checkbox_all_title">TODOS</string>
 
     <!--Activity Add Links-->
-    <string name="url_placeholder">Url</string>
+    <string name="url_placeholder">URL</string>
 
     <!--Activity Add Notifications-->
     <string name="details_placeholder">DETALLES</string>
@@ -19,20 +19,20 @@
     <string name="add_photo_title">Add Photo</string>
 
     <!--Activity Add Event-->
-    <string name="location_placeholder">Location</string>
-    <string name="category_placeholder">Category</string>
-    <string name="start_date_placeholder">Start Date</string>
-    <string name="end_date_placeholder">End Date</string>
-    <string name="start_time_placeholder">Start Time</string>
-    <string name="end_time_placeholder">End Time</string>
-    <string name="reminder_title">Reminder</string>
-    <string name="day_button_title">1 Day</string>
-    <string name="hour_button_title">0 Hour</string>
-    <string name="minute_button_title">0 Minute</string>
-    <string name="repeat_checkbox_title">Repeat</string>
-    <string name="repeats_title">Repeats</string>
-    <string name="daily_button_title">Daily</string>
-    <string name="repeat_for_title">Repeat For</string>
+    <string name="location_placeholder">Locacion</string>
+    <string name="category_placeholder">Categoria</string>
+    <string name="start_date_placeholder">Fecha de Inicio</string>
+    <string name="end_date_placeholder">Fecha de Terminación</string>
+    <string name="start_time_placeholder">Hora de Inicio</string>
+    <string name="end_time_placeholder">Hora de Terminación</string>
+    <string name="reminder_title">Recordatorio</string>
+    <string name="day_button_title">1 Días</string>
+    <string name="hour_button_title">0 Horas</string>
+    <string name="minute_button_title">0 Minutos</string>
+    <string name="repeat_checkbox_title">Repetición</string>
+    <string name="repeats_title">Repeticiones</string>
+    <string name="daily_button_title">Diariamente</string>
+    <string name="repeat_for_title">Repetir para</string>
     <string name="vertical_title">Vertical:</string>
     <string name="monday_checkbox_title">LUNES</string>
     <string name="tuesday_checkbox_title">MARTES</string>
@@ -41,26 +41,26 @@
     <string name="friday_checkbox_title">VIERNES</string>
     <string name="saturday_checkbox_title">SABADO</string>
     <string name="sunday_checkbox_title">DOMINGO</string>
-    <string name="day_of_the_month_checkbox_title">day of the month</string>
-    <string name="day_of_the_week_checkbox_title">day of the week</string>
-    <string name="repeat_count_title">Repeat Count</string>
-    <string name="never_checkbox_title">Never</string>
-    <string name="occurrences_title">Occurrences</string>
-    <string name="after_checkbox_title">After</string>
-    <string name="add_event_button_title">Add Event</string>
+    <string name="day_of_the_month_checkbox_title">Dia del Mes</string>
+    <string name="day_of_the_week_checkbox_title">Dia de la Semana</string>
+    <string name="repeat_count_title">Cuenta de Repetición</string>
+    <string name="never_checkbox_title">Nunca</string>
+    <string name="occurrences_title">Ocurrencias</string>
+    <string name="after_checkbox_title">Después</string>
+    <string name="add_event_button_title">Agregar Evento</string>
 
     <!--Activity Event Detail-->
-    <string name="starts_title">Starts</string>
-    <string name="ends_title">Ends</string>
-    <string name="save_event_button_title">SAVE Event</string>
+    <string name="starts_title">Inicia</string>
+    <string name="ends_title">Termina</string>
+    <string name="save_event_button_title">Guardar Evento</string>
 
     <!--Activity Settings-->
     <string name="notification_groups_title">NOTIFICACIONES GRUPALES</string>
-    <string name="save_button_title">Save</string>
+    <string name="save_button_title">Guardar</string>
 
  <!--Activity Forgot Password-->
-    <string name="email_id_placeholder">Email Id</string>
-    <string name="Submit_button_title">Submit</string>
+    <string name="email_id_placeholder">Correo Electronico</string>
+    <string name="Submit_button_title">Confirmar</string>
 
     <!--Fragment Calendar-->
     <string name="floating_button_title_holiday">VACACION</string>
@@ -83,12 +83,12 @@
     <!-- Strings related to login -->
     <string name="prompt_email">USUARIO</string>
     <string name="prompt_password">CONTRASEÑA</string>
-    <string name="confirm_password_placeholder">Confirm Password</string>
-    <string name="forgot_password_title">Forgot Password ?</string>
-    <string name="register_button_title">Register</string>
+    <string name="confirm_password_placeholder">Confirmar Contraseña</string>
+    <string name="forgot_password_title">Olvide mi Contraseña</string>
+    <string name="register_button_title">Registrarse</string>
     <string name="action_sign_in">INGRESAR</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome_title">WELCOME</string>
+    <string name="welcome_title">BIENVENIDO</string>
 
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
@@ -108,7 +108,7 @@
         <item>INICIO</item>
         <item>CALENDARIO</item>
         <item>FOTOS</item>
-        <item>Messages</item>
+        <item>Mensajes</item>
         <item>BOLETIN INFORMATIVO</item>
         <item>DOCUMENTOS</item>
         <item>VIDEOS</item>
@@ -124,7 +124,7 @@
         <item>INICIO</item>
         <item>CALENDARIO</item>
         <item>FOTOS</item>
-        <item>Messages</item>
+        <item>Mensajes</item>
         <item>BOLETIN INFORMATIVO</item>
         <item>DOCUMENTOS</item>
         <item>VIDEOS</item>
@@ -159,12 +159,12 @@
     <!-- NewsLetter fragment -->
     <string name="fragment_documents_title">Documents</string>
     <string name="title_activity_settings">SettingsActivity</string>
-    <string name="title_activity_add_links">        Add   Links</string>
+    <string name="title_activity_add_links">Agregar Enlaces </string>
     <string name="title_activity_add_notification">AGREGAR NOTIFICACION</string>
-    <string name="title_activity_add_album">New Album</string>
+    <string name="title_activity_add_album">Nuevo Album</string>
 
 
-    <string name="title_activity_events_list">Events</string>
+    <string name="title_activity_events_list">Eventos</string>
     <string name="title_activity_add_photo_tabbed">Pick photo </string>
 
     <string name="title_activity_add_selected_photo">Add new photo</string>
@@ -172,7 +172,7 @@
     <string name="title_activity_holiday">Holiday</string>
     <string name="title_activity_school_holiday">School Holiday</string>
     <string name="title_activity_event">Event</string>
-    <string name="title_activity_event_detail">Event Details</string>
+    <string name="title_activity_event_detail">Detalles del Evento</string>
     <string name="title_activity_vimeo_webview">VimeoWebviewActivity</string>
     <string name="title_activity_sign_up">SignUp</string>
 

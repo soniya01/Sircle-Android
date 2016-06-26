@@ -6,7 +6,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.snaptech.msb"
+        applicationId "com.grayjam.sircle"
         minSdkVersion 15
         targetSdkVersion 20
         versionCode 5

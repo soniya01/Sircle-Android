@@ -2,17 +2,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="#F5F6F7"
     android:orientation="vertical"
     tools:context=".SplashActivity">
 
     <ImageView
         android:id="@+id/splash_image"
+
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_centerInParent="true"
         android:contentDescription="@string/description_image_default"
-        android:background="@android:color/transparent"
+        android:background="#F5F6F7"
         android:src="@drawable/sirclebysnaptechios" />
 
     <TextView
