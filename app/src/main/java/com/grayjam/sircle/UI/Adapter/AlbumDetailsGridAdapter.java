@@ -117,7 +117,7 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(mContext, "image clicked", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(mContext, "image clicked", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(mContext, AlbumFullScreenActivity.class);
             i.putExtra("position", _postion);
             i.putExtra("url",albumDetailsList.get(_postion).getFilePath());

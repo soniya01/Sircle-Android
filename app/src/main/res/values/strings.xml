@@ -13,6 +13,13 @@
     <!--Activity Add Notifications-->
     <string name="details_placeholder">Details</string>
 
+    <!--Activity Add Holiday-->
+    <string name="add_holiday_button_title">Add Holiday</string>
+
+    <!--Activity Add School Holiday-->
+    <string name="add_school_holiday_button_title">Add School Holiday</string>
+
+
 
     <!--Activity Add Selected Photos-->
     <string name="add_caption_placeholder">Add Caption</string>

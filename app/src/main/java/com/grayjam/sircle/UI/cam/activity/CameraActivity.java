@@ -281,6 +281,7 @@ public class CameraActivity extends FragmentActivity implements CameraFragmentLi
                 // intent.putExtra(INTENT_EXTRA_BACK_CAMERA_SHOWN, backCameraShown);
                 intent.putExtra("albumId", albumId);
                 startActivity(intent);
+                finish();
 
                 // Log.d(TAG, String.valueOf(bitmap));
 

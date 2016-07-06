@@ -75,7 +75,8 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
 
     int startYear,startMonth,startDay, mins, hour, secs,repeatTypeId = 1,repeat_every=1;
     LinearLayout repeatLayout,weeklyLayout,monthlyLayout;
-    ProgressDialog ringProgressDialog;
+   // ProgressDialog ringProgressDialog;
+    private ProgressDialog ringProgressDialog;
 
 
     @Override
@@ -401,6 +402,8 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
 
            //     String grpIdString = NotificationManager.getSharedInstance().getGroupIds(EventActivity.this);
 
+                ringProgressDialog = ProgressDialog.show(EventActivity.this, "", "", true);
+
                 String grpIdString = "";
 
                 for (int i = 0; i < notificationGroupList.size(); i++) {
@@ -534,10 +537,16 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
                 EventManager.getSharedInstance().addEvent(params, new EventManager.AddEventsManagerListener() {
                     @Override
                     public void onCompletion(PostResponse response, AppError error) {
+                        ringProgressDialog.dismiss();
                         if (response != null){
-                           // Toast.makeText(EventActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
+
                             if (response.getStatus() == 200){
+                                Toast.makeText(EventActivity.this, "Event Added !",Toast.LENGTH_SHORT).show();
                                 finish();
+                            }
+                            else
+                            {
+                                Toast.makeText(EventActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
                             }
                         }else {
                             Toast.makeText(EventActivity.this, "some error occurred",Toast.LENGTH_SHORT).show();
@@ -793,14 +802,15 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
         TimePickerDialog.OnTimeSetListener timeListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                hour = hourOfDay;
-                mins = minute;
+             //   hour = hourOfDay;
+             //   mins = minute;
 
                 if (v == startTime){
 
-                    myCalendar.set(Calendar.HOUR, hourOfDay);
+                    myCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                     myCalendar.set(Calendar.MONTH, minute);
                     myCalendar.set(Calendar.SECOND, 0);
+
 
                     String myFormat = "hh:mm:ss aa"; //In which you need put here
                     SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
@@ -809,9 +819,10 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
                     startTime.setText(startTimeStr);
                 }else if (v == endTime){
 
-                    myCalendar.set(Calendar.HOUR, hourOfDay);
+                    myCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                     myCalendar.set(Calendar.MONTH, minute);
                     myCalendar.set(Calendar.SECOND, 0);
+
 
                     String myFormat = "hh:mm:ss aa"; //In which you need put here
                     SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
@@ -828,7 +839,12 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
 
         }
         if (v == startTime || v == endTime){
-            timePickerDialog = new TimePickerDialog(EventActivity.this, timeListener, hour, mins, true);
+
+            Calendar mcurrentTime = Calendar.getInstance();
+            int currenthour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+            int currentminute = mcurrentTime.get(Calendar.MINUTE);
+
+            timePickerDialog = new TimePickerDialog(EventActivity.this, timeListener, currenthour, currentminute, true);
             timePickerDialog.show();
 
         }
