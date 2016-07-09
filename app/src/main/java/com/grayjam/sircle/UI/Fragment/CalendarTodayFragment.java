@@ -17,6 +17,7 @@ import com.grayjam.sircle.UI.Adapter.TermsAdapter;
 import com.grayjam.sircle.UI.Model.Terms;
 import com.grayjam.sircle.Utility.AppError;
 import com.grayjam.sircle.Utility.Constants;
+import com.grayjam.sircle.custom.App;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
@@ -236,11 +237,11 @@ public class CalendarTodayFragment extends Fragment {
 
                        // Toast.makeText(CalendarTodayFragment.this, "", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(getActivity(), "Sorry no terms data found",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(App.getAppContext(), "Sorry no terms data found",Toast.LENGTH_SHORT).show();
                     }
 
                 } else {
-                    Toast.makeText(getActivity(), "Error occurred", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(App.getAppContext(), "Error occurred", Toast.LENGTH_SHORT).show();
                 }
 
             }
