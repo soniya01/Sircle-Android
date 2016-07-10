@@ -113,7 +113,7 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
 //            }
 //        }
 
-        String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
+     //   String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         HashMap object = new HashMap();
         //object.put("regId", Constants.GCM_REG_ID);
@@ -212,7 +212,7 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
 //            }
 //        }
 
-        String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
+      //  String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         HashMap object = new HashMap();
         //object.put("regId", Constants.GCM_REG_ID);

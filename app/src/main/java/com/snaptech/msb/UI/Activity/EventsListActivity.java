@@ -146,7 +146,7 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
 //            }
 //        }
 
-        String grpIdString = NotificationManager.getSharedInstance().getGroupIds(EventsListActivity.this);
+      //  String grpIdString = NotificationManager.getSharedInstance().getGroupIds(EventsListActivity.this);
 
         HashMap map = new HashMap();
      //   map.put("regId", Constants.GCM_REG_ID);
@@ -252,7 +252,7 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
 //            }
 //        }
 
-        String grpIdString = NotificationManager.getSharedInstance().getGroupIds(EventsListActivity.this);
+        //String grpIdString = NotificationManager.getSharedInstance().getGroupIds(EventsListActivity.this);
 
         HashMap map = new HashMap();
       //  map.put("regId", Constants.GCM_REG_ID);

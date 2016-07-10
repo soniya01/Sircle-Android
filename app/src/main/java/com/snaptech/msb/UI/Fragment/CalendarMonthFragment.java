@@ -291,7 +291,7 @@ public class CalendarMonthFragment extends Fragment {
 //            }
 //        }
 
-        String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
+      //  String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         HashMap object = new HashMap();
         //object.put("regId", Constants.GCM_REG_ID);

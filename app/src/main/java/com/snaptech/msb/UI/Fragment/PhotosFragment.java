@@ -156,7 +156,7 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
 //            }
 //        }
 
-        String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
+      //  String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         HashMap map = new HashMap();
       //  map.put("regId", Constants.GCM_REG_ID);
@@ -263,7 +263,7 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
     public void loadMoreData(){
 
         pageCount = pageCount +1;
-        String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
+      //  String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 //        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
 //            if (i == 0){
 //                grpIdString = NotificationManager.grpIds.get(i);

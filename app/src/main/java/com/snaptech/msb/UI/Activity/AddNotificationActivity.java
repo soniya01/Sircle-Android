@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.snaptech.msb.Manager.NotificationManager;
 import com.snaptech.msb.R;
 import com.snaptech.msb.UI.Adapter.AddGroupAdapter;
@@ -101,7 +102,7 @@ public class AddNotificationActivity extends ActionBarActivity {
                // progressBar.setIndeterminate(true);
                // progressBar.setVisibility(View.VISIBLE);
 
-                ringProgressDialog = ProgressDialog.show(AddNotificationActivity.this, "", "", true);
+
 
                // RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
                // layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
@@ -117,6 +118,8 @@ public class AddNotificationActivity extends ActionBarActivity {
 //                    }
 
                  //   String grpIdString = NotificationManager.getSharedInstance().getGroupIds(AddNotificationActivity.this);
+
+                    ringProgressDialog = ProgressDialog.show(AddNotificationActivity.this, "", "", true);
 
                     String grpIdString = "";
 
@@ -150,11 +153,11 @@ public class AddNotificationActivity extends ActionBarActivity {
                             if (postResponse != null) {
                                 if (postResponse.getStatus() == 200) {
                                     ringProgressDialog.dismiss();
-                                   // Toast.makeText(AddNotificationActivity.this, postResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                   Toast.makeText(AddNotificationActivity.this, "Message Added!", Toast.LENGTH_SHORT).show();
                                     finish();
                                 } else {
                                     ringProgressDialog.dismiss();
-                                  //  Toast.makeText(AddNotificationActivity.this, postResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                   Toast.makeText(AddNotificationActivity.this, postResponse.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             } else {
                                 ringProgressDialog.dismiss();
@@ -202,7 +205,7 @@ public class AddNotificationActivity extends ActionBarActivity {
 //                            addListView.setAdapter(notificationsGroupAdapter);
 //                        }
 
-                        Toast.makeText(AddNotificationActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(AddNotificationActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(AddNotificationActivity.this, "Some problem occurred", Toast.LENGTH_SHORT).show();
                     }

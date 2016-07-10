@@ -1,6 +1,8 @@
 package com.snaptech.msb.UI.Activity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
 
 import com.snaptech.msb.Manager.EventManager;
 import com.snaptech.msb.Manager.NotificationManager;
@@ -44,8 +47,9 @@ public class SchoolHolidayActivity extends ActionBarActivity {
     Calendar myCalendar;
     EditText startDateEditText,endDateEditText;
     private AddGroupAdapter notificationsGroupAdapter;
-    String dateType;
+    String dateType,startDate,endDate;
     public static CheckBox allCheckBox;
+    private ProgressDialog ringProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,10 +92,12 @@ public class SchoolHolidayActivity extends ActionBarActivity {
 
         footerView = View.inflate(this, R.layout.list_view_add_footer, null);
         addButton = (Button) footerView.findViewById(R.id.add_button);
-        addButton.setText("Add Event");
+        addButton.setText("Add School Holiday");
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
 
                 if (title.getText().toString().equals("")
                         || startDateEditText.getText().toString().equals("")
@@ -108,6 +114,7 @@ public class SchoolHolidayActivity extends ActionBarActivity {
 //                    }
 
                    // String grpIdString = NotificationManager.getSharedInstance().getGroupIds(SchoolHolidayActivity.this);
+                    ringProgressDialog = ProgressDialog.show(SchoolHolidayActivity.this, "", "", true);
 
                     String grpIdString = "";
 
@@ -133,16 +140,22 @@ public class SchoolHolidayActivity extends ActionBarActivity {
                     params.put("event_type", "SH");
                     params.put("group_id", grpIdString);
                     params.put("event_name", title.getText().toString());
-                    params.put("event_from_date", startDateEditText.getText().toString());
-                    params.put("event_to_date", endDateEditText.getText().toString());
+                    params.put("event_from_date",startDate);
+                    params.put("event_to_date", endDate);
 
                     EventManager.getSharedInstance().addEvent(params, new EventManager.AddEventsManagerListener() {
                         @Override
                         public void onCompletion(PostResponse response, AppError error) {
+                            ringProgressDialog.dismiss();
                             if (response != null) {
-                               // Toast.makeText(SchoolHolidayActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+
                                 if (response.getStatus() == 200) {
+                                     Toast.makeText(SchoolHolidayActivity.this,"School Holiday Added", Toast.LENGTH_SHORT).show();
                                     finish();
+                                }
+                                else
+                                {
+                                     Toast.makeText(SchoolHolidayActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             } else {
                                 Toast.makeText(SchoolHolidayActivity.this, "some error occurred", Toast.LENGTH_SHORT).show();
@@ -188,6 +201,8 @@ public class SchoolHolidayActivity extends ActionBarActivity {
                 // TODO Auto-generated method stub
                 //   Date date = new Date();
                 dateType = "StartDate";
+
+
                 new DatePickerDialog(SchoolHolidayActivity.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -225,11 +240,13 @@ public class SchoolHolidayActivity extends ActionBarActivity {
 
         if (dateType.equals("StartDate"))
         {
-            startDateEditText.setText(sdf.format(myCalendar.getTime()));
+            startDate = sdf.format(myCalendar.getTime());
+            startDateEditText.setText(startDate.substring(0,10));
         }
         else
         {
-            endDateEditText.setText(sdf.format(myCalendar.getTime()));
+            endDate = sdf.format(myCalendar.getTime());
+            endDateEditText.setText(endDate.substring(0,10));
         }
     }
 

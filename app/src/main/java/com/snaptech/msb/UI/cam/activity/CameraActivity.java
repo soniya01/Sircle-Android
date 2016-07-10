@@ -14,6 +14,13 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 
+//import com.grayjam.sircle.R;
+//import com.grayjam.sircle.UI.Activity.AddSelectedPhoto;
+//import com.grayjam.sircle.UI.Fragment.CameraFragmentUI;
+//import com.grayjam.sircle.UI.Model.ImageData;
+//import com.grayjam.sircle.UI.cam.Config;
+//import com.grayjam.sircle.UI.cam.listener.CameraFragmentListener;
+
 import com.snaptech.msb.R;
 import com.snaptech.msb.UI.Activity.AddSelectedPhoto;
 import com.snaptech.msb.UI.Fragment.CameraFragmentUI;
@@ -25,6 +32,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
+ *
  * Activity displaying the camera preview.
  */
 
@@ -281,6 +289,7 @@ public class CameraActivity extends FragmentActivity implements CameraFragmentLi
                 // intent.putExtra(INTENT_EXTRA_BACK_CAMERA_SHOWN, backCameraShown);
                 intent.putExtra("albumId", albumId);
                 startActivity(intent);
+                finish();
 
                 // Log.d(TAG, String.valueOf(bitmap));
 
@@ -301,7 +310,7 @@ public class CameraActivity extends FragmentActivity implements CameraFragmentLi
 
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        inImage.compress(CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         inImage.recycle();
         return Uri.parse(path);

@@ -226,7 +226,7 @@ public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnR
                                         }
                                     }
 
-                                    NotificationManager.getSharedInstance().saveGroupIds(grpIdString,getActivity());
+                                  //  NotificationManager.getSharedInstance().saveGroupIds(grpIdString,getActivity());
                                     Intent homeIntent = new Intent(getActivity(), BaseActivity.class);
                                     startActivity(homeIntent);
                                     //finish();

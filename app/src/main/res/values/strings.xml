@@ -18,6 +18,9 @@
     <string name="add_caption_placeholder">Add Caption</string>
     <string name="add_photo_title">Add Photo</string>
 
+    <!--Activity Add Holiday-->
+    <string name="add_holiday_button_title">Add Holiday</string>
+
     <!--Activity Add Event-->
     <string name="location_placeholder">Location</string>
     <string name="category_placeholder">Category</string>

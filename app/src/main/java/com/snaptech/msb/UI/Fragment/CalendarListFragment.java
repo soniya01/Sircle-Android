@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.snaptech.msb.Manager.EventManager;
 import com.snaptech.msb.Manager.NotificationManager;
 import com.snaptech.msb.R;
@@ -26,6 +27,7 @@ import com.snaptech.msb.UI.Adapter.CalendarMonthListAdapter;
 import com.snaptech.msb.UI.Model.Event;
 import com.snaptech.msb.Utility.AppError;
 import com.snaptech.msb.WebService.EventDataReponse;
+import com.snaptech.msb.custom.App;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,7 +36,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CalendarListFragment.OnFragmentInteractionListener} interface
+ * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link CalendarListFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -63,7 +65,7 @@ public class CalendarListFragment extends Fragment implements AbsListView.OnScro
 
     private OnFragmentInteractionListener mListener;
 
-    String grpIdString;
+   // String grpIdString;
 
     /**
      * Use this factory method to create a new instance of
@@ -129,7 +131,7 @@ public class CalendarListFragment extends Fragment implements AbsListView.OnScro
         });
 
         //if (calendarMonthList.size() <= 0){
-            grpIdString  = NotificationManager.getSharedInstance().getGroupIds(myContext);
+          //  grpIdString  = NotificationManager.getSharedInstance().getGroupIds(myContext);
 
             populateDummyData();
         //}
@@ -225,7 +227,7 @@ public class CalendarListFragment extends Fragment implements AbsListView.OnScro
                         if (data.getEvents().size() > 0){
                             if (calendarMonthList.size() == 0){
                                 calendarMonthList.addAll(data.getEvents());
-                                calendarMonthListViewAdapter = new CalendarMonthListAdapter(myContext, calendarMonthList);
+                                calendarMonthListViewAdapter = new CalendarMonthListAdapter(App.getAppContext(), calendarMonthList);
                                 calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
 
                             }else {
@@ -239,7 +241,7 @@ public class CalendarListFragment extends Fragment implements AbsListView.OnScro
                        // Toast.makeText(myContext, data.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }else {
-                    Toast.makeText(myContext, "Some problem occurred", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(App.getAppContext(), "Some problem occurred", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -291,7 +293,7 @@ public class CalendarListFragment extends Fragment implements AbsListView.OnScro
 
         //ringProgressDialog = ProgressDialog.show(getActivity(), "", "", true);
 
-        final ProgressBar progressBar = new ProgressBar(myContext,null,android.R.attr.progressBarStyleLarge);
+        final ProgressBar progressBar = new ProgressBar(App.getAppContext(),null,android.R.attr.progressBarStyleLarge);
         progressBar.setIndeterminate(true);
         progressBar.setVisibility(View.VISIBLE);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
@@ -312,7 +314,7 @@ public class CalendarListFragment extends Fragment implements AbsListView.OnScro
                                // totalRecord = data.getEventData().getTotalRecords();
                                 calendarMonthList.clear();
                                 calendarMonthList.addAll(data.getEvents());
-                                calendarMonthListViewAdapter = new CalendarMonthListAdapter(myContext, calendarMonthList);
+                                calendarMonthListViewAdapter = new CalendarMonthListAdapter(App.getAppContext(), calendarMonthList);
                                 calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
 
                             }else {
@@ -321,10 +323,19 @@ public class CalendarListFragment extends Fragment implements AbsListView.OnScro
                                 calendarMonthListViewAdapter.notifyDataSetChanged();
                             }
                         }else {
-                       //     calendarMonthList.clear();
+                         //  calendarMonthList.clear();
 //                            //
                          //   calendarMonthListViewAdapter.notifyDataSetChanged();
                           //  Toast.makeText(myContext, data.getMessage(), Toast.LENGTH_SHORT).show();
+
+                            if (calendarMonthListViewAdapter!=null)
+                            {
+                                calendarMonthList.clear();
+//                            //
+                                calendarMonthListViewAdapter.notifyDataSetChanged();
+                                //  Toast.makeText(myContext, data.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+
                         }
                     }else {
 
@@ -338,7 +349,7 @@ public class CalendarListFragment extends Fragment implements AbsListView.OnScro
 
                     }
                 }else {
-                    Toast.makeText(myContext, "Some problem occurred", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(App.getAppContext(), "Some problem occurred", Toast.LENGTH_SHORT).show();
                 }
             }
         });

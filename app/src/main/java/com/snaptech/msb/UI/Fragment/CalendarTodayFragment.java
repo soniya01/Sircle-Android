@@ -11,14 +11,16 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
+
+import com.roomorama.caldroid.CaldroidFragment;
+import com.roomorama.caldroid.CaldroidListener;
 import com.snaptech.msb.Manager.EventManager;
 import com.snaptech.msb.R;
 import com.snaptech.msb.UI.Adapter.TermsAdapter;
 import com.snaptech.msb.UI.Model.Terms;
 import com.snaptech.msb.Utility.AppError;
 import com.snaptech.msb.Utility.Constants;
-import com.roomorama.caldroid.CaldroidFragment;
-import com.roomorama.caldroid.CaldroidListener;
+import com.snaptech.msb.custom.App;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,7 +29,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CalendarTodayFragment.OnFragmentInteractionListener} interface
+ * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link CalendarTodayFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -110,10 +112,10 @@ public class CalendarTodayFragment extends Fragment {
         termsListViewAdapter = new TermsAdapter(getActivity(),termsList,this);
         termsListView.setAdapter(termsListViewAdapter);
 
-        if (EventManager.getSharedInstance().termsList.size() <= 0){
+       // if (EventManager.getSharedInstance().termsList.size() <= 0){
           populateDummyData();
 
-        }
+       // }
 
         //populateDummyData();
 
@@ -236,11 +238,11 @@ public class CalendarTodayFragment extends Fragment {
 
                        // Toast.makeText(CalendarTodayFragment.this, "", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(getActivity(), "Sorry no terms data found",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(App.getAppContext(), "Sorry no terms data found",Toast.LENGTH_SHORT).show();
                     }
 
                 } else {
-                    Toast.makeText(getActivity(), "Error occurred", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(App.getAppContext(), "Error occurred", Toast.LENGTH_SHORT).show();
                 }
 
             }

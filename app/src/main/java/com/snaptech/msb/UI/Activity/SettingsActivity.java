@@ -157,7 +157,7 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
                                         }
                                     }
 
-                                    NotificationManager.getSharedInstance().saveGroupIds(grpIdString,SettingsActivity.this);
+                                 //   NotificationManager.getSharedInstance().saveGroupIds(grpIdString,SettingsActivity.this);
 
                                     Intent homeIntent = new Intent(SettingsActivity.this, BaseActivity.class);
                                     startActivity(homeIntent);
