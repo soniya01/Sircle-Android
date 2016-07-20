@@ -118,9 +118,7 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                             }
                         }
                     } else {
-                        Intent intent = new Intent(getActivity(), VimeoWebviewActivity.class);
-                        intent.putExtra("VideoUrl", videoList.get(position).getVideoId());
-                        startActivity(intent);
+
 
                     }
 
@@ -128,7 +126,11 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 else
                 {
 
-                    Toast.makeText(getActivity(), "Something went wrong please try after some time", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), VimeoWebviewActivity.class);
+                    intent.putExtra("VideoUrl", videoList.get(position).getVideoEmbedURL());
+                    System.out.println("Video id is "+videoList.get(position).getVideoId()+" and video Url is "+videoList.get(position).getVideoEmbedURL());
+                    startActivity(intent);
+                    //Toast.makeText(getActivity(), "Something went wrong please try after some time", Toast.LENGTH_SHORT).show();
                 }
 
             }

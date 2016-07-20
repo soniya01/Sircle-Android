@@ -168,7 +168,7 @@ public class HomeFragment extends Fragment {
                 // Toast.makeText(TravelBite.this, "test", Toast.LENGTH_SHORT).show();
                 fragmentToLoad = new NotificationFragment();
                 if (fragmentToLoad != null) {
-                    loadFragment(getActivity(), fragmentToLoad,"Notifications",3);
+                    loadFragment(getActivity(), fragmentToLoad,"Messages",3);
 
                 }
             }

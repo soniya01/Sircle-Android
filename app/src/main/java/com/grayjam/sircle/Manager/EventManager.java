@@ -19,7 +19,7 @@ import java.util.List;
  *
  * Created by soniya on 15/08/15.
  */
-public class EventManager {
+public class  EventManager {
 
     private static EventManager sharedInstance;
     public static List<Terms> termsList = new ArrayList<>();

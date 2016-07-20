@@ -109,6 +109,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                                 String accessToken = sharedpreferences.getString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, null);
 
                                 request.addHeader("Authorization", accessToken);
+                                //System.out.println("Token is "+accessToken);
                             }
 
 

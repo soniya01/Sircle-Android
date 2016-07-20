@@ -115,6 +115,7 @@ public class LoginScreen extends Activity {
 
                     if (Constants.GCM_REG_ID !=  null){
 
+                      //  System.out.println("GCM Token is "+Constants.GCM_REG_ID);
                         //Toast.makeText(LoginScreen.this, "User already logged in", Toast.LENGTH_SHORT).show();
                         //Intent homeIntent = new Intent(LoginScreen.this, BaseActivity.class);
                         //startActivity(homeIntent);

@@ -104,6 +104,7 @@ if (accessToken!=null) {
 
             url = obj.getString("type");
             Id = obj.getString("id");
+            System.out.println("Type received of GCM is "+url);
 
         } catch (Throwable t) {
             Log.e("My App", "Could not parse malformed JSON: \"" + "\"");
@@ -120,6 +121,7 @@ if (accessToken!=null) {
         if (url.equals("notification")){
 
            // title = title + "\n" + message;
+
             BaseActivity.selectedModuleIndex = 3;
             intentClass = BaseActivity.class;
 
@@ -140,7 +142,7 @@ if (accessToken!=null) {
             intentClass = BaseActivity.class;
             BaseActivity.selectedModuleIndex = 5;
         }
-        else if (url.equals("newspaper"))
+        else if (url.equals("newsletter"))
         {
             intentClass = BaseActivity.class;
             BaseActivity.selectedModuleIndex = 4;

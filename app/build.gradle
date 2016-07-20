@@ -58,7 +58,7 @@ dependencies {
     compile 'com.roomorama:caldroid:2.1.0'
     compile 'com.getbase:floatingactionbutton:1.10.0'
 
-    compile('com.crashlytics.sdk.android:crashlytics:2.5.7@aar') {
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.0@aar') {
         transitive = true;
     }
 }
