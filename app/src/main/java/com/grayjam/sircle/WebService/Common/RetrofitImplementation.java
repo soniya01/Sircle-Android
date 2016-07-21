@@ -355,6 +355,47 @@ public class RetrofitImplementation implements WebServiceProtocol{
                 });
                 break;
 
+            case Constants.LINKS_GET_ALL_API:
+                postWebservice.postApi(Integer.parseInt(params.get("page")), new Callback<JsonElement>() {
+                    @Override
+                    public void success(JsonElement jsonElement, Response response) {
+                        if (!jsonElement.isJsonNull()) {
+
+                            Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
+
+                            if (responseClass != null) {
+                                Object object = Common.createObjectForClass(responseClass);
+
+                                if (jsonElement.isJsonArray()) {
+                                    Type collectionType = new TypeToken<Collection<Object>>() {
+                                    }.getType();
+                                    Collection<Object> data = gson.fromJson(jsonElement, collectionType);
+                                    webserviceListener.onCompletion(data, new AppError());
+                                } else {
+                                    object = gson.fromJson(jsonElement, responseClass);
+                                    webserviceListener.onCompletion(object, new AppError());
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        AppError appError = new AppError();
+                        appError.setErrorCode(getRetrofitErrorcode(error));
+                        appError.setErrorMessage(error.getLocalizedMessage());
+
+                        // Send empty object
+                        if (responseClass != null) {
+                            webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
+                        } else {
+                            webserviceListener.onCompletion(null, appError);
+                        }
+                    }
+                });
+                break;
+
+
             case Constants.NEWSLETTERS_GET_API_PATH:
                 postWebservice.postApi(Integer.parseInt(params.get("page")), new Callback<JsonElement>() {
                     @Override
@@ -1259,6 +1300,10 @@ public class RetrofitImplementation implements WebServiceProtocol{
         @FormUrlEncoded
         @POST("/")
         void postApi(@Field("page") int page, Callback<JsonElement> callback);
+
+        @FormUrlEncoded
+        @POST("/")
+        void linksApi(@Field("page") int page, Callback<JsonElement> callback);
 
         @FormUrlEncoded
         @POST("/")

@@ -1,7 +1,5 @@
 package com.grayjam.sircle.UI.Fragment;
 
-
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -153,7 +151,7 @@ public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         HashMap map = new HashMap();
         //map.put("regId", Constants.GCM_REG_ID);
       //  map.put("groupId", grpIdString);
-        map.put("page", page);
+        map.put("page", page+"");
 
         System.out.print("Map "+map);
 
@@ -246,6 +244,7 @@ public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 /*** In this way I detect if there's been a scroll which has completed ***/
                 /*** do the work for load more date! ***/
                 System.out.println("Load not");
+                isLoading=false;
                 if(!isLoading){
                     isLoading = true;
                     System.out.println("Load More");
@@ -277,30 +276,35 @@ public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         HashMap object = new HashMap();
      //   object.put("regId", Constants.GCM_REG_ID);
       //  object.put("groupId",grpIdString);
-        object.put("page", pageCount);
+        object.put("page", pageCount+"");
 
         System.out.println("REG" + Constants.GCM_REG_ID);
-
+        System.out.println("Page id is "+pageCount);
         LinksManager.getSharedInstance().getAllLinks(object, new LinksManager.LinksManagerListener() {
             @Override
             public void onCompletion(LinksResponse data, AppError error) {
                 //progressBar.setVisibility(View.GONE);
+                System.out.println("Status is "+data.getStatus()+" and link size is "+data.getData().getLinks().size());
                 swipeRefreshLayout.setRefreshing(false);
-                isLoading = false;
-                if (data != null) {
-                    if (data.getStatus() == 200){
-                        if (data.getData().getLinks().size() > 0){
-                            LinksFragment.this.linksList.addAll(LinksManager.linksList);
+                //isLoading = false;
+                if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
+                    if (data != null) {
+                        if (data.getData().getLinks().size() > 0) {
+                            //  totalRecord = response.getData().getTotalRecords();
+                            // pageRecords =  response.getData().getPageRecords();
+
+                            linksList.addAll(LinksManager.linksList);
                             linksListViewAdapter.notifyDataSetChanged();
-                        }else {
-                          //  Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }else {
-                       // Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection", Toast.LENGTH_SHORT).show();
                     }
 
                 } else {
-                    Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection", Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -151,7 +151,7 @@ if (accessToken!=null) {
         }
         else if (url.equals("newsletter"))
         {
-            actionBarTitle="NewsLetters";
+            actionBarTitle="Newsletters";
             intentClass = BaseActivity.class;
             BaseActivity.selectedModuleIndex = 4;
         }

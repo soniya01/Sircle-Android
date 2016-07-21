@@ -136,20 +136,28 @@ public class AddLinksActivity extends ActionBarActivity {
 
                     params.put("link_url", url);
                     params.put("group_id", grpIdString);
+                    title.setText("");
+                    desc.setText("");
+
                     LinksManager.getSharedInstance().addLinks(params, new LinksManager.AddLinksManagerListener() {
                         @Override
                         public void onCompletion(PostResponse response, AppError error) {
                             if (response != null) {
+                                System.out.println("Links status is "+response.getStatus()+" and message is "+response.getMessage());
+
                                 if (response.getStatus() == 200) {
-                                    Toast.makeText(AddLinksActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+
+                                    Toast.makeText(AddLinksActivity.this, "Link added Successfully", Toast.LENGTH_SHORT).show();
                                     finish();
                                 }
                                 else
                                 {
+
                                     Toast.makeText(AddLinksActivity.this, "Some error occured", Toast.LENGTH_SHORT).show();
                                 }
                             }
                             else {
+
                                 Toast.makeText(AddLinksActivity.this, "Some error occured", Toast.LENGTH_SHORT).show();
                             }
 
@@ -158,8 +166,8 @@ public class AddLinksActivity extends ActionBarActivity {
                     });
                    // finish();
                 } else {
-                    desc.setText("");
-                    Toast.makeText(AddLinksActivity.this, "Please enter valid url", Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(AddLinksActivity.this, "Please enter valid details", Toast.LENGTH_SHORT).show();
                 }
             }
         });

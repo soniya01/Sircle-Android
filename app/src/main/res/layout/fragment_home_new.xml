@@ -100,7 +100,7 @@
             android:paddingBottom="15dp"
             android:singleLine="true"
             style="?android:attr/borderlessButtonStyle"
-            android:text="Newsletter"/>
+            android:text="Newsletters"/>
 
 
 
