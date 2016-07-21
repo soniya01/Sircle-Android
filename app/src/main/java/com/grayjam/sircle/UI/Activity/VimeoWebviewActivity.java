@@ -40,7 +40,7 @@ public class VimeoWebviewActivity extends AppCompatActivity {
        // String venkat="<iframe src=\"http://player.vimeo.com/video/88806672?portrait=0&color=333\" width=\"WIDTH\" height=\"HEIGHT\" frameborder=\"0\" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>";
        // myWebView.loadData(venkat, "text/html", "UTF-8");
 
-        videoUrl = "https://player.vimeo.com/video/174158118";
+        videoUrl = "https://player.vimeo.com/video/"+videoUrl;
 
        myWebView.loadUrl(videoUrl);
 

@@ -66,6 +66,7 @@ public class GCMListener extends GcmListenerService {
 
 if (accessToken!=null) {
     sendNotification(data);
+    System.out.println("GCM Response "+data.toString());
 }
     }
 
@@ -112,6 +113,7 @@ if (accessToken!=null) {
 
         Class intentClass = null;
         Intent intent;
+        String actionBarTitle="";
 
 //        Toast.makeText(getBaseContext(), title + "\n" + message,Toast.LENGTH_SHORT).show();
         System.out.println("message: "+ title + "\n" + message);
@@ -124,44 +126,54 @@ if (accessToken!=null) {
 
             BaseActivity.selectedModuleIndex = 3;
             intentClass = BaseActivity.class;
+            actionBarTitle="Messages";
 
         }else if(url.equals("calendar")){
+            actionBarTitle="Calendar";
             intentClass = EventDetailActivity.class;
             BaseActivity.selectedModuleIndex = 1;
         }
         else if(url.equals("album")){
+            actionBarTitle="Photos";
                 intentClass = AlbumDetailsActivity.class;
                // BaseActivity.selectedModuleIndex = 2;
             }
         else if (url.equals("PhotoListViewPage")){
+                actionBarTitle="Photos";
                 intentClass = AlbumDetailsActivity.class;
                 BaseActivity.selectedModuleIndex = 2;
         }
         else if (url.equals("document"))
         {
+            actionBarTitle="Documents";
             intentClass = BaseActivity.class;
             BaseActivity.selectedModuleIndex = 5;
         }
         else if (url.equals("newsletter"))
         {
+            actionBarTitle="NewsLetters";
             intentClass = BaseActivity.class;
             BaseActivity.selectedModuleIndex = 4;
         }
         else if (url.equals("video")) {
+            actionBarTitle="Videos";
             intentClass = BaseActivity.class;
             BaseActivity.selectedModuleIndex = 6;
         }
         else if (url.equals("link")) {
+            actionBarTitle="Links";
             intentClass = BaseActivity.class;
             BaseActivity.selectedModuleIndex = 7;
         }
 
         else {
+            actionBarTitle="Calendar";
             intentClass = BaseActivity.class;
             BaseActivity.selectedModuleIndex = 1;
         }
 
         intent = new Intent(this, intentClass);
+        intent.putExtra("title",actionBarTitle);
         intent.putExtra("notificationActivity", BaseActivity.selectedModuleIndex);
         intent.putExtra("albumId", Id);
         intent.putExtra("eventId", Id);

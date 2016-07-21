@@ -59,6 +59,7 @@ public class AlbumDetailsActivity extends AppCompatActivity implements SwipeRefr
         if (getIntent() != null){
             String id = getIntent().getStringExtra("albumId");
             albumId = Integer.parseInt(id);
+            PhotosFragment.albumName="Album";
            // albumName = getIntent().getStringExtra("albumName");
         }
 

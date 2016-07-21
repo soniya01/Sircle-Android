@@ -123,9 +123,14 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
         if (getIntent().getExtras() != null)
         {
             Bundle b = getIntent().getExtras();
+
             selectedModuleIndex = b.getInt("notificationActivity");
             shouldSelectListViewItem = true;
             didSelectListViewItemAtIndex(selectedModuleIndex);
+            fragmentName=b.getString("title");
+            //getActionBar().setTitle(fragmentName);
+            System.out.println("Title is "+fragmentName);
+            actionBarTitleView.setText(fragmentName);
         }
 
     }
@@ -152,13 +157,6 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
             selectedModuleIndex = savedInstanceState.getInt(SELECTED_MODULE);
         }
 //""
-        // if notifictaion is clicked
-        if (getIntent().getExtras() != null)
-        {
-            Bundle b = getIntent().getExtras();
-            selectedModuleIndex = b.getInt("notificationActivity");
-            shouldSelectListViewItem = true;
-        }
 
         setContentView(R.layout.activity_base);
 
@@ -209,6 +207,18 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
 //assign the view to the actionbar
         getSupportActionBar().setCustomView(v);
 
+
+        // if notifictaion is clicked
+        if (getIntent().getExtras() != null)
+        {
+            Bundle b = getIntent().getExtras();
+            selectedModuleIndex = b.getInt("notificationActivity");
+            shouldSelectListViewItem = true;
+            fragmentName=b.getString("title");
+            //getActionBar().setTitle(fragmentName);
+            System.out.println("Title is "+fragmentName);
+            actionBarTitleView.setText(fragmentName);
+        }
 
         loginSharedPreferences = getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = loginSharedPreferences.edit();
@@ -280,7 +290,9 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
 
     @Override
     public void setTitle(CharSequence title) {
+        actionBarTitleView.setText(fragmentName);
         super.setTitle(title);
+
     }
 
     /**

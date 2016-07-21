@@ -65,6 +65,7 @@ public class VideoListViewAdapter extends BaseAdapter {
        // String videoThumbnailUrl =  videoList.get(position).getVideoThumbURL();//extractYoutubeThumbnail(videoUrl);
         viewHolder.videoSourceLabel.setText(videoList.get(position).getName());
 
+        System.out.println("Video id is "+videoList.get(position).getVideoId());
         String str = videoList.get(position).getPublishDate();
         String[] splited = str.split("\\s+");
 

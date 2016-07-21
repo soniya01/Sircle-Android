@@ -1,7 +1,5 @@
 package com.grayjam.sircle.UI.Fragment;
 
-
-
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
@@ -70,17 +68,25 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         videoListView.setOnScrollListener(this);
 
         if (VideoFragment.this.videoList.size() <= 0) {
-           // populateDummyData();
+            populateDummyData();
 
-            swipeRefreshLayout.post(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            swipeRefreshLayout.setRefreshing(true);
+//            swipeRefreshLayout.post(new Runnable() {
+//                                        @Override
+//                                        public void run() {
+//                                            swipeRefreshLayout.setRefreshing(true);
+//
+//                                            populateDummyData();
+//                                        }
+//                                    }
+//            );
+            swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    swipeRefreshLayout.setRefreshing(true);
 
-                                            populateDummyData();
-                                        }
-                                    }
-            );
+                                           populateDummyData();
+                }
+            });
             /**
              * Showing Swipe Refresh animation on activity create
              * As animation won't start on onCreate, post runnable is used
@@ -118,6 +124,10 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                             }
                         }
                     } else {
+                        Intent intent = new Intent(getActivity(), VimeoWebviewActivity.class);
+                        intent.putExtra("VideoUrl", videoList.get(position).getVideoId());
+                        System.out.println("Video id is "+videoList.get(position).getVideoId()+" and video Url is "+videoList.get(position).getVideoEmbedURL());
+                        startActivity(intent);
 
 
                     }
@@ -126,11 +136,7 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 else
                 {
 
-                    Intent intent = new Intent(getActivity(), VimeoWebviewActivity.class);
-                    intent.putExtra("VideoUrl", videoList.get(position).getVideoEmbedURL());
-                    System.out.println("Video id is "+videoList.get(position).getVideoId()+" and video Url is "+videoList.get(position).getVideoEmbedURL());
-                    startActivity(intent);
-                    //Toast.makeText(getActivity(), "Something went wrong please try after some time", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Something went wrong please try after some time", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -141,6 +147,8 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     public void populateDummyData() {
 
+        videoList.clear();
+        //swipeRefreshLayout.setRefreshing(false);
 //        final ProgressBar progressBar = new ProgressBar(getActivity(), null, android.R.attr.progressBarStyleLarge);
 //        progressBar.setIndeterminate(true);
 //        progressBar.setVisibility(View.VISIBLE);
@@ -170,7 +178,7 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             @Override
             public void onCompletion(VideoResponse response, AppError error) {
                // progressBar.setVisibility(View.GONE);
-                swipeRefreshLayout.setRefreshing(false);
+                //swipeRefreshLayout.setRefreshing(false);
                 if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
                     if (response != null) {
                         if (response.getStatus() == 200) {
@@ -181,14 +189,19 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                                 videoList.addAll(VideoManager.videoList);
                                 videoListViewAdapter.notifyDataSetChanged();
 
+                                swipeRefreshLayout.setRefreshing(false);
+
                             } else {
+                                swipeRefreshLayout.setRefreshing(false);
                               //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
+                            swipeRefreshLayout.setRefreshing(false);
                            // Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                         }
 
                     } else {
+                        swipeRefreshLayout.setRefreshing(false);
                         Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection", Toast.LENGTH_SHORT).show();
                     }
 
@@ -266,7 +279,7 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         HashMap object = new HashMap();
        // object.put("regId", Constants.GCM_REG_ID);
         //object.put("groupId", grpIdString);
-        object.put("page", "1");
+        object.put("page", pageCount+"");
 
         VideoManager.getSharedInstance().getAllVideos(object, new VideoManager.VideoManagerListener() {
             @Override
