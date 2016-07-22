@@ -1,5 +1,6 @@
 package com.grayjam.sircle.UI.Activity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -32,6 +33,7 @@ import java.util.List;
 public class AddLinksActivity extends ActionBarActivity {
 
     private EditText title, desc;
+    private ProgressDialog progressDialog;
     private View footerView;
     private ListView addListView;
     private List<NotificationGroups> notificationGroupList = new ArrayList<NotificationGroups>();
@@ -52,6 +54,8 @@ public class AddLinksActivity extends ActionBarActivity {
 
         addListView = (ListView) findViewById(R.id.activity_add_group_list_view);
         allCheckBox = (CheckBox) findViewById(R.id.checkAll);
+        progressDialog=new ProgressDialog(AddLinksActivity.this);
+        //progressDialog.setMessage("Loading");
         allCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -93,7 +97,8 @@ public class AddLinksActivity extends ActionBarActivity {
             public void onClick(View v) {
                 if (URLUtil.isValidUrl(desc.getText().toString()) && (title.getText().toString() != null) || !title.getText().toString().trim().equals("")) {
 
-//                    String grpIdString = "";
+                    progressDialog.show();
+//                     String grpIdString = "";
 //                    for (int i = 0; i< NotificationManager.grpIds.size(); i++){
 //                        if (i == 0){
 //                            grpIdString = NotificationManager.grpIds.get(i);
@@ -147,17 +152,20 @@ public class AddLinksActivity extends ActionBarActivity {
 
                                 if (response.getStatus() == 200) {
 
+                                    progressDialog.dismiss();
                                     Toast.makeText(AddLinksActivity.this, "Link added Successfully", Toast.LENGTH_SHORT).show();
                                     finish();
                                 }
                                 else
                                 {
 
+                                    progressDialog.dismiss();
                                     Toast.makeText(AddLinksActivity.this, "Some error occured", Toast.LENGTH_SHORT).show();
                                 }
                             }
                             else {
 
+                                progressDialog.dismiss();
                                 Toast.makeText(AddLinksActivity.this, "Some error occured", Toast.LENGTH_SHORT).show();
                             }
 
@@ -199,6 +207,7 @@ public class AddLinksActivity extends ActionBarActivity {
     }
 
     public void populateDummyData() {
+
 
         HashMap<String, String> map = new HashMap<>();
         map.put("regId", Constants.GCM_REG_ID);
