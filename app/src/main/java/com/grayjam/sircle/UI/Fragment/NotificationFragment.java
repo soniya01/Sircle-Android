@@ -153,6 +153,7 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
     }
 
     public void populateDummyData() {
+        pageCount=1;
 //        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
 //        progressBar.setIndeterminate(true);
 //        progressBar.setVisibility(View.VISIBLE);

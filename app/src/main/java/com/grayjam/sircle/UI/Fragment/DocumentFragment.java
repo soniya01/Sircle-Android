@@ -113,6 +113,7 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
 //            }
 //        }
 
+        pageCount=1;
         String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         HashMap object = new HashMap();
@@ -217,7 +218,7 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
         HashMap object = new HashMap();
         //object.put("regId", Constants.GCM_REG_ID);
         //object.put("groupId", grpIdString);
-        object.put("page", "1");
+        object.put("page", pageCount+"");
 
         DocumentManager.getSharedInstance().getAllDocs(object, new DocumentManager.GetDocumentManagerListener() {
             @Override

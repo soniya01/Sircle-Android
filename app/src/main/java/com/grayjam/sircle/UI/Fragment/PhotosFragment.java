@@ -1,6 +1,5 @@
 package com.grayjam.sircle.UI.Fragment;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -140,6 +139,7 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
     private void populateDummyData() {
 
+        pageCount=1;
 //        final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
 //        progressBar.setIndeterminate(true);
 //        progressBar.setVisibility(View.VISIBLE);
@@ -275,15 +275,17 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
        // map.put("regId", Constants.GCM_REG_ID);
        // map.put("groupId", grpIdString);
         map.put("page",""+pageCount);
-
+        System.out.println("page count in photos fragment is "+pageCount);
         PhotoManager.getSharedInstance().getAlbums(map, new PhotoManager.GetAlbumsManagerListener() {
             @Override
             public void onCompletion(PhotoResponse response, AppError error) {
                 isLoading = false;
+                System.out.println("Albums list status "+response.getStatus());
                 if (response != null) {
-                    if (response.getStatus() == 0) {
+                    if (response.getStatus() == 200) {
                         if (response.getData().getAlbums().size() > 0) {
-                            photos.addAll(PhotoManager.albumsList);
+
+                            photos.addAll(response.getData().getAlbums());
                             photosListViewAdapter.notifyDataSetChanged();
 
                         }

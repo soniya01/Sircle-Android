@@ -272,6 +272,7 @@ public class CalendarListFragment extends Fragment implements AbsListView.OnScro
 
     public void populateDummyData(){
 
+        pageCount=1;
 //        String grpIdString = "";
 //        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
 //            if (i == 0){

@@ -42,6 +42,8 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
         viewFragment = inflater.inflate(R.layout.fragment_news_letter,
                 null, true);
         newsLetterListView = (ListView)viewFragment.findViewById(R.id.fragment_news_list_view);
+        newsLetterListView.setOnScrollListener(this);
+
 //        footerView = View.inflate(getActivity(), R.layout.list_view_padding_footer, null);
 //        newsLetterListView.addFooterView(footerView, null, false);
 
@@ -106,6 +108,7 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
 
     public void populateDummyData(){
 
+        pageCount=1;
         String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         HashMap map = new HashMap();
@@ -129,7 +132,6 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
                                 newsLetterList.clear();
                                 newsLetterList.addAll(DocumentManager.newsLetterList);
                                 newsLetterListViewAdapter.notifyDataSetChanged();
-
 
 //                                if (NewsLetterFragment.this.newsLetterList.size() == 0){
 //                                    NewsLetterFragment.this.newsLetterList.addAll(response.getData().getNewsLetters());
@@ -184,10 +186,13 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
 
     private void isScrollCompleted() {
 
+        System.out.println("Current visible item count "+this.currentVisibleItemCount+" currentScrollState "+this.currentScrollState);
+        System.out.println("Scroll completed called");
         if (totalRecord == newsLetterList.size()){
-
+            System.out.println("Scroll completed called inside total record");
         }else {
             if (this.currentVisibleItemCount > 0 && this.currentScrollState == 0) {
+
                 /*** In this way I detect if there's been a scroll which has completed ***/
                 /*** do the work for load more date! ***/
                 System.out.println("Load not");
@@ -221,7 +226,7 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
         HashMap object = new HashMap();
        // object.put("regId", Constants.GCM_REG_ID);
         //object.put("groupId", grpIdString);
-        object.put("page", "1");
+        object.put("page", pageCount+"");
 
         DocumentManager.getSharedInstance().getAllNewsLetters(object, new DocumentManager.GetDocumentManagerListener() {
             @Override

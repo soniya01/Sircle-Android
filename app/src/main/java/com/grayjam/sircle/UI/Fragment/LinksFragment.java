@@ -137,6 +137,7 @@ public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     private void populateDummyData(int page) {
 
+        pageCount=1;
 //        String grpIdString = "";
 //        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
 //            if (i == 0){

@@ -38,6 +38,7 @@ public class DocumentManager {
                 if (response != null){
                     if (response.getData() != null && response.getData().getDocs() != null){
 
+                        newsLetterList.clear();
                         newsLetterList = response.getData().getDocs();
                     }
                 }

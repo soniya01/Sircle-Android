@@ -147,6 +147,7 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     public void populateDummyData() {
 
+        pageCount=1;
         videoList.clear();
         //swipeRefreshLayout.setRefreshing(false);
 //        final ProgressBar progressBar = new ProgressBar(getActivity(), null, android.R.attr.progressBarStyleLarge);

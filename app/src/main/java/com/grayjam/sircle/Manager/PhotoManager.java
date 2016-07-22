@@ -68,9 +68,10 @@ public class PhotoManager  {
             public void onCompletion(PhotoResponse response, AppError error) {
                 if (response != null){
                     if (response.getData() != null && response.getData().getAlbums() != null){
-                        System.out.println("Album List Clear "+ albumsList.size());
+                        //System.out.println("Album List Clear "+ albumsList.size());
                        // albumsList.clear();
                         albumsList = response.getData().getAlbums();
+                        System.out.println("Response recieved list count in PM is "+albumsList.size());
                     }
                 }
                 albumsManagerListener.onCompletion(response, new AppError());
