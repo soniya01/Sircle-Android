@@ -4,6 +4,7 @@ import com.grayjam.sircle.Utility.AppError;
 import com.grayjam.sircle.WebService.ForgotPasswordResponse;
 import com.grayjam.sircle.WebService.LoginResponse;
 import com.grayjam.sircle.WebService.LoginService;
+import com.grayjam.sircle.WebService.LogoutStatusResponse;
 
 import java.util.HashMap;
 
@@ -59,6 +60,16 @@ public class LoginManager {
         });
     }
 
+    public void checkUserLogoutStatus(HashMap<String,String> params, final LogoutStatusManagerListener loginManagerListener){
+
+        LoginService.checkUserLogoutStatus(params, new LoginService.GetLogoutStatusWebServiceListener() {
+            @Override
+            public void onCompletion(LogoutStatusResponse response, AppError error) {
+                loginManagerListener.onCompletion(response, error);
+            }
+        });
+    }
+
 
     public void logout(final LoginManagerListener loginManagerListener){
 
@@ -90,5 +101,10 @@ public class LoginManager {
     public interface ForgotLoginManagerListener{
 
         public void onCompletion(ForgotPasswordResponse response, AppError error);
+    }
+
+    public interface LogoutStatusManagerListener{
+
+        public void onCompletion(LogoutStatusResponse response, AppError error);
     }
 }

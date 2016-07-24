@@ -34,14 +34,14 @@ public class Constants {
 
     //public static final String BASE_URL = "http://54.251.157.35/event/api/";
 
-    public static final String BASE_URL = "http://demo.emissioapp.com/api/";
+    public static final String BASE_URL = "https://demo2.emissioapp.com/api/";
 
     //public static final String BASE_URL = "http://demo.snaptech.in/";
    // public static final String LOGIN_API_PATH = "user/user_get/";
     public static final String LOGIN_API_PATH = "login";
     public static final String FORGOTPASSWORD_API_PATH = "login/forgot_password";
     public static final String REGISTER_API_PATH = "login/register";
-
+    public static final String CHECK_USER_LOGOUT = "login/force_logout";
     public static final String LOGOUT_API_PATH = "login/logout";
 
     

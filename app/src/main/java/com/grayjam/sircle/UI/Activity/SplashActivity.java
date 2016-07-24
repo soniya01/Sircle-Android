@@ -7,11 +7,18 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
+import android.widget.Toast;
 
+import com.grayjam.sircle.Manager.LoginManager;
+import com.grayjam.sircle.Manager.LogoutManager;
 import com.grayjam.sircle.R;
+import com.grayjam.sircle.Utility.AppError;
 import com.grayjam.sircle.Utility.Constants;
+import com.grayjam.sircle.WebService.ForgotPasswordResponse;
+import com.grayjam.sircle.WebService.LogoutStatusResponse;
 
 import java.util.Date;
+import java.util.HashMap;
 
 
 public class SplashActivity extends Activity {
@@ -49,35 +56,34 @@ public class SplashActivity extends Activity {
         SharedPreferences.Editor editor = loginSharedPreferences.edit();
         String accessToken = loginSharedPreferences.getString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY,null);
 
-        long loggedIn = 0;
-        long expiresIn = 0;
-
-        long lastActivity = new Date().getTime()/1000;
         if (accessToken != null){
-          //  loggedIn = loginSharedPreferences.getLong(Constants.LOGIN_LOGGED_IN_PREFS_KEY,0);
-          //  expiresIn = loginSharedPreferences.getLong(Constants.LOGIN_EXPIRES_IN_PREFS_KEY, 0);
-//            if (((lastActivity) - loggedIn) > expiresIn){
-//                editor.putLong(Constants.LOGIN_LOGGED_IN_PREFS_KEY,new Date().getTime()).apply();
-//                //editor.putString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, null).apply();
-//                Toast.makeText(this, "Session expired", Toast.LENGTH_SHORT).show();
-//                loginIntent = new Intent(this, LoginScreen.class);
-//            }
-//            else {
-                loginIntent = new Intent(this, BaseActivity.class);
+//            loginIntent = new Intent(SplashActivity.this, BaseActivity.class);
+//            startActivity(loginIntent);
+//            finish();
+
+             checkUserStatus();
+
             //}
         }else {
+
+
             loginIntent = new Intent(this, LoginScreen.class);
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    startActivity(loginIntent);
+                    finish();
+                }
+            }, SPLASH_SCREEN_TIME_OUT);
+
+
+
         }
 
 
-        new Handler().postDelayed(new Runnable() {
 
-            @Override
-            public void run() {
-                startActivity(loginIntent);
-                finish();
-            }
-        }, SPLASH_SCREEN_TIME_OUT);
 
 
     }
@@ -87,4 +93,85 @@ public class SplashActivity extends Activity {
 
         return super.dispatchTouchEvent(ev);
     }
+
+    public void checkUserStatus()
+    {
+        HashMap object = new HashMap();
+        //object.put("regId", Constants.GCM_REG_ID);
+        //object.put("groupId", grpIdString);
+        object.put("page", "1");
+
+
+        LoginManager.getSharedInstance().checkUserLogoutStatus(object, new LoginManager.LogoutStatusManagerListener() {
+            @Override
+            public void onCompletion(LogoutStatusResponse response, AppError error) {
+
+                if (error.getErrorCode() == 0) {
+                    // give access to the app features
+                    if (response != null){
+                        if (response.getStatus() == 200)
+                        {
+
+
+                            if (response.getData().getLogout() ==1)
+                            {
+                                loginIntent = new Intent(SplashActivity.this, LoginScreen.class);
+
+                                LogoutManager.getSharedInstance().handleUserLogoutPreferences();
+
+                                new Handler().postDelayed(new Runnable() {
+
+                                    @Override
+                                    public void run() {
+                                        startActivity(loginIntent);
+                                        finish();
+                                    }
+                                }, SPLASH_SCREEN_TIME_OUT);
+
+
+                            }
+                            else
+                            {
+                                loginIntent = new Intent(SplashActivity.this, BaseActivity.class);
+                                startActivity(loginIntent);
+                                finish();
+                            }
+
+                            // ringProgressDialog.dismiss();
+                            // Toast.makeText(ForgotPasswordActivity.this,"Please check your email for a reset link", Toast.LENGTH_SHORT).show();
+                            // usernameField.setText("");
+
+                        }else {
+
+
+                         //   finish();
+                            //  ringProgressDialog.dismiss();
+                            // usernameField.setText("");
+
+                            //  Toast.makeText(ForgotPasswordActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    }else {
+
+                      //  finish();
+                        //ringProgressDialog.dismiss();
+                        // usernameField.setText("");
+
+                        // Toast.makeText(ForgotPasswordActivity.this, "Something went wrong please try again", Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+
+                  //  finish();
+
+                    //ringProgressDialog.dismiss();
+                    //usernameField.setText("");
+
+                    //Toast.makeText(ForgotPasswordActivity.this, "Check internet connectivity", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+    }
+
 }

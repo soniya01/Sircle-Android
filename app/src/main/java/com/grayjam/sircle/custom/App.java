@@ -17,6 +17,9 @@ public class App extends Application {
         super.onCreate();
         Fabric.with(this, new Crashlytics());
         App.context = getApplicationContext();
+        ApplicationLifecycleHandler handler = new ApplicationLifecycleHandler();
+        registerActivityLifecycleCallbacks(handler);
+        registerComponentCallbacks(handler);
     }
 
     public static Context getAppContext() {

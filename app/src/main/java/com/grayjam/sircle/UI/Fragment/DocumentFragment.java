@@ -135,7 +135,13 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
                             newsLetterList.addAll(DocumentManager.docsList);
                             newsLetterListViewAdapter.notifyDataSetChanged();
 
-                        } else {
+                        }
+                        else if (data.getStatus() == 401)
+                        {
+                            //Logout User
+                        }
+
+                        else {
                          //   Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     } else {

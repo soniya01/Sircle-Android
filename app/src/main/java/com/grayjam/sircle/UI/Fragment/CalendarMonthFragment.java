@@ -18,14 +18,17 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
 import com.grayjam.sircle.Manager.EventManager;
+import com.grayjam.sircle.Manager.LogoutManager;
 import com.grayjam.sircle.Manager.NotificationManager;
 import com.grayjam.sircle.R;
 import com.grayjam.sircle.UI.Activity.EventsListActivity;
+import com.grayjam.sircle.UI.Activity.LoginScreen;
 import com.grayjam.sircle.UI.Adapter.CaldroidSampleCustomFragment;
 import com.grayjam.sircle.UI.Model.Event;
 import com.grayjam.sircle.Utility.AppError;
 import com.grayjam.sircle.Utility.Constants;
 import com.grayjam.sircle.WebService.EventDataReponse;
+import com.grayjam.sircle.custom.App;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
@@ -146,7 +149,7 @@ public class CalendarMonthFragment extends Fragment {
 
 
 
-        getCalendarEvents();
+      //  getCalendarEvents();
 
 
 //        String myFormat = "MM/dd/yy"; //In which you need put here
@@ -311,7 +314,16 @@ public class CalendarMonthFragment extends Fragment {
             @Override
             public void onCompletion(EventDataReponse data, AppError error) {
 
-                if (data != null){
+                if (data.getStatus()==401)
+                {
+                    //Logout User
+                    LogoutManager.getSharedInstance().handleUserLogoutPreferences();
+                    Intent loginIntent = new Intent(App.getAppContext(), LoginScreen.class);
+                    startActivity(loginIntent);
+                    getActivity().finish();
+
+                }
+                else if (data != null){
                     if (data.getEvents() != null){
                         if (data.getEvents().size() > 0){
                             HashMap<Date,Integer> dates = new HashMap();

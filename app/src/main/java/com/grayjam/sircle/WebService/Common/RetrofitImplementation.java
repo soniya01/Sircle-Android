@@ -93,6 +93,8 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
       //  RestAdapter adapter = new RestAdapter.Builder().setEndpoint(url).build();
 
+
+
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint(this.baseURL + this.generator.subUrl)
                 .setRequestInterceptor(new RequestInterceptor() {
@@ -188,6 +190,70 @@ public class RetrofitImplementation implements WebServiceProtocol{
             case Constants.FORGOTPASSWORD_API_PATH:
                 // postWebservice.login(params.get("email"), params.get("password"), params.get("device_token"), params.get("device_type"), new Callback<JsonElement>() {
                 postWebservice.forgotPassword(params.get("email"), new Callback<JsonElement>() {
+                    @Override
+                    public void success(JsonElement jsonElement, Response response) {
+
+                        if (jsonElement!=null) {
+
+                            if (!jsonElement.isJsonNull()) {
+
+                                Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
+
+                                if (responseClass != null) {
+                                    Object object = Common.createObjectForClass(responseClass);
+
+                                    if (jsonElement.isJsonArray()) {
+                                        Type collectionType = new TypeToken<Collection<Object>>() {
+                                        }.getType();
+                                        Collection<Object> data = gson.fromJson(jsonElement, collectionType);
+                                        webserviceListener.onCompletion(data, new AppError());
+                                    } else {
+                                        // parsing jsonelement if unauthorised
+                                        JsonObject jobject = jsonElement.getAsJsonObject();
+                                        //  JsonArray jsonArray = jobject.getAsJsonArray("data");
+                                        //   jobject = jobject.getAsJsonObject("data");
+                                        if (jobject == null) {
+                                            // responseClass =
+                                            webserviceListener.onCompletion(null, new AppError());
+                                        }
+//                                    else if (jsonArray.size()==0) {
+//
+//                                        webserviceListener.onCompletion(null, new AppError());
+//                                    }
+                                        else {
+
+                                            object = gson.fromJson(jsonElement, responseClass);
+                                            webserviceListener.onCompletion(object, new AppError());
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            webserviceListener.onCompletion(null, new AppError());
+                        }
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        AppError appError = new AppError();
+                        appError.setErrorCode(getRetrofitErrorcode(error));
+                        appError.setErrorMessage(error.getLocalizedMessage());
+
+                        // Send empty object
+                        if (responseClass != null){
+                            webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
+                        }else {
+                            webserviceListener.onCompletion(null, appError);
+                        }
+                    }
+                });
+                break;
+
+            case Constants.CHECK_USER_LOGOUT:
+                // postWebservice.login(params.get("email"), params.get("password"), params.get("device_token"), params.get("device_type"), new Callback<JsonElement>() {
+                postWebservice.checkLogoutStatus(Integer.parseInt(params.get("page")),new Callback<JsonElement>() {
                     @Override
                     public void success(JsonElement jsonElement, Response response) {
 
@@ -1119,7 +1185,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                         SharedPreferences sharedpreferences = App.getAppContext().getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
                         String accessToken = sharedpreferences.getString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, null);
 
-                        request.addHeader("Authorization", accessToken);
+                        request.addHeader("Authorization", "");
 
                         //request.addHeader("Authorization", "3ec8e9ed13ad96b6b979517f5bf34545891f4958");
 
@@ -1331,6 +1397,10 @@ public class RetrofitImplementation implements WebServiceProtocol{
             //  void login(@Field("email") String loginId, @Field("password") String password, @Field("device_token") String regId,@Field("device_type") String deviceType ,Callback<JsonElement> callback);
         void forgotPassword(@Field("email") String loginId, Callback<JsonElement> callback);
 
+        @FormUrlEncoded
+        @POST("/")
+            //  void login(@Field("email") String loginId, @Field("password") String password, @Field("device_token") String regId,@Field("device_type") String deviceType ,Callback<JsonElement> callback);
+        void checkLogoutStatus(@Field("page") int page,Callback<JsonElement> callback);
 
         @FormUrlEncoded
         @POST("/")
@@ -1403,4 +1473,6 @@ public class RetrofitImplementation implements WebServiceProtocol{
             return AppError.WEBSERVICE_UNKNOWN;
         }
     }
+
+
 }
