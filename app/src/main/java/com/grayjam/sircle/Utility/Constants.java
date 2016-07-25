@@ -42,6 +42,7 @@ public class Constants {
     public static final String FORGOTPASSWORD_API_PATH = "login/forgot_password";
     public static final String REGISTER_API_PATH = "login/register";
     public static final String CHECK_USER_LOGOUT = "login/force_logout";
+    public static final String LOGOUT_USER_FORCEFULLY = "login/user_loggedout";
     public static final String LOGOUT_API_PATH = "login/logout";
 
     

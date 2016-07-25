@@ -87,7 +87,9 @@ public class SignUpScreen extends AppCompatActivity {
 
 
                             ringProgressDialog.dismiss();
-                            Toast.makeText(SignUpScreen.this,"Registration Successful", Toast.LENGTH_SHORT).show();
+                           // Toast.makeText(SignUpScreen.this,"Registration Successful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUpScreen.this,"Pending Approval", Toast.LENGTH_SHORT).show();
+
                             finish();
 
 

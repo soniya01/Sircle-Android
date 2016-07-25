@@ -38,20 +38,20 @@ public class NotificationManager {
         return sharedInstance;
     }
 
-    public void saveGroupIds (String groupIds,Context context)
-    {
-        SharedPreferences sharedpreferences =context.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString(Constants.GROUPIDS_SAVED_PREFS_KEY, groupIds);
-        editor.commit();
-    }
+//    public void saveGroupIds (String groupIds,Context context)
+//    {
+//        SharedPreferences sharedpreferences =context.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedpreferences.edit();
+//        editor.putString(Constants.GROUPIDS_SAVED_PREFS_KEY, groupIds);
+//        editor.commit();
+//    }
 
-    public String getGroupIds(Context context)
-    {
-        SharedPreferences sharedpreferences =context.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
-        String groupIds = sharedpreferences.getString(Constants.GROUPIDS_SAVED_PREFS_KEY, null);
-        return groupIds;
-    }
+//    public String getGroupIds(Context context)
+//    {
+//        SharedPreferences sharedpreferences =context.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
+//        String groupIds = sharedpreferences.getString(Constants.GROUPIDS_SAVED_PREFS_KEY, null);
+//        return groupIds;
+//    }
 
     public void getAllNotifications(HashMap object, final NotificationManagerListener notificationManagerListener){
             Notificationservice.getSharedInstance().getAllNotifications(object, new Notificationservice.NotificationServiceListener() {

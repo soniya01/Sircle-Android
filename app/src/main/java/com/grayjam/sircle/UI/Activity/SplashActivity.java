@@ -96,7 +96,7 @@ public class SplashActivity extends Activity {
 
     public void checkUserStatus()
     {
-        HashMap object = new HashMap();
+       final HashMap object = new HashMap();
         //object.put("regId", Constants.GCM_REG_ID);
         //object.put("groupId", grpIdString);
         object.put("page", "1");
@@ -115,9 +115,18 @@ public class SplashActivity extends Activity {
 
                             if (response.getData().getLogout() ==1)
                             {
-                                loginIntent = new Intent(SplashActivity.this, LoginScreen.class);
+
+                                LoginManager.getSharedInstance().checkUserLogoutStatus(object, new LoginManager.LogoutStatusManagerListener() {
+                                    @Override
+                                    public void onCompletion(LogoutStatusResponse response, AppError error) {
+                                    }
+                                        });
 
                                 LogoutManager.getSharedInstance().handleUserLogoutPreferences();
+
+                                loginIntent = new Intent(SplashActivity.this, LoginScreen.class);
+
+
 
                                 new Handler().postDelayed(new Runnable() {
 
@@ -141,14 +150,33 @@ public class SplashActivity extends Activity {
                             // Toast.makeText(ForgotPasswordActivity.this,"Please check your email for a reset link", Toast.LENGTH_SHORT).show();
                             // usernameField.setText("");
 
-                        }else {
+                        }
+                        else if (response.getStatus()==404)
+                        {
+                            loginIntent = new Intent(SplashActivity.this, BaseActivity.class);
+                            startActivity(loginIntent);
+                            finish();
+                        }
+
+                        else {
+
+
+//                            {
+//                                "code": 404,
+//                                    "message": "invalid request!",
+//                                    "data": {},
+//                                "error": {
+//                                "warning": "error_exists"
+//                            }
+//                            }
+//
 
 
                          //   finish();
                             //  ringProgressDialog.dismiss();
                             // usernameField.setText("");
 
-                            //  Toast.makeText(ForgotPasswordActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SplashActivity.this,"Something went wrong please try again", Toast.LENGTH_SHORT).show();
                         }
 
                     }else {

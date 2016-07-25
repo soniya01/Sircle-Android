@@ -70,6 +70,15 @@ public class LoginManager {
         });
     }
 
+    public void userLogoutforcefully(HashMap<String,String> params, final LogoutStatusManagerListener loginManagerListener){
+
+        LoginService.userLogoutforcefully(params, new LoginService.GetLogoutStatusWebServiceListener() {
+            @Override
+            public void onCompletion(LogoutStatusResponse response, AppError error) {
+                loginManagerListener.onCompletion(response, error);
+            }
+        });
+    }
 
     public void logout(final LoginManagerListener loginManagerListener){
 

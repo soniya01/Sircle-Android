@@ -48,6 +48,18 @@ public class LoginService {
         });
     }
 
+    public static void userLogoutforcefully(HashMap<String, String> params, final GetLogoutStatusWebServiceListener getLogoutStatusWebServiceListener){
+
+        RetrofitImplementation retrofitImplementation = new RetrofitImplementation();
+        retrofitImplementation.executePostWithURL(Constants.LOGOUT_USER_FORCEFULLY, params, null,LogoutStatusResponse.class, new WebServiceListener() {
+            @Override
+            public void onCompletion(Object response, AppError error) {
+                LogoutStatusResponse loginResponse = (LogoutStatusResponse) response;
+                getLogoutStatusWebServiceListener.onCompletion(loginResponse, error);
+            }
+        });
+    }
+
     public static void registerUser(HashMap<String, String> params, final GetForgotPasswordWebServiceListener getLoginResponseWebServiceListener){
 
         RetrofitImplementation retrofitImplementation = new RetrofitImplementation();

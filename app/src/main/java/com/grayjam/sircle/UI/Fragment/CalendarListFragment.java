@@ -64,7 +64,7 @@ public class CalendarListFragment extends Fragment implements AbsListView.OnScro
 
     private OnFragmentInteractionListener mListener;
 
-    String grpIdString;
+  //  String grpIdString;
 
     /**
      * Use this factory method to create a new instance of
@@ -130,7 +130,7 @@ public class CalendarListFragment extends Fragment implements AbsListView.OnScro
         });
 
         //if (calendarMonthList.size() <= 0){
-            grpIdString  = NotificationManager.getSharedInstance().getGroupIds(myContext);
+           // grpIdString  = NotificationManager.getSharedInstance().getGroupIds(myContext);
 
             populateDummyData();
         //}

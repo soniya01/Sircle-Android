@@ -166,7 +166,7 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 //            }
 //        }
 
-        String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
+      //  String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         HashMap object = new HashMap();
        // object.put("regId", Constants.GCM_REG_ID);
@@ -273,7 +273,7 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 //            }
 //        }
 
-        String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
+       // String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         System.out.println("Load Dummy");
 

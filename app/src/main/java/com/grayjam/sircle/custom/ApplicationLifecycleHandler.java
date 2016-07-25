@@ -3,7 +3,9 @@ package com.grayjam.sircle.custom;
 import android.app.Activity;
 import android.app.Application;
 import android.content.ComponentCallbacks2;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +16,7 @@ import com.grayjam.sircle.Manager.LogoutManager;
 import com.grayjam.sircle.UI.Activity.BaseActivity;
 import com.grayjam.sircle.UI.Activity.LoginScreen;
 import com.grayjam.sircle.Utility.AppError;
+import com.grayjam.sircle.Utility.Constants;
 import com.grayjam.sircle.WebService.LogoutStatusResponse;
 
 import java.util.HashMap;
@@ -41,7 +44,15 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
             Log.d(TAG, "app went to foreground");
             isInBackground = false;
 
-          checkUserStatus(activity);
+            SharedPreferences   loginSharedPreferences = activity.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = loginSharedPreferences.edit();
+            String accessToken = loginSharedPreferences.getString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY,null);
+
+            if (accessToken != null){
+                checkUserStatus(activity);
+            }
+
+
 
         }
     }
@@ -80,7 +91,7 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
 
     public void checkUserStatus(final Activity activity)
     {
-        HashMap object = new HashMap();
+      final   HashMap object = new HashMap();
         //object.put("regId", Constants.GCM_REG_ID);
         //object.put("groupId", grpIdString);
         object.put("page", "1");
@@ -99,6 +110,11 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
 
                             if (response.getData().getLogout() ==1)
                             {
+                                LoginManager.getSharedInstance().checkUserLogoutStatus(object, new LoginManager.LogoutStatusManagerListener() {
+                                    @Override
+                                    public void onCompletion(LogoutStatusResponse response, AppError error) {
+                                    }
+                                });
                                 LogoutManager.getSharedInstance().handleUserLogoutPreferences();
                                 Intent loginIntent = new Intent(activity, LoginScreen.class);
                                 activity.startActivity(loginIntent);
@@ -107,9 +123,9 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
                             }
                             else
                             {
-                                Intent loginIntent = new Intent(activity, BaseActivity.class);
-                                activity.startActivity(loginIntent);
-                                activity.finish();
+//                                Intent loginIntent = new Intent(activity, BaseActivity.class);
+//                                activity.startActivity(loginIntent);
+//                                activity.finish();
                             }
 
                             // ringProgressDialog.dismiss();
