@@ -6,11 +6,11 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.snaptech.asb"
+        applicationId "com.snaptech.asianintl"
         minSdkVersion 15
         targetSdkVersion 20
         versionCode 3
-        versionName "2.1"
+        versionName "3.0"
         multiDexEnabled true
     }
     buildTypes {
