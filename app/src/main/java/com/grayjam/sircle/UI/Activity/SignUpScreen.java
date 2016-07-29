@@ -79,6 +79,7 @@ public class SignUpScreen extends AppCompatActivity {
             @Override
             public void onCompletion(ForgotPasswordResponse response, AppError error) {
 
+
                 if (error.getErrorCode() == 0) {
                     // give access to the app features
                     if (response != null){

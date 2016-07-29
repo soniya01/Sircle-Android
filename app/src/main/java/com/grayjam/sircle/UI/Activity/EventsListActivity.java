@@ -139,6 +139,7 @@ if(calendarMonthList.size()!=0) {
 
     public void populateDummyData(){
 
+        pageCount=1;
 //        String grpIdString = "";
 //        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
 //            if (i == 0){
@@ -216,6 +217,33 @@ if(calendarMonthList.size()!=0) {
     }
 
 
+    public void filterEventsByDateForLoadMore()
+    {
+
+        List<Event> filteredList = new ArrayList<>();
+        String dayStr = "", monthStr ="";
+        dayStr = String.valueOf(day);
+        monthStr = String.valueOf(month);
+
+        if (day / 10 < 1)  dayStr = "0"+day;
+        if (month / 10 < 1) monthStr = "0"+month;
+
+        String selectedDate = dayStr + "-" + monthStr + "-" +year;
+        for (Event event : calendarMonthList){
+            String str = event.getStartDate();
+            String[] splited = str.split("\\s+");
+            String sDate = splited[0]; //03/09/2015
+            if (selectedDate.equals(sDate)){
+                filteredList.add(event);
+            }
+        }
+//        ringProgressDialog.dismiss();
+        //calendarMonthList.clear();
+        calendarMonthList.addAll(filteredList);
+        //calendarMonthListViewAdapter = new CalendarDayListAdapter(this, calendarMonthList);
+        //calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
+        calendarMonthListViewAdapter.notifyDataSetChanged();
+    }
     public void filterEventsByDate(){
         List<Event> filteredList = new ArrayList<>();
         String dayStr = "", monthStr ="";
@@ -261,7 +289,7 @@ if(calendarMonthList.size()!=0) {
       //  map.put("regId", Constants.GCM_REG_ID);
         map.put("filter_month",""+month);
         map.put("filter_year", ""+year);
-        map.put("page", "1");
+        map.put("page", pageCount+"");
         //map.put("groupId", grpIdString);
         //ringProgressDialog = ProgressDialog.show(this, "", "", true);
         EventManager.getSharedInstance().getEventsMonthWise(map, new EventManager.GetMonthwiseEventsManagerListener() {
@@ -270,30 +298,30 @@ if(calendarMonthList.size()!=0) {
                 isLoading = false;
                 if (data != null) {
                     if (data.getStatus() == 200) {
-                        if (data.getEvents() != null){
+                        if (data.getEvents() != null) {
                             if (data.getEvents().size() > 0) {
-                                calendarMonthList = data.getEvents();
-                               //      totalRecord = data.getEventData().getTotalRecords();
+                                //calendarMonthList.addAll(data.getEvents());// = data.getEvents();
+                                //      totalRecord = data.getEventData().getTotalRecords();
 
-                                if (day != 0){
+                                if (day != 0) {
                                     // search data for a particular date
                                     // filter by date
-                                    filterEventsByDate();
+                                    filterEventsByDateForLoadMore();
 
-                                }else {
+                                } else {
                                     //ringProgressDialog.dismiss();
                                     calendarMonthListViewAdapter.notifyDataSetChanged();
                                 }
 
                             } else {
-                                Toast.makeText(EventsListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(EventsListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
                             }
-                        }else {
-                            Toast.makeText(EventsListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            //Toast.makeText(EventsListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
                         }
 
                     } else {
-                        Toast.makeText(EventsListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
+ //                       Toast.makeText(EventsListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
                 } else {

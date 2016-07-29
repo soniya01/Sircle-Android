@@ -30,6 +30,7 @@ import java.util.List;
 
 public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnRefreshListener{
 
+    String grpIdString = "";
     private ListView notificationListView;
     private NotificationsGroupAdapter notificationsGroupAdapter;
     private List<NotificationGroups> notificationGroupList = new ArrayList<NotificationGroups>();
@@ -112,7 +113,7 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
               //  JSONArray arrayObject = new JSONArray();
 
 
-                String grpIdString = "";
+
 
                 if ( NotificationManager.grpIds.size() > 0){
                     ringProgressDialog = ProgressDialog.show(SettingsActivity.this, "", "", true);
@@ -148,6 +149,7 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
                                 //Toast.makeText(SettingsActivity.this, postResponse.getMessage(), Toast.LENGTH_SHORT).show();
                                 if (postResponse.getStatus() == 200) {
 
+                                    System.out.println("Response is "+postResponse.getMessage()+" and grpid sent list is "+grpIdString);
                                     String grpIdString = "";
                                     for (int i = 0; i< NotificationManager.grpIds.size(); i++){
                                         if (i == 0){
