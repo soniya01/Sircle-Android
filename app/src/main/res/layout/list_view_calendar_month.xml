@@ -36,6 +36,8 @@ app:mrl_rippleOverlay="true">
     </LinearLayout>
 
     <LinearLayout
+
+        android:layout_marginRight="42dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="14dp"
@@ -74,6 +76,7 @@ app:mrl_rippleOverlay="true">
 
 
     <com.grayjam.sircle.custom.RobotoLightTextView
+
         android:id="@+id/startEventTime"
         android:textColor="#666666"
         android:layout_width="wrap_content"
