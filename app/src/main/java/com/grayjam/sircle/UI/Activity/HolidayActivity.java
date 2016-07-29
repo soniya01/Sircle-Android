@@ -45,7 +45,7 @@ public class HolidayActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                ringProgressDialog = ProgressDialog.show(HolidayActivity.this, "", "", true);
+                ringProgressDialog = ProgressDialog.show(HolidayActivity.this, "", "Adding Holiday", true);
 
                 HashMap params = new HashMap();
                 params.put("event_type","PH");

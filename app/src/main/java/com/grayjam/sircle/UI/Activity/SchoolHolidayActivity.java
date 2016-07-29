@@ -113,7 +113,7 @@ public class SchoolHolidayActivity extends ActionBarActivity {
 //                    }
 
                    // String grpIdString = NotificationManager.getSharedInstance().getGroupIds(SchoolHolidayActivity.this);
-                    ringProgressDialog = ProgressDialog.show(SchoolHolidayActivity.this, "", "", true);
+                    ringProgressDialog = ProgressDialog.show(SchoolHolidayActivity.this, "", "Adding School Holiday", true);
 
                     String grpIdString = "";
 

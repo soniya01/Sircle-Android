@@ -89,10 +89,12 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
         calendarMonthListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent detailIntent = new Intent(EventsListActivity.this,EventDetailActivity.class);
-                detailIntent.putExtra("eventId",calendarMonthList.get(position).getId());
-                startActivity(detailIntent);
-            }
+
+if(calendarMonthList.size()!=0) {
+    Intent detailIntent = new Intent(EventsListActivity.this, EventDetailActivity.class);
+    detailIntent.putExtra("eventId", calendarMonthList.get(position).getId());
+    startActivity(detailIntent);
+}           }
         });
     }
 
@@ -212,6 +214,7 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
         super.onResume();
         populateDummyData();
     }
+
 
     public void filterEventsByDate(){
         List<Event> filteredList = new ArrayList<>();

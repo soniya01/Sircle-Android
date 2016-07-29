@@ -139,6 +139,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
                         if (!jsonElement.isJsonNull() ){
 
+
                             Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
 
                             if (responseClass != null){
@@ -193,7 +194,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     @Override
                     public void success(JsonElement jsonElement, Response response) {
 
-                        if (jsonElement!=null) {
+                        if (jsonElement != null) {
 
                             if (!jsonElement.isJsonNull()) {
 
@@ -228,9 +229,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                                     }
                                 }
                             }
-                        }
-                        else
-                        {
+                        } else {
                             webserviceListener.onCompletion(null, new AppError());
                         }
                     }
@@ -242,9 +241,9 @@ public class RetrofitImplementation implements WebServiceProtocol{
                         appError.setErrorMessage(error.getLocalizedMessage());
 
                         // Send empty object
-                        if (responseClass != null){
+                        if (responseClass != null) {
                             webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
-                        }else {
+                        } else {
                             webserviceListener.onCompletion(null, appError);
                         }
                     }
@@ -253,11 +252,11 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
             case Constants.LOGOUT_USER_FORCEFULLY:
                 // postWebservice.login(params.get("email"), params.get("password"), params.get("device_token"), params.get("device_type"), new Callback<JsonElement>() {
-                postWebservice.checkLogoutStatus(Integer.parseInt(params.get("page")),new Callback<JsonElement>() {
+                postWebservice.checkLogoutStatus(Integer.parseInt(params.get("page")), new Callback<JsonElement>() {
                     @Override
                     public void success(JsonElement jsonElement, Response response) {
 
-                        if (jsonElement!=null) {
+                        if (jsonElement != null) {
 
                             if (!jsonElement.isJsonNull()) {
 
@@ -292,9 +291,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                                     }
                                 }
                             }
-                        }
-                        else
-                        {
+                        } else {
                             webserviceListener.onCompletion(null, new AppError());
                         }
                     }
@@ -306,9 +303,9 @@ public class RetrofitImplementation implements WebServiceProtocol{
                         appError.setErrorMessage(error.getLocalizedMessage());
 
                         // Send empty object
-                        if (responseClass != null){
+                        if (responseClass != null) {
                             webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
-                        }else {
+                        } else {
                             webserviceListener.onCompletion(null, appError);
                         }
                     }
@@ -773,13 +770,14 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     }
                 });
                 break;
-
+//{"code":200,"message":"No Error","data":[]} for ph
+            //{"code":200,"message":"No Error","data":{"event_id":"93","event_title":"new test app 3","event_description":"","event_location":"","event_start_date":"23-11-2016 1:20 PM","event_end_date":"23-11-2016 1:20 PM","category_id":null,"category_name":"","groups":[{"group_id":"6","group_name":"Football Team"},{"group_id":"5","group_name":"Secondary"},{"group_id":"7","group_name":"Staff"},{"group_id":"1","group_name":"Default"},{"group_id":"4","group_name":"Nursery"},{"group_id":"2","group_name":"Primary"}]}}
             case Constants.EVENTS_GET_DETAILS_API_PATH :
                 postWebservice.postEventDetailApi(Integer.parseInt(params.get("event_id")),new Callback<JsonElement>() {
                     @Override
                     public void success(JsonElement jsonElement, Response response) {
                         if (!jsonElement.isJsonNull()) {
-
+                            System.out.println("Json Element is "+jsonElement.toString());
                             Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
 
                             if (responseClass != null) {
@@ -1152,6 +1150,8 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     @Override
                     public void success(JsonElement jsonElement, Response response) {
                         if (!jsonElement.isJsonNull()) {
+
+                            System.out.println("Response after add is "+jsonElement.toString());
 
                             Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
 

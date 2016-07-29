@@ -32,11 +32,14 @@ import com.grayjam.sircle.custom.App;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -329,21 +332,41 @@ public class CalendarMonthFragment extends Fragment {
                             HashMap<Date,Integer> dates = new HashMap();
                             for (Event event:  data.getEvents()){
 
+                                List<Date> dateList=null;
                                 Date date;
+                                Date to_date;
                                 String str = event.getStartDate();
+                                String str_to_date=event.getEndDate();
                                 String[] splited = str.split("\\s+");
+                                String[] splitted_to_date=str_to_date.split("\\s+");
+                                String to_date_String=splitted_to_date[0];
                                 String dateString = splited[0];
+                                if(!event.getStartDate().equalsIgnoreCase(event.getEndDate()))
+                                dateList=getDates(dateString,to_date_String);
                                 SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+
                                 try {
-                                    date = format.parse(dateString);
+                                    if(dateList!=null) {
 
 
-                                    dates.put(date,R.drawable.circular_border);
-                                   // dates.put(date,R.drawable.camera_icon);
-                                    System.out.println("Date ->" + date);
+                                        System.out.println("Start date is " + dateString + " End date is " + to_date_String + " In between dates " + format.format(dateList.get(0)) + " and " + dateList.get(dateList.size() - 1));
+
+                                        for (int i=0;i<dateList.size();i++){
+
+                                            date=format.parse(format.format(dateList.get(i)));
+                                            dates.put(date,R.drawable.circular_border);
+                                        }
+                                    }
+                                    else {
+                                        date = format.parse(dateString);
+                                        dates.put(date, R.drawable.circular_border);
+                                        // dates.put(date,R.drawable.camera_icon);
+                                        System.out.println("Date ->" + date);
+                                    }
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
+                                dateList=null;
                             }
                             progressBar.setVisibility(View.GONE);
                             caldroidFragment.setBackgroundResourceForDates(dates);
@@ -361,10 +384,35 @@ public class CalendarMonthFragment extends Fragment {
             }
         });
     }
+    private static List<Date> getDates(String dateString1, String dateString2)
+    {
+        ArrayList<Date> dates = new ArrayList<Date>();
+        DateFormat df1 = new SimpleDateFormat("dd-MM-yyyy");
+
+        Date date1 = null;
+        Date date2 = null;
+
+        try {
+            date1 = df1 .parse(dateString1);
+            date2 = df1 .parse(dateString2);
+            System.out.println("Inside start date "+date1.getTime()+" and outside is "+date2.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(date1);
 
 
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTime(date2);
 
-
-
+        while(!cal1.after(cal2))
+        {
+            dates.add(cal1.getTime());
+            cal1.add(Calendar.DATE, 1);
+        }
+        return dates;
+    }
 
 }

@@ -3,7 +3,7 @@ package com.grayjam.sircle.UI.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
-import android.app.TimePickerDialog;
+
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -39,6 +39,8 @@ import com.grayjam.sircle.Utility.Constants;
 import com.grayjam.sircle.WebService.CategoryResponse;
 import com.grayjam.sircle.WebService.GroupResponse;
 import com.grayjam.sircle.WebService.PostResponse;
+import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,8 +49,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-public class EventActivity extends ActionBarActivity implements View.OnClickListener{
+public class EventActivity extends ActionBarActivity implements View.OnClickListener,TimePickerDialog.OnTimeSetListener{
 
+    String flag="";
     AlertDialog alert;
     Calendar myCalendar;
     private Button addButton;
@@ -681,7 +684,7 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
         // get group names call to be added
 
         // get event category
-        ringProgressDialog = ProgressDialog.show(this, "", "", true);
+        ringProgressDialog = ProgressDialog.show(this, "", "Adding Event", true);
         HashMap<String, String> map = new HashMap<>();
         map.put("regId", Constants.GCM_REG_ID);
         NotificationManager.getSharedInstance().getAllGroups(map, new NotificationManager.GroupsManagerListener() {
@@ -799,39 +802,65 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
             }
         };
 
-        TimePickerDialog.OnTimeSetListener timeListener = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-             //   hour = hourOfDay;
-             //   mins = minute;
 
-                if (v == startTime){
+        if(v==startTime){
 
-                    myCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                    myCalendar.set(Calendar.MONTH, minute);
-                    myCalendar.set(Calendar.SECOND, 0);
-
-
-                    String myFormat = "hh:mm:ss aa"; //In which you need put here
-                    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-
-                    startTimeStr = sdf.format(myCalendar.getTime());
-                    startTime.setText(startTimeStr);
-                }else if (v == endTime){
-
-                    myCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                    myCalendar.set(Calendar.MONTH, minute);
-                    myCalendar.set(Calendar.SECOND, 0);
+            flag="start";
+            Calendar now=Calendar.getInstance();
+            TimePickerDialog tpd = TimePickerDialog.newInstance(
+                    EventActivity.this,
+                    now.get(Calendar.HOUR_OF_DAY),
+                    now.get(Calendar.MINUTE),
+                    false);
+            tpd.show(getFragmentManager(), "Timepickerdialog");
 
 
-                    String myFormat = "hh:mm:ss aa"; //In which you need put here
-                    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        }
+        if(v==endTime){
+            flag="end";
+            Calendar now=Calendar.getInstance();
+            TimePickerDialog tpd = TimePickerDialog.newInstance(
+                    EventActivity.this,
+                    now.get(Calendar.HOUR_OF_DAY),
+                    now.get(Calendar.MINUTE),
+                    false);
+            tpd.show(getFragmentManager(), "Timepickerdialog");
 
-                    endTimeStr = sdf.format(myCalendar.getTime());
-                    endTime.setText(endTimeStr);
-                }
-            }
-        };
+        }
+
+//        TimePickerDialog.OnTimeSetListener timeListener = new TimePickerDialog.OnTimeSetListener() {
+//            @Override
+//            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+//             //   hour = hourOfDay;
+//             //   mins = minute;
+//
+//                if (v == startTime){
+//
+//                    myCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+//                    myCalendar.set(Calendar.MONTH, minute);
+//                    myCalendar.set(Calendar.SECOND, 0);
+//
+//
+//                    String myFormat = "hh:mm:ss aa"; //In which you need put here
+//                    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+//
+//                    startTimeStr = sdf.format(myCalendar.getTime());
+//                    startTime.setText(startTimeStr);
+//                }else if (v == endTime){
+//
+//                    myCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+//                    myCalendar.set(Calendar.MONTH, minute);
+//                    myCalendar.set(Calendar.SECOND, 0);
+//
+//
+//                    String myFormat = "hh:mm:ss aa"; //In which you need put here
+//                    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+//
+//                    endTimeStr = sdf.format(myCalendar.getTime());
+//                    endTime.setText(endTimeStr);
+//                }
+//            }
+//        };
 
         if (v == startDate || v == endDate){
             datePickerDialog = new DatePickerDialog(EventActivity.this, dateListener, startYear, startMonth, startDay);
@@ -844,8 +873,8 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
             int currenthour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
             int currentminute = mcurrentTime.get(Calendar.MINUTE);
 
-            timePickerDialog = new TimePickerDialog(EventActivity.this, timeListener, currenthour, currentminute, true);
-            timePickerDialog.show();
+         //   timePickerDialog = new TimePickerDialog(EventActivity.this, timeListener, currenthour, currentminute, true);
+          //  timePickerDialog.show();
 
         }
         if (v == days){
@@ -888,6 +917,7 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
             });
 
         }if (v == minutes){
+            Toast.makeText(EventActivity.this,"Minutes called ",Toast.LENGTH_SHORT).show();
             final AlertDialog.Builder alertDialog = new AlertDialog.Builder(EventActivity.this);
             LayoutInflater inflater = getLayoutInflater();
             View convertView = (View) inflater.inflate(R.layout.dialog_list_view, null);
@@ -1400,4 +1430,33 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
         listView.requestLayout();
 
     }
+
+    @Override
+    public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute2, int second) {
+        if (flag.equalsIgnoreCase("start")){
+
+
+                    myCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                    myCalendar.set(Calendar.MINUTE, minute2);
+                    myCalendar.set(Calendar.SECOND, 0);
+
+
+                    String myFormat = "hh:mm:ss aa"; //In which you need put here
+                    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+                    startTimeStr = sdf.format(myCalendar.getTime());
+                    startTime.setText(startTimeStr);
+                }else if(flag.equalsIgnoreCase("end")){
+
+                    myCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                    myCalendar.set(Calendar.MINUTE, minute2);
+                    myCalendar.set(Calendar.SECOND, 0);
+
+
+                    String myFormat = "hh:mm:ss aa"; //In which you need put here
+                    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+                    endTimeStr = sdf.format(myCalendar.getTime());
+                    endTime.setText(endTimeStr);
+                }    }
 }

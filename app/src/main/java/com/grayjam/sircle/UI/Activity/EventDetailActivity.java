@@ -256,7 +256,11 @@ public class EventDetailActivity extends AppCompatActivity {
                             eventTitle.setText(eventDetailResponse.getData().getEventTitle());
                             eventStartDate.setText(eventDetailResponse.getData().getEventStartDate());
                             eventEndDate.setText(eventDetailResponse.getData().getEventEndDate());
-                           // eventInfo.setText(eventDetailResponse.getData().getEventDescription());
+
+                           // eventInfo
+                           //
+                           //
+                           // .setText(eventDetailResponse.getData().getEventDescription());
                           //  eventCategory.setText(eventDetailResponse.getData().getCategory());
                            // eventGroups.setText("Groups: "+eventDetailResponse.getData().getEventGroups());
                             eventLocation.setText(eventDetailResponse.getData().getEventLocation());
