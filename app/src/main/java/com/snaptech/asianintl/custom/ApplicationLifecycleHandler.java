@@ -42,13 +42,13 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
             Log.d(TAG, "app went to foreground");
             isInBackground = false;
 
-            SharedPreferences   loginSharedPreferences = activity.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = loginSharedPreferences.edit();
-            String accessToken = loginSharedPreferences.getString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY,null);
-
-            if (accessToken != null){
-                checkUserStatus(activity);
-            }
+//            SharedPreferences   loginSharedPreferences = activity.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
+//            SharedPreferences.Editor editor = loginSharedPreferences.edit();
+//            String accessToken = loginSharedPreferences.getString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY,null);
+//
+//            if (accessToken != null){
+//                checkUserStatus(activity);
+//            }
 
 
 

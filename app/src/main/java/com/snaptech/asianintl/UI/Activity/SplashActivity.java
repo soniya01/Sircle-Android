@@ -55,11 +55,11 @@ public class SplashActivity extends Activity {
         String accessToken = loginSharedPreferences.getString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY,null);
 
         if (accessToken != null){
-//            loginIntent = new Intent(SplashActivity.this, BaseActivity.class);
+           loginIntent = new Intent(SplashActivity.this, BaseActivity.class);
 //            startActivity(loginIntent);
 //            finish();
 
-             checkUserStatus();
+         //    checkUserStatus();
 
             //}
         }else {
@@ -67,18 +67,20 @@ public class SplashActivity extends Activity {
 
             loginIntent = new Intent(this, LoginScreen.class);
 
-            new Handler().postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    startActivity(loginIntent);
-                    finish();
-                }
-            }, SPLASH_SCREEN_TIME_OUT);
 
 
 
         }
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                startActivity(loginIntent);
+                finish();
+            }
+        }, SPLASH_SCREEN_TIME_OUT);
+
 
 
 

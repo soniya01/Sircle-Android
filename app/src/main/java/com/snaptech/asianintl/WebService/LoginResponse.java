@@ -8,7 +8,7 @@ public class LoginResponse {
    //public  UserData data;
 
     public Customer data;
-   // public List<UserData> data = new ArrayList<UserData>();
+    //public List<UserData> data = new ArrayList<UserData>();
     public String message;
     public int code;
 
