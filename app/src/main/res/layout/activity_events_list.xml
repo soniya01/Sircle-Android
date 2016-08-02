@@ -4,7 +4,7 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical"
     android:id="@+id/swipe_refresh_layout"
-tools:context="com.grayjam.sircle.UI.Fragment.EventsListActivity">
+tools:context="com.snaptech.rqk.UI.Fragment.EventsListActivity">
 
 <View
     android:layout_width="match_parent"
