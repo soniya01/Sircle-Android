@@ -37,7 +37,7 @@
             android:drawablePadding="10dp"
             android:paddingBottom="15dp"
             style="?android:attr/borderlessButtonStyle"
-            android:text="Calendar"/>
+            android:text="CALENDARIO"/>
 
         <Button
             android:layout_margin="10dp"
@@ -52,7 +52,7 @@
             android:drawablePadding="10dp"
             android:paddingBottom="15dp"
             style="?android:attr/borderlessButtonStyle"
-            android:text="Photos"/>
+            android:text="FOTOS"/>
 
 
         <Button
@@ -68,7 +68,7 @@
             android:drawablePadding="10dp"
             android:paddingBottom="15dp"
             style="?android:attr/borderlessButtonStyle"
-            android:text="Messages"/>
+            android:text="MENSAJES"/>
 
 
 
@@ -100,7 +100,7 @@
             android:paddingBottom="15dp"
             android:singleLine="true"
             style="?android:attr/borderlessButtonStyle"
-            android:text="Newsletters"/>
+            android:text="BOLETIN INFORMATIVO"/>
 
 
 
@@ -117,7 +117,7 @@
             android:drawablePadding="10dp"
             android:paddingBottom="15dp"
             style="?android:attr/borderlessButtonStyle"
-            android:text="Documents"/>
+            android:text="DOCUMENTOS"/>
 
 
 
@@ -165,7 +165,7 @@
             android:drawablePadding="10dp"
             android:paddingBottom="15dp"
             style="?android:attr/borderlessButtonStyle"
-            android:text="Links"/>
+            android:text="ENLACES"/>
 
 
         <Button
@@ -181,7 +181,7 @@
             android:drawablePadding="10dp"
             android:paddingBottom="15dp"
             style="?android:attr/borderlessButtonStyle"
-            android:text="Settings"/>
+            android:text="AJUSTES"/>
 
 
 
@@ -204,7 +204,7 @@
             android:paddingBottom="15dp"
             style="?android:attr/borderlessButtonStyle"
             android:singleLine="true"
-            android:text="Information"/>
+            android:text="INFORMACION"/>
 
     </LinearLayout>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.grayjam.sircle"
+    package="com.snaptech.kipling"
     android:versionCode="2"
     android:versionName="2.0">
 
@@ -17,10 +17,10 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <permission
-        android:name="com.grayjam.sircle.permission.C2D_MESSAGE"
+        android:name="com.snaptech.kipling.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.app.sircle.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.snaptech.kipling.permission.C2D_MESSAGE" />
 
     <!-- <permission -->
     <!-- android:name="com.example.gcm.permission.C2D_MESSAGE" -->
@@ -32,7 +32,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name="com.grayjam.sircle.custom.App"
+        android:name="com.snaptech.kipling.custom.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -57,7 +57,7 @@
 
         <!-- [START gcm_listener] -->
         <service
-            android:name="com.grayjam.sircle.GCM.GCMListener"
+            android:name="com.snaptech.kipling.GCM.GCMListener"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -68,7 +68,7 @@
 
         <!-- [START instanceId_listener] -->
         <service
-            android:name="com.grayjam.sircle.GCM.InstanceIDListener"
+            android:name="com.snaptech.kipling.GCM.InstanceIDListener"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.gms.iid.InstanceID" />
@@ -77,11 +77,11 @@
         <!-- [END instanceId_listener] -->
 
         <service
-            android:name="com.grayjam.sircle.GCM.RegistrationIntentService"
+            android:name="com.snaptech.kipling.GCM.RegistrationIntentService"
             android:exported="false" />
 
         <activity
-            android:name="com.grayjam.sircle.UI.Activity.SplashActivity"
+            android:name="com.snaptech.kipling.UI.Activity.SplashActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -90,76 +90,76 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.grayjam.sircle.UI.Activity.BaseActivity"
+            android:name="com.snaptech.kipling.UI.Activity.BaseActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.grayjam.sircle.UI.Activity.LoginScreen"
+            android:name="com.snaptech.kipling.UI.Activity.LoginScreen"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.grayjam.sircle.UI.Activity.VideoActivity"
+            android:name="com.snaptech.kipling.UI.Activity.VideoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.grayjam.sircle.UI.Activity.PDFViewer"
+            android:name="com.snaptech.kipling.UI.Activity.PDFViewer"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.grayjam.sircle.UI.Activity.AlbumDetailsActivity"
+            android:name="com.snaptech.kipling.UI.Activity.AlbumDetailsActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.grayjam.sircle.UI.Activity.SettingsActivity"
+            android:name="com.snaptech.kipling.UI.Activity.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.grayjam.sircle.UI.Activity.AlbumFullScreenActivity"
+            android:name="com.snaptech.kipling.UI.Activity.AlbumFullScreenActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.grayjam.sircle.UI.Activity.AddLinksActivity"
+            android:name="com.snaptech.kipling.UI.Activity.AddLinksActivity"
             android:label="@string/title_activity_add_links"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.grayjam.sircle.UI.Activity.AddNotificationActivity"
+            android:name="com.snaptech.kipling.UI.Activity.AddNotificationActivity"
             android:label="@string/title_activity_add_notification"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.grayjam.sircle.UI.Activity.AddAlbumActivity"
+            android:name="com.snaptech.kipling.UI.Activity.AddAlbumActivity"
             android:label="@string/title_activity_add_album"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.grayjam.sircle.UI.Activity.EventsListActivity"
+            android:name="com.snaptech.kipling.UI.Activity.EventsListActivity"
             android:label="@string/title_activity_events_list" />
         <activity
-            android:name="com.grayjam.sircle.UI.Activity.AddPhotoTabbedActivity"
+            android:name="com.snaptech.kipling.UI.Activity.AddPhotoTabbedActivity"
             android:label="@string/title_activity_add_photo_tabbed"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.grayjam.sircle.UI.cam.activity.CameraActivity"
+            android:name="com.snaptech.kipling.UI.cam.activity.CameraActivity"
             android:label="@string/title_activity_add_photo_tabbed"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
         <activity
-            android:name="com.grayjam.sircle.UI.Activity.AddSelectedPhoto"
+            android:name="com.snaptech.kipling.UI.Activity.AddSelectedPhoto"
             android:label="@string/title_activity_add_selected_photo"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.grayjam.sircle.UI.Activity.HolidayActivity"
+            android:name="com.snaptech.kipling.UI.Activity.HolidayActivity"
             android:label="@string/title_activity_holiday" />
         <activity
-            android:name="com.grayjam.sircle.UI.Activity.SchoolHolidayActivity"
+            android:name="com.snaptech.kipling.UI.Activity.SchoolHolidayActivity"
             android:label="@string/title_activity_school_holiday" />
         <activity
-            android:name="com.grayjam.sircle.UI.Activity.EventActivity"
+            android:name="com.snaptech.kipling.UI.Activity.EventActivity"
             android:label="@string/title_activity_event" />
         <activity
-            android:name="com.grayjam.sircle.UI.Activity.EventDetailActivity"
+            android:name="com.snaptech.kipling.UI.Activity.EventDetailActivity"
             android:label="@string/title_activity_event_detail" />
         <activity
-            android:name="com.grayjam.sircle.UI.Activity.VimeoWebviewActivity"
+            android:name="com.snaptech.kipling.UI.Activity.VimeoWebviewActivity"
             android:label="@string/title_activity_vimeo_webview"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.grayjam.sircle.UI.Activity.PDFWebViewer" />
-        <activity android:name="com.grayjam.sircle.UI.Activity.ForgotPasswordActivity" />
-        <activity android:name="com.grayjam.sircle.UI.Activity.SignUpScreen"/>
+        <activity android:name="com.snaptech.kipling.UI.Activity.PDFWebViewer" />
+        <activity android:name="com.snaptech.kipling.UI.Activity.ForgotPasswordActivity" />
+        <activity android:name="com.snaptech.kipling.UI.Activity.SignUpScreen"/>
 
 
         <meta-data

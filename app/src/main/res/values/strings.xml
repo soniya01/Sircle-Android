@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EMISSIO</string>
+    <string name="app_name">Morelia</string>
 
 
     <!--Activity Add Album-->
@@ -16,7 +16,7 @@
 
     <!--Activity Add Selected Photos-->
     <string name="add_caption_placeholder">Add Caption</string>
-    <string name="add_photo_title">Add Photo</string>
+    <string name="add_photo_title">Agregar Foto</string>
 
     <!--Activity Add Event-->
     <string name="location_placeholder">Locacion</string>
@@ -26,7 +26,7 @@
     <string name="start_time_placeholder">Hora de Inicio</string>
     <string name="end_time_placeholder">Hora de Terminación</string>
     <string name="reminder_title">Recordatorio</string>
-    <string name="day_button_title">1 Días</string>
+    <string name="day_button_title">1 Día</string>
     <string name="hour_button_title">0 Horas</string>
     <string name="minute_button_title">0 Minutos</string>
     <string name="repeat_checkbox_title">Repetición</string>
@@ -74,7 +74,7 @@
     <string name="today_button_title">HOY</string>
 
     <!--Footer Button-->
-    <string name="add_link_button_title">ADD LINK</string>
+    <string name="add_link_button_title">Agregar Enlace</string>
 
 
     <string name="action_settings">Settings</string>
@@ -160,8 +160,8 @@
     <string name="fragment_documents_title">Documents</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_add_links">Agregar Enlaces </string>
-    <string name="title_activity_add_notification">AGREGAR NOTIFICACION</string>
-    <string name="title_activity_add_album">Nuevo Album</string>
+    <string name="title_activity_add_notification">Mandar Mensaje</string>
+    <string name="title_activity_add_album">Agregar Album</string>
 
 
     <string name="title_activity_events_list">Eventos</string>
@@ -169,12 +169,12 @@
 
     <string name="title_activity_add_selected_photo">Add new photo</string>
 
-    <string name="title_activity_holiday">Holiday</string>
-    <string name="title_activity_school_holiday">School Holiday</string>
-    <string name="title_activity_event">Event</string>
+    <string name="title_activity_holiday">Vacacion</string>
+    <string name="title_activity_school_holiday">Feriados Escolares</string>
+    <string name="title_activity_event">Evento</string>
     <string name="title_activity_event_detail">Detalles del Evento</string>
     <string name="title_activity_vimeo_webview">VimeoWebviewActivity</string>
     <string name="title_activity_sign_up">SignUp</string>
-    <string name="add_holiday_button_title">Add Holiday</string>
+    <string name="add_holiday_button_title">Agregar Vacacion</string>
 
 </resources>
