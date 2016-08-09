@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "407595736445",
-    "project_id": "emissio-demo-app"
+    "project_number": "856748002062",
+    "project_id": "firebase-emissio"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:407595736445:android:3b934460f8dfe60c",
+        "mobilesdk_app_id": "1:856748002062:android:0a1b558de85699a8",
         "android_client_info": {
-          "package_name": "com.grayjam.sircle"
+          "package_name": "com.snaptech.emissio"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBobb_8PFDBrA7BZ1hs7VeyZt8iyMKKQg0"
+          "current_key": "AIzaSyCm4I0GdF4H9EcECJFfTGQDfHyFjz18aYQ"
         }
       ],
       "services": {
