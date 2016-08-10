@@ -114,7 +114,7 @@ if (accessToken!=null) {
         Class intentClass = null;
         Intent intent;
         String actionBarTitle="";
-
+        String spanishtitle="";
 //        Toast.makeText(getBaseContext(), title + "\n" + message,Toast.LENGTH_SHORT).show();
         System.out.println("message: "+ title + "\n" + message);
         title = data.getString("title");
@@ -127,33 +127,39 @@ if (accessToken!=null) {
             BaseActivity.selectedModuleIndex = 3;
             intentClass = BaseActivity.class;
             actionBarTitle="Messages";
+            spanishtitle="Mensajes";
 
         }else if(url.equals("calendar")){
             actionBarTitle="Calendar";
             intentClass = EventDetailActivity.class;
             BaseActivity.selectedModuleIndex = 1;
+            spanishtitle="Calendario";
         }
         else if(url.equals("album")){
             actionBarTitle="Photos";
                 intentClass = AlbumDetailsActivity.class;
+            spanishtitle="Fotos";
                // BaseActivity.selectedModuleIndex = 2;
             }
         else if (url.equals("PhotoListViewPage")){
                 actionBarTitle="Photos";
                 intentClass = AlbumDetailsActivity.class;
                 BaseActivity.selectedModuleIndex = 2;
+                spanishtitle="Fotos";
         }
         else if (url.equals("document"))
         {
             actionBarTitle="Documents";
             intentClass = BaseActivity.class;
             BaseActivity.selectedModuleIndex = 5;
+            spanishtitle="Documentos";
         }
         else if (url.equals("newsletter"))
         {
             actionBarTitle="Newsletters";
             intentClass = BaseActivity.class;
             BaseActivity.selectedModuleIndex = 4;
+            spanishtitle="Boletin Informativo";
         }
         else if (url.equals("video")) {
             actionBarTitle="Videos";
@@ -164,12 +170,14 @@ if (accessToken!=null) {
             actionBarTitle="Links";
             intentClass = BaseActivity.class;
             BaseActivity.selectedModuleIndex = 7;
+            spanishtitle="Enlaces";
         }
 
         else {
             actionBarTitle="Calendar";
             intentClass = BaseActivity.class;
             BaseActivity.selectedModuleIndex = 1;
+            spanishtitle="Notificación";
         }
 
         intent = new Intent(this, intentClass);

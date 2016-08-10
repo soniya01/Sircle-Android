@@ -108,7 +108,7 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
 
                             if (response.getData().getLogout() ==1)
                             {
-                                LoginManager.getSharedInstance().checkUserLogoutStatus(object, new LoginManager.LogoutStatusManagerListener() {
+                                LoginManager.getSharedInstance().userLogoutforcefully(object, new LoginManager.LogoutStatusManagerListener() {
                                     @Override
                                     public void onCompletion(LogoutStatusResponse response, AppError error) {
                                     }
