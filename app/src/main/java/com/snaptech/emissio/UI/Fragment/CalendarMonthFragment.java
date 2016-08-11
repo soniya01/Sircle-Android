@@ -343,7 +343,8 @@ public class CalendarMonthFragment extends Fragment {
                                 if(!event.getStartDate().equalsIgnoreCase(event.getEndDate()))
                                 dateList=getDates(dateString,to_date_String);
                                 SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-
+                                Calendar cal1=Calendar.getInstance();
+                                Calendar cal2=Calendar.getInstance();
                                 try {
                                     if(dateList!=null) {
 
@@ -352,8 +353,13 @@ public class CalendarMonthFragment extends Fragment {
 
                                         for (int i=0;i<dateList.size();i++){
 
+                                            cal2.setTime(dateList.get(i));
+                                            boolean sameDay = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
+                                                    cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
+                                            if(!sameDay){
                                             date=format.parse(format.format(dateList.get(i)));
                                             dates.put(date,R.drawable.circular_border);
+                                        }
                                         }
                                     }
                                     else {
