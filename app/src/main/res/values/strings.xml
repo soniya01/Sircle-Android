@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Morelia</string>
+    <string name="app_name">Emissio Español</string>
 
 
     <!--Activity Add Album-->
@@ -15,7 +15,7 @@
 
 
     <!--Activity Add Selected Photos-->
-    <string name="add_caption_placeholder">Add Caption</string>
+    <string name="add_caption_placeholder">Agregar Descripción</string>
     <string name="add_photo_title">Agregar Foto</string>
 
     <!--Activity Add Event-->
@@ -68,7 +68,7 @@
     <string name="floating_button_title_school_holiday">FERIADOS ESCOLARES</string>
 
     <!--Fragment Calendar List -->
-    <string name="no_events_title">No Events</string>
+    <string name="no_events_title">No hay Eventos</string>
 
     <!--Fragment Calendar Month-->
     <string name="today_button_title">HOY</string>
@@ -77,7 +77,7 @@
     <string name="add_link_button_title">Agregar Enlace</string>
 
 
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Ajustes</string>
     <string name="description_image_default">description_image_default</string>
 
     <!-- Strings related to login -->
@@ -167,14 +167,14 @@
     <string name="title_activity_events_list">Eventos</string>
     <string name="title_activity_add_photo_tabbed">Pick photo </string>
 
-    <string name="title_activity_add_selected_photo">Add new photo</string>
+    <string name="title_activity_add_selected_photo"> Agregar Nueva Foto</string>
 
     <string name="title_activity_holiday">Vacacion</string>
     <string name="title_activity_school_holiday">Feriados Escolares</string>
     <string name="title_activity_event">Evento</string>
     <string name="title_activity_event_detail">Detalles del Evento</string>
     <string name="title_activity_vimeo_webview">VimeoWebviewActivity</string>
-    <string name="title_activity_sign_up">SignUp</string>
+    <string name="title_activity_sign_up">Registarse</string>
     <string name="add_holiday_button_title">Agregar Vacacion</string>
 
 </resources>
