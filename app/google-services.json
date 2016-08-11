@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "856748002062",
-    "project_id": "firebase-emissio"
+    "project_number": "128695971960",
+    "project_id": "msbmumbai-1347"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:856748002062:android:0a1b558de85699a8",
+        "mobilesdk_app_id": "1:128695971960:android:8978f124faa349e5",
         "android_client_info": {
-          "package_name": "com.snaptech.emissio"
+          "package_name": "com.snaptech.msb"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCm4I0GdF4H9EcECJFfTGQDfHyFjz18aYQ"
+          "current_key": "AIzaSyAf9rcZshSpXQG8mxhrX7F4NHHADtSjcoY"
         }
       ],
       "services": {
