@@ -33,7 +33,7 @@ public class SignUpScreen extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        getSupportActionBar().setTitle("Sign Up");
+        getSupportActionBar().setTitle("Regístrarse");
 
         setContentView(R.layout.activity_sign_up_screen);
 
@@ -67,7 +67,8 @@ public class SignUpScreen extends AppCompatActivity {
     public void RegisterUser()
     {
 
-        ringProgressDialog = ProgressDialog.show(SignUpScreen.this, "", "Registering User", true);
+        ringProgressDialog = ProgressDialog.show(SignUpScreen.this, "", "\n" +
+                "Registrarse usuario", true);
 
         HashMap<String, String> loginMap = new HashMap<String, String>();
         loginMap.put("email",usernameField.getText().toString());
@@ -89,7 +90,7 @@ public class SignUpScreen extends AppCompatActivity {
 
                             ringProgressDialog.dismiss();
                            // Toast.makeText(SignUpScreen.this,"Registration Successful", Toast.LENGTH_SHORT).show();
-                            Toast.makeText(SignUpScreen.this,"Pending Approval", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUpScreen.this,"Registro exitoso", Toast.LENGTH_SHORT).show();
 
                             finish();
 
@@ -108,14 +109,14 @@ public class SignUpScreen extends AppCompatActivity {
                         usernameField.setText("");
                         confirmPasswordFeild.setText("");
                         passwordField.setText("");
-                        Toast.makeText(SignUpScreen.this, "Something went wrong please try again", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUpScreen.this, "Algo salió mal", Toast.LENGTH_SHORT).show();
                     }
                 }else {
                     ringProgressDialog.dismiss();
                     usernameField.setText("");
                     confirmPasswordFeild.setText("");
                     passwordField.setText("");
-                    Toast.makeText(SignUpScreen.this, "Check internet connectivity", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpScreen.this, "Compruebe internet", Toast.LENGTH_SHORT).show();
 
                 }
             }
