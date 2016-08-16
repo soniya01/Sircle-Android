@@ -236,6 +236,7 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
                     if (response != null) {
                         if (response.getStatus() == 200){
                             if (response.getData().getGroups().size() > 0){
+
                                 SettingsActivity.this.notificationGroupList.addAll(NotificationManager.groupList);
                                 notificationsGroupAdapter.notifyDataSetChanged();
                             }
