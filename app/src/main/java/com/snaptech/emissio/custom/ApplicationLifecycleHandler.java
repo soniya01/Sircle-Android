@@ -29,6 +29,7 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
 
     @Override
     public void onActivityCreated(Activity activity, Bundle bundle) {
+        Constants.flag=1;
     }
 
     @Override
@@ -37,7 +38,7 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
 
     @Override
     public void onActivityResumed(Activity activity) {
-
+        Constants.flag=1;
         if(isInBackground){
             Log.d(TAG, "app went to foreground");
             isInBackground = false;

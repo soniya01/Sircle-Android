@@ -1,6 +1,7 @@
 package com.snaptech.emissio.UI.Activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -11,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,6 +23,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.snaptech.emissio.BuildConfig;
 import com.snaptech.emissio.Manager.ForceUpdateManager;
 import com.snaptech.emissio.Manager.LoginManager;
 import com.snaptech.emissio.R;
@@ -169,14 +172,63 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
+        final int versionCode = BuildConfig.VERSION_CODE;
         HashMap hashMap=new HashMap();
-        ForceUpdateManager.getSharedInstance().getForcedUpdateData(hashMap, new ForceUpdateManager.GetForcedUpdateManagerListener() {
-            @Override
-            public void onCompletion(ForcedUpdateResponse data, AppError error) {
-                System.out.println("Data received"+data.getMessage()+"version is"+data.getForcedUpdateData().android_version);
-            }
-        });
+
+        System.out.println("Flag is "+Constants.flag);
+
+        //Forced Update
+        if(Constants.flag==1) {
+            ForceUpdateManager.getSharedInstance().getForcedUpdateData(hashMap, new ForceUpdateManager.GetForcedUpdateManagerListener() {
+                @Override
+                public void onCompletion(ForcedUpdateResponse data, AppError error) {
+                    System.out.println("Data received" + data.getMessage() + "version is" + data.getForcedUpdateData().android_version + " actual version code is " + versionCode);
+
+                    if(versionCode<data.getForcedUpdateData().android_version&&data.getForcedUpdateData().force_update_android==0){
+
+                        new AlertDialog.Builder(BaseActivity.this)
+                                .setTitle("Update App")
+                                .setMessage("Do you want to update the application?")
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // continue with delete
+                                        final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                } catch (android.content.ActivityNotFoundException anfe) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                }
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // do nothing
+                                    }
+                                })
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+                    }
+                    else if(versionCode<data.getForcedUpdateData().android_version&&data.getForcedUpdateData().force_update_android==1){
+
+
+                        Intent intent=new Intent(BaseActivity.this,ForcedUpdateActivity.class);
+                        startActivity(intent);
+                        finish();
+
+
+                    }
+//                final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+//                try {
+//                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+//                } catch (android.content.ActivityNotFoundException anfe) {
+//                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+//                }
+
+
+                    Constants.flag = 2;
+                }
+            });
+        }
        // int titleId = getResources().getIdentifier("action_bar_title", "id",
                 //"android");
 

@@ -8,6 +8,7 @@ public class Constants {
 
    public static Bitmap myBitmap;
 
+    public static int flag;
     public static final String LOGIN_PREFS_NAME = "LOGIN_PREFS";
     public static final String LOGIN_ACCESS_TOKEN_PREFS_KEY = "accessToken";
     public static final String LOGIN_EXPIRES_IN_PREFS_KEY = "expiresIn";

@@ -20,7 +20,6 @@
     <string name="add_school_holiday_button_title">Add School Holiday</string>
 
 
-
     <!--Activity Add Selected Photos-->
     <string name="add_caption_placeholder">Add Caption</string>
     <string name="add_photo_title">Add Photo</string>
@@ -63,7 +62,7 @@
     <!--Activity Settings-->
     <string name="notification_groups_title">Notification Groups</string>
 
- <!--Activity Forgot Password-->
+    <!--Activity Forgot Password-->
     <string name="email_id_placeholder">Email Id</string>
     <string name="Submit_button_title">Submit</string>
 
@@ -179,5 +178,6 @@
     <string name="title_activity_event_detail">Event Details</string>
     <string name="title_activity_vimeo_webview">VimeoWebviewActivity</string>
     <string name="title_activity_sign_up">SignUp</string>
+    <string name="title_activity_forced_update">ForcedUpdateActivity</string>
 
 </resources>
