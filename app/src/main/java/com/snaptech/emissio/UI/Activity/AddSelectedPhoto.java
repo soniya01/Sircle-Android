@@ -100,7 +100,7 @@ public class AddSelectedPhoto extends AppCompatActivity {
                // String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.ENGLISH).format(new Date());
                 File photo = new File(photoName);
                 TypedFile typedImage = new TypedFile("image/jpeg", photo);
-
+                //params.put("file",typedImage);
                 PhotoManager.getSharedInstance().uploadImage(params, typedImage, new PhotoManager.PhotoManagerListener() {
                     @Override
                     public void onCompletion(PhotoUploadResponse response, AppError error) {

@@ -21,6 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.snaptech.emissio.Manager.ForceUpdateManager;
 import com.snaptech.emissio.Manager.LoginManager;
 import com.snaptech.emissio.R;
 import com.snaptech.emissio.UI.Fragment.CalendarFragment;
@@ -40,10 +41,12 @@ import com.snaptech.emissio.UI.SlidingPane.SlidingPaneAdapter;
 import com.snaptech.emissio.Utility.AppError;
 import com.snaptech.emissio.Utility.Common;
 import com.snaptech.emissio.Utility.Constants;
+import com.snaptech.emissio.WebService.ForcedUpdateResponse;
 import com.snaptech.emissio.WebService.LoginResponse;
 import com.snaptech.emissio.custom.RobotoRegularTextView;
 
 import java.util.Date;
+import java.util.HashMap;
 
 
 public class BaseActivity extends AppCompatActivity implements CalendarMonthFragment.OnFragmentInteractionListener,CalendarTodayFragment.OnFragmentInteractionListener,CalendarListFragment.OnFragmentInteractionListener {
@@ -167,6 +170,13 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+        HashMap hashMap=new HashMap();
+        ForceUpdateManager.getSharedInstance().getForcedUpdateData(hashMap, new ForceUpdateManager.GetForcedUpdateManagerListener() {
+            @Override
+            public void onCompletion(ForcedUpdateResponse data, AppError error) {
+                System.out.println("Data received"+data.getMessage()+"version is"+data.getForcedUpdateData().android_version);
+            }
+        });
        // int titleId = getResources().getIdentifier("action_bar_title", "id",
                 //"android");
 

@@ -100,4 +100,7 @@ public class Constants {
     public static final String REGISTRATION_COMPLETE = "registrationComplete";
 
 
+  //Vikas
+ public static final String FORCED_UPDATE_URL= "notification/version";
+
 }

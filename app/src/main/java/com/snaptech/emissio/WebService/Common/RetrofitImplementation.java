@@ -1230,7 +1230,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
     }
 
 
-    public void executeGetWithURL(String url, final HashMap<String,String> params,final Object requestObject,final Class responseClass, final WebServiceListener webserviceListener) {
+    public void executeGetWithURL(final String url, final HashMap<String,String> params,final Object requestObject,final Class responseClass, final WebServiceListener webserviceListener) {
         // Setup Adapter for Rest Operations
 
         this.generator = new UrlGenerator(params, url);
@@ -1250,10 +1250,13 @@ public class RetrofitImplementation implements WebServiceProtocol{
                         SharedPreferences sharedpreferences = App.getAppContext().getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
                         String accessToken = sharedpreferences.getString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, null);
 
+                        if(!url.equalsIgnoreCase(Constants.FORCED_UPDATE_URL))
                         request.addHeader("Authorization", "");
-
-                        //request.addHeader("Authorization", "3ec8e9ed13ad96b6b979517f5bf34545891f4958");
-
+                        else {
+                            String accessToken2 = sharedpreferences.getString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, null);
+                            request.addHeader("Authorization", accessToken2);
+                            //request.addHeader("Authorization", "3ec8e9ed13ad96b6b979517f5bf34545891f4958");
+                        }
                     }
                 })
                 .setConverter(new GsonCustomConverter(gson))
@@ -1265,6 +1268,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
             @Override
             public void success(JsonElement jsonElement, Response response) {
 
+                System.out.println("Data is "+jsonElement.toString());
                 if (!jsonElement.isJsonNull()){
                     Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
                     Object object = Common.createObjectForClass(responseClass);
@@ -1390,6 +1394,8 @@ public class RetrofitImplementation implements WebServiceProtocol{
         uploadImageService.uploadImage(params.get("album_id"),params.get("caption_name"), typedFile, new Callback<JsonElement>() {
             @Override
             public void success(JsonElement jsonElement, Response response) {
+
+                System.out.println("Response is "+jsonElement.toString());
                 if (!jsonElement.isJsonNull()) {
                     Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
                     Object object = Common.createObjectForClass(responseClass);
