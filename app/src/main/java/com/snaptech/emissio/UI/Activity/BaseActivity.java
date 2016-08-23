@@ -73,7 +73,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
     SlidingPaneAdapter adapter;
     private SharedPreferences loginSharedPreferences;
     String userType;
-
+    int versionCode=0;
     Boolean closeApp;
 
     private void loadFragment(Context context, android.support.v4.app.Fragment fragment ,String FragmentName) {
@@ -104,6 +104,31 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
 
     @Override
     protected void onResume() {
+
+
+        HashMap hashMap=new HashMap();
+
+        if(Constants.flag==3) {
+            ForceUpdateManager.getSharedInstance().getForcedUpdateData(hashMap, new ForceUpdateManager.GetForcedUpdateManagerListener() {
+                @Override
+                public void onCompletion(ForcedUpdateResponse data, AppError error) {
+                    System.out.println("Data received" + data.getMessage() + "version is" + data.getForcedUpdateData().android_version + " actual version code is " + versionCode);
+                    versionCode= BuildConfig.VERSION_CODE;
+                    checkForcedUpdate(data,error,versionCode);
+
+
+//                final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+//                try {
+//                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+//                } catch (android.content.ActivityNotFoundException anfe) {
+//                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+//                }
+
+
+
+                }
+            });
+        }
         super.onResume();
 //        if (jumpToFragment)
 //        {
@@ -172,7 +197,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        final int versionCode = BuildConfig.VERSION_CODE;
+
         HashMap hashMap=new HashMap();
 
         System.out.println("Flag is "+Constants.flag);
@@ -183,40 +208,10 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                 @Override
                 public void onCompletion(ForcedUpdateResponse data, AppError error) {
                     System.out.println("Data received" + data.getMessage() + "version is" + data.getForcedUpdateData().android_version + " actual version code is " + versionCode);
-
-                    if(versionCode<data.getForcedUpdateData().android_version&&data.getForcedUpdateData().force_update_android==0){
-
-                        new AlertDialog.Builder(BaseActivity.this)
-                                .setTitle("Update App")
-                                .setMessage("Do you want to update the application?")
-                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        // continue with delete
-                                        final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
-                try {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
-                } catch (android.content.ActivityNotFoundException anfe) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
-                }
-                                    }
-                                })
-                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        // do nothing
-                                    }
-                                })
-                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                .show();
-                    }
-                    else if(versionCode<data.getForcedUpdateData().android_version&&data.getForcedUpdateData().force_update_android==1){
+                    versionCode= BuildConfig.VERSION_CODE;
+                    checkForcedUpdate(data,error,versionCode);
 
 
-                        Intent intent=new Intent(BaseActivity.this,ForcedUpdateActivity.class);
-                        startActivity(intent);
-                        finish();
-
-
-                    }
 //                final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
 //                try {
 //                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
@@ -225,7 +220,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
 //                }
 
 
-                    Constants.flag = 2;
+
                 }
             });
         }
@@ -362,6 +357,65 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
      * onPostCreate() and onConfigurationChanged()...
      */
 
+    //check forced update
+    private void checkForcedUpdate(ForcedUpdateResponse data,AppError error,int versionCode){
+        if(versionCode<data.getForcedUpdateData().android_version&&data.getForcedUpdateData().force_update_android==0){
+
+            Constants.flag = 2;
+            new AlertDialog.Builder(BaseActivity.this)
+
+                    .setTitle("Update App")
+                    .setMessage("Do you want to update the application?")
+                    .setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // continue with delete
+                            final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+                            try {
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                            } catch (android.content.ActivityNotFoundException anfe) {
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                            }
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // do nothing
+                        }
+                    })
+                    .setIcon(R.drawable.emissionsloginlogo)
+                    .show();
+        }
+        else if(versionCode<data.getForcedUpdateData().android_version&&data.getForcedUpdateData().force_update_android==1){
+
+
+            Constants.flag=3;
+//                        Intent intent=new Intent(BaseActivity.this,ForcedUpdateActivity.class);
+//                        startActivity(intent);
+//                        finish();
+            new AlertDialog.Builder(BaseActivity.this)
+
+                    .setCancelable(false)
+                    .setTitle("Update App")
+                    .setMessage("Please update to continue using the application. This should only take a few moments.")
+                    .setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // continue with delete
+                            final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+                            try {
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                            } catch (android.content.ActivityNotFoundException anfe) {
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                            }
+                        }
+                    })
+                    .setIcon(R.drawable.emissionsloginlogo)
+                    .show();
+
+        }
+        else{
+            Constants.flag = 2;
+        }
+    }
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
