@@ -44,6 +44,7 @@ import com.snaptech.emissio.UI.SlidingPane.SlidingPaneAdapter;
 import com.snaptech.emissio.Utility.AppError;
 import com.snaptech.emissio.Utility.Common;
 import com.snaptech.emissio.Utility.Constants;
+import com.snaptech.emissio.Utility.InternetCheck;
 import com.snaptech.emissio.WebService.ForcedUpdateResponse;
 import com.snaptech.emissio.WebService.LoginResponse;
 import com.snaptech.emissio.custom.RobotoRegularTextView;
@@ -108,6 +109,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
 
         HashMap hashMap=new HashMap();
 
+        if(InternetCheck.isNetworkConnected(BaseActivity.this)){
         if(Constants.flag==3) {
             ForceUpdateManager.getSharedInstance().getForcedUpdateData(hashMap, new ForceUpdateManager.GetForcedUpdateManagerListener() {
                 @Override
@@ -128,7 +130,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
 
                 }
             });
-        }
+        }}
         super.onResume();
 //        if (jumpToFragment)
 //        {
@@ -203,13 +205,14 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
         System.out.println("Flag is "+Constants.flag);
 
         //Forced Update
-        if(Constants.flag==1) {
-            ForceUpdateManager.getSharedInstance().getForcedUpdateData(hashMap, new ForceUpdateManager.GetForcedUpdateManagerListener() {
-                @Override
-                public void onCompletion(ForcedUpdateResponse data, AppError error) {
-                    System.out.println("Data received" + data.getMessage() + "version is" + data.getForcedUpdateData().android_version + " actual version code is " + versionCode);
-                    versionCode= BuildConfig.VERSION_CODE;
-                    checkForcedUpdate(data,error,versionCode);
+        if(InternetCheck.isNetworkConnected(BaseActivity.this)) {
+            if (Constants.flag == 1) {
+                ForceUpdateManager.getSharedInstance().getForcedUpdateData(hashMap, new ForceUpdateManager.GetForcedUpdateManagerListener() {
+                    @Override
+                    public void onCompletion(ForcedUpdateResponse data, AppError error) {
+                        System.out.println("Data received" + data.getMessage() + "version is" + data.getForcedUpdateData().android_version + " actual version code is " + versionCode);
+                        versionCode = BuildConfig.VERSION_CODE;
+                        checkForcedUpdate(data, error, versionCode);
 
 
 //                final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
@@ -220,9 +223,9 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
 //                }
 
 
-
-                }
-            });
+                    }
+                });
+            }
         }
        // int titleId = getResources().getIdentifier("action_bar_title", "id",
                 //"android");
@@ -455,12 +458,23 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
 
                 break;
             case 1:
+                if(InternetCheck.isNetworkConnected(BaseActivity.this)){
                 fragmentName = "Calendar";
                 if (!(fragmentToLoad instanceof CalendarFragment))
                 {
                     fragmentToLoad = new CalendarFragment();
                 }
                 closeApp = false;
+                }
+                else{
+                    fragmentName = "Home";
+                    if (!(fragmentToLoad instanceof HomeFragment))
+                    {
+                        fragmentToLoad = new HomeFragment();
+                    }
+                    closeApp = true;
+                    Toast.makeText(BaseActivity.this,"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
+                }
                 break;
             case 2:
                 fragmentName = "Photos";

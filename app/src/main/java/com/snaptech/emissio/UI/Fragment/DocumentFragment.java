@@ -19,6 +19,7 @@ import com.snaptech.emissio.UI.Activity.PDFViewer;
 import com.snaptech.emissio.UI.Adapter.DocumentsViewAdapter;
 import com.snaptech.emissio.UI.Model.NewsLetter;
 import com.snaptech.emissio.Utility.AppError;
+import com.snaptech.emissio.Utility.InternetCheck;
 import com.snaptech.emissio.WebService.DocumentsResponse;
 
 import java.util.ArrayList;
@@ -112,46 +113,46 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
 //            }
 //        }
 
-        pageCount=1;
-      //  String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
+        if(InternetCheck.isNetworkConnected(getActivity())) {
+            pageCount = 1;
+            //  String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
-        HashMap object = new HashMap();
-        //object.put("regId", Constants.GCM_REG_ID);
-        //object.put("groupId", grpIdString);
-        object.put("page", "1");
+            HashMap object = new HashMap();
+            //object.put("regId", Constants.GCM_REG_ID);
+            //object.put("groupId", grpIdString);
+            object.put("page", "1");
 
-        DocumentManager.getSharedInstance().getAllDocs(object, new DocumentManager.GetDocumentManagerListener() {
-            @Override
-            public void onCompletion(DocumentsResponse data, AppError error) {
-                //progressBar.setVisibility(View.GONE);
-                 swipeRefreshLayout.setRefreshing(false);
-                if (data != null) {
-                    if (data.getStatus() == 200) {
-                        if (data.getData().getDocs().size() > 0) {
-                            // no totalRecord in new aPI call
-                            //totalRecord = data.getData().getTotalRecords();
-                            newsLetterList.clear();
-                            newsLetterList.addAll(DocumentManager.docsList);
-                            newsLetterListViewAdapter.notifyDataSetChanged();
+            DocumentManager.getSharedInstance().getAllDocs(object, new DocumentManager.GetDocumentManagerListener() {
+                @Override
+                public void onCompletion(DocumentsResponse data, AppError error) {
+                    //progressBar.setVisibility(View.GONE);
+                    swipeRefreshLayout.setRefreshing(false);
+                    if (data != null) {
+                        if (data.getStatus() == 200) {
+                            if (data.getData().getDocs().size() > 0) {
+                                // no totalRecord in new aPI call
+                                //totalRecord = data.getData().getTotalRecords();
+                                newsLetterList.clear();
+                                newsLetterList.addAll(DocumentManager.docsList);
+                                newsLetterListViewAdapter.notifyDataSetChanged();
 
-                        }
-                        else if (data.getStatus() == 401)
-                        {
-                            //Logout User
-                        }
-
-                        else {
-                         //   Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                            } else if (data.getStatus() == 401) {
+                                //Logout User
+                            } else {
+                                //   Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            // Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                       // Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                   // Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
-
+            });
+        }
+        else{
+            Toast.makeText(getActivity(),"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -198,6 +199,7 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
                 if(!isLoading){
                     isLoading = true;
                     System.out.println("Load More");
+
                     loadMoreData();
                     // Toast.makeText(getActivity(),"Load More",Toast.LENGTH_SHORT).show();
 
@@ -242,7 +244,7 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
                         //Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
                 }
             }
         });

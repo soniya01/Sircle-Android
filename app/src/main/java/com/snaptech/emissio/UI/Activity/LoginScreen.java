@@ -73,6 +73,7 @@ public class LoginScreen extends Activity {
             @Override
             public void onClick(View v) {
 
+
                 Intent homeIntent = new Intent(LoginScreen.this, SignUpScreen.class);
                 startActivity(homeIntent);
 
@@ -277,7 +278,7 @@ public class LoginScreen extends Activity {
                     ringProgressDialog.dismiss();
                     usernameField.setText("");
                     passwordEditText.setText("");
-                    Toast.makeText(LoginScreen.this, "Check internet connectivity", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginScreen.this, "Sorry! Please Check your Internet Connection", Toast.LENGTH_SHORT).show();
 
                 }
             }

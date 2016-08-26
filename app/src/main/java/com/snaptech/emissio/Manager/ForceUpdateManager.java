@@ -36,6 +36,7 @@ public class ForceUpdateManager {
 
     public void getForcedUpdateData(HashMap requestObject, final GetForcedUpdateManagerListener getForcedUpdateManagerListener){
 
+
         ForcedUpdateService.getSharedInstance().getForcedUpdateData(requestObject, new ForcedUpdateService.GetForcedServiceManagerListener() {
             @Override
             public void onCompletion(ForcedUpdateResponse data, AppError error) {

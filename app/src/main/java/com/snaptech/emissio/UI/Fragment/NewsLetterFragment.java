@@ -17,6 +17,7 @@ import com.snaptech.emissio.UI.Activity.PDFViewer;
 import com.snaptech.emissio.UI.Adapter.NewsLettersViewAdapter;
 import com.snaptech.emissio.UI.Model.NewsLetter;
 import com.snaptech.emissio.Utility.AppError;
+import com.snaptech.emissio.Utility.InternetCheck;
 import com.snaptech.emissio.WebService.DocumentsResponse;
 
 import java.util.ArrayList;
@@ -107,30 +108,31 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
 
     public void populateDummyData(){
 
-        pageCount=1;
-       // String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
+        if(InternetCheck.isNetworkConnected(getActivity())) {
+            pageCount = 1;
+            // String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
-        HashMap map = new HashMap();
-        //map.put("regId", Constants.GCM_REG_ID);
-       // map.put("groupId", grpIdString);
-        map.put("page", "1");
+            HashMap map = new HashMap();
+            //map.put("regId", Constants.GCM_REG_ID);
+            // map.put("groupId", grpIdString);
+            map.put("page", "1");
 
-      //  System.out.println("Map " + map);
+            //  System.out.println("Map " + map);
 
-        DocumentManager.getSharedInstance().getAllNewsLetters(map, new DocumentManager.GetDocumentManagerListener() {
-            @Override
-            public void onCompletion(DocumentsResponse response, AppError error) {
-              //  progressBar.setVisibility(View.GONE);
-                swipeRefreshLayout.setRefreshing(false);
-                if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
-                    if (response != null) {
-                        if (response.getStatus() == 200) {
-                            if (response.getData().getDocs().size() > 0) {
+            DocumentManager.getSharedInstance().getAllNewsLetters(map, new DocumentManager.GetDocumentManagerListener() {
+                @Override
+                public void onCompletion(DocumentsResponse response, AppError error) {
+                    //  progressBar.setVisibility(View.GONE);
+                    swipeRefreshLayout.setRefreshing(false);
+                    if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
+                        if (response != null) {
+                            if (response.getStatus() == 200) {
+                                if (response.getData().getDocs().size() > 0) {
 
-                                //totalRecord = response.getData().getTotalRecords();
-                                newsLetterList.clear();
-                                newsLetterList.addAll(DocumentManager.newsLetterList);
-                                newsLetterListViewAdapter.notifyDataSetChanged();
+                                    //totalRecord = response.getData().getTotalRecords();
+                                    newsLetterList.clear();
+                                    newsLetterList.addAll(DocumentManager.newsLetterList);
+                                    newsLetterListViewAdapter.notifyDataSetChanged();
 
 //                                if (NewsLetterFragment.this.newsLetterList.size() == 0){
 //                                    NewsLetterFragment.this.newsLetterList.addAll(response.getData().getNewsLetters());
@@ -141,19 +143,22 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
 //                                    NewsLetterFragment.this.newsLetterList.addAll(response.getData().getNewsLetters());
 //                                    newsLetterListViewAdapter.notifyDataSetChanged();
 //                                }
+                                } else {
+                                    //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
                             } else {
-                              //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                             }
-                        } else {
-                            //Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                    }
 
-                } else {
-                    Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), "Sorry! Please Check your Internet Connection", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
+            });
+        }
+        else
+            Toast.makeText(getActivity(),"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
     }
 
     @Override

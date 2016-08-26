@@ -52,6 +52,7 @@ public class RegistrationIntentService extends IntentService {
                         // TODO: Implement this method to send any registration to your app's servers.
 
                         Constants.GCM_REG_ID = token;
+                        System.out.println("gcm token is "+Constants.GCM_REG_ID);
                         sharedPreferences.edit().putString(Constants.TOKEN_TO_SERVER, token).apply();
                         sharedPreferences.edit().putBoolean(Constants.SENT_TOKEN_TO_SERVER, true).apply();
                     }catch (Exception e) {

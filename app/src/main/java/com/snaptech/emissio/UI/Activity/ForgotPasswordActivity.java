@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.snaptech.emissio.Manager.LoginManager;
 import com.snaptech.emissio.R;
 import com.snaptech.emissio.Utility.AppError;
+import com.snaptech.emissio.Utility.InternetCheck;
 import com.snaptech.emissio.WebService.ForgotPasswordResponse;
 
 import java.util.HashMap;
@@ -46,7 +47,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
 
+                    if(InternetCheck.isNetworkConnected(ForgotPasswordActivity.this))
                     RegisterUser();
+                    else
+                        Toast.makeText(ForgotPasswordActivity.this,"Sorry! Please Check your Internet Connection.",Toast.LENGTH_SHORT).show();
 
                 }
                 return false;
@@ -58,7 +62,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                    if(InternetCheck.isNetworkConnected(ForgotPasswordActivity.this))
                    RegisterUser();
+                    else
+                        Toast.makeText(ForgotPasswordActivity.this,"Sorry! Please Check your Internet Connection.",Toast.LENGTH_SHORT).show();
 
 
             }
@@ -114,7 +121,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     ringProgressDialog.dismiss();
                     usernameField.setText("");
 
-                    Toast.makeText(ForgotPasswordActivity.this, "Check internet connectivity", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ForgotPasswordActivity.this, "Sorry! Please Check your Internet Connection.", Toast.LENGTH_SHORT).show();
 
                 }
             }

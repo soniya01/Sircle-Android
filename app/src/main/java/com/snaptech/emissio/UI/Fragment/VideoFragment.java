@@ -20,6 +20,7 @@ import com.snaptech.emissio.UI.Adapter.VideoListViewAdapter;
 import com.snaptech.emissio.UI.Model.Video;
 import com.snaptech.emissio.Utility.AppError;
 import com.snaptech.emissio.Utility.DeveloperKey;
+import com.snaptech.emissio.Utility.InternetCheck;
 import com.snaptech.emissio.WebService.VideoResponse;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubeStandalonePlayer;
@@ -107,7 +108,7 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 
-                if (videoList.get(position).getVideoType() != null){
+                if (videoList.get(position).getVideoType() != null) {
 
                     if (videoList.get(position).getVideoType().equals("youtube")) {
                         Intent intent = YouTubeStandalonePlayer.createVideoIntent(
@@ -125,17 +126,15 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                     } else {
                         Intent intent = new Intent(getActivity(), VimeoWebviewActivity.class);
                         intent.putExtra("VideoUrl", videoList.get(position).getVideoId());
-                        System.out.println("Video id is "+videoList.get(position).getVideoId()+" and video Url is "+videoList.get(position).getVideoEmbedURL());
+                        System.out.println("Video id is " + videoList.get(position).getVideoId() + " and video Url is " + videoList.get(position).getVideoEmbedURL());
                         startActivity(intent);
 
 
                     }
 
-            }
-                else
-                {
+                } else {
 
-                    Toast.makeText(getActivity(), "Something went wrong please try after some time", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -146,9 +145,10 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     public void populateDummyData() {
 
-        pageCount=1;
-        videoList.clear();
-        //swipeRefreshLayout.setRefreshing(false);
+        if(InternetCheck.isNetworkConnected(getActivity())) {
+            pageCount = 1;
+            videoList.clear();
+            //swipeRefreshLayout.setRefreshing(false);
 //        final ProgressBar progressBar = new ProgressBar(getActivity(), null, android.R.attr.progressBarStyleLarge);
 //        progressBar.setIndeterminate(true);
 //        progressBar.setVisibility(View.VISIBLE);
@@ -165,50 +165,53 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 //            }
 //        }
 
-      //  String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
+            //  String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
-        HashMap object = new HashMap();
-       // object.put("regId", Constants.GCM_REG_ID);
-        //object.put("groupId", grpIdString);
-        object.put("page", "1");
+            HashMap object = new HashMap();
+            // object.put("regId", Constants.GCM_REG_ID);
+            //object.put("groupId", grpIdString);
+            object.put("page", "1");
 
-        System.out.println("Populate Dummy");
+            System.out.println("Populate Dummy");
 
-        VideoManager.getSharedInstance().getAllVideos(object, new VideoManager.VideoManagerListener() {
-            @Override
-            public void onCompletion(VideoResponse response, AppError error) {
-               // progressBar.setVisibility(View.GONE);
-                //swipeRefreshLayout.setRefreshing(false);
-                if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
-                    if (response != null) {
-                        if (response.getStatus() == 200) {
-                            if (response.getData().getVideos().size() > 0) {
+            VideoManager.getSharedInstance().getAllVideos(object, new VideoManager.VideoManagerListener() {
+                @Override
+                public void onCompletion(VideoResponse response, AppError error) {
+                    // progressBar.setVisibility(View.GONE);
+                    //swipeRefreshLayout.setRefreshing(false);
+                    if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
+                        if (response != null) {
+                            if (response.getStatus() == 200) {
+                                if (response.getData().getVideos().size() > 0) {
 
-                               // totalRecord = response.getData().getTotalRecords();
-                                videoList.clear();
-                                videoList.addAll(VideoManager.videoList);
-                                videoListViewAdapter.notifyDataSetChanged();
+                                    // totalRecord = response.getData().getTotalRecords();
+                                    videoList.clear();
+                                    videoList.addAll(VideoManager.videoList);
+                                    videoListViewAdapter.notifyDataSetChanged();
 
-                                swipeRefreshLayout.setRefreshing(false);
+                                    swipeRefreshLayout.setRefreshing(false);
 
+                                } else {
+                                    swipeRefreshLayout.setRefreshing(false);
+                                    //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
                             } else {
                                 swipeRefreshLayout.setRefreshing(false);
-                              //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                                // Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                             }
+
                         } else {
                             swipeRefreshLayout.setRefreshing(false);
-                           // Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(),"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
                         }
 
-                    } else {
-                        swipeRefreshLayout.setRefreshing(false);
-                        Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection", Toast.LENGTH_SHORT).show();
                     }
 
                 }
-
-            }
-        });
+            });
+        }
+        else
+            Toast.makeText(getActivity(),"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
 
     }
 

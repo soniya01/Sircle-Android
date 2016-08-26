@@ -20,6 +20,7 @@ import com.snaptech.emissio.Manager.NotificationManager;
 import com.snaptech.emissio.R;
 import com.snaptech.emissio.UI.Activity.BaseActivity;
 import com.snaptech.emissio.Utility.Constants;
+import com.snaptech.emissio.Utility.InternetCheck;
 
 import java.util.Set;
 
@@ -55,10 +56,15 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Toast.makeText(TravelBite.this, "test", Toast.LENGTH_SHORT).show();
+                if(InternetCheck.isNetworkConnected(getActivity())){
                 fragmentToLoad = new CalendarFragment();
                 if (fragmentToLoad != null) {
                     loadFragment(getActivity(), fragmentToLoad, "Calendar",1);
 
+                }
+            }
+                else{
+                    Toast.makeText(getActivity(),"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
                 }
             }
         });

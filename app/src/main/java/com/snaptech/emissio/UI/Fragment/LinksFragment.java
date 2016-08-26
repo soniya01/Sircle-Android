@@ -23,6 +23,7 @@ import com.snaptech.emissio.UI.Adapter.LinksListViewAdapter;
 import com.snaptech.emissio.UI.Model.Links;
 import com.snaptech.emissio.Utility.AppError;
 import com.snaptech.emissio.Utility.Constants;
+import com.snaptech.emissio.Utility.InternetCheck;
 import com.snaptech.emissio.WebService.LinksResponse;
 
 import java.util.ArrayList;
@@ -136,7 +137,8 @@ public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     private void populateDummyData(int page) {
 
-        pageCount=1;
+        if(InternetCheck.isNetworkConnected(getActivity())) {
+            pageCount = 1;
 //        String grpIdString = "";
 //        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
 //            if (i == 0){
@@ -146,41 +148,45 @@ public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 //            }
 //        }
 
-       // String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
+            // String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
-        HashMap map = new HashMap();
-        //map.put("regId", Constants.GCM_REG_ID);
-      //  map.put("groupId", grpIdString);
-        map.put("page", page+"");
+            HashMap map = new HashMap();
+            //map.put("regId", Constants.GCM_REG_ID);
+            //  map.put("groupId", grpIdString);
+            map.put("page", page + "");
 
-        System.out.print("Map "+map);
+            System.out.print("Map " + map);
 
-        LinksManager.getSharedInstance().getAllLinks(map, new LinksManager.LinksManagerListener() {
-            @Override
-            public void onCompletion(LinksResponse response, AppError error) {
-                isLoading = false;
-                swipeRefreshLayout.setRefreshing(false);
-                if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
-                    if (response != null) {
-                        if (response.getData().getLinks().size() > 0) {
-                          //  totalRecord = response.getData().getTotalRecords();
-                           // pageRecords =  response.getData().getPageRecords();
-                            linksList.clear();
-                            linksList.addAll(response.getData().getLinks());
-                            linksListViewAdapter.notifyDataSetChanged();
+            LinksManager.getSharedInstance().getAllLinks(map, new LinksManager.LinksManagerListener() {
+                @Override
+                public void onCompletion(LinksResponse response, AppError error) {
+                    isLoading = false;
+                    swipeRefreshLayout.setRefreshing(false);
+                    if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
+                        if (response != null) {
+                            if (response.getData().getLinks().size() > 0) {
+                                //  totalRecord = response.getData().getTotalRecords();
+                                // pageRecords =  response.getData().getPageRecords();
+                                linksList.clear();
+                                linksList.addAll(response.getData().getLinks());
+                                linksListViewAdapter.notifyDataSetChanged();
 
+                            } else {
+                                //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
                         } else {
-                          //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection", Toast.LENGTH_SHORT).show();
                         }
-                    }else {
+
+                    } else {
                         Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection", Toast.LENGTH_SHORT).show();
                     }
-
-                } else {
-                    Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
+            });
+        }
+        else {
+            Toast.makeText(getActivity(),"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
+        }
 
     }
 

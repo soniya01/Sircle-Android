@@ -1,7 +1,5 @@
 package com.snaptech.emissio.UI.Fragment;
 
-
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,6 +21,7 @@ import com.snaptech.emissio.UI.Adapter.NotificationListviewAdapter;
 import com.snaptech.emissio.UI.Model.Notification;
 import com.snaptech.emissio.Utility.AppError;
 import com.snaptech.emissio.Utility.Constants;
+import com.snaptech.emissio.Utility.InternetCheck;
 import com.snaptech.emissio.WebService.NotificationResponse;
 
 import java.util.ArrayList;
@@ -81,7 +80,10 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
                                         public void run() {
                                             swipeRefreshLayout.setRefreshing(true);
 
+                                            if(InternetCheck.isNetworkConnected(getActivity()))
                                             populateDummyData();
+                                            else
+                                                Toast.makeText(getActivity(),"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
                                         }
                                     }
             );
@@ -143,7 +145,10 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
                 if(!isLoading){
                     isLoading = true;
                     System.out.println("Load More");
+                    if(InternetCheck.isNetworkConnected(getActivity()))
                     loadMoreData();
+                    else
+                        Toast.makeText(getActivity(),"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
                     // Toast.makeText(getActivity(),"Load More",Toast.LENGTH_SHORT).show();
 
                 }
@@ -222,8 +227,14 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
 
     @Override
     public void onRefresh() {
-        pageCount = 1;
+        if (InternetCheck.isNetworkConnected(getActivity()))
+        {
+            pageCount = 1;
         populateDummyData();
+    }
+        else{
+            Toast.makeText(getActivity(),"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void loadMoreData()

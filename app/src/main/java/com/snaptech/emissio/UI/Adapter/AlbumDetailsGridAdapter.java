@@ -9,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.snaptech.emissio.R;
 import com.snaptech.emissio.UI.Activity.AlbumFullScreenActivity;
 import com.snaptech.emissio.UI.Model.AlbumDetails;
+import com.snaptech.emissio.Utility.InternetCheck;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -117,11 +119,16 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
         @Override
         public void onClick(View v) {
            // Toast.makeText(mContext, "image clicked", Toast.LENGTH_SHORT).show();
+            if(InternetCheck.isNetworkConnected(mContext)){
             Intent i = new Intent(mContext, AlbumFullScreenActivity.class);
             i.putExtra("position", _postion);
             i.putExtra("url",albumDetailsList.get(_postion).getFilePath());
             i.putExtra("caption",albumDetailsList.get(_postion).getFileName());
             mContext.startActivity(i);
+        }
+            else{
+                Toast.makeText(mContext,"Sorry! Please Check your Internet Connection.",Toast.LENGTH_SHORT).show();
+            }
         }
 
     }

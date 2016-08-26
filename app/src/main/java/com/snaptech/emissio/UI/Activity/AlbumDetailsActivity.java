@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.snaptech.emissio.Manager.PhotoManager;
 import com.snaptech.emissio.R;
@@ -22,6 +23,7 @@ import com.snaptech.emissio.UI.Model.AlbumDetails;
 import com.snaptech.emissio.UI.cam.activity.CameraActivity;
 import com.snaptech.emissio.Utility.AppError;
 import com.snaptech.emissio.Utility.Constants;
+import com.snaptech.emissio.Utility.InternetCheck;
 import com.snaptech.emissio.WebService.AlbumResponse;
 
 import java.util.ArrayList;
@@ -136,7 +138,10 @@ public class AlbumDetailsActivity extends AppCompatActivity implements SwipeRefr
             albumId = b.getInt("albumId");
             albumDetailsList.clear();
             pageCount = 0;
+            if(InternetCheck.isNetworkConnected(AlbumDetailsActivity.this))
             loadMoreData();
+            else
+                Toast.makeText(AlbumDetailsActivity.this,"Sorry! Please Check your Internet Connection.", Toast.LENGTH_SHORT).show();
 //            shouldSelectListViewItem = true;
 //            didSelectListViewItemAtIndex(selectedModuleIndex);
         }
@@ -326,7 +331,10 @@ public class AlbumDetailsActivity extends AppCompatActivity implements SwipeRefr
 
         albumDetailsList.clear();
         pageCount = 0;
+        if(InternetCheck.isNetworkConnected(AlbumDetailsActivity.this))
         loadMoreData();
+        else
+            Toast.makeText(AlbumDetailsActivity.this,"Sorry! Please Check your Internet Connection.",Toast.LENGTH_SHORT).show();
 
         //if (albumDetailsList.size() <= 0){
             /**

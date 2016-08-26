@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.snaptech.emissio.Manager.LoginManager;
 import com.snaptech.emissio.R;
 import com.snaptech.emissio.Utility.AppError;
+import com.snaptech.emissio.Utility.InternetCheck;
 import com.snaptech.emissio.WebService.ForgotPasswordResponse;
 
 import java.util.HashMap;
@@ -45,7 +46,10 @@ public class SignUpScreen extends AppCompatActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
 
+                    if(InternetCheck.isNetworkConnected(SignUpScreen.this))
                     RegisterUser();
+                    else
+                        Toast.makeText(SignUpScreen.this,"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
 
                 }
                 return false;
@@ -57,7 +61,10 @@ public class SignUpScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                if(InternetCheck.isNetworkConnected(SignUpScreen.this))
                 RegisterUser();
+                else
+                    Toast.makeText(SignUpScreen.this,"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
 
 
             }
