@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "407595736445",
-    "project_id": "emissio-demo-app"
+    "project_number": "528420521106",
+    "project_id": "emissio-demo2"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:407595736445:android:3b934460f8dfe60c",
+        "mobilesdk_app_id": "1:528420521106:android:d321badc69cb496f",
         "android_client_info": {
-          "package_name": "com.grayjam.sircle"
+          "package_name": "com.snaptech.emissiodemo2"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBobb_8PFDBrA7BZ1hs7VeyZt8iyMKKQg0"
+          "current_key": "AIzaSyCcP_Kcoe1va0tqD2R2Gqd7FMOL48s_xYg"
         }
       ],
       "services": {

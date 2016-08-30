@@ -43,7 +43,7 @@
             android:layout_toRightOf="@+id/imageLayout"
             android:orientation="vertical">
 
-            <com.snaptech.emissio.custom.RobotoLightTextView
+            <com.snaptech.emissiodemo2.custom.RobotoLightTextView
                 android:id="@+id/pdfDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
                 android:textColor="#666666"
                 android:text="Wed 27 July 2015" />
 
-            <com.snaptech.emissio.custom.RobotoLightTextView
+            <com.snaptech.emissiodemo2.custom.RobotoLightTextView
                 android:id="@+id/pdfTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
 
 
 
-        <com.snaptech.emissio.custom.RobotoLightTextView
+        <com.snaptech.emissiodemo2.custom.RobotoLightTextView
             android:id="@+id/pdfTime"
             android:textColor="#666666"
             android:layout_width="wrap_content"
