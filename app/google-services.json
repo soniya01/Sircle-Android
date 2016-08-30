@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "407595736445",
-    "project_id": "emissio-demo-app"
+    "project_number": "148184972552",
+    "project_id": "hasanat-high"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:407595736445:android:3b934460f8dfe60c",
+        "mobilesdk_app_id": "1:148184972552:android:da45ddef5e993868",
         "android_client_info": {
-          "package_name": "com.grayjam.sircle"
+          "package_name": "com.snaptech.hasanaths"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBobb_8PFDBrA7BZ1hs7VeyZt8iyMKKQg0"
+          "current_key": "AIzaSyCC-r52OgWzYYkFbaBmJoYvZZEkfwboPH4"
         }
       ],
       "services": {
