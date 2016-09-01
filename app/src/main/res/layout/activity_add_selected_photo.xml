@@ -9,7 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context="com.snaptech.emissiodemo2.UI.Activity.AddSelectedPhoto">
+    tools:context="com.snaptech.spanishdemo.UI.Activity.AddSelectedPhoto">
 
     <ImageView
         android:id="@+id/activity_add_new_photo_image"

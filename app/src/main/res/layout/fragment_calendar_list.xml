@@ -3,7 +3,7 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:orientation="vertical"
-tools:context="com.snaptech.emissiodemo2.UI.Fragment.CalendarListFragment">
+tools:context="com.snaptech.spanishdemo.UI.Fragment.CalendarListFragment">
 
 <View
     android:layout_width="match_parent"
