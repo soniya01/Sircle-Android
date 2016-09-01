@@ -22,6 +22,7 @@ import com.snaptech.emissiodemo2.UI.Activity.EventDetailActivity;
 import com.snaptech.emissiodemo2.Utility.Constants;
 import com.google.android.gms.gcm.GcmListenerService;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -78,7 +79,22 @@ if (accessToken!=null) {
     private void sendNotification(Bundle data) {
         String title = "", eventId = "", url = "", Id = "", message = "";
 
+//Bundle[{google.sent_time=1472639437037, collapse_key=do_not_collapse, default={"default":"default","GCM":{"data":{"notifications":[{"id":235,"other_id":235,"type":"notification","title":"aws","message":"aws msg"}]}}}, google.message_id=0:1472639437042005%882aec69f9fd7ecd}]
 
+        String data2=data.getString("default");
+        try{
+            JSONObject jsonObject=new JSONObject(data2);
+            JSONObject gcmObject=jsonObject.getJSONObject("GCM");
+            JSONObject dataObject=gcmObject.getJSONObject("data");
+            JSONArray notifications=dataObject.getJSONArray("notifications");
+            JSONObject actualdata=notifications.getJSONObject(0);
+            title=actualdata.getString("title");
+
+            System.out.println("title is "+title);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         SharedPreferences loginSharedPrefs = getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
         LoginManager.accessToken = loginSharedPrefs.getString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, null);
 
@@ -117,7 +133,7 @@ if (accessToken!=null) {
 
 //        Toast.makeText(getBaseContext(), title + "\n" + message,Toast.LENGTH_SHORT).show();
         System.out.println("message: "+ title + "\n" + message);
-        title = data.getString("title");
+       // title = data.getString("title");
         message = data.getString("message");
 
         if (url.equals("notification")){
@@ -200,6 +216,7 @@ if (accessToken!=null) {
                 PendingIntent.FLAG_UPDATE_CURRENT);
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
+        System.out.println("Title to be set is "+title);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             notification = new Notification.Builder(this)
                     .setContentTitle(getResources().getString(R.string.app_name))

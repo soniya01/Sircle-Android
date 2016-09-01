@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -57,13 +58,14 @@ public class AlbumImagePagerAdapter extends PagerAdapter {
         titleLabel = (TextView)viewLayout.findViewById(R.id.album_image_title_label);
         countLabel = (TextView)viewLayout.findViewById(R.id.albums_image_no_label);
 
+        //photoImageView.setScaleType(TouchImageView.ScaleType.CENTER_CROP);
         titleLabel.setText(albumDetailsList.get(position).getFileName());
 
         countLabel.setText((position+1)+"/"+albumDetailsList.size());
 
         // get screen dimensions
         Picasso.with(context)
-                .load(albumDetailsList.get(position).getFilePath()).fit().centerCrop()
+                .load(albumDetailsList.get(position).getFilePath()).fit().centerInside()
                 .into(photoImageView, new Callback() {
                     @Override
                     public void onSuccess() {
