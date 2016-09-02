@@ -239,7 +239,7 @@ public class CalendarListFragment extends Fragment implements AbsListView.OnScro
                        // Toast.makeText(myContext, data.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }else {
-                    Toast.makeText(App.getAppContext(), "Some problem occurred", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(App.getAppContext(), "Compruebe internet", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -348,7 +348,7 @@ public class CalendarListFragment extends Fragment implements AbsListView.OnScro
 
                     }
                 }else {
-                    Toast.makeText(App.getAppContext(), "Some problem occurred", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(App.getAppContext(), "Compruebe internet", Toast.LENGTH_SHORT).show();
                 }
             }
         });

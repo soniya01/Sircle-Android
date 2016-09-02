@@ -278,7 +278,7 @@ public class LoginScreen extends Activity {
                     ringProgressDialog.dismiss();
                     usernameField.setText("");
                     passwordEditText.setText("");
-                    Toast.makeText(LoginScreen.this, "Sorry! Please Check your Internet Connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginScreen.this, "Compruebe internet", Toast.LENGTH_SHORT).show();
 
                 }
             }

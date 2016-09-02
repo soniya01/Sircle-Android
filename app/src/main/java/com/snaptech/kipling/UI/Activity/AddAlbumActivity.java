@@ -81,7 +81,7 @@ public class AddAlbumActivity extends ActionBarActivity {
 
         footerView = View.inflate(this, R.layout.list_view_add_footer, null);
         addButton = (Button) footerView.findViewById(R.id.add_button);
-        addButton.setText("Add Album");
+        addButton.setText("Agregar Album");
         addListView.addFooterView(footerView);
 
 
@@ -150,7 +150,7 @@ public class AddAlbumActivity extends ActionBarActivity {
                               //  Toast.makeText(AddAlbumActivity.this, addAlbumResponse.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(AddAlbumActivity.this, "Some error occurred", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddAlbumActivity.this, "Compruebe internet", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

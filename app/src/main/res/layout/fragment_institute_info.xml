@@ -47,6 +47,7 @@
             android:textSize="18dp"
             android:textColor="#002E49"
             android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
             android:layout_gravity="center"
             android:text=" kiplingmorelia@yahoo.com.mx \n www.kiplingmorelia.edu.mx"
             android:autoLink="email"
@@ -55,11 +56,11 @@
 
         <com.snaptech.kipling.custom.RobotoRegularTextView
             android:textSize="18dp"
-            android:visibility="gone"
             android:textColor="#002E49"
             android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
             android:layout_gravity="center"
-            android:text="01 (443) 315 99 00,3 15 34 98,\n 323 50 48, 275 85 58 y 275 86 80"
+            android:text="01 (443) 315 99 00,3 15 34 98,\n 323 50 48, 275 85 58 y, \n 275 86 80"
             android:autoLink="phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

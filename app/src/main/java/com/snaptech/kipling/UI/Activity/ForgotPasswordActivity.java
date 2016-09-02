@@ -35,7 +35,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        getSupportActionBar().setTitle("Forgot Password");
+        getSupportActionBar().setTitle("Olvide mi Contraseña");
 
 
         setContentView(R.layout.activity_sign_up);
@@ -50,7 +50,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     if(InternetCheck.isNetworkConnected(ForgotPasswordActivity.this))
                     RegisterUser();
                     else
-                        Toast.makeText(ForgotPasswordActivity.this,"Sorry! Please Check your Internet Connection.",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ForgotPasswordActivity.this,"Compruebe internet",Toast.LENGTH_SHORT).show();
 
                 }
                 return false;
@@ -65,7 +65,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     if(InternetCheck.isNetworkConnected(ForgotPasswordActivity.this))
                    RegisterUser();
                     else
-                        Toast.makeText(ForgotPasswordActivity.this,"Sorry! Please Check your Internet Connection.",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ForgotPasswordActivity.this,"Compruebe internet",Toast.LENGTH_SHORT).show();
 
 
             }
@@ -115,13 +115,13 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         ringProgressDialog.dismiss();
                         usernameField.setText("");
 
-                        Toast.makeText(ForgotPasswordActivity.this, "Something went wrong please try again", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ForgotPasswordActivity.this, "Compruebe internet", Toast.LENGTH_SHORT).show();
                     }
                 }else {
                     ringProgressDialog.dismiss();
                     usernameField.setText("");
 
-                    Toast.makeText(ForgotPasswordActivity.this, "Sorry! Please Check your Internet Connection.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ForgotPasswordActivity.this, "Compruebe internet", Toast.LENGTH_SHORT).show();
 
                 }
             }

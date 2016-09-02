@@ -247,7 +247,7 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
 
                         //Toast.makeText(SettingsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(SettingsActivity.this,"some error occurred",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SettingsActivity.this,"Compruebe internet",Toast.LENGTH_SHORT).show();
                     }
 
                 } else {

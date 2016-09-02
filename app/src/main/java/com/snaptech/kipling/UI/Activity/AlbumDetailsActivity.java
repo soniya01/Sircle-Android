@@ -141,7 +141,7 @@ public class AlbumDetailsActivity extends AppCompatActivity implements SwipeRefr
             if(InternetCheck.isNetworkConnected(AlbumDetailsActivity.this))
             loadMoreData();
             else
-                Toast.makeText(AlbumDetailsActivity.this,"Sorry! Please Check your Internet Connection.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AlbumDetailsActivity.this,"Compruebe internet", Toast.LENGTH_SHORT).show();
 //            shouldSelectListViewItem = true;
 //            didSelectListViewItemAtIndex(selectedModuleIndex);
         }
@@ -334,7 +334,7 @@ public class AlbumDetailsActivity extends AppCompatActivity implements SwipeRefr
         if(InternetCheck.isNetworkConnected(AlbumDetailsActivity.this))
         loadMoreData();
         else
-            Toast.makeText(AlbumDetailsActivity.this,"Sorry! Please Check your Internet Connection.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(AlbumDetailsActivity.this,"Compruebe internet",Toast.LENGTH_SHORT).show();
 
         //if (albumDetailsList.size() <= 0){
             /**

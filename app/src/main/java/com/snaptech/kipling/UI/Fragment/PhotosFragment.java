@@ -185,11 +185,11 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
                           //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(getActivity(), "Check internet connectivity", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Compruebe internet", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else {
-                    Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Compruebe internet", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -293,7 +293,7 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
                       //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }else {
-                    Toast.makeText(getActivity(), "Check internet connectivity", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Compruebe internet", Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -159,7 +159,7 @@ public class VideoActivity extends Activity implements MediaPlayer.OnCompletionL
                 String url = params[0];
                 response = Common.getUrlVideoRTSP(url);
             }catch (Exception e){
-                Toast.makeText(VideoActivity.this, "Sorry! There was trouble playing this video. PLease check your net connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(VideoActivity.this, "Compruebe internet", Toast.LENGTH_SHORT).show();
                 VideoActivity.this.finish();
             }
 

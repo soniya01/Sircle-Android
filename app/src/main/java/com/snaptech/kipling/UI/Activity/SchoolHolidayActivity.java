@@ -90,7 +90,7 @@ public class SchoolHolidayActivity extends ActionBarActivity {
 
         footerView = View.inflate(this, R.layout.list_view_add_footer, null);
         addButton = (Button) footerView.findViewById(R.id.add_button);
-        addButton.setText("Add School Holiday");
+        addButton.setText("Agregar Feriado Escolar");
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,7 +156,7 @@ public class SchoolHolidayActivity extends ActionBarActivity {
                                      Toast.makeText(SchoolHolidayActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             } else {
-                                Toast.makeText(SchoolHolidayActivity.this, "some error occurred", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SchoolHolidayActivity.this, "Compruebe internet", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -320,7 +320,7 @@ public class SchoolHolidayActivity extends ActionBarActivity {
 
                       //  Toast.makeText(SchoolHolidayActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(SchoolHolidayActivity.this, "Some error occurred!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SchoolHolidayActivity.this, "Compruebe internet",Toast.LENGTH_SHORT).show();
                     }
 
                 } else {

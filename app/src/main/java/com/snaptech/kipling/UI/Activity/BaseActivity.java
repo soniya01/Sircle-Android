@@ -367,9 +367,9 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
             Constants.flag = 2;
             new AlertDialog.Builder(BaseActivity.this)
 
-                    .setTitle("Update App")
+                    .setTitle("Actualizar Solicitud")
                     .setMessage("Do you want to update the application?")
-                    .setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                    .setPositiveButton("Actualizar", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // continue with delete
                             final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
@@ -380,7 +380,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                             }
                         }
                     })
-                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // do nothing
                         }
@@ -398,9 +398,9 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
             new AlertDialog.Builder(BaseActivity.this)
 
                     .setCancelable(false)
-                    .setTitle("Update App")
+                    .setTitle("Actualizar Solicitud")
                     .setMessage("Please update to continue using the application. This should only take a few moments.")
-                    .setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                    .setPositiveButton("Actualizar", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // continue with delete
                             final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
@@ -449,7 +449,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                 // In this case fragmentToLoad = null and the previous fragment
                 // will
                 // be removed from the container
-                fragmentName = "Home";
+                fragmentName = "Inicio";
                 if (!(fragmentToLoad instanceof HomeFragment))
                 {
                     fragmentToLoad = new HomeFragment();
@@ -459,7 +459,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                 break;
             case 1:
                 if(InternetCheck.isNetworkConnected(BaseActivity.this)){
-                fragmentName = "Calendar";
+                fragmentName = "Calendario";
                 if (!(fragmentToLoad instanceof CalendarFragment))
                 {
                     fragmentToLoad = new CalendarFragment();
@@ -467,35 +467,35 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                 closeApp = false;
                 }
                 else{
-                    fragmentName = "Home";
+                    fragmentName = "Inicio";
                     if (!(fragmentToLoad instanceof HomeFragment))
                     {
                         fragmentToLoad = new HomeFragment();
                     }
                     closeApp = true;
-                    Toast.makeText(BaseActivity.this,"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BaseActivity.this,"Compruebe internet",Toast.LENGTH_SHORT).show();
                 }
                 break;
             case 2:
-                fragmentName = "Photos";
+                fragmentName = "Fotos";
                 if (!(fragmentToLoad instanceof PhotosFragment))
                 fragmentToLoad = new PhotosFragment();
                 closeApp = false;
                 break;
             case 3:
-                fragmentName = "Messages";
+                fragmentName = "Mensajes";
                 if (!(fragmentToLoad instanceof NotificationFragment))
                 fragmentToLoad = new NotificationFragment();
                 closeApp = false;
                 break;
             case 4:
-                fragmentName = "Newsletters";
+                fragmentName = "Boletin Informativo";
                 if (!(fragmentToLoad instanceof NewsLetterFragment))
                 fragmentToLoad = new NewsLetterFragment();
                 closeApp=false;
                 break;
             case 5:
-                fragmentName = "Documents";
+                fragmentName = "Documentos";
                 if (!(fragmentToLoad instanceof DocumentFragment))
                 fragmentToLoad = new DocumentFragment();
                 closeApp = false;
@@ -507,7 +507,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                 closeApp = false;
                 break;
             case 7:
-                fragmentName = "Links";
+                fragmentName = "Enlaces";
                 if (!(fragmentToLoad instanceof LinksFragment))
                 fragmentToLoad = new LinksFragment();
                 closeApp = false;
@@ -516,7 +516,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
             case 8:
                 if (userType.equals("admin")) {
 
-                    fragmentName = "Institute Info";
+                    fragmentName = "Informacion";
                     fragmentToLoad = new InstituteInfo();
                     closeApp = false;
 
@@ -524,7 +524,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                 }
                 else
                 {
-                    fragmentName = "Settings";
+                    fragmentName = "Ajustes";
                     fragmentToLoad = new SettingsFragment();
                 }
                 closeApp = false;
@@ -549,7 +549,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                 }
                 else
                 {
-                    fragmentName = "Institute Info";
+                    fragmentName = "Informacion";
                     fragmentToLoad = new InstituteInfo();
                     closeApp = false;
 
@@ -677,8 +677,8 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
         {
             closeApp=true;
             fragmentToLoad = new HomeFragment();
-            loadFragment(BaseActivity.this, fragmentToLoad,"Home");
-            setActionBarTitle("Home");
+            loadFragment(BaseActivity.this, fragmentToLoad,"Inicio");
+            setActionBarTitle("Inicio");
         }
 
     }

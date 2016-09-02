@@ -46,7 +46,7 @@ public class HomeFragment extends Fragment {
 
 
         ((BaseActivity)getActivity())
-                .setActionBarTitle("Home");
+                .setActionBarTitle("Inicio");
 
         Button calendar = (Button) viewFragment.findViewById(R.id.calendarButton);
         Typeface robotLight = Typeface.createFromAsset(getActivity().getAssets(), "fonts/roboto-light.ttf");
@@ -59,12 +59,12 @@ public class HomeFragment extends Fragment {
                 if(InternetCheck.isNetworkConnected(getActivity())){
                 fragmentToLoad = new CalendarFragment();
                 if (fragmentToLoad != null) {
-                    loadFragment(getActivity(), fragmentToLoad, "Calendar",1);
+                    loadFragment(getActivity(), fragmentToLoad, "Calendario",1);
 
                 }
             }
                 else{
-                    Toast.makeText(getActivity(),"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"Compruebe internet",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -77,7 +77,7 @@ public class HomeFragment extends Fragment {
                 // Toast.makeText(TravelBite.this, "test", Toast.LENGTH_SHORT).show();
                 fragmentToLoad = new PhotosFragment();
                 if (fragmentToLoad != null) {
-                    loadFragment(getActivity(), fragmentToLoad,"Photos",2);
+                    loadFragment(getActivity(), fragmentToLoad,"Fotos",2);
 
                 }
             }
@@ -91,7 +91,7 @@ public class HomeFragment extends Fragment {
                 // Toast.makeText(TravelBite.this, "test", Toast.LENGTH_SHORT).show();
                 fragmentToLoad = new NewsLetterFragment();
                 if (fragmentToLoad != null) {
-                    loadFragment(getActivity(), fragmentToLoad,"Newsletters",4);
+                    loadFragment(getActivity(), fragmentToLoad,"Boletin Informativo",4);
 
                 }
             }
@@ -105,7 +105,7 @@ public class HomeFragment extends Fragment {
                 // Toast.makeText(TravelBite.this, "test", Toast.LENGTH_SHORT).show();
                 fragmentToLoad = new DocumentFragment();
                 if (fragmentToLoad != null) {
-                    loadFragment(getActivity(), fragmentToLoad,"Documents",5);
+                    loadFragment(getActivity(), fragmentToLoad,"Documentos",5);
 
                 }
             }
@@ -133,7 +133,7 @@ public class HomeFragment extends Fragment {
                 // Toast.makeText(TravelBite.this, "test", Toast.LENGTH_SHORT).show();
                 fragmentToLoad = new LinksFragment();
                 if (fragmentToLoad != null) {
-                    loadFragment(getActivity(), fragmentToLoad,"Links",7);
+                    loadFragment(getActivity(), fragmentToLoad,"Enlaces",7);
 
                 }
             }
@@ -153,7 +153,7 @@ public class HomeFragment extends Fragment {
                     String  userType = loginSharedPreferences.getString(Constants.LOGIN_LOGGED_IN_USER_TYPE,null);
 
                     if (!userType.equals("admin")) {
-                        loadFragment(getActivity(), fragmentToLoad,"Settings",8);
+                        loadFragment(getActivity(), fragmentToLoad,"Ajustes",8);
                     }
                     else
                     {
@@ -174,7 +174,7 @@ public class HomeFragment extends Fragment {
                 // Toast.makeText(TravelBite.this, "test", Toast.LENGTH_SHORT).show();
                 fragmentToLoad = new NotificationFragment();
                 if (fragmentToLoad != null) {
-                    loadFragment(getActivity(), fragmentToLoad,"Messages",3);
+                    loadFragment(getActivity(), fragmentToLoad,"Mensajes",3);
 
                 }
             }
@@ -200,11 +200,11 @@ public class HomeFragment extends Fragment {
                     String  userType = loginSharedPreferences.getString(Constants.LOGIN_LOGGED_IN_USER_TYPE,null);
 
                     if (!userType.equals("admin")) {
-                        loadFragment(getActivity(), fragmentToLoad,"Institute Information",9);
+                        loadFragment(getActivity(), fragmentToLoad,"Informacion",9);
                     }
                     else
                     {
-                        loadFragment(getActivity(), fragmentToLoad,"Institute Information",8);
+                        loadFragment(getActivity(), fragmentToLoad,"Informacion",8);
                     }
 
 

@@ -152,13 +152,13 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
                         }
 
                     } else {
-                        Toast.makeText(getActivity(), "Sorry! Please Check your Internet Connection", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Compruebe internet", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         }
         else
-            Toast.makeText(getActivity(),"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),"Compruebe internet",Toast.LENGTH_SHORT).show();
     }
 
     @Override

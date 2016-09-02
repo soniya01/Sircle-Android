@@ -281,7 +281,7 @@ public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnR
                              //   Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(getActivity(), "Some problem occurred",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Compruebe internet",Toast.LENGTH_SHORT).show();
                         }
 
                     } else {

@@ -134,7 +134,7 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
                 } else {
 
-                    Toast.makeText(getActivity(),"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"Compruebe internet",Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -202,7 +202,7 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
                         } else {
                             swipeRefreshLayout.setRefreshing(false);
-                            Toast.makeText(getActivity(),"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(),"Compruebe internet",Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -211,7 +211,7 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
             });
         }
         else
-            Toast.makeText(getActivity(),"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),"Compruebe internet",Toast.LENGTH_SHORT).show();
 
     }
 
@@ -304,7 +304,7 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                         }
 
                     } else {
-                        Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Compruebe internet", Toast.LENGTH_SHORT).show();
                     }
 
                 }

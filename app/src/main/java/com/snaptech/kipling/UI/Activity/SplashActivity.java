@@ -175,7 +175,7 @@ public class SplashActivity extends Activity {
                             //  ringProgressDialog.dismiss();
                             // usernameField.setText("");
 
-                            Toast.makeText(SplashActivity.this,"Something went wrong please try again", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SplashActivity.this,"Compruebe internet", Toast.LENGTH_SHORT).show();
                         }
 
                     }else {

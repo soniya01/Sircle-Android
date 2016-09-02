@@ -270,11 +270,11 @@ public class CalendarFragment extends Fragment {
 
             switch (position){
                 case 0 :
-                    return "Month";
+                    return "Mes";
                 case 1 :
-                    return "List";
+                    return "Lista";
                 case 2 :
-                    return "Term";
+                    return "Terminos";
             }
             return null;
         }

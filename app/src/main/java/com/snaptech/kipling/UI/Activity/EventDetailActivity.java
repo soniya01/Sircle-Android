@@ -108,7 +108,7 @@ public class EventDetailActivity extends AppCompatActivity {
         if(InternetCheck.isNetworkConnected(EventDetailActivity.this))
         getEventDetail();
         else
-            Toast.makeText(EventDetailActivity.this,"Sorry! Please Check your Internet Connection.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(EventDetailActivity.this,"Compruebe internet",Toast.LENGTH_SHORT).show();
     }
 
 
@@ -123,7 +123,7 @@ public class EventDetailActivity extends AppCompatActivity {
             if(InternetCheck.isNetworkConnected(EventDetailActivity.this))
             getEventDetail();
             else
-                Toast.makeText(EventDetailActivity.this,"Sorry! Please Check your Internet Connection.",Toast.LENGTH_SHORT).show();
+                Toast.makeText(EventDetailActivity.this,"Compruebe internet",Toast.LENGTH_SHORT).show();
 //            shouldSelectListViewItem = true;
 //            didSelectListViewItemAtIndex(selectedModuleIndex);
         }
@@ -232,7 +232,7 @@ public class EventDetailActivity extends AppCompatActivity {
                         }
 
                     } else {
-                        Toast.makeText(EventDetailActivity.this, "Some problem occurred", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EventDetailActivity.this, "Compruebe internet", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -290,7 +290,7 @@ public class EventDetailActivity extends AppCompatActivity {
                         //Toast.makeText(EventDetailActivity.this,eventDetailResponse.getMessage(),Toast.LENGTH_SHORT).show();
                     }
                 }else {
-                    Toast.makeText(EventDetailActivity.this,"Sorry! Please Check your Internet Connection.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EventDetailActivity.this,"Compruebe internet",Toast.LENGTH_SHORT).show();
                 }
             }
         });

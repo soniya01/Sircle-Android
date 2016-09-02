@@ -83,7 +83,7 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
                                             if(InternetCheck.isNetworkConnected(getActivity()))
                                             populateDummyData();
                                             else
-                                                Toast.makeText(getActivity(),"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getActivity(),"Compruebe internet",Toast.LENGTH_SHORT).show();
                                         }
                                     }
             );
@@ -148,7 +148,7 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
                     if(InternetCheck.isNetworkConnected(getActivity()))
                     loadMoreData();
                     else
-                        Toast.makeText(getActivity(),"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),"Compruebe internet",Toast.LENGTH_SHORT).show();
                     // Toast.makeText(getActivity(),"Load More",Toast.LENGTH_SHORT).show();
 
                 }
@@ -233,7 +233,7 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
         populateDummyData();
     }
         else{
-            Toast.makeText(getActivity(),"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),"Compruebe internet",Toast.LENGTH_SHORT).show();
         }
     }
 

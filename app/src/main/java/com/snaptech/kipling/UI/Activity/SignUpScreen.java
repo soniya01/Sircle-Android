@@ -74,7 +74,7 @@ public class SignUpScreen extends AppCompatActivity {
     public void RegisterUser()
     {
 
-        ringProgressDialog = ProgressDialog.show(SignUpScreen.this, "", "Registering User", true);
+        ringProgressDialog = ProgressDialog.show(SignUpScreen.this, "", "Registrarse usuario", true);
 
         HashMap<String, String> loginMap = new HashMap<String, String>();
         loginMap.put("email",usernameField.getText().toString());
@@ -115,7 +115,7 @@ public class SignUpScreen extends AppCompatActivity {
                         usernameField.setText("");
                         confirmPasswordFeild.setText("");
                         passwordField.setText("");
-                        Toast.makeText(SignUpScreen.this, "Something went wrong please try again", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignUpScreen.this, "Algo salió mal", Toast.LENGTH_SHORT).show();
                     }
                 }else {
                     ringProgressDialog.dismiss();

@@ -80,7 +80,7 @@ public class AddNotificationActivity extends ActionBarActivity {
 
         footerView = View.inflate(this, R.layout.list_view_add_footer, null);
         addButton = (Button)footerView.findViewById(R.id.add_button);
-        addButton.setText("Add Message");
+        addButton.setText("Mandar Mensaje");
         addListView.addFooterView(footerView);
 
 
@@ -160,7 +160,7 @@ public class AddNotificationActivity extends ActionBarActivity {
                                 }
                             } else {
                                 ringProgressDialog.dismiss();
-                                Toast.makeText(AddNotificationActivity.this, "Check internet connectivity", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddNotificationActivity.this, "Compruebe internet", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -206,7 +206,7 @@ public class AddNotificationActivity extends ActionBarActivity {
 
                       //  Toast.makeText(AddNotificationActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(AddNotificationActivity.this, "Some problem occurred", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddNotificationActivity.this, "Compruebe internet", Toast.LENGTH_SHORT).show();
                     }
 
                 } else {

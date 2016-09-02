@@ -175,17 +175,17 @@ public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                                 //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Compruebe internet", Toast.LENGTH_SHORT).show();
                         }
 
                     } else {
-                        Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Compruebe internet", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         }
         else {
-            Toast.makeText(getActivity(),"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),"Compruebe internet",Toast.LENGTH_SHORT).show();
         }
 
     }

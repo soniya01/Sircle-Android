@@ -151,7 +151,7 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
             });
         }
         else{
-            Toast.makeText(getActivity(),"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),"Compruebe internet",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -244,7 +244,7 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
                         //Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(getActivity(),"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"Compruebe internet",Toast.LENGTH_SHORT).show();
                 }
             }
         });
