@@ -364,7 +364,11 @@ public class CalendarMonthFragment extends Fragment {
                                     }
                                     else {
                                         date = format.parse(dateString);
+                                        boolean sameDay = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
+                                                cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
+                                        if(!sameDay){
                                         dates.put(date, R.drawable.circular_border);
+                                        }
                                         // dates.put(date,R.drawable.camera_icon);
                                         System.out.println("Date ->" + date);
                                     }

@@ -22,6 +22,10 @@ import com.snaptech.emissiodemo2.Utility.InternetCheck;
 import com.snaptech.emissiodemo2.WebService.EventDetailResponse;
 import com.snaptech.emissiodemo2.WebService.PostResponse;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -53,6 +57,7 @@ public class EventDetailActivity extends AppCompatActivity {
        // eventInfo = (TextView)findViewById(R.id.event_detail_info);
         eventGroups = (TextView)findViewById(R.id.event_detail_groups);
         saveButton = (Button)findViewById(R.id.event_detail_save);
+        eventLocation.setText("");
       //  deleteButton = (Button)findViewById(R.id.event_detail_delete);
 
         // add event to calendar
@@ -60,15 +65,21 @@ public class EventDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Date startDate=toDate(eventStartDate.getText().toString());
+                Date endDate=toDate(eventEndDate.getText().toString());
                 Intent intent = new Intent(Intent.ACTION_INSERT);
                 intent.setType("vnd.android.cursor.item/event");
 
-                intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, new Date());
-                intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,new Date());
+                Calendar cal1=Calendar.getInstance();
+                cal1.setTime(startDate);
+                Calendar cal2=Calendar.getInstance();
+                cal2.setTime(endDate);
+                intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, cal1.getTimeInMillis());
+                intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,cal2.getTimeInMillis());
                 intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
-                intent.putExtra(CalendarContract.Events.TITLE, eventTitleString);
+                intent.putExtra(CalendarContract.Events.TITLE, eventTitle.getText().toString());
                 intent.putExtra(CalendarContract.Events.DESCRIPTION, eventDetail);
-                intent.putExtra(CalendarContract.Events.EVENT_LOCATION, eventLocationString);
+                intent.putExtra(CalendarContract.Events.EVENT_LOCATION, eventLocation.getText().toString());
                 intent.putExtra(CalendarContract.Events.RRULE, "FREQ=YEARLY");
                 startActivity(intent);
 
@@ -315,5 +326,18 @@ public class EventDetailActivity extends AppCompatActivity {
 
 
         return super.onPrepareOptionsMenu(menu);
+    }
+    public Date toDate(String dateString){
+        //String startDateString = "06/27/2007";
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        Date startDate=null;
+        try {
+            startDate = df.parse(dateString);
+            String newDateString = df.format(startDate);
+            System.out.println(newDateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return startDate;
     }
 }
