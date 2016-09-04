@@ -80,15 +80,17 @@ if (accessToken!=null) {
         String title = "", eventId = "", url = "", Id = "", message = "";
 
 //Bundle[{google.sent_time=1472639437037, collapse_key=do_not_collapse, default={"default":"default","GCM":{"data":{"notifications":[{"id":235,"other_id":235,"type":"notification","title":"aws","message":"aws msg"}]}}}, google.message_id=0:1472639437042005%882aec69f9fd7ecd}]
-
+//
+      //  vikreddevil [9:06 PM]
+       // Bundle[{google.sent_time=1473003315327, collapse_key=do_not_collapse, default={"title":"NOTIFICATION: sns","message":"sns","payload":{"id":311,"type":"notification","other_id":311}}, google.message_id=0:1473003315332462%882aec69f9fd7ecd}]
         String data2=data.getString("default");
         try{
             JSONObject jsonObject=new JSONObject(data2);
-            JSONObject gcmObject=jsonObject.getJSONObject("GCM");
-            JSONObject dataObject=gcmObject.getJSONObject("data");
-            JSONArray notifications=dataObject.getJSONArray("notifications");
-            JSONObject actualdata=notifications.getJSONObject(0);
-            title=actualdata.getString("title");
+//            JSONObject gcmObject=jsonObject.getJSONObject("GCM");
+//            JSONObject dataObject=gcmObject.getJSONObject("data");
+//            JSONArray notifications=dataObject.getJSONArray("notifications");
+//            JSONObject actualdata=notifications.getJSONObject(0);
+            title=jsonObject.getString("title");
 
             System.out.println("title is "+title);
 
@@ -133,7 +135,7 @@ if (accessToken!=null) {
 
 //        Toast.makeText(getBaseContext(), title + "\n" + message,Toast.LENGTH_SHORT).show();
         System.out.println("message: "+ title + "\n" + message);
-       // title = data.getString("title");
+//        title = data.getString("title");
         message = data.getString("message");
 
         if (url.equals("notification")){
