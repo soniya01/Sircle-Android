@@ -54,7 +54,7 @@ app:mrl_rippleOverlay="true">
         android:layout_toRightOf="@+id/imageLayout"
         android:orientation="vertical">
 
-        <com.snaptech.emissiodemo2.custom.RobotoLightTextView
+        <com.snaptech.msb.custom.RobotoLightTextView
             android:id="@+id/links_row_publish_label_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,7 +64,7 @@ app:mrl_rippleOverlay="true">
             android:textColor="#666666"
             android:text="Wed 27 July 2015" />
 
-        <com.snaptech.emissiodemo2.custom.RobotoLightTextView
+        <com.snaptech.msb.custom.RobotoLightTextView
             android:id="@+id/notification_row_title_label_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -76,7 +76,7 @@ app:mrl_rippleOverlay="true">
             android:textColor="#333333"
             />
 
-        <com.snaptech.emissiodemo2.custom.RobotoLightTextView
+        <com.snaptech.msb.custom.RobotoLightTextView
             android:id="@+id/notification_row_desc_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -94,7 +94,7 @@ app:mrl_rippleOverlay="true">
 
 
 
-    <com.snaptech.emissiodemo2.custom.RobotoLightTextView
+    <com.snaptech.msb.custom.RobotoLightTextView
         android:id="@+id/links_row_publish_label_time"
         android:textColor="#666666"
         android:layout_width="wrap_content"
