@@ -83,20 +83,20 @@ if (accessToken!=null) {
 //
       //  vikreddevil [9:06 PM]
        // Bundle[{google.sent_time=1473003315327, collapse_key=do_not_collapse, default={"title":"NOTIFICATION: sns","message":"sns","payload":{"id":311,"type":"notification","other_id":311}}, google.message_id=0:1473003315332462%882aec69f9fd7ecd}]
-        String data2=data.getString("default");
-        try{
-            JSONObject jsonObject=new JSONObject(data2);
-//            JSONObject gcmObject=jsonObject.getJSONObject("GCM");
-//            JSONObject dataObject=gcmObject.getJSONObject("data");
-//            JSONArray notifications=dataObject.getJSONArray("notifications");
-//            JSONObject actualdata=notifications.getJSONObject(0);
-            title=jsonObject.getString("title");
-
-            System.out.println("title is "+title);
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+//        String data2=data.getString("default");
+//        try{
+//            JSONObject jsonObject=new JSONObject(data2);
+////            JSONObject gcmObject=jsonObject.getJSONObject("GCM");
+////            JSONObject dataObject=gcmObject.getJSONObject("data");
+////            JSONArray notifications=dataObject.getJSONArray("notifications");
+////            JSONObject actualdata=notifications.getJSONObject(0);
+//            title=jsonObject.getString("title");
+//
+//            System.out.println("title is "+title);
+//
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
         SharedPreferences loginSharedPrefs = getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
         LoginManager.accessToken = loginSharedPrefs.getString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, null);
 
@@ -135,7 +135,7 @@ if (accessToken!=null) {
 
 //        Toast.makeText(getBaseContext(), title + "\n" + message,Toast.LENGTH_SHORT).show();
         System.out.println("message: "+ title + "\n" + message);
-//        title = data.getString("title");
+        title = data.getString("title");
         message = data.getString("message");
 
         if (url.equals("notification")){
