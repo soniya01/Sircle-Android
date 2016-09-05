@@ -368,7 +368,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
             new AlertDialog.Builder(BaseActivity.this)
 
                     .setTitle("Actualizar Solicitud")
-                    .setMessage("Do you want to update the application?")
+                    .setMessage("¿Quieres actualizar la aplicación ?")
                     .setPositiveButton("Actualizar", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // continue with delete
@@ -399,7 +399,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
 
                     .setCancelable(false)
                     .setTitle("Actualizar Solicitud")
-                    .setMessage("Please update to continue using the application. This should only take a few moments.")
+                    .setMessage("Por favor, actualice a seguir utilizando la aplicación . Este proceso sólo durará unos minutos.")
                     .setPositiveButton("Actualizar", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // continue with delete
