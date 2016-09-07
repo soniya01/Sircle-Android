@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "922511309928",
-    "project_id": "kipling-1470658499364"
+    "project_number": "663419207335",
+    "project_id": "firebase-spanishdemo"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:922511309928:android:e31d14f39a94b8d9",
+        "mobilesdk_app_id": "1:663419207335:android:39e82a668afd4969",
         "android_client_info": {
-          "package_name": "com.snaptech.kipling"
+          "package_name": "com.snaptech.spanish_demo"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA4VkHA57V7KJLoVTuG7tSspyb1p2ZS780"
+          "current_key": "AIzaSyBwlLb9eRnYyDeNoCjPGVdllkh0fBtSwmc"
         }
       ],
       "services": {
