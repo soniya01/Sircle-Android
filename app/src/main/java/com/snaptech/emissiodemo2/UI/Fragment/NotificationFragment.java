@@ -183,7 +183,7 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
         HashMap object = new HashMap();
       //  object.put("regId", Constants.GCM_REG_ID);
        // object.put("groupId",grpIdString);
-        object.put("page", ""+pageCount);
+        object.put("page", "" + pageCount);
 
        // System.out.println("REG" + Constants.GCM_REG_ID);
 
@@ -193,25 +193,31 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
                 //progressBar.setVisibility(View.GONE);
 
                 swipeRefreshLayout.setRefreshing(false);
+                if (Constants.flag_logout) {
 
-                if (data != null) {
-                    if (data.getStatus() == 200){
-                        if (data.getData().getNotifications().size() > 0){
-                            //NotificationManager.notificationList.clear()
-                          //  totalRecord = data.getData().getTotalRecords();
-                            notificationList.clear();
-                            notificationList.addAll(NotificationManager.notificationList);
-                            notificationListviewAdapter.notifyDataSetChanged();
-
-                        }else {
-                         //   Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }else {
-                       // Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-
+                    Toast.makeText(getActivity(), "Session Timed Out! Please reopen the app to Login again.", Toast.LENGTH_LONG).show();
+                    Constants.flag_logout = false;
                 } else {
-                    Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
+
+                    if (data != null) {
+                        if (data.getStatus() == 200) {
+                            if (data.getData().getNotifications().size() > 0) {
+                                //NotificationManager.notificationList.clear()
+                                //  totalRecord = data.getData().getTotalRecords();
+                                notificationList.clear();
+                                notificationList.addAll(NotificationManager.notificationList);
+                                notificationListviewAdapter.notifyDataSetChanged();
+
+                            } else {
+                                //   Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            // Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

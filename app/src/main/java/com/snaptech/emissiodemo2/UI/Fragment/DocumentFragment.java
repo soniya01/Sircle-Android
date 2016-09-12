@@ -19,6 +19,7 @@ import com.snaptech.emissiodemo2.UI.Activity.PDFViewer;
 import com.snaptech.emissiodemo2.UI.Adapter.DocumentsViewAdapter;
 import com.snaptech.emissiodemo2.UI.Model.NewsLetter;
 import com.snaptech.emissiodemo2.Utility.AppError;
+import com.snaptech.emissiodemo2.Utility.Constants;
 import com.snaptech.emissiodemo2.Utility.InternetCheck;
 import com.snaptech.emissiodemo2.WebService.DocumentsResponse;
 
@@ -126,7 +127,14 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
                 @Override
                 public void onCompletion(DocumentsResponse data, AppError error) {
                     //progressBar.setVisibility(View.GONE);
+
                     swipeRefreshLayout.setRefreshing(false);
+                    if(Constants.flag_logout){
+
+                        Toast.makeText(getActivity(),"Session Timed Out! Please reopen the app to Login again.",Toast.LENGTH_LONG).show();
+                        Constants.flag_logout=false;
+                    }
+                    else{
                     if (data != null) {
                         if (data.getStatus() == 200) {
                             if (data.getData().getDocs().size() > 0) {
@@ -147,6 +155,7 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
                     } else {
                         // Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
                     }
+                }
                 }
             });
         }

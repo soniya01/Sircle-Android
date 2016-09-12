@@ -15,11 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.snaptech.emissiodemo2.Manager.EventManager;
+import com.snaptech.emissiodemo2.Manager.LoginManager;
 import com.snaptech.emissiodemo2.R;
 import com.snaptech.emissiodemo2.Utility.AppError;
 import com.snaptech.emissiodemo2.Utility.Constants;
 import com.snaptech.emissiodemo2.Utility.InternetCheck;
 import com.snaptech.emissiodemo2.WebService.EventDetailResponse;
+import com.snaptech.emissiodemo2.WebService.LoginResponse;
 import com.snaptech.emissiodemo2.WebService.PostResponse;
 
 import java.text.DateFormat;
@@ -267,7 +269,22 @@ public class EventDetailActivity extends AppCompatActivity {
         EventManager.getSharedInstance().getEventDetails(params, new EventManager.EventManagerListener() {
             @Override
             public void onCompletion(EventDetailResponse eventDetailResponse, AppError error) {
-                ringProgressDialog.dismiss();
+
+                if(Constants.flag_logout) {
+
+                    handleSharedPreferencesOnLogout();
+                    Intent intent = new Intent(EventDetailActivity.this, LoginScreen.class);
+                    startActivity(intent);
+                    Toast.makeText(EventDetailActivity.this, "Session Timed Out! Please Login again.", Toast.LENGTH_LONG).show();
+                    finish();
+
+                    Constants.flag_logout = false;
+
+
+                    ringProgressDialog.dismiss();
+                }
+                    else{
+                    ringProgressDialog.dismiss();
                 if (eventDetailResponse != null){
                     if (eventDetailResponse.getStatus() == 200){
                         if (eventDetailResponse.getData() != null){
@@ -304,6 +321,7 @@ public class EventDetailActivity extends AppCompatActivity {
                     Toast.makeText(EventDetailActivity.this,"Sorry! Please Check your Internet Connection.",Toast.LENGTH_SHORT).show();
                 }
             }
+            }
         });
     }
 
@@ -321,10 +339,6 @@ public class EventDetailActivity extends AppCompatActivity {
         if (!userType.equals("admin")) {
             menu.findItem(R.id.delete).setVisible(false);
         }
-
-
-
-
         return super.onPrepareOptionsMenu(menu);
     }
     public Date toDate(String dateString){
@@ -339,5 +353,17 @@ public class EventDetailActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return startDate;
+    }
+    public void handleSharedPreferencesOnLogout()
+    {
+//        LoginManager.getSharedInstance().logout(new LoginManager.LoginManagerListener() {
+//            @Override
+//            public void onCompletion(LoginResponse response, AppError error) {
+//
+//            }});
+        SharedPreferences loginSharedPrefs = EventDetailActivity.this.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor  editor = loginSharedPrefs.edit();
+        editor.putString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, null);
+        editor.apply();
     }
 }

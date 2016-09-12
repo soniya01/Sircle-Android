@@ -169,30 +169,34 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
                 //isLoading = false;
                 // progressBar.setVisibility(View.GONE);
                 swipeRefreshLayout.setRefreshing(false);
-                if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
-                    if (response != null) {
-                        if (response.getStatus() == 200) {
-                            if (response.getData().getAlbums().size() > 0) {
-                                //  photos = response.getData().getAlbums();
-                                //  photosListViewAdapter.notifyDataSetChanged();
-                                //   totalRecord = response.getData().getTotalRecords();
-                                photos.clear();
-                                photos.addAll(PhotoManager.albumsList);
-                                photosListViewAdapter.notifyDataSetChanged();
+                if (Constants.flag_logout) {
 
+                    Toast.makeText(getActivity(), "Session Timed Out! Please reopen the app to Login again.", Toast.LENGTH_LONG).show();
+                    Constants.flag_logout = false;
+                } else {
+                    if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
+                        if (response != null) {
+                            if (response.getStatus() == 200) {
+                                if (response.getData().getAlbums().size() > 0) {
+                                    //  photos = response.getData().getAlbums();
+                                    //  photosListViewAdapter.notifyDataSetChanged();
+                                    //   totalRecord = response.getData().getTotalRecords();
+                                    photos.clear();
+                                    photos.addAll(PhotoManager.albumsList);
+                                    photosListViewAdapter.notifyDataSetChanged();
+
+                                }
+                            } else {
+                                //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                          //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Check internet connectivity", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(getActivity(), "Check internet connectivity", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection", Toast.LENGTH_SHORT).show();
                     }
                 }
-                else {
-                    Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection", Toast.LENGTH_SHORT).show();
-                }
             }
-
         });
 
     }

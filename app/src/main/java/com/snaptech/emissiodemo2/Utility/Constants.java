@@ -35,6 +35,8 @@ public class Constants {
 
     //public static final String BASE_URL = "http://54.251.157.35/event/api/";
 
+
+    public static boolean flag_logout=false;
     public static final String BASE_URL = "https://demo2.emissioapp.com/api/";
 
     //public static final String BASE_URL = "http://demo.snaptech.in/";

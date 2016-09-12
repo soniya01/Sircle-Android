@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -114,6 +115,16 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
             ForceUpdateManager.getSharedInstance().getForcedUpdateData(hashMap, new ForceUpdateManager.GetForcedUpdateManagerListener() {
                 @Override
                 public void onCompletion(ForcedUpdateResponse data, AppError error) {
+
+                    if(Constants.flag_logout){
+
+                        handleSharedPreferencesOnLogout();
+                        Intent intent=new Intent(BaseActivity.this,LoginScreen.class);
+                        startActivity(intent);
+                        Toast.makeText(BaseActivity.this, "Session Timed Out! Please Login again.", Toast.LENGTH_LONG).show();
+                        finish();
+                        Constants.flag_logout=false;
+                    }else{
                     System.out.println("Data received" + data.getMessage() + "version is" + data.getForcedUpdateData().android_version + " actual version code is " + versionCode);
                     versionCode= BuildConfig.VERSION_CODE;
                     checkForcedUpdate(data,error,versionCode);
@@ -128,6 +139,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
 
 
 
+                }
                 }
             });
         }}
@@ -210,6 +222,16 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                 ForceUpdateManager.getSharedInstance().getForcedUpdateData(hashMap, new ForceUpdateManager.GetForcedUpdateManagerListener() {
                     @Override
                     public void onCompletion(ForcedUpdateResponse data, AppError error) {
+                        if(Constants.flag_logout){
+
+                            handleSharedPreferencesOnLogout();
+                            Intent intent=new Intent(BaseActivity.this,LoginScreen.class);
+                            startActivity(intent);
+                            Toast.makeText(BaseActivity.this, "Session Timed Out! Please Login again.", Toast.LENGTH_LONG).show();
+                            Constants.flag_logout=false;
+                            finish();
+                        }
+                        else{
                         System.out.println("Data received" + data.getMessage() + "version is" + data.getForcedUpdateData().android_version + " actual version code is " + versionCode);
                         versionCode = BuildConfig.VERSION_CODE;
                         checkForcedUpdate(data, error, versionCode);
@@ -223,6 +245,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
 //                }
 
 
+                    }
                     }
                 });
             }

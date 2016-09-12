@@ -16,6 +16,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.HashMap;
@@ -137,8 +140,8 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     @Override
                     public void success(JsonElement jsonElement, Response response) {
 
+                        System.out.println("Output on Login is "+jsonElement.toString());
                         if (!jsonElement.isJsonNull() ){
-
 
                             Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
 
@@ -319,13 +322,29 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     @Override
                     public void success(JsonElement jsonElement, Response response) {
 
+                        System.out.println("Check user logout, output is "+jsonElement.toString());
+                        int code=0;
                         if (jsonElement!=null) {
 
                             if (!jsonElement.isJsonNull()) {
 
+                                try {
+                                    JSONObject jsonObject=new JSONObject(jsonElement.toString());
+                                    code=jsonObject.getInt("code");
+                                    if(code==404||code==401){
+                                        Constants.flag_logout=true;
+                                        webserviceListener.onCompletion(null, new AppError());
+                                    }
+                                    else
+                                        Constants.flag_logout=false;
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                                 Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
 
+                                if(code==200){
                                 if (responseClass != null) {
+
                                     Object object = Common.createObjectForClass(responseClass);
 
                                     if (jsonElement.isJsonArray()) {
@@ -355,6 +374,8 @@ public class RetrofitImplementation implements WebServiceProtocol{
                                 }
                             }
                         }
+                        }
+
                         else
                         {
                             webserviceListener.onCompletion(null, new AppError());
@@ -363,10 +384,11 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
                     @Override
                     public void failure(RetrofitError error) {
+
                         AppError appError = new AppError();
                         appError.setErrorCode(getRetrofitErrorcode(error));
                         appError.setErrorMessage(error.getLocalizedMessage());
-
+                        System.out.println("Inside Failure , code is " +appError.getErrorCode()+" , message : "+error.getLocalizedMessage());
                         // Send empty object
                         if (responseClass != null){
                             webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);
@@ -449,8 +471,22 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     public void success(JsonElement jsonElement, Response response) {
                         if (!jsonElement.isJsonNull()) {
 
+                            int code=0;
+                            try {
+                                JSONObject jsonObject=new JSONObject(jsonElement.toString());
+                                code=jsonObject.getInt("code");
+                                if(code==404||code==401){
+                                    Constants.flag_logout=true;
+                                    webserviceListener.onCompletion(null, new AppError());
+                                }
+                                else
+                                    Constants.flag_logout=false;
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                             Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
 
+                            if(code==200){
                             if (responseClass != null) {
                                 Object object = Common.createObjectForClass(responseClass);
 
@@ -463,6 +499,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                                     object = gson.fromJson(jsonElement, responseClass);
                                     webserviceListener.onCompletion(object, new AppError());
                                 }
+                            }
                             }
                         }
                     }
@@ -489,8 +526,22 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     public void success(JsonElement jsonElement, Response response) {
                         if (!jsonElement.isJsonNull()) {
 
+                            int code=0;
+                            try {
+                                JSONObject jsonObject=new JSONObject(jsonElement.toString());
+                                code=jsonObject.getInt("code");
+                                if(code==404||code==401){
+                                    Constants.flag_logout=true;
+                                    webserviceListener.onCompletion(null, new AppError());
+                                }
+                                else
+                                    Constants.flag_logout=false;
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                             Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
 
+                            if(code==200){
                             if (responseClass != null) {
                                 Object object = Common.createObjectForClass(responseClass);
 
@@ -504,6 +555,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                                     webserviceListener.onCompletion(object, new AppError());
                                 }
                             }
+                        }
                         }
                     }
 
@@ -526,12 +578,28 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
             case Constants.NEWSLETTERS_GET_API_PATH:
                 postWebservice.postApi(Integer.parseInt(params.get("page")), new Callback<JsonElement>() {
+
+                    int code=0;
                     @Override
                     public void success(JsonElement jsonElement, Response response) {
                         if (!jsonElement.isJsonNull()) {
 
+                            try {
+                                JSONObject jsonObject=new JSONObject(jsonElement.toString());
+                                code=jsonObject.getInt("code");
+                                if(code==404||code==401){
+                                    Constants.flag_logout=true;
+                                    webserviceListener.onCompletion(null, new AppError());
+                                }
+                                else
+                                    Constants.flag_logout=false;
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
                             Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
 
+                            if(code==200){
                             if (responseClass != null) {
                                 Object object = Common.createObjectForClass(responseClass);
 
@@ -545,6 +613,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                                     webserviceListener.onCompletion(object, new AppError());
                                 }
                             }
+                        }
                         }
                     }
 
@@ -571,7 +640,20 @@ public class RetrofitImplementation implements WebServiceProtocol{
                         if (!jsonElement.isJsonNull()) {
 
                             Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
-
+                            int code=0;
+                            try {
+                                JSONObject jsonObject=new JSONObject(jsonElement.toString());
+                                code=jsonObject.getInt("code");
+                                if(code==404||code==401){
+                                    Constants.flag_logout=true;
+                                    webserviceListener.onCompletion(null, new AppError());
+                                }
+                                else
+                                    Constants.flag_logout=false;
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            if(code==200){
                             if (responseClass != null) {
                                 Object object = Common.createObjectForClass(responseClass);
 
@@ -584,6 +666,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                                     object = gson.fromJson(jsonElement, responseClass);
                                     webserviceListener.onCompletion(object, new AppError());
                                 }
+                            }
                             }
                         }
                     }
@@ -612,7 +695,20 @@ public class RetrofitImplementation implements WebServiceProtocol{
                         if (!jsonElement.isJsonNull()) {
 
                             Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
-
+                            int code=0;
+                            try {
+                                JSONObject jsonObject=new JSONObject(jsonElement.toString());
+                                code=jsonObject.getInt("code");
+                                if(code==404||code==401){
+                                    Constants.flag_logout=true;
+                                    webserviceListener.onCompletion(null, new AppError());
+                                }
+                                else
+                                    Constants.flag_logout=false;
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            if(code==200){
                             if (responseClass != null) {
                                 Object object = Common.createObjectForClass(responseClass);
 
@@ -626,6 +722,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                                     webserviceListener.onCompletion(object, new AppError());
                                 }
                             }
+                        }
                         }
                     }
 
@@ -653,7 +750,20 @@ public class RetrofitImplementation implements WebServiceProtocol{
                         if (!jsonElement.isJsonNull()) {
 
                             Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
-
+                            int code=0;
+                            try {
+                                JSONObject jsonObject=new JSONObject(jsonElement.toString());
+                                code=jsonObject.getInt("code");
+                                if(code==404||code==401){
+                                    Constants.flag_logout=true;
+                                    webserviceListener.onCompletion(null, new AppError());
+                                }
+                                else
+                                    Constants.flag_logout=false;
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            if(code==200){
                             if (responseClass != null) {
                                 Object object = Common.createObjectForClass(responseClass);
 
@@ -667,6 +777,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                                     webserviceListener.onCompletion(object, new AppError());
                                 }
                             }
+                        }
                         }
                     }
 
@@ -695,8 +806,22 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     public void success(JsonElement jsonElement, Response response) {
                         if (!jsonElement.isJsonNull()) {
 
+                            int code=0;
+                            try {
+                                JSONObject jsonObject=new JSONObject(jsonElement.toString());
+                                code=jsonObject.getInt("code");
+                                if(code==404||code==401){
+                                    Constants.flag_logout=true;
+                                    webserviceListener.onCompletion(null, new AppError());
+                                }
+                                else
+                                    Constants.flag_logout=false;
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                             Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
 
+                            if(code==200){
                             if (responseClass != null) {
                                 Object object = Common.createObjectForClass(responseClass);
 
@@ -711,6 +836,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                                 }
                             }
                         }
+                    }
                     }
 
                     @Override
@@ -737,8 +863,22 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     public void success(JsonElement jsonElement, Response response) {
                         if (!jsonElement.isJsonNull()) {
 
+                            int code=0;
+                            try {
+                                JSONObject jsonObject=new JSONObject(jsonElement.toString());
+                                code=jsonObject.getInt("code");
+                                if(code==404||code==401){
+                                    Constants.flag_logout=true;
+                                    webserviceListener.onCompletion(null, new AppError());
+                                }
+                                else
+                                    Constants.flag_logout=false;
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                             Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
 
+                            if(code==200){
                             if (responseClass != null) {
                                 Object object = Common.createObjectForClass(responseClass);
 
@@ -753,6 +893,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                                 }
                             }
                         }
+                    }
                     }
 
                     @Override
@@ -777,9 +918,23 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     @Override
                     public void success(JsonElement jsonElement, Response response) {
                         if (!jsonElement.isJsonNull()) {
+                            int code=0;
+                            try {
+                                JSONObject jsonObject=new JSONObject(jsonElement.toString());
+                                code=jsonObject.getInt("code");
+                                if(code==404||code==401){
+                                    Constants.flag_logout=true;
+                                    webserviceListener.onCompletion(null, new AppError());
+                                }
+                                else
+                                    Constants.flag_logout=false;
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                             System.out.println("Json Element is "+jsonElement.toString());
                             Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
 
+                            if(code==200){
                             if (responseClass != null) {
                                 Object object = Common.createObjectForClass(responseClass);
 
@@ -794,6 +949,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                                 }
                             }
                         }
+                    }
                     }
 
                     @Override
@@ -991,8 +1147,22 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     public void success(JsonElement jsonElement, Response response) {
                         if (!jsonElement.isJsonNull()) {
 
+                            int code=0;
+                            try {
+                                JSONObject jsonObject=new JSONObject(jsonElement.toString());
+                                code=jsonObject.getInt("code");
+                                if(code==404||code==401){
+                                    Constants.flag_logout=true;
+                                    webserviceListener.onCompletion(null, new AppError());
+                                }
+                                else
+                                    Constants.flag_logout=false;
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                             Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
 
+                            if(code==200){
                             if (responseClass != null) {
                                 Object object = Common.createObjectForClass(responseClass);
 
@@ -1007,6 +1177,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                                 }
                             }
                         }
+                    }
                     }
 
                     @Override
@@ -1269,10 +1440,26 @@ public class RetrofitImplementation implements WebServiceProtocol{
             public void success(JsonElement jsonElement, Response response) {
 
                 System.out.println("Data is "+jsonElement.toString());
+
                 if (!jsonElement.isJsonNull()){
+                    int code=0;
+                    try {
+                        JSONObject jsonObject=new JSONObject(jsonElement.toString());
+                        code=jsonObject.getInt("code");
+                        if(code==404||code==401){
+                            Constants.flag_logout=true;
+                            webserviceListener.onCompletion(null, new AppError());
+                        }
+                        else
+                            Constants.flag_logout=false;
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                     Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
                     Object object = Common.createObjectForClass(responseClass);
 
+                    if(code==200){
                     if (jsonElement.isJsonArray()){
                         Type collectionType = new TypeToken<Collection<Object>>(){}.getType();
                         Collection<Object> data = gson.fromJson(jsonElement, collectionType);
@@ -1290,6 +1477,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                             }
 
                     }
+                }
                 }
             }
 

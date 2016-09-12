@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.snaptech.emissiodemo2.Manager.LoginManager;
 import com.snaptech.emissiodemo2.Manager.PhotoManager;
 import com.snaptech.emissiodemo2.R;
 import com.snaptech.emissiodemo2.UI.Adapter.AlbumDetailsGridAdapter;
@@ -25,6 +26,7 @@ import com.snaptech.emissiodemo2.Utility.AppError;
 import com.snaptech.emissiodemo2.Utility.Constants;
 import com.snaptech.emissiodemo2.Utility.InternetCheck;
 import com.snaptech.emissiodemo2.WebService.AlbumResponse;
+import com.snaptech.emissiodemo2.WebService.LoginResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -190,25 +192,34 @@ public class AlbumDetailsActivity extends AppCompatActivity implements SwipeRefr
         PhotoManager.getSharedInstance().getImages(params, new PhotoManager.GetPhotosManagerListener() {
             @Override
             public void onCompletion(AlbumResponse response, AppError error) {
-                progressBar.setVisibility(View.GONE);
-                if (response != null) {
-                    if (response.getStatus() == 200) {
-                        if (response.getData().getAlbum_images().size() > 0) {
 
-                            //albumDetailsList = PhotoManager.getSharedInstance().albumDetailsList;
-                            //albumDetailsList.addAll(PhotoManager.getSharedInstance().albumDetailsList);
+                if (Constants.flag_logout) {
+                    handleSharedPreferencesOnLogout();
+                    Intent intent = new Intent(AlbumDetailsActivity.this, LoginScreen.class);
+                    startActivity(intent);
+                    Toast.makeText(AlbumDetailsActivity.this, "Session Timed Out! Please Login again.", Toast.LENGTH_LONG).show();
+                    finish();
+                    Constants.flag_logout = false;
+                } else {
+                    progressBar.setVisibility(View.GONE);
+                    if (response != null) {
+                        if (response.getStatus() == 200) {
+                            if (response.getData().getAlbum_images().size() > 0) {
 
-                            // if (albumDetailsList.size() > 0){
-                           // albumDetailsList.clear();
-                           // totalRecord = response.getData().getTotalRecords();
-                            if (albumDetailsList.size() == 0) {
-                                albumDetailsList.addAll(response.getData().getAlbum_images());
-                                albumDetailsGridAdapter = new AlbumDetailsGridAdapter(AlbumDetailsActivity.this, albumDetailsList);
-                                albumGridView.setAdapter(albumDetailsGridAdapter);
-                            } else{
-                                albumDetailsList.addAll(response.getData().getAlbum_images());
-                                albumDetailsGridAdapter.notifyDataSetChanged();
-                            }
+                                //albumDetailsList = PhotoManager.getSharedInstance().albumDetailsList;
+                                //albumDetailsList.addAll(PhotoManager.getSharedInstance().albumDetailsList);
+
+                                // if (albumDetailsList.size() > 0){
+                                // albumDetailsList.clear();
+                                // totalRecord = response.getData().getTotalRecords();
+                                if (albumDetailsList.size() == 0) {
+                                    albumDetailsList.addAll(response.getData().getAlbum_images());
+                                    albumDetailsGridAdapter = new AlbumDetailsGridAdapter(AlbumDetailsActivity.this, albumDetailsList);
+                                    albumGridView.setAdapter(albumDetailsGridAdapter);
+                                } else {
+                                    albumDetailsList.addAll(response.getData().getAlbum_images());
+                                    albumDetailsGridAdapter.notifyDataSetChanged();
+                                }
 
 
 //                            }else {
@@ -217,25 +228,25 @@ public class AlbumDetailsActivity extends AppCompatActivity implements SwipeRefr
 //                                albumGridView.setAdapter(albumDetailsGridAdapter);
 //                            }
 
+                            } else {
+                                // ringProgressDialog.dismiss();
+                                // AlbumDetailsActivity.ringProgressDialog.dismiss();
+                                //   Toast.makeText(AlbumDetailsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+
                         } else {
-                           // ringProgressDialog.dismiss();
-                           // AlbumDetailsActivity.ringProgressDialog.dismiss();
-                         //   Toast.makeText(AlbumDetailsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                            // ringProgressDialog.dismiss();
+
+                            // Toast.makeText(AlbumDetailsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                         }
-
                     } else {
-                       // ringProgressDialog.dismiss();
-
-                       // Toast.makeText(AlbumDetailsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                        //ringProgressDialog.dismiss();
+                        // AlbumDetailsActivity.ringProgressDialog.dismiss();
+                        //Toast.makeText(AlbumDetailsActivity.this, "Some problem occurred.", Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    //ringProgressDialog.dismiss();
-                   // AlbumDetailsActivity.ringProgressDialog.dismiss();
-                    //Toast.makeText(AlbumDetailsActivity.this, "Some problem occurred.", Toast.LENGTH_SHORT).show();
+
+
                 }
-
-
-
             }
         });
 
@@ -352,5 +363,18 @@ public class AlbumDetailsActivity extends AppCompatActivity implements SwipeRefr
 //            );
 
         //}
+    }
+    public void handleSharedPreferencesOnLogout()
+    {
+//        LoginManager.getSharedInstance().logout(new LoginManager.LoginManagerListener() {
+//            @Override
+//            public void onCompletion(LoginResponse response, AppError error) {
+//
+//            }
+//        });
+        SharedPreferences loginSharedPrefs = AlbumDetailsActivity.this.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor  editor = loginSharedPrefs.edit();
+        editor.putString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, null);
+        editor.apply();
     }
 }

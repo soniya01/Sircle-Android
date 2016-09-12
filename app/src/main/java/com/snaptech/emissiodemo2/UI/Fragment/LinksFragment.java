@@ -162,24 +162,30 @@ public class LinksFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 public void onCompletion(LinksResponse response, AppError error) {
                     isLoading = false;
                     swipeRefreshLayout.setRefreshing(false);
-                    if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
-                        if (response != null) {
-                            if (response.getData().getLinks().size() > 0) {
-                                //  totalRecord = response.getData().getTotalRecords();
-                                // pageRecords =  response.getData().getPageRecords();
-                                linksList.clear();
-                                linksList.addAll(response.getData().getLinks());
-                                linksListViewAdapter.notifyDataSetChanged();
+                    if (Constants.flag_logout) {
 
+                        Toast.makeText(getActivity(), "Session Timed Out! Please reopen the app to Login again.", Toast.LENGTH_LONG).show();
+                        Constants.flag_logout = false;
+                    } else {
+                        if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
+                            if (response != null) {
+                                if (response.getData().getLinks().size() > 0) {
+                                    //  totalRecord = response.getData().getTotalRecords();
+                                    // pageRecords =  response.getData().getPageRecords();
+                                    linksList.clear();
+                                    linksList.addAll(response.getData().getLinks());
+                                    linksListViewAdapter.notifyDataSetChanged();
+
+                                } else {
+                                    //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
                             } else {
-                                //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection", Toast.LENGTH_SHORT).show();
                             }
+
                         } else {
                             Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection", Toast.LENGTH_SHORT).show();
                         }
-
-                    } else {
-                        Toast.makeText(getActivity(), "Sorry some error encountered while fetching data.Please check your internet connection", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

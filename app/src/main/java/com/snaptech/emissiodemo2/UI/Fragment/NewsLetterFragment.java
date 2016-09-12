@@ -17,6 +17,7 @@ import com.snaptech.emissiodemo2.UI.Activity.PDFViewer;
 import com.snaptech.emissiodemo2.UI.Adapter.NewsLettersViewAdapter;
 import com.snaptech.emissiodemo2.UI.Model.NewsLetter;
 import com.snaptech.emissiodemo2.Utility.AppError;
+import com.snaptech.emissiodemo2.Utility.Constants;
 import com.snaptech.emissiodemo2.Utility.InternetCheck;
 import com.snaptech.emissiodemo2.WebService.DocumentsResponse;
 
@@ -124,15 +125,20 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
                 public void onCompletion(DocumentsResponse response, AppError error) {
                     //  progressBar.setVisibility(View.GONE);
                     swipeRefreshLayout.setRefreshing(false);
-                    if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
-                        if (response != null) {
-                            if (response.getStatus() == 200) {
-                                if (response.getData().getDocs().size() > 0) {
+                    if (Constants.flag_logout) {
 
-                                    //totalRecord = response.getData().getTotalRecords();
-                                    newsLetterList.clear();
-                                    newsLetterList.addAll(DocumentManager.newsLetterList);
-                                    newsLetterListViewAdapter.notifyDataSetChanged();
+                        Toast.makeText(getActivity(), "Session Timed Out! Please reopen the app to Login again.", Toast.LENGTH_LONG).show();
+                        Constants.flag_logout = false;
+                    } else {
+                        if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
+                            if (response != null) {
+                                if (response.getStatus() == 200) {
+                                    if (response.getData().getDocs().size() > 0) {
+
+                                        //totalRecord = response.getData().getTotalRecords();
+                                        newsLetterList.clear();
+                                        newsLetterList.addAll(DocumentManager.newsLetterList);
+                                        newsLetterListViewAdapter.notifyDataSetChanged();
 
 //                                if (NewsLetterFragment.this.newsLetterList.size() == 0){
 //                                    NewsLetterFragment.this.newsLetterList.addAll(response.getData().getNewsLetters());
@@ -143,16 +149,17 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
 //                                    NewsLetterFragment.this.newsLetterList.addAll(response.getData().getNewsLetters());
 //                                    newsLetterListViewAdapter.notifyDataSetChanged();
 //                                }
+                                    } else {
+                                        //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
                                 } else {
-                                    //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
-                            } else {
-                                //Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                             }
-                        }
 
-                    } else {
-                        Toast.makeText(getActivity(), "Sorry! Please Check your Internet Connection", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), "Sorry! Please Check your Internet Connection", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             });

@@ -19,6 +19,7 @@ import com.snaptech.emissiodemo2.UI.Activity.VimeoWebviewActivity;
 import com.snaptech.emissiodemo2.UI.Adapter.VideoListViewAdapter;
 import com.snaptech.emissiodemo2.UI.Model.Video;
 import com.snaptech.emissiodemo2.Utility.AppError;
+import com.snaptech.emissiodemo2.Utility.Constants;
 import com.snaptech.emissiodemo2.Utility.DeveloperKey;
 import com.snaptech.emissiodemo2.Utility.InternetCheck;
 import com.snaptech.emissiodemo2.WebService.VideoResponse;
@@ -179,34 +180,40 @@ public class VideoFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                 public void onCompletion(VideoResponse response, AppError error) {
                     // progressBar.setVisibility(View.GONE);
                     //swipeRefreshLayout.setRefreshing(false);
-                    if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
-                        if (response != null) {
-                            if (response.getStatus() == 200) {
-                                if (response.getData().getVideos().size() > 0) {
+                    if (Constants.flag_logout) {
 
-                                    // totalRecord = response.getData().getTotalRecords();
-                                    videoList.clear();
-                                    videoList.addAll(VideoManager.videoList);
-                                    videoListViewAdapter.notifyDataSetChanged();
+                        Toast.makeText(getActivity(), "Session Timed Out! Please reopen the app to Login again.", Toast.LENGTH_LONG).show();
+                        Constants.flag_logout = false;
+                    } else {
+                        if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
+                            if (response != null) {
+                                if (response.getStatus() == 200) {
+                                    if (response.getData().getVideos().size() > 0) {
 
-                                    swipeRefreshLayout.setRefreshing(false);
+                                        // totalRecord = response.getData().getTotalRecords();
+                                        videoList.clear();
+                                        videoList.addAll(VideoManager.videoList);
+                                        videoListViewAdapter.notifyDataSetChanged();
 
+                                        swipeRefreshLayout.setRefreshing(false);
+
+                                    } else {
+                                        swipeRefreshLayout.setRefreshing(false);
+                                        //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
                                 } else {
                                     swipeRefreshLayout.setRefreshing(false);
-                                    //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                                    // Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
+
                             } else {
                                 swipeRefreshLayout.setRefreshing(false);
-                                // Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Sorry! Please Check your Internet Connection", Toast.LENGTH_SHORT).show();
                             }
 
-                        } else {
-                            swipeRefreshLayout.setRefreshing(false);
-                            Toast.makeText(getActivity(),"Sorry! Please Check your Internet Connection",Toast.LENGTH_SHORT).show();
                         }
 
                     }
-
                 }
             });
         }
