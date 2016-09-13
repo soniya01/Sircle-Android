@@ -331,7 +331,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                                 try {
                                     JSONObject jsonObject=new JSONObject(jsonElement.toString());
                                     code=jsonObject.getInt("code");
-                                    if(code==404||code==401){
+                                    if(code==401){
                                         Constants.flag_logout=true;
                                         webserviceListener.onCompletion(null, new AppError());
                                     }
@@ -342,7 +342,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                                 }
                                 Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
 
-                                if(code==200){
+                                if(code==200||code==404){
                                 if (responseClass != null) {
 
                                     Object object = Common.createObjectForClass(responseClass);
@@ -475,7 +475,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                             try {
                                 JSONObject jsonObject=new JSONObject(jsonElement.toString());
                                 code=jsonObject.getInt("code");
-                                if(code==404||code==401){
+                                if(code==401){
                                     Constants.flag_logout=true;
                                     webserviceListener.onCompletion(null, new AppError());
                                 }
@@ -530,7 +530,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                             try {
                                 JSONObject jsonObject=new JSONObject(jsonElement.toString());
                                 code=jsonObject.getInt("code");
-                                if(code==404||code==401){
+                                if(code==401){
                                     Constants.flag_logout=true;
                                     webserviceListener.onCompletion(null, new AppError());
                                 }
@@ -587,7 +587,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                             try {
                                 JSONObject jsonObject=new JSONObject(jsonElement.toString());
                                 code=jsonObject.getInt("code");
-                                if(code==404||code==401){
+                                if(code==401){
                                     Constants.flag_logout=true;
                                     webserviceListener.onCompletion(null, new AppError());
                                 }
@@ -644,7 +644,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                             try {
                                 JSONObject jsonObject=new JSONObject(jsonElement.toString());
                                 code=jsonObject.getInt("code");
-                                if(code==404||code==401){
+                                if(code==401){
                                     Constants.flag_logout=true;
                                     webserviceListener.onCompletion(null, new AppError());
                                 }
@@ -699,7 +699,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                             try {
                                 JSONObject jsonObject=new JSONObject(jsonElement.toString());
                                 code=jsonObject.getInt("code");
-                                if(code==404||code==401){
+                                if(code==401){
                                     Constants.flag_logout=true;
                                     webserviceListener.onCompletion(null, new AppError());
                                 }
@@ -754,7 +754,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                             try {
                                 JSONObject jsonObject=new JSONObject(jsonElement.toString());
                                 code=jsonObject.getInt("code");
-                                if(code==404||code==401){
+                                if(code==401){
                                     Constants.flag_logout=true;
                                     webserviceListener.onCompletion(null, new AppError());
                                 }
@@ -810,7 +810,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                             try {
                                 JSONObject jsonObject=new JSONObject(jsonElement.toString());
                                 code=jsonObject.getInt("code");
-                                if(code==404||code==401){
+                                if(code==401){
                                     Constants.flag_logout=true;
                                     webserviceListener.onCompletion(null, new AppError());
                                 }
@@ -867,7 +867,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                             try {
                                 JSONObject jsonObject=new JSONObject(jsonElement.toString());
                                 code=jsonObject.getInt("code");
-                                if(code==404||code==401){
+                                if(code==401){
                                     Constants.flag_logout=true;
                                     webserviceListener.onCompletion(null, new AppError());
                                 }
@@ -922,7 +922,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                             try {
                                 JSONObject jsonObject=new JSONObject(jsonElement.toString());
                                 code=jsonObject.getInt("code");
-                                if(code==404||code==401){
+                                if(code==401){
                                     Constants.flag_logout=true;
                                     webserviceListener.onCompletion(null, new AppError());
                                 }
@@ -1151,7 +1151,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                             try {
                                 JSONObject jsonObject=new JSONObject(jsonElement.toString());
                                 code=jsonObject.getInt("code");
-                                if(code==404||code==401){
+                                if(code==401){
                                     Constants.flag_logout=true;
                                     webserviceListener.onCompletion(null, new AppError());
                                 }
@@ -1446,7 +1446,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     try {
                         JSONObject jsonObject=new JSONObject(jsonElement.toString());
                         code=jsonObject.getInt("code");
-                        if(code==404||code==401){
+                        if(code==401){
                             Constants.flag_logout=true;
                             webserviceListener.onCompletion(null, new AppError());
                         }

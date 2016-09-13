@@ -197,7 +197,7 @@ public class AlbumDetailsActivity extends AppCompatActivity implements SwipeRefr
                     handleSharedPreferencesOnLogout();
                     Intent intent = new Intent(AlbumDetailsActivity.this, LoginScreen.class);
                     startActivity(intent);
-                    Toast.makeText(AlbumDetailsActivity.this, "Session Timed Out! Please Login again.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AlbumDetailsActivity.this, "Please Login again.", Toast.LENGTH_LONG).show();
                     finish();
                     Constants.flag_logout = false;
                 } else {

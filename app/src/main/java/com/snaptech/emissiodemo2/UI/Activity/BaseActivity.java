@@ -121,7 +121,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                         handleSharedPreferencesOnLogout();
                         Intent intent=new Intent(BaseActivity.this,LoginScreen.class);
                         startActivity(intent);
-                        Toast.makeText(BaseActivity.this, "Session Timed Out! Please Login again.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(BaseActivity.this, "Please Login again.", Toast.LENGTH_LONG).show();
                         finish();
                         Constants.flag_logout=false;
                     }else{
@@ -227,7 +227,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                             handleSharedPreferencesOnLogout();
                             Intent intent=new Intent(BaseActivity.this,LoginScreen.class);
                             startActivity(intent);
-                            Toast.makeText(BaseActivity.this, "Session Timed Out! Please Login again.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(BaseActivity.this, "Please Login again.", Toast.LENGTH_LONG).show();
                             Constants.flag_logout=false;
                             finish();
                         }

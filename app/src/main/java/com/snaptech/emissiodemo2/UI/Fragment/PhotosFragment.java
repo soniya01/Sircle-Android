@@ -171,7 +171,7 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
                 swipeRefreshLayout.setRefreshing(false);
                 if (Constants.flag_logout) {
 
-                    Toast.makeText(getActivity(), "Session Timed Out! Please reopen the app to Login again.", Toast.LENGTH_LONG).show();
+                  //  Toast.makeText(getActivity(), "Session Timed Out! Please reopen the app to Login again.", Toast.LENGTH_LONG).show();
                     Constants.flag_logout = false;
                 } else {
                     if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
