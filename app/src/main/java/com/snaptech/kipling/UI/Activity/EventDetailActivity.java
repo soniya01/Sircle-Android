@@ -268,21 +268,31 @@ public class EventDetailActivity extends AppCompatActivity {
             @Override
             public void onCompletion(EventDetailResponse eventDetailResponse, AppError error) {
                 ringProgressDialog.dismiss();
-                if (eventDetailResponse != null){
-                    if (eventDetailResponse.getStatus() == 200){
-                        if (eventDetailResponse.getData() != null){
-                            eventTitle.setText(eventDetailResponse.getData().getEventTitle());
-                            eventStartDate.setText(eventDetailResponse.getData().getEventStartDate());
-                            eventEndDate.setText(eventDetailResponse.getData().getEventEndDate());
+                if (Constants.flag_logout) {
 
-                           // eventInfo
-                           //
-                           //
-                           // .setText(eventDetailResponse.getData().getEventDescription());
-                          //  eventCategory.setText(eventDetailResponse.getData().getCategory());
-                           // eventGroups.setText("Groups: "+eventDetailResponse.getData().getEventGroups());
-                            eventLocation.setText(eventDetailResponse.getData().getEventLocation());
-                            //eventLocation.setText(eventDetailResponse.getData().get);
+                    handleSharedPreferencesOnLogout();
+                    Intent intent = new Intent(EventDetailActivity.this, LoginScreen.class);
+                    startActivity(intent);
+                    Toast.makeText(EventDetailActivity.this, "Please Login again.", Toast.LENGTH_LONG).show();
+                    finish();
+                    Constants.flag_logout = false;
+
+                } else {
+                    if (eventDetailResponse != null) {
+                        if (eventDetailResponse.getStatus() == 200) {
+                            if (eventDetailResponse.getData() != null) {
+                                eventTitle.setText(eventDetailResponse.getData().getEventTitle());
+                                eventStartDate.setText(eventDetailResponse.getData().getEventStartDate());
+                                eventEndDate.setText(eventDetailResponse.getData().getEventEndDate());
+
+                                // eventInfo
+                                //
+                                //
+                                // .setText(eventDetailResponse.getData().getEventDescription());
+                                //  eventCategory.setText(eventDetailResponse.getData().getCategory());
+                                // eventGroups.setText("Groups: "+eventDetailResponse.getData().getEventGroups());
+                                eventLocation.setText(eventDetailResponse.getData().getEventLocation());
+                                //eventLocation.setText(eventDetailResponse.getData().get);
 //                            String groupString = "";
 //                            for (EventDetailGroups groups : eventDetailResponse.getData().getEventGroups()){
 //                                groupString = groups.getName() + "," + groupString ;
@@ -290,18 +300,19 @@ public class EventDetailActivity extends AppCompatActivity {
 //                            eventGroups.setText("Groups: "+groupString);
 
 
-                           // eventLocationString = eventDetailResponse.getData().getEventInfo().getLocation();
-                           // eventTitleString = eventDetailResponse.getData().getEventInfo().getTitle();
-                           // eventDetail = eventDetailResponse.getData().getEventInfo().getDetail();
-                        }else {
-                         //   Toast.makeText(EventDetailActivity.this,eventDetailResponse.getMessage(),Toast.LENGTH_SHORT).show();
-                        }
+                                // eventLocationString = eventDetailResponse.getData().getEventInfo().getLocation();
+                                // eventTitleString = eventDetailResponse.getData().getEventInfo().getTitle();
+                                // eventDetail = eventDetailResponse.getData().getEventInfo().getDetail();
+                            } else {
+                                //   Toast.makeText(EventDetailActivity.this,eventDetailResponse.getMessage(),Toast.LENGTH_SHORT).show();
+                            }
 
-                    }else {
-                        //Toast.makeText(EventDetailActivity.this,eventDetailResponse.getMessage(),Toast.LENGTH_SHORT).show();
+                        } else {
+                            //Toast.makeText(EventDetailActivity.this,eventDetailResponse.getMessage(),Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(EventDetailActivity.this, "Compruebe internet", Toast.LENGTH_SHORT).show();
                     }
-                }else {
-                    Toast.makeText(EventDetailActivity.this,"Compruebe internet",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -339,5 +350,17 @@ public class EventDetailActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return startDate;
+    }
+    public void handleSharedPreferencesOnLogout()
+    {
+//        LoginManager.getSharedInstance().logout(new LoginManager.LoginManagerListener() {
+//            @Override
+//            public void onCompletion(LoginResponse response, AppError error) {
+//
+//            }});
+        SharedPreferences loginSharedPrefs = EventDetailActivity.this.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor  editor = loginSharedPrefs.edit();
+        editor.putString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, null);
+        editor.apply();
     }
 }

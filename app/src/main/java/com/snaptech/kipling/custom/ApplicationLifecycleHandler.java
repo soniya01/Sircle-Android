@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.snaptech.kipling.Manager.LoginManager;
 import com.snaptech.kipling.Manager.LogoutManager;
@@ -103,44 +104,59 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
                 if (error.getErrorCode() == 0) {
                     // give access to the app features
                     if (response != null){
-                        if (response.getStatus() == 200)
-                        {
+                        if (Constants.flag_logout) {
+                            Intent intent = new Intent(activity, LoginScreen.class);
+                            activity.startActivity(intent);
+                            Toast.makeText(activity, "Please Login again.", Toast.LENGTH_LONG).show();
+
+//        LoginManager.getSharedInstance().logout(new LoginManager.LoginManagerListener() {
+//            @Override
+//            public void onCompletion(LoginResponse response, AppError error) {
+//
+//            }});
+                            SharedPreferences loginSharedPrefs = activity.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
+                            SharedPreferences.Editor  editor = loginSharedPrefs.edit();
+                            editor.putString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, null);
+                            editor.apply();
+
+                            activity.finish();
+                            Constants.flag_logout = false;
+                        }
+                        else {
+                            if (response.getStatus() == 200) {
 
 
-                            if (response.getData().getLogout() ==1)
-                            {
-                                LoginManager.getSharedInstance().userLogoutforcefully(object, new LoginManager.LogoutStatusManagerListener() {
-                                    @Override
-                                    public void onCompletion(LogoutStatusResponse response, AppError error) {
-                                    }
-                                });
-                                LogoutManager.getSharedInstance().handleUserLogoutPreferences();
-                                Intent loginIntent = new Intent(activity, LoginScreen.class);
-                                activity.startActivity(loginIntent);
-                                activity.finish();
+                                if (response.getData().getLogout() == 1) {
+                                    LoginManager.getSharedInstance().userLogoutforcefully(object, new LoginManager.LogoutStatusManagerListener() {
+                                        @Override
+                                        public void onCompletion(LogoutStatusResponse response, AppError error) {
+                                        }
+                                    });
+                                    LogoutManager.getSharedInstance().handleUserLogoutPreferences();
+                                    Intent loginIntent = new Intent(activity, LoginScreen.class);
+                                    activity.startActivity(loginIntent);
+                                    activity.finish();
 
-                            }
-                            else
-                            {
+                                } else {
 //                                Intent loginIntent = new Intent(activity, BaseActivity.class);
 //                                activity.startActivity(loginIntent);
 //                                activity.finish();
+                                }
+
+                                // ringProgressDialog.dismiss();
+                                // Toast.makeText(ForgotPasswordActivity.this,"Please check your email for a reset link", Toast.LENGTH_SHORT).show();
+                                // usernameField.setText("");
+
+                            } else {
+
+
+                                //   finish();
+                                //  ringProgressDialog.dismiss();
+                                // usernameField.setText("");
+
+                                //  Toast.makeText(ForgotPasswordActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                             }
-
-                            // ringProgressDialog.dismiss();
-                            // Toast.makeText(ForgotPasswordActivity.this,"Please check your email for a reset link", Toast.LENGTH_SHORT).show();
-                            // usernameField.setText("");
-
-                        }else {
-
-
-                            //   finish();
-                            //  ringProgressDialog.dismiss();
-                            // usernameField.setText("");
-
-                            //  Toast.makeText(ForgotPasswordActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                         }
-
                     }else {
 
                         //  finish();
