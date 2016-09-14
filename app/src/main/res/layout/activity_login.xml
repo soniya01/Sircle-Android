@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="45dp"
-                    android:text="WELCOME"
+                    android:text="BIENVENIDO"
                     android:textColor="#5B5A5A"
                     android:textSize="18sp"
                     android:textStyle="bold" />
