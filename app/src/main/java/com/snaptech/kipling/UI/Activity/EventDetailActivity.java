@@ -273,7 +273,7 @@ public class EventDetailActivity extends AppCompatActivity {
                     handleSharedPreferencesOnLogout();
                     Intent intent = new Intent(EventDetailActivity.this, LoginScreen.class);
                     startActivity(intent);
-                    Toast.makeText(EventDetailActivity.this, "Please Login again.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(EventDetailActivity.this, "Por favor introduzcalo de nuevo.", Toast.LENGTH_LONG).show();
                     finish();
                     Constants.flag_logout = false;
 

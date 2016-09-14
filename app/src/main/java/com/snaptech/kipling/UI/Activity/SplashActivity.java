@@ -110,7 +110,7 @@ public class SplashActivity extends Activity {
                         if(Constants.flag_logout){
                             Intent intent=new Intent(SplashActivity.this,LoginScreen.class);
                             startActivity(intent);
-                            Toast.makeText(SplashActivity.this, "Please Login again.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(SplashActivity.this, "Por favor introduzcalo de nuevo.", Toast.LENGTH_LONG).show();
                             handleSharedPreferencesOnLogout();
                             finish();
                             Constants.flag_logout=false;

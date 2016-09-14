@@ -107,7 +107,7 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
                         if (Constants.flag_logout) {
                             Intent intent = new Intent(activity, LoginScreen.class);
                             activity.startActivity(intent);
-                            Toast.makeText(activity, "Please Login again.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(activity, "Por favor introduzcalo de nuevo.", Toast.LENGTH_LONG).show();
 
 //        LoginManager.getSharedInstance().logout(new LoginManager.LoginManagerListener() {
 //            @Override
