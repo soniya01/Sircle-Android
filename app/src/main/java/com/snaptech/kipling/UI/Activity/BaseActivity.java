@@ -114,10 +114,21 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
             ForceUpdateManager.getSharedInstance().getForcedUpdateData(hashMap, new ForceUpdateManager.GetForcedUpdateManagerListener() {
                 @Override
                 public void onCompletion(ForcedUpdateResponse data, AppError error) {
-                    System.out.println("Data received" + data.getMessage() + "version is" + data.getForcedUpdateData().android_version + " actual version code is " + versionCode);
-                    versionCode= BuildConfig.VERSION_CODE;
-                    checkForcedUpdate(data,error,versionCode);
 
+                    if(Constants.flag_logout){
+
+                        handleSharedPreferencesOnLogout();
+                        Intent intent=new Intent(BaseActivity.this,LoginScreen.class);
+                        startActivity(intent);
+                        Toast.makeText(BaseActivity.this, "Please Login again.", Toast.LENGTH_LONG).show();
+                        finish();
+                        Constants.flag_logout=false;
+                    }
+                    else {
+                        System.out.println("Data received" + data.getMessage() + "version is" + data.getForcedUpdateData().android_version + " actual version code is " + versionCode);
+                        versionCode = BuildConfig.VERSION_CODE;
+                        checkForcedUpdate(data, error, versionCode);
+                    }
 
 //                final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
 //                try {
@@ -210,10 +221,20 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                 ForceUpdateManager.getSharedInstance().getForcedUpdateData(hashMap, new ForceUpdateManager.GetForcedUpdateManagerListener() {
                     @Override
                     public void onCompletion(ForcedUpdateResponse data, AppError error) {
-                        System.out.println("Data received" + data.getMessage() + "version is" + data.getForcedUpdateData().android_version + " actual version code is " + versionCode);
-                        versionCode = BuildConfig.VERSION_CODE;
-                        checkForcedUpdate(data, error, versionCode);
+                        //System.out.println("Data received" + data.getMessage() + "version is" + data.getForcedUpdateData().android_version + " actual version code is " + versionCode);
+                        if(Constants.flag_logout){
 
+                            handleSharedPreferencesOnLogout();
+                            Intent intent=new Intent(BaseActivity.this,LoginScreen.class);
+                            startActivity(intent);
+                            Toast.makeText(BaseActivity.this, "Please Login again.", Toast.LENGTH_LONG).show();
+                            finish();
+                            Constants.flag_logout=false;
+                        }
+                        else {
+                            versionCode = BuildConfig.VERSION_CODE;
+                            checkForcedUpdate(data, error, versionCode);
+                        }
 
 //                final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
 //                try {
@@ -613,7 +634,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
         long loggedIn = loginSharedPreferences.getLong(Constants.LOGIN_LOGGED_IN_PREFS_KEY,0);
         long expiresIn = loginSharedPreferences.getLong(Constants.LOGIN_EXPIRES_IN_PREFS_KEY, 0);
 
-        System.out.println("last Activity + logged In + expires in "+lastActivity+ " " + loggedIn + " " + expiresIn);
+        System.out.println("last Activity + logged In + expires in " + lastActivity + " " + loggedIn + " " + expiresIn);
 
             if ((lastActivity - loggedIn) > expiresIn){
                 Toast.makeText(this, "Por favor introduzcalo de nuevo.", Toast.LENGTH_SHORT).show();
@@ -690,11 +711,14 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
 
     public void handleSharedPreferencesOnLogout()
     {
-        LoginManager.getSharedInstance().logout(new LoginManager.LoginManagerListener() {
-            @Override
-            public void onCompletion(LoginResponse response, AppError error) {
+        if(!Constants.flag_logout) {
+            LoginManager.getSharedInstance().logout(new LoginManager.LoginManagerListener() {
+                @Override
+                public void onCompletion(LoginResponse response, AppError error) {
 
-            }});
+                }
+            });
+        }
         SharedPreferences loginSharedPrefs = BaseActivity.this.getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor  editor = loginSharedPrefs.edit();
         editor.putString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, null);
