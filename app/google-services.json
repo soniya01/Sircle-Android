@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "528420521106",
-    "project_id": "emissio-demo2"
+    "project_number": "128695971960",
+    "project_id": "msbmumbai-1347"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:528420521106:android:d321badc69cb496f",
+        "mobilesdk_app_id": "1:128695971960:android:8978f124faa349e5",
         "android_client_info": {
-          "package_name": "com.snaptech.emissiodemo2"
+          "package_name": "com.snaptech.msb"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCcP_Kcoe1va0tqD2R2Gqd7FMOL48s_xYg"
+          "current_key": "AIzaSyAf9rcZshSpXQG8mxhrX7F4NHHADtSjcoY"
         }
       ],
       "services": {
