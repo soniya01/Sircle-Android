@@ -511,7 +511,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                 closeApp = false;
                 break;
             case 4:
-                fragmentName = "Newsletters";
+                fragmentName = "Circulars";
                 if (!(fragmentToLoad instanceof NewsLetterFragment))
                 fragmentToLoad = new NewsLetterFragment();
                 closeApp=false;
