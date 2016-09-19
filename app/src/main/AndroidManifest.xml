@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.snaptech.emissiodemo2"
+    package="com.snaptech.hasanaths"
     android:versionCode="3"
     android:versionName="2.1">
 
@@ -15,10 +15,10 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <permission
-        android:name="com.snaptech.emissiodemo2.permission.C2D_MESSAGE"
+        android:name="com.snaptech.hasanaths.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.snaptech.emissiodemo2.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.snaptech.hasanaths.permission.C2D_MESSAGE" />
 
     <!-- <permission -->
     <!-- android:name="com.example.gcm.permission.C2D_MESSAGE" -->
@@ -30,7 +30,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name="com.snaptech.emissiodemo2.custom.App"
+        android:name="com.snaptech.hasanaths.custom.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -55,7 +55,7 @@
 
         <!-- [START gcm_listener] -->
         <service
-            android:name="com.snaptech.emissiodemo2.GCM.GCMListener"
+            android:name="com.snaptech.hasanaths.GCM.GCMListener"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -66,7 +66,7 @@
 
         <!-- [START instanceId_listener] -->
         <service
-            android:name="com.snaptech.emissiodemo2.GCM.InstanceIDListener"
+            android:name="com.snaptech.hasanaths.GCM.InstanceIDListener"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.gms.iid.InstanceID" />
@@ -75,11 +75,11 @@
         <!-- [END instanceId_listener] -->
 
         <service
-            android:name="com.snaptech.emissiodemo2.GCM.RegistrationIntentService"
+            android:name="com.snaptech.hasanaths.GCM.RegistrationIntentService"
             android:exported="false" />
 
         <activity
-            android:name="com.snaptech.emissiodemo2.UI.Activity.SplashActivity"
+            android:name="com.snaptech.hasanaths.UI.Activity.SplashActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -88,76 +88,76 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.snaptech.emissiodemo2.UI.Activity.BaseActivity"
+            android:name="com.snaptech.hasanaths.UI.Activity.BaseActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.snaptech.emissiodemo2.UI.Activity.LoginScreen"
+            android:name="com.snaptech.hasanaths.UI.Activity.LoginScreen"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.snaptech.emissiodemo2.UI.Activity.VideoActivity"
+            android:name="com.snaptech.hasanaths.UI.Activity.VideoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.snaptech.emissiodemo2.UI.Activity.PDFViewer"
+            android:name="com.snaptech.hasanaths.UI.Activity.PDFViewer"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.snaptech.emissiodemo2.UI.Activity.AlbumDetailsActivity"
+            android:name="com.snaptech.hasanaths.UI.Activity.AlbumDetailsActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.snaptech.emissiodemo2.UI.Activity.SettingsActivity"
+            android:name="com.snaptech.hasanaths.UI.Activity.SettingsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.snaptech.emissiodemo2.UI.Activity.AlbumFullScreenActivity"
+            android:name="com.snaptech.hasanaths.UI.Activity.AlbumFullScreenActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.snaptech.emissiodemo2.UI.Activity.AddLinksActivity"
+            android:name="com.snaptech.hasanaths.UI.Activity.AddLinksActivity"
             android:label="@string/title_activity_add_links"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.snaptech.emissiodemo2.UI.Activity.AddNotificationActivity"
+            android:name="com.snaptech.hasanaths.UI.Activity.AddNotificationActivity"
             android:label="@string/title_activity_add_notification"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.snaptech.emissiodemo2.UI.Activity.AddAlbumActivity"
+            android:name="com.snaptech.hasanaths.UI.Activity.AddAlbumActivity"
             android:label="@string/title_activity_add_album"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.snaptech.emissiodemo2.UI.Activity.EventsListActivity"
+            android:name="com.snaptech.hasanaths.UI.Activity.EventsListActivity"
             android:label="@string/title_activity_events_list" />
         <activity
-            android:name="com.snaptech.emissiodemo2.UI.Activity.AddPhotoTabbedActivity"
+            android:name="com.snaptech.hasanaths.UI.Activity.AddPhotoTabbedActivity"
             android:label="@string/title_activity_add_photo_tabbed"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.snaptech.emissiodemo2.UI.cam.activity.CameraActivity"
+            android:name="com.snaptech.hasanaths.UI.cam.activity.CameraActivity"
             android:label="@string/title_activity_add_photo_tabbed"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
         <activity
-            android:name="com.snaptech.emissiodemo2.UI.Activity.AddSelectedPhoto"
+            android:name="com.snaptech.hasanaths.UI.Activity.AddSelectedPhoto"
             android:label="@string/title_activity_add_selected_photo"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.snaptech.emissiodemo2.UI.Activity.HolidayActivity"
+            android:name="com.snaptech.hasanaths.UI.Activity.HolidayActivity"
             android:label="@string/title_activity_holiday" />
         <activity
-            android:name="com.snaptech.emissiodemo2.UI.Activity.SchoolHolidayActivity"
+            android:name="com.snaptech.hasanaths.UI.Activity.SchoolHolidayActivity"
             android:label="@string/title_activity_school_holiday" />
         <activity
-            android:name="com.snaptech.emissiodemo2.UI.Activity.EventActivity"
+            android:name="com.snaptech.hasanaths.UI.Activity.EventActivity"
             android:label="@string/title_activity_event" />
         <activity
-            android:name="com.snaptech.emissiodemo2.UI.Activity.EventDetailActivity"
+            android:name="com.snaptech.hasanaths.UI.Activity.EventDetailActivity"
             android:label="@string/title_activity_event_detail" />
         <activity
-            android:name="com.snaptech.emissiodemo2.UI.Activity.VimeoWebviewActivity"
+            android:name="com.snaptech.hasanaths.UI.Activity.VimeoWebviewActivity"
             android:label="@string/title_activity_vimeo_webview"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.snaptech.emissiodemo2.UI.Activity.PDFWebViewer" />
-        <activity android:name="com.snaptech.emissiodemo2.UI.Activity.ForgotPasswordActivity" />
-        <activity android:name="com.snaptech.emissiodemo2.UI.Activity.SignUpScreen" />
+        <activity android:name="com.snaptech.hasanaths.UI.Activity.PDFWebViewer" />
+        <activity android:name="com.snaptech.hasanaths.UI.Activity.ForgotPasswordActivity" />
+        <activity android:name="com.snaptech.hasanaths.UI.Activity.SignUpScreen" />
 
         <meta-data
             android:name="io.fabric.ApiKey"

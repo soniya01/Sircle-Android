@@ -4,7 +4,7 @@
         android:layout_height="match_parent"
         android:background="#F4F4F4"
         android:orientation="vertical"
-        tools:context="com.snaptech.emissiodemo2.UI.Activity.EventDetailActivity">
+        tools:context="com.snaptech.hasanaths.UI.Activity.EventDetailActivity">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                     android:src="@drawable/eventtime"/>
 
 
-                <com.snaptech.emissiodemo2.custom.RobotoLightTextView
+                <com.snaptech.hasanaths.custom.RobotoLightTextView
                     android:id="@+id/event_detail_title"
                     android:layout_width="match_parent"
                     android:textSize="20dp"
@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <com.snaptech.emissiodemo2.custom.RobotoLightTextView
+                    <com.snaptech.hasanaths.custom.RobotoLightTextView
                         android:layout_width="match_parent"
                         android:text="@string/starts_title"
                         android:textSize="12dp"
@@ -79,7 +79,7 @@
                         android:layout_height="wrap_content" />
 
 
-                    <com.snaptech.emissiodemo2.custom.RobotoLightTextView
+                    <com.snaptech.hasanaths.custom.RobotoLightTextView
                         android:id="@+id/event_start_date"
                         android:layout_width="match_parent"
                         android:textSize="20dp"
@@ -110,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <com.snaptech.emissiodemo2.custom.RobotoLightTextView
+                    <com.snaptech.hasanaths.custom.RobotoLightTextView
                         android:layout_width="match_parent"
                         android:text="@string/ends_title"
                         android:textSize="12dp"
@@ -121,7 +121,7 @@
                         android:layout_height="wrap_content" />
 
 
-                    <com.snaptech.emissiodemo2.custom.RobotoLightTextView
+                    <com.snaptech.hasanaths.custom.RobotoLightTextView
                         android:id="@+id/event_end_date"
                         android:layout_width="match_parent"
                         android:textSize="20dp"
@@ -149,7 +149,7 @@
                     android:src="@drawable/locationlabelimage"/>
 
 
-                <com.snaptech.emissiodemo2.custom.RobotoLightTextView
+                <com.snaptech.hasanaths.custom.RobotoLightTextView
                     android:id="@+id/event_detail_location"
                     android:layout_width="match_parent"
                     android:textSize="20dp"
@@ -174,7 +174,7 @@
                     android:layout_marginLeft="17dp"
                     android:src="@drawable/categorytitleimage"/>
 
-                <com.snaptech.emissiodemo2.custom.RobotoLightTextView
+                <com.snaptech.hasanaths.custom.RobotoLightTextView
                     android:id="@+id/event_detail_category"
                     android:layout_width="match_parent"
                     android:textSize="20dp"
@@ -200,7 +200,7 @@
                     android:layout_marginLeft="17dp"
                     android:src="@drawable/groupsicon"/>
 
-                <com.snaptech.emissiodemo2.custom.RobotoLightTextView
+                <com.snaptech.hasanaths.custom.RobotoLightTextView
                     android:id="@+id/event_detail_groups"
                     android:layout_width="match_parent"
                     android:textSize="20dp"
