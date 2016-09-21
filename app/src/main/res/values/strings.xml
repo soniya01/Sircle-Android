@@ -1,7 +1,5 @@
 <resources>
-    <string name="app_name">Emissio</string>
-
-
+    <string name="app_name">TSM</string>
     <!--Activity Add Album-->
     <string name="title_placeholder">Title</string>
     <string name="group_list_title">Groups</string>
