@@ -125,7 +125,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                         Constants.flag_logout=false;
                     }
                     else {
-                        System.out.println("Data received" + data.getMessage() + "version is" + data.getForcedUpdateData().android_version + " actual version code is " + versionCode);
+                        //System.out.println("Data received" + data.getMessage() + "version is" + data.getForcedUpdateData().android_version + " actual version code is " + versionCode);
                         versionCode = BuildConfig.VERSION_CODE;
                         checkForcedUpdate(data, error, versionCode);
                     }
