@@ -6,7 +6,7 @@
     android:padding="10dp">
 
 
-    <com.snaptech.kipling.UI.CustomView.TouchImageView
+    <com.snaptech.spanishdemo.UI.CustomView.TouchImageView
         android:id="@+id/album_pager_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
