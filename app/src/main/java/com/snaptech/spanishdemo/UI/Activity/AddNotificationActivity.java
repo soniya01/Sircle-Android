@@ -185,6 +185,7 @@ public class AddNotificationActivity extends ActionBarActivity {
                     if (response != null) {
 
                         if (response.getData().getGroups().size() > 0){
+                            System.out.println("Size is greate than zero");
                             AddNotificationActivity.this.notificationGroupList.addAll(NotificationManager.groupList);
                             notificationsGroupAdapter.notifyDataSetChanged();
                             setListViewHeightBasedOnChildren(addListView);
