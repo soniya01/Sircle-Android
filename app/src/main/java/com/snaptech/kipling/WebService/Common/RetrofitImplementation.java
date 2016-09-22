@@ -1464,7 +1464,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                             Type collectionType = new TypeToken<Collection<Object>>(){}.getType();
                             Collection<Object> data = gson.fromJson(jsonElement, collectionType);
                             webserviceListener.onCompletion(data, new AppError());
-
+                        }else {
 
                             // JsonObject jobject = jsonElement.getAsJsonObject();
                             try {
