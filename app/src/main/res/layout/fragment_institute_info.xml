@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="com.snaptech.americanmontesorri.UI.Fragment.InstituteInfo">
+    tools:context="com.snaptech.montesorriamerican.UI.Fragment.InstituteInfo">
 
 
     <LinearLayout
@@ -19,7 +19,7 @@
             android:layout_marginTop="20dp"
             android:src="@drawable/emissionsloginlogo"/>
 
-        <com.snaptech.americanmontesorri.custom.RobotoRegularTextView
+        <com.snaptech.montesorriamerican.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
             android:layout_marginTop="20dp"
@@ -32,7 +32,7 @@
         <!--Morelia, Michoacán-->
         <!--Tel: 2929118-->
         <!--www.americanmontessori.mx-->
-        <com.snaptech.americanmontesorri.custom.RobotoRegularTextView
+        <com.snaptech.montesorriamerican.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
             android:textAlignment="center"
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.snaptech.americanmontesorri.custom.RobotoRegularTextView
+        <com.snaptech.montesorriamerican.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
             android:layout_marginTop="20dp"
@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.snaptech.americanmontesorri.custom.RobotoRegularTextView
+        <com.snaptech.montesorriamerican.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:visibility="gone"
             android:textColor="#002E49"
