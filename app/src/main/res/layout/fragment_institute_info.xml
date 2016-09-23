@@ -24,7 +24,7 @@
             android:textColor="#002E49"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:text="Emissio"
+            android:text="Brick Pune"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -35,7 +35,7 @@
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:gravity="center_horizontal"
-            android:text="Lower Parel,\n MUMBAI – 400013."
+            android:text="Survey No. 50 / 3,\n Undri, Pune, India - 411028"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -44,7 +44,7 @@
             android:textColor="#002E49"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:text="support@snaptech.in"
+            android:text="info@brick.edu.in"
             android:autoLink="email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -55,7 +55,7 @@
             android:textColor="#002E49"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:text="+912223746007"
+            android:text="+91 8380886066"
             android:autoLink="phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

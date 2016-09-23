@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "528420521106",
-    "project_id": "emissio-demo2"
+    "project_number": "774721474196",
+    "project_id": "brick-pune"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:528420521106:android:d321badc69cb496f",
+        "mobilesdk_app_id": "1:774721474196:android:d39917facf875599",
         "android_client_info": {
-          "package_name": "com.snaptech.emissiodemo2"
+          "package_name": "com.snaptech.brickpune"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCcP_Kcoe1va0tqD2R2Gqd7FMOL48s_xYg"
+          "current_key": "AIzaSyDRFVXVd1t7fslSppSLN294sjoQoFQOlTo"
         }
       ],
       "services": {
