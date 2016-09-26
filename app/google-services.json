@@ -1,20 +1,31 @@
 {
   "project_info": {
-    "project_number": "528420521106",
-    "project_id": "emissio-demo2"
+    "project_number": "453012127969",
+    "firebase_url": "https://asian-international.firebaseio.com",
+    "project_id": "asian-international",
+    "storage_bucket": "asian-international.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:528420521106:android:d321badc69cb496f",
+        "mobilesdk_app_id": "1:453012127969:android:cfee3b2c86d11a00",
         "android_client_info": {
-          "package_name": "com.snaptech.emissiodemo2"
+          "package_name": "com.snaptech.asianintl"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "453012127969-j6c5tckq8ld24scm372se0thjh8h0jpb.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "453012127969-lcbhrqdacsvbhqjp58qn67spacaqrpov.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyCcP_Kcoe1va0tqD2R2Gqd7FMOL48s_xYg"
+          "current_key": "AIzaSyBk4KWo10pVlPpJv8pEeVTIFfm_aqAioUU"
         }
       ],
       "services": {
@@ -26,7 +37,7 @@
           "other_platform_oauth_client": []
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }
