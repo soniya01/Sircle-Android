@@ -1,20 +1,27 @@
 {
   "project_info": {
-    "project_number": "528420521106",
-    "project_id": "emissio-demo2"
+    "project_number": "265250857162",
+    "firebase_url": "https://quaderia-new.firebaseio.com",
+    "project_id": "quaderia-new",
+    "storage_bucket": "quaderia-new.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:528420521106:android:d321badc69cb496f",
+        "mobilesdk_app_id": "1:265250857162:android:e6ea7bf47c9f995b",
         "android_client_info": {
-          "package_name": "com.snaptech.emissiodemo2"
+          "package_name": "com.grayjam.quadeia"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "265250857162-l61rlgr5q2kc1tms25rsmbntsrcdneh0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyCcP_Kcoe1va0tqD2R2Gqd7FMOL48s_xYg"
+          "current_key": "AIzaSyCLwGf9P_LrbuYno2ZK9Cm9SsPvAsjC_V8"
         }
       ],
       "services": {
@@ -26,7 +33,7 @@
           "other_platform_oauth_client": []
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }
