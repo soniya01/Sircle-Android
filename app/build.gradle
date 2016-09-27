@@ -9,8 +9,8 @@ android {
         applicationId "com.snaptech.naharInt"
         minSdkVersion 15
         targetSdkVersion 20
-        versionCode 8
-        versionName "3.5"
+        versionCode 9
+        versionName "3.6"
         multiDexEnabled true
     }
     buildTypes {
