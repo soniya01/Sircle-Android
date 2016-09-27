@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.snaptech.kipling.Manager.PhotoManager;
 import com.snaptech.kipling.R;
@@ -152,6 +153,7 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
         protected void onPostExecute(Bitmap bitmap) {
             super.onPostExecute(bitmap);
             mProgressDialog.dismiss();
+            Toast.makeText(AlbumFullScreenActivity.this,"Imagen descargado con éxito",Toast.LENGTH_LONG).show();
 
             // save image to gallery
             storeImage(bitmap);
