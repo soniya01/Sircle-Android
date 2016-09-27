@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.snaptech.hasanaths.Manager.PhotoManager;
 import com.snaptech.hasanaths.R;
@@ -152,7 +153,7 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
         protected void onPostExecute(Bitmap bitmap) {
             super.onPostExecute(bitmap);
             mProgressDialog.dismiss();
-
+            Toast.makeText(AlbumFullScreenActivity.this,"Image Downloaded Successfully", Toast.LENGTH_LONG).show();
             // save image to gallery
             storeImage(bitmap);
         }

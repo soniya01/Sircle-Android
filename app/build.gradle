@@ -9,8 +9,8 @@ android {
         applicationId "com.snaptech.hasanaths"
         minSdkVersion 15
         targetSdkVersion 20
-        versionCode 7
-        versionName "4.3"
+        versionCode 8
+        versionName "4.4"
         multiDexEnabled true
     }
     buildTypes {
