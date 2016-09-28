@@ -80,7 +80,7 @@ public class EventDetailActivity extends AppCompatActivity {
                 intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,cal2.getTimeInMillis());
                 intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
                 intent.putExtra(CalendarContract.Events.TITLE, eventTitle.getText().toString());
-                intent.putExtra(CalendarContract.Events.DESCRIPTION, eventDetail);
+                intent.putExtra(CalendarContract.Events.DESCRIPTION, eventCategory.getText().toString());
                 intent.putExtra(CalendarContract.Events.EVENT_LOCATION, eventLocation.getText().toString());
                 intent.putExtra(CalendarContract.Events.RRULE, "FREQ=YEARLY");
                 startActivity(intent);
@@ -299,6 +299,7 @@ public class EventDetailActivity extends AppCompatActivity {
                           //  eventCategory.setText(eventDetailResponse.getData().getCategory());
                            // eventGroups.setText("Groups: "+eventDetailResponse.getData().getEventGroups());
                             eventLocation.setText(eventDetailResponse.getData().getEventLocation());
+                            eventCategory.setText(eventDetailResponse.getData().getEventDescription());
                             //eventLocation.setText(eventDetailResponse.getData().get);
 //                            String groupString = "";
 //                            for (EventDetailGroups groups : eventDetailResponse.getData().getEventGroups()){
