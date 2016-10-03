@@ -27,6 +27,7 @@ public class Event {
 
     @SerializedName("event_title")
     public String title;
+    public String event_type;
 
 //    @SerializedName("event_type_id")
 //    public String eventTypeId;
@@ -145,7 +146,7 @@ public class Event {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
-  }
+    }
 
     public String getDetail() {
         return detail;
@@ -161,6 +162,14 @@ public class Event {
 
     public void setEventPriority(String eventPriority) {
         this.eventPriority = eventPriority;
+    }
+
+    public String getEvent_type() {
+        return event_type;
+    }
+
+    public void setEvent_type(String event_type) {
+        this.event_type = event_type;
     }
 
 

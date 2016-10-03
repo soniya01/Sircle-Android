@@ -68,32 +68,38 @@ public class CalendarMonthListAdapter extends BaseAdapter {
         viewHolder.eventTitleLabel.setText(calendarMonthList.get(position).getTitle());
 
 
-       String str = calendarMonthList.get(position).getStartDate();
+        String str = calendarMonthList.get(position).getStartDate();
         String[] splited = str.split(" ");
 
         viewHolder.eventDateLabel.setText(splited[0]);
-        viewHolder.eventTimeLabel.setText(splited[1]);
+        if(calendarMonthList.get(position).getEvent_type().equalsIgnoreCase("N"))
+            viewHolder.eventTimeLabel.setText(splited[1]);
+        else
+            viewHolder.eventTimeLabel.setText("");
 
         str = calendarMonthList.get(position).getEndDate();
 
         String[] splited1 = str.split(" ");
 
-        viewHolder.eventEndTimeLabel.setText(splited1[1]);
+        if(calendarMonthList.get(position).getEvent_type().equalsIgnoreCase("N"))
+            viewHolder.eventEndTimeLabel.setText(splited1[1]);
+        else
+            viewHolder.eventEndTimeLabel.setText("");
 
 
         if (calendarMonthList.get(position).getCategoryName().equals("Arts"))
         {
-         // .setBackgroundResource(R.drawable.arts);
+            // .setBackgroundResource(R.drawable.arts);
             viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.arts));
         }
         else if (calendarMonthList.get(position).getCategoryName().equals("Sports"))
         {
-           // viewHolder.eventImage.setBackgroundResource(R.drawable.sports);
+            // viewHolder.eventImage.setBackgroundResource(R.drawable.sports);
             viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.sports));
         }
         else if (calendarMonthList.get(position).getCategoryName().equals(""))
         {
-           // viewHolder.eventImage.setBackgroundResource(R.drawable.event_image);
+            // viewHolder.eventImage.setBackgroundResource(R.drawable.event_image);
             viewHolder.eventImage.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.documentslist));
         }
         else if (calendarMonthList.get(position).getCategoryName().equals("Academics"))
@@ -123,4 +129,3 @@ public class CalendarMonthListAdapter extends BaseAdapter {
         private ImageView eventImage;
     }
 }
-

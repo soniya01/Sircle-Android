@@ -37,7 +37,7 @@ app:mrl_rippleOverlay="true">
 
     <LinearLayout
 
-        android:layout_marginRight="42dp"
+        android:layout_marginRight="45dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="14dp"

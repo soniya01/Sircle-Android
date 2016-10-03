@@ -80,7 +80,7 @@
 
     <!-- Strings related to login -->
     <string name="prompt_email">USUARIO</string>
-    <string name="prompt_password">CONTRASEÑA</string>
+    <string name="prompt_password">Contraseña</string>
     <string name="confirm_password_placeholder">Confirmar Contraseña</string>
     <string name="forgot_password_title">Olvidé mi contraseña</string>
     <string name="register_button_title">Registrarse</string>

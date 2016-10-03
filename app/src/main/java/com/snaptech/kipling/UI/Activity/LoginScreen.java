@@ -265,14 +265,14 @@ public class LoginScreen extends Activity {
                             ringProgressDialog.dismiss();
                             usernameField.setText("");
                             passwordEditText.setText("");
-                            Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginScreen.this, "Error de autenticación", Toast.LENGTH_SHORT).show();
                         }
 
                     }else {
                         ringProgressDialog.dismiss();
                         usernameField.setText("");
                         passwordEditText.setText("");
-                         Toast.makeText(LoginScreen.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                         Toast.makeText(LoginScreen.this, "Error de autenticación", Toast.LENGTH_SHORT).show();
                     }
                 }else {
                     ringProgressDialog.dismiss();
