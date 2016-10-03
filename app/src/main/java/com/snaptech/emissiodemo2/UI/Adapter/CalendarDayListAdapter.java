@@ -65,6 +65,7 @@ public class CalendarDayListAdapter extends BaseAdapter {
         }
 
         viewHolder.eventTitleLabel.setText(calendarMonthList.get(position).getTitle());
+       // if(calendarMonthList.get(position).get().equalsIgnoreCase(""))
         viewHolder.eventDateLabel.setText(calendarMonthList.get(position).getStartTime());
         viewHolder.eventTimeLabel.setText(calendarMonthList.get(position).getEndTime());
 

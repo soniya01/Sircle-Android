@@ -863,6 +863,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     public void success(JsonElement jsonElement, Response response) {
                         if (!jsonElement.isJsonNull()) {
 
+                            System.out.println("Event list is "+jsonElement.toString());
                             int code=0;
                             try {
                                 JSONObject jsonObject=new JSONObject(jsonElement.toString());

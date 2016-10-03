@@ -72,13 +72,19 @@ public class CalendarMonthListAdapter extends BaseAdapter {
         String[] splited = str.split(" ");
 
         viewHolder.eventDateLabel.setText(splited[0]);
+        if(calendarMonthList.get(position).getEvent_type().equalsIgnoreCase("N"))
         viewHolder.eventTimeLabel.setText(splited[1]);
+        else
+            viewHolder.eventTimeLabel.setText("");
 
         str = calendarMonthList.get(position).getEndDate();
 
         String[] splited1 = str.split(" ");
 
+        if(calendarMonthList.get(position).getEvent_type().equalsIgnoreCase("N"))
         viewHolder.eventEndTimeLabel.setText(splited1[1]);
+        else
+            viewHolder.eventEndTimeLabel.setText("");
 
 
         if (calendarMonthList.get(position).getCategoryName().equals("Arts"))
