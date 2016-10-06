@@ -1064,6 +1064,8 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     public void success(JsonElement jsonElement, Response response) {
                         if (!jsonElement.isJsonNull()) {
 
+                            System.out.println("Group changes response is "+jsonElement.toString());
+
                             Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
 
                             if (responseClass != null) {
@@ -1424,13 +1426,13 @@ public class RetrofitImplementation implements WebServiceProtocol{
                         SharedPreferences sharedpreferences = App.getAppContext().getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
                         String accessToken = sharedpreferences.getString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, null);
 
-                        if(!url.equalsIgnoreCase(Constants.FORCED_UPDATE_URL))
-                        request.addHeader("Authorization", "");
-                        else {
+//                        if(!url.equalsIgnoreCase(Constants.FORCED_UPDATE_URL))
+//                        request.addHeader("Authorization", "");
+//                        else {
                             String accessToken2 = sharedpreferences.getString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, null);
                             request.addHeader("Authorization", accessToken2);
                             //request.addHeader("Authorization", "3ec8e9ed13ad96b6b979517f5bf34545891f4958");
-                        }
+//                        }
                     }
                 })
                 .setConverter(new GsonCustomConverter(gson))

@@ -1,8 +1,10 @@
 package com.snaptech.emissiodemo2.UI.Activity;
 
 import android.app.ProgressDialog;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,6 +44,10 @@ public class SignUpScreen extends AppCompatActivity {
         passwordField = (EditText)findViewById(R.id.activity_login_password_edittext);
         confirmPasswordFeild = (EditText)findViewById(R.id.confirmPassword);
 
+        passwordField.setTypeface(Typeface.DEFAULT);
+        passwordField.setTransformationMethod(new PasswordTransformationMethod());
+        confirmPasswordFeild.setTypeface(Typeface.DEFAULT);
+        confirmPasswordFeild.setTransformationMethod(new PasswordTransformationMethod());
         confirmPasswordFeild.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {

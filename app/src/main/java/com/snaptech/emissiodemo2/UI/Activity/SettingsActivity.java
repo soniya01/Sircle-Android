@@ -77,6 +77,7 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
         //swipeRefreshLayout.setOnRefreshListener(this);
 
         if (notificationGroupList.size() <= 0){
+            System.out.println("");
            populateDummyData();
         }
 
@@ -137,6 +138,7 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
                         }
                     }
 
+                    System.out.println("Group id string is "+grpIdString);
                     HashMap map = new HashMap();
                   //  map.put("regId", Constants.GCM_REG_ID);
                     map.put("group_id", grpIdString);
@@ -226,7 +228,7 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
 
         ringProgressDialog = ProgressDialog.show(SettingsActivity.this, "", "", true);
         HashMap<String, String> map = new HashMap<>();
-        map.put("regId", Constants.GCM_REG_ID);
+        //map.put("regId", Constants.GCM_REG_ID);
         NotificationManager.getSharedInstance().getAllGroups(map, new NotificationManager.GroupsManagerListener() {
             @Override
             public void onCompletion(GroupResponse response, AppError error) {

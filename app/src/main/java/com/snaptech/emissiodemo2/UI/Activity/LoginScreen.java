@@ -7,10 +7,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.Spannable;
+import android.text.method.PasswordTransformationMethod;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -59,6 +61,8 @@ public class LoginScreen extends Activity {
 
       //  supportLabel = (TextView)findViewById(R.id.activity_login_email_address_label);
         passwordEditText = (EditText)findViewById(R.id.activity_login_password_edittext);
+        passwordEditText.setTypeface(Typeface.DEFAULT);
+        passwordEditText.setTransformationMethod(new PasswordTransformationMethod());
         usernameField = (EditText)findViewById(R.id.activity_login_email_text_view);
 
         signUpTextView = (TextView)findViewById(R.id.signUPText);

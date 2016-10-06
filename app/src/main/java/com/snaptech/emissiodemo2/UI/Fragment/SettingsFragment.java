@@ -3,9 +3,12 @@ package com.snaptech.emissiodemo2.UI.Fragment;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -208,7 +211,7 @@ public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                     HashMap map = new HashMap();
                  //   map.put("regId", Constants.GCM_REG_ID);
-                    map.put("groupValString", grpIdString);
+                    map.put("group_id", grpIdString);
 
                     NotificationManager.getSharedInstance().updateGroupNotification(map, new NotificationManager.PostManagerListener() {
                         @Override
@@ -227,9 +230,12 @@ public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnR
                                     }
 
                                //     NotificationManager.getSharedInstance().saveGroupIds(grpIdString,getActivity());
-                                    Intent homeIntent = new Intent(getActivity(), BaseActivity.class);
-                                    startActivity(homeIntent);
-                                    //finish();
+                                    System.out.println("Called intent");
+                                    loadFragment(getActivity(), new HomeFragment(),"Home",1);
+                                    Toast.makeText(getActivity(),"Settings Saved Successfully",Toast.LENGTH_SHORT).show();
+//                                    Intent homeIntent = new Intent(getActivity(), BaseActivity.class);
+//                                    startActivity(homeIntent);
+                                    //getActivity().finish();
                                 }
                             } else {
                                 Toast.makeText(getActivity(), "some error occurred", Toast.LENGTH_SHORT).show();
@@ -297,5 +303,37 @@ public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onRefresh() {
         //populateDummyData();
+    }
+    private void loadFragment(Context context, Fragment fragment, String title, int position) {
+
+
+        FragmentManager mFragmentManager;
+        FragmentTransaction mFragmentTransaction;
+
+        ((BaseActivity)context)
+                .setActionBarTitle(title);
+
+
+        ((BaseActivity)context)
+                .setFalse();
+
+        ((BaseActivity)context)
+                .setFragmentName(title);
+
+        ((BaseActivity)context)
+                .setDrawerPositionFromHome(position);
+
+
+        mFragmentManager = getActivity().getSupportFragmentManager();
+        mFragmentTransaction = mFragmentManager.beginTransaction();
+
+
+        if (fragment != null) {
+            mFragmentTransaction.replace(R.id.main_layout_container, fragment).commit();
+        }
+
+
+
+
     }
 }
