@@ -34,7 +34,7 @@
                     android:contentDescription="@string/description_image_default"
                     android:src="@drawable/emissionsloginlogo" />
 
-                <com.snaptech.emissiodemo2.custom.RobotoLightTextView
+                <com.snaptech.asb.custom.RobotoLightTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -107,9 +107,6 @@
 
 
 
-
-
-
                 <Button
                     android:id="@+id/email_sign_in_button"
                     android:layout_marginLeft="21dp"
@@ -118,7 +115,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
-                    android:background="#FC6F71"
+                    android:background="#B6A832"
                     android:text="@string/action_sign_in"
                     android:textColor="@android:color/white"
                     android:textStyle="bold" />
@@ -128,7 +125,7 @@
             <TextView
                 android:layout_marginTop="15dp"
                 android:id="@+id/forgotPasswordText"
-                android:textColor="#505050"
+                android:textColor="#B6A832"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"

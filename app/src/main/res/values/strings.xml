@@ -1,7 +1,5 @@
 <resources>
-    <string name="app_name">Demo2</string>
-
-
+    <string name="app_name">ASB</string>
     <!--Activity Add Album-->
     <string name="title_placeholder">Title</string>
     <string name="group_list_title">Groups</string>
