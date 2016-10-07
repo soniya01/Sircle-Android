@@ -109,54 +109,58 @@ public class AddAlbumActivity extends ActionBarActivity {
               //  String grpIdString = NotificationManager.getSharedInstance().getGroupIds(AddAlbumActivity.this);
 
 
-                ringProgressDialog = ProgressDialog.show(AddAlbumActivity.this, "", "Adding Album", true);
+                String title2=title.getText().toString();
+                if(title2.length()<=2){
 
-                String grpIdString = "";
-
-                for (int i = 0; i < notificationGroupList.size(); i++) {
-                    // listData[i] = listView.getAdapter().getItem(i).toString();
-                    // notificationGroupList.get(i).setActive(1);
-
-
-                    if (notificationGroupList.get(i).getActive()==Boolean.TRUE)
-                    {
-                        if (grpIdString.equals(""))
-                        {
-                            grpIdString = notificationGroupList.get(i).getId() ;
-                        }
-                        else {
-                            grpIdString = grpIdString + "," + notificationGroupList.get(i).getId();
-                        }
-                        //NotificationManager.grpIds.add( notificationGroupList.get(i).getId());
-                    }
+                    Toast.makeText(AddAlbumActivity.this,"Title should be of atleast 3 characters",Toast.LENGTH_LONG).show();
+                    title.requestFocus();
                 }
+                else {
+                    ringProgressDialog = ProgressDialog.show(AddAlbumActivity.this, "", "Adding Album", true);
+
+                    String grpIdString = "";
+
+                    for (int i = 0; i < notificationGroupList.size(); i++) {
+                        // listData[i] = listView.getAdapter().getItem(i).toString();
+                        // notificationGroupList.get(i).setActive(1);
 
 
-                HashMap params = new HashMap();
-                params.put("album_name",title.getText().toString());
-                params.put("group_id",grpIdString);
-                PhotoManager.getSharedInstance().addNewAlbum(params, new PhotoManager.AddPhotoManagerListener() {
-                    @Override
-                    public void onCompletion(AddAlbumResponse addAlbumResponse, AppError error) {
-                        if (addAlbumResponse != null) {
-                            ringProgressDialog.dismiss();
-                            if (addAlbumResponse.getStatus() == 200) {
-
-                                Intent tabIntent = new Intent(AddAlbumActivity.this, CameraActivity.class);
-                                tabIntent.putExtra("albumId", addAlbumResponse.getData().getAlbumId());
-                                startActivity(tabIntent);
-                                finish();
+                        if (notificationGroupList.get(i).getActive() == Boolean.TRUE) {
+                            if (grpIdString.equals("")) {
+                                grpIdString = notificationGroupList.get(i).getId();
                             } else {
-                              //  Toast.makeText(AddAlbumActivity.this, addAlbumResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                grpIdString = grpIdString + "," + notificationGroupList.get(i).getId();
                             }
-                        } else {
-                            Toast.makeText(AddAlbumActivity.this, "Some error occurred", Toast.LENGTH_SHORT).show();
+                            //NotificationManager.grpIds.add( notificationGroupList.get(i).getId());
                         }
                     }
-                });
 
-               // finish();
-            }
+
+                    HashMap params = new HashMap();
+                    params.put("album_name", title.getText().toString());
+                    params.put("group_id", grpIdString);
+                    PhotoManager.getSharedInstance().addNewAlbum(params, new PhotoManager.AddPhotoManagerListener() {
+                        @Override
+                        public void onCompletion(AddAlbumResponse addAlbumResponse, AppError error) {
+                            if (addAlbumResponse != null) {
+                                ringProgressDialog.dismiss();
+                                if (addAlbumResponse.getStatus() == 200) {
+
+                                    Intent tabIntent = new Intent(AddAlbumActivity.this, CameraActivity.class);
+                                    tabIntent.putExtra("albumId", addAlbumResponse.getData().getAlbumId());
+                                    startActivity(tabIntent);
+                                    finish();
+                                } else {
+                                    //  Toast.makeText(AddAlbumActivity.this, addAlbumResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(AddAlbumActivity.this, "Some error occurred", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+                    // finish();
+                }            }
         });
     }
 

@@ -45,34 +45,40 @@ public class HolidayActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                ringProgressDialog = ProgressDialog.show(HolidayActivity.this, "", "Adding Holiday", true);
 
-                HashMap params = new HashMap();
-                params.put("event_type","PH");
-                //params.put("grp",1);
-                params.put("event_name",title.getText().toString());
-                params.put("event_from_date",startDate);
-                params.put("event_to_date",endDate);
 
-                EventManager.getSharedInstance().addEvent(params, new EventManager.AddEventsManagerListener() {
-                    @Override
-                    public void onCompletion(PostResponse response, AppError error) {
-                        ringProgressDialog.dismiss();
-                        if (response != null){
+                if(title.getText().toString().length()<=2){
 
-                            if (response.getStatus() == 200){
-                                Toast.makeText(HolidayActivity.this, "Holiday Added!", Toast.LENGTH_SHORT).show();
-                                finish();
+                    Toast.makeText(HolidayActivity.this,"Title should be of atleast 3 characters",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    ringProgressDialog = ProgressDialog.show(HolidayActivity.this, "", "Adding Holiday", true);
+
+                    HashMap params = new HashMap();
+                    params.put("event_type", "PH");
+                    //params.put("grp",1);
+                    params.put("event_name", title.getText().toString());
+                    params.put("event_from_date", startDate);
+                    params.put("event_to_date", endDate);
+
+                    EventManager.getSharedInstance().addEvent(params, new EventManager.AddEventsManagerListener() {
+                        @Override
+                        public void onCompletion(PostResponse response, AppError error) {
+                            ringProgressDialog.dismiss();
+                            if (response != null) {
+
+                                if (response.getStatus() == 200) {
+                                    Toast.makeText(HolidayActivity.this, "Holiday Added!", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                } else {
+                                    Toast.makeText(HolidayActivity.this, "Holiday can not be created on same day", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(HolidayActivity.this, "some error occurred", Toast.LENGTH_SHORT).show();
                             }
-                            else
-                            {
-                                Toast.makeText(HolidayActivity.this, "some error occurred",Toast.LENGTH_SHORT).show();
-                            }
-                        }else {
-                            Toast.makeText(HolidayActivity.this, "some error occurred",Toast.LENGTH_SHORT).show();
                         }
-                    }
-                });
+                    });
+                }
             }
         });
 

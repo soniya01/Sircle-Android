@@ -86,37 +86,46 @@ public class AddSelectedPhoto extends AppCompatActivity {
 //                LinearLayout layout = (LinearLayout)findViewById(R.id.container);
 //                (layout).addView(progressBar, layoutParams);
 
-                ringProgressDialog = ProgressDialog.show(AddSelectedPhoto.this, "", "Uploading image..", true);
                 String descText = desc.getText().toString();
+
+                if(descText.length()<=2){
+
+                    Toast.makeText(AddSelectedPhoto.this,"Caption should be of atleast 3 characters",Toast.LENGTH_SHORT).show();
+                    desc.requestFocus();
+                }else {
+                    ringProgressDialog = ProgressDialog.show(AddSelectedPhoto.this, "", "Uploading image..", true);
+
+
 //                BaseActivity.jumpToFragment = true;
 
-                HashMap params = new HashMap();
+                    HashMap params = new HashMap();
 
-                params.put("album_id", String.valueOf(albumId));
-                //params.put("alb_id",AlbumDetailsActivity.albumId);
-                params.put("caption_name", descText);
+                    params.put("album_id", String.valueOf(albumId));
+                    //params.put("alb_id",AlbumDetailsActivity.albumId);
+                    params.put("caption_name", descText);
 
-                String photoName = data.getPath();
-               // String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.ENGLISH).format(new Date());
-                File photo = new File(photoName);
-                TypedFile typedImage = new TypedFile("image/jpeg", photo);
-                //params.put("file",typedImage);
-                PhotoManager.getSharedInstance().uploadImage(params, typedImage, new PhotoManager.PhotoManagerListener() {
-                    @Override
-                    public void onCompletion(PhotoUploadResponse response, AppError error) {
+                    String photoName = data.getPath();
+                    // String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.ENGLISH).format(new Date());
+                    File photo = new File(photoName);
+                    TypedFile typedImage = new TypedFile("image/jpeg", photo);
+                    //params.put("file",typedImage);
+                    PhotoManager.getSharedInstance().uploadImage(params, typedImage, new PhotoManager.PhotoManagerListener() {
+                        @Override
+                        public void onCompletion(PhotoUploadResponse response, AppError error) {
 //                        progressBar.setVisibility(View.GONE);
-                        ringProgressDialog.dismiss();
-                        if (response != null) {
-                            if (response.getStatus() == 200) {
-                                Toast.makeText(AddSelectedPhoto.this, "Photo Saved Successfully", Toast.LENGTH_SHORT).show();
-                                //Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
-                                finish();
-                            } else {
-                              //  Toast.makeText(AddSelectedPhoto.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                            ringProgressDialog.dismiss();
+                            if (response != null) {
+                                if (response.getStatus() == 200) {
+                                    Toast.makeText(AddSelectedPhoto.this, "Photo Saved Successfully", Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                                    finish();
+                                } else {
+                                    //  Toast.makeText(AddSelectedPhoto.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
                             }
                         }
-                    }
-                });
+                    });
+                }
             }
         });
     }

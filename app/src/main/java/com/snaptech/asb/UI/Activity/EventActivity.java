@@ -404,157 +404,147 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
 
            //     String grpIdString = NotificationManager.getSharedInstance().getGroupIds(EventActivity.this);
 
-                ringProgressDialog = ProgressDialog.show(EventActivity.this, "", "", true);
 
-                String grpIdString = "";
+                    if(title.getText().toString().length()<=2){
 
-                for (int i = 0; i < notificationGroupList.size(); i++) {
-                    // listData[i] = listView.getAdapter().getItem(i).toString();
-                    // notificationGroupList.get(i).setActive(1);
-
-
-                    if (notificationGroupList.get(i).getActive()==Boolean.TRUE)
-                    {
-                        if (grpIdString.equals(""))
-                        {
-                            grpIdString = notificationGroupList.get(i).getId() ;
-                        }
-                        else {
-                            grpIdString = grpIdString + "," + notificationGroupList.get(i).getId();
-                        }
-                        //NotificationManager.grpIds.add( notificationGroupList.get(i).getId());
+                        Toast.makeText(EventActivity.this,"Title should be of atleast 3 characters",Toast.LENGTH_LONG).show();
                     }
-                }
+                    else {
 
 
-                HashMap params = new HashMap();
-                params.put("event_type","N");
-                params.put("event_name",title.getText().toString());
-                params.put("event_location",location.getText().toString());
-                params.put("event_category",categoryButton.getText().toString());
-                params.put("group_id",grpIdString);
-                params.put("event_from_date",startDateString+startTimeStr);
-                params.put("event_to_date",endDateStr+endTimeStr);
-               // params.put("strtime",startTimeStr);
-               // params.put("endtime",endTimeStr);
-                params.put("event_description",detail.getText().toString());
+                        ringProgressDialog = ProgressDialog.show(EventActivity.this, "", "", true);
+
+                        String grpIdString = "";
+
+                        for (int i = 0; i < notificationGroupList.size(); i++) {
+                            // listData[i] = listView.getAdapter().getItem(i).toString();
+                            // notificationGroupList.get(i).setActive(1);
 
 
-                //notification_week
-
-                params.put("event_notification",event_notification);
-                params.put("notification_day",days.getText().toString());
-                params.put("notification_hour",hours.getText().toString());
-                params.put("notification_min",minutes.getText().toString());
-
-              //  params.put("repeats",isRepeat);
-
-                if (isRepeat==1)
-                {
-                  //  params.put("repeat_type_id",repeatTypeId);
-                  //  params.put("repeat_type", repeatTypes.getText().toString());
-                    params.put("event_every",repeat_every);
-
-
-
-                    if (repeatTypes.getText().toString().equals("Weekly"))
-
-                    {
-                       // (if event recurring is weakly then pass(Sun,Mon,Tue,Wed,Thu,Fri,Sat))
-
-                        params.put("event_recurring","W");
-
-                        String repeat_week_days = "";
-                        for (int i = 0; i< repeatWeekDaysList.size(); i++){
-                            if (i == 0){
-                                repeat_week_days = repeatWeekDaysList.get(i);
-                            }else {
-                                repeat_week_days = repeat_week_days + "," + repeatWeekDaysList.get(i) ;
+                            if (notificationGroupList.get(i).getActive() == Boolean.TRUE) {
+                                if (grpIdString.equals("")) {
+                                    grpIdString = notificationGroupList.get(i).getId();
+                                } else {
+                                    grpIdString = grpIdString + "," + notificationGroupList.get(i).getId();
+                                }
+                                //NotificationManager.grpIds.add( notificationGroupList.get(i).getId());
                             }
                         }
-                        params.put("event_week_day",repeat_week_days);
-
-                    }
-                    if (repeatTypes.getText().toString().equals("Monthly"))
-                    {
-                       // for recurring (pass N(None),D(Daily),and Y(Yearly))
-
-                        params.put("event_recurring","M");
-
-                      //  params.put("repeat_monthly_on",repeatMonthlyOnStr);
-                    }
 
 
-                    if (repeatTypes.getText().toString().equals("Daily"))
-                    {
-                        // for recurring (pass N(None),D(Daily),and Y(Yearly))
-
-                        params.put("event_recurring","D");
-
-                    }
-
-                    if (repeatTypes.getText().toString().equals("Yearly"))
-                    {
-                        // for recurring (pass N(None),D(Daily),and Y(Yearly))
-
-                        params.put("event_recurring","Y");
-
-                    }
+                        HashMap params = new HashMap();
+                        params.put("event_type", "N");
+                        params.put("event_name", title.getText().toString());
+                        params.put("event_location", location.getText().toString());
+                        params.put("event_category", categoryButton.getText().toString());
+                        params.put("group_id", grpIdString);
+                        params.put("event_from_date", startDateString + startTimeStr);
+                        params.put("event_to_date", endDateStr + endTimeStr);
+                        // params.put("strtime",startTimeStr);
+                        // params.put("endtime",endTimeStr);
+                        params.put("event_description", detail.getText().toString());
 
 
+                        //notification_week
 
-                    if (repeatNever.isChecked())
-                    {
-                        //params.put("repeat_end_type_id",1);
-                       // params.put("repeat_end_type","Never");
-                    }
-                    if (repeatNumber.isChecked())
-                    {
-                       // params.put("repeat_end_type_id",2);
-                       // params.put("repeat_end_type","after_occurences");
-                       // params.put("rep_after_occurence",afterCount.getText().toString());
+                        params.put("event_notification", event_notification);
+                        params.put("notification_day", days.getText().toString());
+                        params.put("notification_hour", hours.getText().toString());
+                        params.put("notification_min", minutes.getText().toString());
 
-                    }
+                        //  params.put("repeats",isRepeat);
 
-                    if (repeatOccurences.isChecked())
-                    {
-                       // params.put("repeat_end_type_id",3);
-                       // params.put("repeat_end_type","on_date");
-                        params.put("event_recurring_end",occurrencesDate.getText().toString());
-                    }
+                        if (isRepeat == 1) {
+                            //  params.put("repeat_type_id",repeatTypeId);
+                            //  params.put("repeat_type", repeatTypes.getText().toString());
+                            params.put("event_every", repeat_every);
 
 
-                }
+                            if (repeatTypes.getText().toString().equals("Weekly"))
 
-                else
-                {
-                    // for recurring (pass N(None),D(Daily),and Y(Yearly))
-
-                    params.put("event_recurring","N");
-                }
-
-
-
-
-                EventManager.getSharedInstance().addEvent(params, new EventManager.AddEventsManagerListener() {
-                    @Override
-                    public void onCompletion(PostResponse response, AppError error) {
-                        ringProgressDialog.dismiss();
-                        if (response != null){
-
-                            if (response.getStatus() == 200){
-                                Toast.makeText(EventActivity.this, "Event Added !",Toast.LENGTH_SHORT).show();
-                                finish();
-                            }
-                            else
                             {
-                                Toast.makeText(EventActivity.this, response.getMessage(),Toast.LENGTH_SHORT).show();
+                                // (if event recurring is weakly then pass(Sun,Mon,Tue,Wed,Thu,Fri,Sat))
+
+                                params.put("event_recurring", "W");
+
+                                String repeat_week_days = "";
+                                for (int i = 0; i < repeatWeekDaysList.size(); i++) {
+                                    if (i == 0) {
+                                        repeat_week_days = repeatWeekDaysList.get(i);
+                                    } else {
+                                        repeat_week_days = repeat_week_days + "," + repeatWeekDaysList.get(i);
+                                    }
+                                }
+                                params.put("event_week_day", repeat_week_days);
+
                             }
-                        }else {
-                            Toast.makeText(EventActivity.this, "some error occurred",Toast.LENGTH_SHORT).show();
+                            if (repeatTypes.getText().toString().equals("Monthly")) {
+                                // for recurring (pass N(None),D(Daily),and Y(Yearly))
+
+                                params.put("event_recurring", "M");
+
+                                //  params.put("repeat_monthly_on",repeatMonthlyOnStr);
+                            }
+
+
+                            if (repeatTypes.getText().toString().equals("Daily")) {
+                                // for recurring (pass N(None),D(Daily),and Y(Yearly))
+
+                                params.put("event_recurring", "D");
+
+                            }
+
+                            if (repeatTypes.getText().toString().equals("Yearly")) {
+                                // for recurring (pass N(None),D(Daily),and Y(Yearly))
+
+                                params.put("event_recurring", "Y");
+
+                            }
+
+
+                            if (repeatNever.isChecked()) {
+                                //params.put("repeat_end_type_id",1);
+                                // params.put("repeat_end_type","Never");
+                            }
+                            if (repeatNumber.isChecked()) {
+                                // params.put("repeat_end_type_id",2);
+                                // params.put("repeat_end_type","after_occurences");
+                                // params.put("rep_after_occurence",afterCount.getText().toString());
+
+                            }
+
+                            if (repeatOccurences.isChecked()) {
+                                // params.put("repeat_end_type_id",3);
+                                // params.put("repeat_end_type","on_date");
+                                params.put("event_recurring_end", occurrencesDate.getText().toString());
+                            }
+
+
+                        } else {
+                            // for recurring (pass N(None),D(Daily),and Y(Yearly))
+
+                            params.put("event_recurring", "N");
                         }
+
+
+                        EventManager.getSharedInstance().addEvent(params, new EventManager.AddEventsManagerListener() {
+                            @Override
+                            public void onCompletion(PostResponse response, AppError error) {
+                                ringProgressDialog.dismiss();
+                                if (response != null) {
+
+                                    if (response.getStatus() == 200) {
+                                        Toast.makeText(EventActivity.this, "Event Added !", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    } else {
+                                        Toast.makeText(EventActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    Toast.makeText(EventActivity.this, "some error occurred", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
                     }
-                });
             }
         });
 

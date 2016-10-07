@@ -135,9 +135,9 @@ public class AddLinksActivity extends ActionBarActivity {
 
                     String url = desc.getText().toString();
 
-                    if(!url.startsWith("http://")){
-                        url = "http://"+url;
-                    }
+//                    if(!url.startsWith("http://")){
+//                        url = "http://"+url;
+//                    }
 
                     params.put("link_url", url);
                     params.put("group_id", grpIdString);
