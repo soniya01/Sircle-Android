@@ -243,7 +243,7 @@
         android:layout_marginTop="0dp"
         android:text="@string/save_event_button_title"
         android:textSize="18sp"
-        android:background="#FC6F71"
+        android:background="@color/themecolor"
         android:layout_below="@+id/detailsLayout"
         android:layout_alignParentBottom="true"
         android:textColor="@android:color/white"/>

@@ -55,7 +55,7 @@
         android:layout_gravity="bottom"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:background="#FC6F71"/>
+        android:background="@color/themecolor"/>
 
 </LinearLayout>
 </ScrollView>

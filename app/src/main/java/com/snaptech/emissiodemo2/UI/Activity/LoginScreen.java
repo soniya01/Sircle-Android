@@ -7,9 +7,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.Spannable;
 import android.text.method.PasswordTransformationMethod;
@@ -70,7 +72,7 @@ public class LoginScreen extends Activity {
 
         signUpTextView.setText("Don’t have an account, Sign up.", TextView.BufferType.SPANNABLE);
         Spannable span = (Spannable) signUpTextView.getText();
-        span.setSpan(new ForegroundColorSpan(0xFFFF0000),22 , 31,
+        span.setSpan(new ForegroundColorSpan(ContextCompat.getColor(LoginScreen.this, R.color.themecolor)),22 , 31,
                 Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
 
         signUpTextView.setOnClickListener(new View.OnClickListener() {
