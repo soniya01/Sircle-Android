@@ -101,9 +101,10 @@ public class AddLinksActivity extends ActionBarActivity {
                     Toast.makeText(AddLinksActivity.this,"Title should be of atleast 3 characters",Toast.LENGTH_SHORT).show();
                     title.requestFocus();
                 }
-                if (URLUtil.isValidUrl(desc.getText().toString()) && (title.getText().toString() != null) || !title.getText().toString().trim().equals("")) {
+                else {
+                    if (URLUtil.isValidUrl(desc.getText().toString()) && (title.getText().toString() != null) || !title.getText().toString().trim().equals("")) {
 
-                    progressDialog.show();
+                        progressDialog.show();
 //                     String grpIdString = "";
 //                    for (int i = 0; i< NotificationManager.grpIds.size(); i++){
 //                        if (i == 0){
@@ -113,75 +114,70 @@ public class AddLinksActivity extends ActionBarActivity {
 //                        }
 //                    }
 
-                    String grpIdString = "";
+                        String grpIdString = "";
 
-                    for (int i = 0; i < notificationGroupList.size(); i++) {
-                        // listData[i] = listView.getAdapter().getItem(i).toString();
-                        // notificationGroupList.get(i).setActive(1);
+                        for (int i = 0; i < notificationGroupList.size(); i++) {
+                            // listData[i] = listView.getAdapter().getItem(i).toString();
+                            // notificationGroupList.get(i).setActive(1);
 
 
-                        if (notificationGroupList.get(i).getActive()==Boolean.TRUE)
-                        {
-                            if (grpIdString.equals(""))
-                            {
-                                grpIdString = notificationGroupList.get(i).getId() ;
-                            }
-                            else {
-                                grpIdString = grpIdString + "," + notificationGroupList.get(i).getId();
-                            }
-                            //NotificationManager.grpIds.add( notificationGroupList.get(i).getId());
-                        }
-                    }
-
-                   // String grpIdString = NotificationManager.getSharedInstance().getGroupIds(AddLinksActivity.this);
-
-                    HashMap params = new HashMap();
-
-                    params.put("link_name", title.getText().toString());
-
-                    String url = desc.getText().toString();
-
-//                    if(!url.startsWith("http://")){
-//                        url = "http://"+url;
-//                    }
-
-                    params.put("link_url", url);
-                    params.put("group_id", grpIdString);
-                    title.setText("");
-                    desc.setText("");
-
-                    LinksManager.getSharedInstance().addLinks(params, new LinksManager.AddLinksManagerListener() {
-                        @Override
-                        public void onCompletion(PostResponse response, AppError error) {
-                            if (response != null) {
-                                //System.out.println("Links status is "+response.getStatus()+" and message is "+response.getMessage());
-
-                                if (response.getStatus() == 200) {
-
-                                    progressDialog.dismiss();
-                                    Toast.makeText(AddLinksActivity.this, "Link added Successfully", Toast.LENGTH_SHORT).show();
-                                    finish();
+                            if (notificationGroupList.get(i).getActive() == Boolean.TRUE) {
+                                if (grpIdString.equals("")) {
+                                    grpIdString = notificationGroupList.get(i).getId();
+                                } else {
+                                    grpIdString = grpIdString + "," + notificationGroupList.get(i).getId();
                                 }
-                                else
-                                {
+                                //NotificationManager.grpIds.add( notificationGroupList.get(i).getId());
+                            }
+                        }
+
+                        // String grpIdString = NotificationManager.getSharedInstance().getGroupIds(AddLinksActivity.this);
+
+                        HashMap params = new HashMap();
+
+                        params.put("link_name", title.getText().toString());
+
+                        String url = desc.getText().toString();
+
+                        if (!url.startsWith("http://") || !url.startsWith("https://")) {
+                            url = "http://" + url;
+                        }
+
+                        params.put("link_url", url);
+                        params.put("group_id", grpIdString);
+                        title.setText("");
+                        desc.setText("");
+
+                        LinksManager.getSharedInstance().addLinks(params, new LinksManager.AddLinksManagerListener() {
+                            @Override
+                            public void onCompletion(PostResponse response, AppError error) {
+                                if (response != null) {
+                                    //System.out.println("Links status is "+response.getStatus()+" and message is "+response.getMessage());
+
+                                    if (response.getStatus() == 200) {
+
+                                        progressDialog.dismiss();
+                                        Toast.makeText(AddLinksActivity.this, "Link added Successfully", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    } else {
+
+                                        progressDialog.dismiss();
+                                        Toast.makeText(AddLinksActivity.this, "Some error occured", Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
 
                                     progressDialog.dismiss();
                                     Toast.makeText(AddLinksActivity.this, "Some error occured", Toast.LENGTH_SHORT).show();
                                 }
+
+
                             }
-                            else {
+                        });
+                        // finish();
+                    } else {
 
-                                progressDialog.dismiss();
-                                Toast.makeText(AddLinksActivity.this, "Some error occured", Toast.LENGTH_SHORT).show();
-                            }
-
-
-                        }
-                    });
-                   // finish();
-                } else {
-
-                    Toast.makeText(AddLinksActivity.this, "Please enter valid details", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddLinksActivity.this, "Please enter valid details", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
