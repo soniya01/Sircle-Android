@@ -445,12 +445,20 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
                         params.put("event_description", detail.getText().toString());
 
 
+                       // System.out.println("Values sent are "+days.getText().toString()+" "+hours.getText().toString()+" "+minutes.getText().toString());
                         //notification_week
 
+                        String day,hour,min;
+                        day=days.getText().toString();
+                        hour=hours.getText().toString();
+                        min=minutes.getText().toString();
+                        String dayarr[]=day.split(" ");
+                        String hourarr[]=hour.split(" ");
+                        String minarr[]=min.split(" ");
                         params.put("event_notification", event_notification);
-                        params.put("notification_day", days.getText().toString());
-                        params.put("notification_hour", hours.getText().toString());
-                        params.put("notification_min", minutes.getText().toString());
+                        params.put("notification_day", dayarr[0]);
+                        params.put("notification_hour", hourarr[0]);
+                        params.put("notification_min", minarr[0]);
 
                         //  params.put("repeats",isRepeat);
 
@@ -1237,6 +1245,7 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
 
     public void populateHour(){
 
+        hourList.add("0 hour");
         hourList.add("1 hour");
         hourList.add("2 hours");
         hourList.add("3 hours");
@@ -1261,6 +1270,7 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
         hourList.add("22 hours");
         hourList.add("23 hours");
 
+        daysList.add("0 day");
         daysList.add("1 day");
         daysList.add("2 days");
         daysList.add("3 days");
@@ -1292,6 +1302,7 @@ public class EventActivity extends ActionBarActivity implements View.OnClickList
         daysList.add("29 days");
         daysList.add("30 days");
 
+        minList.add("0 minute");
         minList.add("1 minute");
         minList.add("2 minutes");
         minList.add("3 minutes");

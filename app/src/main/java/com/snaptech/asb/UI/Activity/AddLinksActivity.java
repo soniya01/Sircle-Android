@@ -95,6 +95,12 @@ public class AddLinksActivity extends ActionBarActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(title.getText().toString().length()<=2){
+
+                    Toast.makeText(AddLinksActivity.this,"Title should be of atleast 3 characters",Toast.LENGTH_SHORT).show();
+                    title.requestFocus();
+                }
                 if (URLUtil.isValidUrl(desc.getText().toString()) && (title.getText().toString() != null) || !title.getText().toString().trim().equals("")) {
 
                     progressDialog.show();
@@ -148,7 +154,7 @@ public class AddLinksActivity extends ActionBarActivity {
                         @Override
                         public void onCompletion(PostResponse response, AppError error) {
                             if (response != null) {
-                                System.out.println("Links status is "+response.getStatus()+" and message is "+response.getMessage());
+                                //System.out.println("Links status is "+response.getStatus()+" and message is "+response.getMessage());
 
                                 if (response.getStatus() == 200) {
 

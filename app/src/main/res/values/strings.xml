@@ -32,7 +32,7 @@
     <string name="start_time_placeholder">Start Time</string>
     <string name="end_time_placeholder">End Time</string>
     <string name="reminder_title">Reminder</string>
-    <string name="day_button_title">1 Day</string>
+    <string name="day_button_title">0 Day</string>
     <string name="hour_button_title">0 Hour</string>
     <string name="minute_button_title">0 Minute</string>
     <string name="repeat_checkbox_title">Repeat</string>

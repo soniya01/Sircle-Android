@@ -27,6 +27,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -135,7 +136,9 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
             Bitmap bitmap = null;
             try {
                 // Download Image from URL
-                InputStream input = new java.net.URL(imageURL).openStream();
+                URI uri = new URI(imageURL.replace(" ", "%20"));
+                System.out.println("Image url hit is "+uri.toString());
+                InputStream input = new java.net.URL(uri.toString()).openStream();
                 // Decode Bitmap
                 bitmap = BitmapFactory.decodeStream(input);
             } catch (Exception e) {
