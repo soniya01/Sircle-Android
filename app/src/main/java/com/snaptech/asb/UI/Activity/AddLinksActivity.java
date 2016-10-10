@@ -101,6 +101,7 @@ public class AddLinksActivity extends ActionBarActivity {
                     Toast.makeText(AddLinksActivity.this,"Title should be of atleast 3 characters",Toast.LENGTH_SHORT).show();
                     title.requestFocus();
                 }
+                else{
                 if (URLUtil.isValidUrl(desc.getText().toString()) && (title.getText().toString() != null) || !title.getText().toString().trim().equals("")) {
 
                     progressDialog.show();
@@ -141,9 +142,9 @@ public class AddLinksActivity extends ActionBarActivity {
 
                     String url = desc.getText().toString();
 
-//                    if(!url.startsWith("http://")){
-//                        url = "http://"+url;
-//                    }
+                    if(!url.startsWith("http://")&&!url.startsWith("https://")){
+                        url = "http://"+url;
+                    }
 
                     params.put("link_url", url);
                     params.put("group_id", grpIdString);
@@ -182,6 +183,7 @@ public class AddLinksActivity extends ActionBarActivity {
                 } else {
 
                     Toast.makeText(AddLinksActivity.this, "Please enter valid details", Toast.LENGTH_SHORT).show();
+                }
                 }
             }
         });
