@@ -139,7 +139,8 @@ public class AddLinksActivity extends ActionBarActivity {
 
                         String url = desc.getText().toString();
 
-                        if (!url.startsWith("http://") || !url.startsWith("https://")) {
+                        System.out.println("Link sent is "+url);
+                        if (!url.startsWith("http://") && !url.startsWith("https://")) {
                             url = "http://" + url;
                         }
 
