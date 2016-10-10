@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "761236184201",
-    "project_id": "american-school-of-bombay"
+    "project_number": "528420521106",
+    "project_id": "emissio-demo2"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:761236184201:android:beca8c2644eb40e2",
+        "mobilesdk_app_id": "1:528420521106:android:d321badc69cb496f",
         "android_client_info": {
-          "package_name": "com.snaptech.asb"
+          "package_name": "com.snaptech.emissiodemo2"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBuK-PUVBjucGqfzalKjYxwzwEuiVUmE1Y"
+          "current_key": "AIzaSyCcP_Kcoe1va0tqD2R2Gqd7FMOL48s_xYg"
         }
       ],
       "services": {

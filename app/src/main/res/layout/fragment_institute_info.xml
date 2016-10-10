@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="com.snaptech.asb.UI.Fragment.InstituteInfo">
+    tools:context="com.snaptech.emissiodemo2.UI.Fragment.InstituteInfo">
 
 
     <LinearLayout
@@ -19,7 +19,7 @@
             android:layout_marginTop="20dp"
             android:src="@drawable/emissionsloginlogo"/>
 
-        <com.snaptech.asb.custom.RobotoRegularTextView
+        <com.snaptech.emissiodemo2.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
             android:layout_marginTop="20dp"
@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.snaptech.asb.custom.RobotoRegularTextView
+        <com.snaptech.emissiodemo2.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
             android:textAlignment="center"
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.snaptech.asb.custom.RobotoRegularTextView
+        <com.snaptech.emissiodemo2.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
             android:layout_marginTop="20dp"
@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.snaptech.asb.custom.RobotoRegularTextView
+        <com.snaptech.emissiodemo2.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
             android:layout_marginTop="20dp"
