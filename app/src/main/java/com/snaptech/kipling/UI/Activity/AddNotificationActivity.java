@@ -106,7 +106,15 @@ public class AddNotificationActivity extends ActionBarActivity {
                // RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(100,100);
                // layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
                // ((LinearLayout)v.getParent().getParent().getParent()).addView(progressBar, layoutParams);
-                if (!desc.getText().toString().trim().equals("") && (title.getText().toString() != null) || !title.getText().toString().trim().equals("")){
+
+                String title2=title.getText().toString();
+                if(title2.length()<=2){
+
+                    Toast.makeText(AddNotificationActivity.this,"Título debe ser al menos de 3 caracteres",Toast.LENGTH_LONG).show();
+                    title.requestFocus();
+                }
+                else {
+                    if (!desc.getText().toString().trim().equals("") && (title.getText().toString() != null) || !title.getText().toString().trim().equals("")) {
 //                    String grpIdString = "";
 //                    for (int i = 0; i< NotificationManager.grpIds.size(); i++){
 //                        if (i == 0){
@@ -116,58 +124,56 @@ public class AddNotificationActivity extends ActionBarActivity {
 //                        }
 //                    }
 
-                 //   String grpIdString = NotificationManager.getSharedInstance().getGroupIds(AddNotificationActivity.this);
+                        //   String grpIdString = NotificationManager.getSharedInstance().getGroupIds(AddNotificationActivity.this);
 
-                    ringProgressDialog = ProgressDialog.show(AddNotificationActivity.this, "", "", true);
+                        ringProgressDialog = ProgressDialog.show(AddNotificationActivity.this, "", "", true);
 
-                    String grpIdString = "";
+                        String grpIdString = "";
 
-                    for (int i = 0; i < notificationGroupList.size(); i++) {
-                        // listData[i] = listView.getAdapter().getItem(i).toString();
-                        // notificationGroupList.get(i).setActive(1);
+                        for (int i = 0; i < notificationGroupList.size(); i++) {
+                            // listData[i] = listView.getAdapter().getItem(i).toString();
+                            // notificationGroupList.get(i).setActive(1);
 
 
-                        if (notificationGroupList.get(i).getActive()==Boolean.TRUE)
-                        {
-                            if (grpIdString.equals(""))
-                            {
-                                grpIdString = notificationGroupList.get(i).getId() ;
+                            if (notificationGroupList.get(i).getActive() == Boolean.TRUE) {
+                                if (grpIdString.equals("")) {
+                                    grpIdString = notificationGroupList.get(i).getId();
+                                } else {
+                                    grpIdString = grpIdString + "," + notificationGroupList.get(i).getId();
+                                }
+                                //NotificationManager.grpIds.add( notificationGroupList.get(i).getId());
                             }
-                            else {
-                                grpIdString = grpIdString + "," + notificationGroupList.get(i).getId();
-                            }
-                            //NotificationManager.grpIds.add( notificationGroupList.get(i).getId());
                         }
-                    }
 
-                    HashMap params = new HashMap();
-                    params.put("notification_title",title.getText().toString());
-                    params.put("notification_message",desc.getText().toString());
-                    params.put("group_id",grpIdString);
-                    // add notification api call
-                    NotificationManager.getSharedInstance().addNotification(params, new NotificationManager.PostManagerListener() {
-                        @Override
-                        public void onCompletion(PostResponse postResponse, AppError error) {
-                         //   progressBar.setVisibility(View.GONE);
-                            if (postResponse != null) {
-                                if (postResponse.getStatus() == 200) {
-                                    ringProgressDialog.dismiss();
-                                   Toast.makeText(AddNotificationActivity.this, "Message Added!", Toast.LENGTH_SHORT).show();
-                                    finish();
+                        HashMap params = new HashMap();
+                        params.put("notification_title", title.getText().toString());
+                        params.put("notification_message", desc.getText().toString());
+                        params.put("group_id", grpIdString);
+                        // add notification api call
+                        NotificationManager.getSharedInstance().addNotification(params, new NotificationManager.PostManagerListener() {
+                            @Override
+                            public void onCompletion(PostResponse postResponse, AppError error) {
+                                //   progressBar.setVisibility(View.GONE);
+                                if (postResponse != null) {
+                                    if (postResponse.getStatus() == 200) {
+                                        ringProgressDialog.dismiss();
+                                        Toast.makeText(AddNotificationActivity.this, "Message Added!", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    } else {
+                                        ringProgressDialog.dismiss();
+                                        Toast.makeText(AddNotificationActivity.this, postResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
                                 } else {
                                     ringProgressDialog.dismiss();
-                                   Toast.makeText(AddNotificationActivity.this, postResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AddNotificationActivity.this, "Compruebe internet", Toast.LENGTH_SHORT).show();
                                 }
-                            } else {
-                                ringProgressDialog.dismiss();
-                                Toast.makeText(AddNotificationActivity.this, "Compruebe internet", Toast.LENGTH_SHORT).show();
                             }
-                        }
-                    });
+                        });
 
-                }else {
-                    desc.setText("");
-                    Toast.makeText(AddNotificationActivity.this, "Please enter description", Toast.LENGTH_SHORT).show();
+                    } else {
+                        desc.setText("");
+                        Toast.makeText(AddNotificationActivity.this, "Please enter description", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

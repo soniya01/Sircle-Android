@@ -45,16 +45,16 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
 
         NotificationManager.grpIds.clear();
         //isAllChecked = true;
-       // Constants.isAllChecked = -1;
+        // Constants.isAllChecked = -1;
         notificationListView = (ListView) findViewById(R.id.notificationsGroupListView);
         allCheckBox = (CheckBox) findViewById(R.id.checkAll);
         allCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                   // Constants.isAllChecked = 1;
+                    // Constants.isAllChecked = 1;
                     for (int i = 0; i < notificationGroupList.size(); i++) {
-                       // listData[i] = listView.getAdapter().getItem(i).toString();
+                        // listData[i] = listView.getAdapter().getItem(i).toString();
                         notificationGroupList.get(i).setActive(Boolean.TRUE);
                     }
                 } else {
@@ -63,9 +63,9 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
                         notificationGroupList.get(i).setActive(Boolean.FALSE);
                     }
                     //notificationGroupList.get(i).setActive(1);
-                   // Constants.isAllChecked = 0;
+                    // Constants.isAllChecked = 0;
                 }
-               // NotificationManager.grpIds.clear();
+                // NotificationManager.grpIds.clear();
                 notificationsGroupAdapter.notifyDataSetChanged();
             }
         });
@@ -77,7 +77,8 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
         //swipeRefreshLayout.setOnRefreshListener(this);
 
         if (notificationGroupList.size() <= 0){
-           populateDummyData();
+            System.out.println("");
+            populateDummyData();
         }
 
         /**
@@ -110,7 +111,7 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
                     }
                 }
 
-              //  JSONArray arrayObject = new JSONArray();
+                //  JSONArray arrayObject = new JSONArray();
 
 
 
@@ -137,8 +138,9 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
                         }
                     }
 
+                    System.out.println("Group id string is "+grpIdString);
                     HashMap map = new HashMap();
-                  //  map.put("regId", Constants.GCM_REG_ID);
+                    //  map.put("regId", Constants.GCM_REG_ID);
                     map.put("group_id", grpIdString);
 
                     NotificationManager.getSharedInstance().updateGroupNotification(map, new NotificationManager.PostManagerListener() {
@@ -157,16 +159,17 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
                                         }else {
                                             grpIdString = grpIdString + "," + NotificationManager.grpIds.get(i) ;
                                         }
+                                        Toast.makeText(SettingsActivity.this,"Ajustes guardado con éxito",Toast.LENGTH_SHORT).show();
                                     }
 
-                                  //  NotificationManager.getSharedInstance().saveGroupIds(grpIdString,SettingsActivity.this);
+                                    //  NotificationManager.getSharedInstance().saveGroupIds(grpIdString,SettingsActivity.this);
 
                                     Intent homeIntent = new Intent(SettingsActivity.this, BaseActivity.class);
                                     startActivity(homeIntent);
                                     finish();
                                 }
                             } else {
-                              //  Toast.makeText(SettingsActivity.this, "some error occurred", Toast.LENGTH_SHORT).show();
+                                //  Toast.makeText(SettingsActivity.this, "some error occurred", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -174,7 +177,7 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
                 }else {
                     Toast.makeText(SettingsActivity.this, "Please select at least one group", Toast.LENGTH_SHORT).show();
                 }
-                     // give access to the app features
+                // give access to the app features
 
             }
 
@@ -239,10 +242,11 @@ public class SettingsActivity extends Activity implements SwipeRefreshLayout.OnR
 
                                 SettingsActivity.this.notificationGroupList.addAll(NotificationManager.groupList);
                                 notificationsGroupAdapter.notifyDataSetChanged();
+
                             }
-                        //    Toast.makeText(SettingsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                            //    Toast.makeText(SettingsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                         }else {
-                          //  Toast.makeText(SettingsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                            //  Toast.makeText(SettingsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                         }
 
                         //Toast.makeText(SettingsActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();

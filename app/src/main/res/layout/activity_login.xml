@@ -128,7 +128,7 @@
             <TextView
                 android:layout_marginTop="15dp"
                 android:id="@+id/forgotPasswordText"
-                android:textColor="#505050"
+                android:textColor="#FC6F71"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"

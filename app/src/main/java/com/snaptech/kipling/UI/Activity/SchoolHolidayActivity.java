@@ -102,6 +102,14 @@ public class SchoolHolidayActivity extends ActionBarActivity {
                         || endDateEditText.getText().toString().equals("")) {
                     Toast.makeText(SchoolHolidayActivity.this, "Please add all the details!", Toast.LENGTH_SHORT).show();
                 } else {
+
+
+                    String title2 = title.getText().toString();
+                    if (title2.length() <= 2) {
+
+                        Toast.makeText(SchoolHolidayActivity.this, "Título debe ser al menos de 3 caracteres", Toast.LENGTH_LONG).show();
+                        title.requestFocus();
+                    } else {
 //                    String grpIdString = "";
 //                    for (int i = 0; i < NotificationManager.grpIds.size(); i++) {
 //                        if (i == 0) {
@@ -111,56 +119,52 @@ public class SchoolHolidayActivity extends ActionBarActivity {
 //                        }
 //                    }
 
-                   // String grpIdString = NotificationManager.getSharedInstance().getGroupIds(SchoolHolidayActivity.this);
-                    ringProgressDialog = ProgressDialog.show(SchoolHolidayActivity.this, "", "Adding School Holiday", true);
+                        // String grpIdString = NotificationManager.getSharedInstance().getGroupIds(SchoolHolidayActivity.this);
+                        ringProgressDialog = ProgressDialog.show(SchoolHolidayActivity.this, "", "Adding School Holiday", true);
 
-                    String grpIdString = "";
+                        String grpIdString = "";
 
-                    for (int i = 0; i < notificationGroupList.size(); i++) {
-                        // listData[i] = listView.getAdapter().getItem(i).toString();
-                        // notificationGroupList.get(i).setActive(1);
+                        for (int i = 0; i < notificationGroupList.size(); i++) {
+                            // listData[i] = listView.getAdapter().getItem(i).toString();
+                            // notificationGroupList.get(i).setActive(1);
 
 
-                        if (notificationGroupList.get(i).getActive()==Boolean.TRUE)
-                        {
-                            if (grpIdString.equals(""))
-                            {
-                                grpIdString = notificationGroupList.get(i).getId() ;
+                            if (notificationGroupList.get(i).getActive() == Boolean.TRUE) {
+                                if (grpIdString.equals("")) {
+                                    grpIdString = notificationGroupList.get(i).getId();
+                                } else {
+                                    grpIdString = grpIdString + "," + notificationGroupList.get(i).getId();
+                                }
+                                //NotificationManager.grpIds.add( notificationGroupList.get(i).getId());
                             }
-                            else {
-                                grpIdString = grpIdString + "," + notificationGroupList.get(i).getId();
-                            }
-                            //NotificationManager.grpIds.add( notificationGroupList.get(i).getId());
                         }
+
+                        HashMap params = new HashMap();
+                        params.put("event_type", "SH");
+                        params.put("group_id", grpIdString);
+                        params.put("event_name", title.getText().toString());
+                        params.put("event_from_date", startDate);
+                        params.put("event_to_date", endDate);
+
+                        EventManager.getSharedInstance().addEvent(params, new EventManager.AddEventsManagerListener() {
+                            @Override
+                            public void onCompletion(PostResponse response, AppError error) {
+                                ringProgressDialog.dismiss();
+                                if (response != null) {
+
+                                    if (response.getStatus() == 200) {
+                                        Toast.makeText(SchoolHolidayActivity.this, "School Holiday Added", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    } else {
+                                        Toast.makeText(SchoolHolidayActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    Toast.makeText(SchoolHolidayActivity.this, "Compruebe internet", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
                     }
-
-                    HashMap params = new HashMap();
-                    params.put("event_type", "SH");
-                    params.put("group_id", grpIdString);
-                    params.put("event_name", title.getText().toString());
-                    params.put("event_from_date",startDate);
-                    params.put("event_to_date", endDate);
-
-                    EventManager.getSharedInstance().addEvent(params, new EventManager.AddEventsManagerListener() {
-                        @Override
-                        public void onCompletion(PostResponse response, AppError error) {
-                            ringProgressDialog.dismiss();
-                            if (response != null) {
-
-                                if (response.getStatus() == 200) {
-                                     Toast.makeText(SchoolHolidayActivity.this,"School Holiday Added", Toast.LENGTH_SHORT).show();
-                                    finish();
-                                }
-                                else
-                                {
-                                     Toast.makeText(SchoolHolidayActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            } else {
-                                Toast.makeText(SchoolHolidayActivity.this, "Compruebe internet", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-
                 }
 
             }

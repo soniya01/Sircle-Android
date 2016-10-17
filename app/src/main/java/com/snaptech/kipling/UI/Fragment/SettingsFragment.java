@@ -1,11 +1,12 @@
 package com.snaptech.kipling.UI.Fragment;
 
-
-
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +53,7 @@ public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnR
         notificationListView = (ListView)viewFragment.findViewById(R.id.notificationsGroupListView);
 
         NotificationManager.grpIds.clear();
-       // Constants.isAllChecked = -1;
+        // Constants.isAllChecked = -1;
 
         allCheckBox = (CheckBox) viewFragment.findViewById(R.id.checkAll);
 //        allCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -207,8 +208,8 @@ public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnR
                     }
 
                     HashMap map = new HashMap();
-                 //   map.put("regId", Constants.GCM_REG_ID);
-                    map.put("groupValString", grpIdString);
+                    //   map.put("regId", Constants.GCM_REG_ID);
+                    map.put("group_id", grpIdString);
 
                     NotificationManager.getSharedInstance().updateGroupNotification(map, new NotificationManager.PostManagerListener() {
                         @Override
@@ -226,10 +227,13 @@ public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnR
                                         }
                                     }
 
-                               //     NotificationManager.getSharedInstance().saveGroupIds(grpIdString,getActivity());
-                                    Intent homeIntent = new Intent(getActivity(), BaseActivity.class);
-                                    startActivity(homeIntent);
-                                    //finish();
+                                    //     NotificationManager.getSharedInstance().saveGroupIds(grpIdString,getActivity());
+                                    System.out.println("Called intent");
+                                    loadFragment(getActivity(), new HomeFragment(),"Home",1);
+                                    Toast.makeText(getActivity(),"Ajustes guardado con éxito",Toast.LENGTH_SHORT).show();
+//                                    Intent homeIntent = new Intent(getActivity(), BaseActivity.class);
+//                                    startActivity(homeIntent);
+                                    //getActivity().finish();
                                 }
                             } else {
                                 Toast.makeText(getActivity(), "some error occurred", Toast.LENGTH_SHORT).show();
@@ -253,49 +257,81 @@ public class SettingsFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     public void populateDummyData(){
         ringProgressDialog = ProgressDialog.show(getActivity(), "", "", true);
-            HashMap<String, String> map = new HashMap<>();
-            map.put("regId", Constants.GCM_REG_ID);
-            NotificationManager.getSharedInstance().getAllGroups(map, new NotificationManager.GroupsManagerListener() {
-                @Override
-                public void onCompletion(GroupResponse response, AppError error) {
-                    ringProgressDialog.dismiss();
-                    //swipeRefreshLayout.setRefreshing(false);
-                    if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
-                        if (response != null) {
-                            if (response.getStatus() == 200){
-                                if (response.getData().getGroups().size() > 0) {
-                                    notificationGroupList.clear();
-                                    notificationGroupList.addAll(NotificationManager.groupList);
-                                    notificationsGroupAdapter.notifyDataSetChanged();
-                                    // update group notifictaion for all groups
-                                    //updateAllGroup();
+        HashMap<String, String> map = new HashMap<>();
+        map.put("regId", Constants.GCM_REG_ID);
+        NotificationManager.getSharedInstance().getAllGroups(map, new NotificationManager.GroupsManagerListener() {
+            @Override
+            public void onCompletion(GroupResponse response, AppError error) {
+                ringProgressDialog.dismiss();
+                //swipeRefreshLayout.setRefreshing(false);
+                if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
+                    if (response != null) {
+                        if (response.getStatus() == 200){
+                            if (response.getData().getGroups().size() > 0) {
+                                notificationGroupList.clear();
+                                notificationGroupList.addAll(NotificationManager.groupList);
+                                notificationsGroupAdapter.notifyDataSetChanged();
+                                // update group notifictaion for all groups
+                                //updateAllGroup();
 
-                               }
+                            }
 // else {
 //                                    //SettingsActivity.this.notificationGroupList.clear();
 //                                    notificationGroupList.addAll(response.getData());
 //                                    notificationsGroupAdapter = new NotificationsGroupAdapter(getActivity(), notificationGroupList);
 //                                    notificationListView.setAdapter(notificationsGroupAdapter);
 //                                }
-                            }else {
-                             //   Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            Toast.makeText(getActivity(), "Compruebe internet",Toast.LENGTH_SHORT).show();
+                        }else {
+                            //   Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                         }
-
                     } else {
-                      //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Compruebe internet",Toast.LENGTH_SHORT).show();
                     }
 
+                } else {
+                    //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                 }
-            });
 
-        }
+            }
+        });
+
+    }
 
 
     @Override
     public void onRefresh() {
         //populateDummyData();
+    }
+    private void loadFragment(Context context, Fragment fragment, String title, int position) {
+
+
+        FragmentManager mFragmentManager;
+        FragmentTransaction mFragmentTransaction;
+
+        ((BaseActivity)context)
+                .setActionBarTitle(title);
+
+
+        ((BaseActivity)context)
+                .setFalse();
+
+        ((BaseActivity)context)
+                .setFragmentName(title);
+
+        ((BaseActivity)context)
+                .setDrawerPositionFromHome(position);
+
+
+        mFragmentManager = getActivity().getSupportFragmentManager();
+        mFragmentTransaction = mFragmentManager.beginTransaction();
+
+
+        if (fragment != null) {
+            mFragmentTransaction.replace(R.id.main_layout_container, fragment).commit();
+        }
+
+
+
+
     }
 }

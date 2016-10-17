@@ -24,7 +24,7 @@
             android:textColor="#002E49"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:text="Kipling"
+            android:text="Instituto Kipling de Morelia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <!--Praderas del Bosque #279, Col. San José del Cerrito. C.P. 58341. Morelia, Michoacán.-->
