@@ -54,6 +54,7 @@
 
 
                     <EditText
+
                         android:id="@+id/activity_login_email_text_view"
                         android:layout_marginTop="21dp"
                         android:layout_marginLeft="21dp"
