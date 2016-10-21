@@ -91,6 +91,7 @@ public class SchoolHolidayActivity extends ActionBarActivity {
         footerView = View.inflate(this, R.layout.list_view_add_footer, null);
         addButton = (Button) footerView.findViewById(R.id.add_button);
         addButton.setText("Add School Holiday");
+        setListViewHeightBasedOnChildren(addListView);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,7 +166,7 @@ public class SchoolHolidayActivity extends ActionBarActivity {
             }
         });
         addListView.addFooterView(footerView);
-        setListViewHeightBasedOnChildren(addListView);
+
         //populateDummyData();
 
 //        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, android.R.id.text1, groupNames);
