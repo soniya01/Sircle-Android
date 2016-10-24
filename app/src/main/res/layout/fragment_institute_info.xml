@@ -55,8 +55,18 @@
             android:layout_marginTop="20dp"
             android:gravity="center_horizontal"
             android:layout_gravity="center"
-            android:text=" kiplingmorelia@yahoo.com.mx \n www.kiplingmorelia.edu.mx"
+            android:text=" kiplingmorelia@yahoo.com.mx"
             android:autoLink="email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <com.snaptech.kipling.custom.RobotoRegularTextView
+            android:textSize="18dp"
+            android:textColor="#002E49"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center"
+            android:text="www.kiplingmorelia.edu.mx"
+            android:autoLink="web"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

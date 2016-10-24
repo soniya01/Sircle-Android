@@ -35,6 +35,7 @@ public class EventDetailActivity extends AppCompatActivity {
     private Button saveButton, deleteButton;
     private String eventId,eventTitleString, eventLocationString, eventDetail;
     ProgressDialog ringProgressDialog;
+    private boolean flagparse=false;
     private SharedPreferences loginSharedPreferences;
 
     @Override
@@ -76,7 +77,9 @@ public class EventDetailActivity extends AppCompatActivity {
 
                 intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, cal1.getTimeInMillis());
                 intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,cal2.getTimeInMillis());
-                intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, false);
+
+                intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, flagparse);
+                flagparse=false;
 
 
                 intent.putExtra(CalendarContract.Events.TITLE, eventTitle.getText().toString());
@@ -287,6 +290,7 @@ public class EventDetailActivity extends AppCompatActivity {
                                 eventStartDate.setText(eventDetailResponse.getData().getEventStartDate());
                                 eventEndDate.setText(eventDetailResponse.getData().getEventEndDate());
 
+
                                 // eventInfo
                                 //
                                 //
@@ -344,12 +348,21 @@ public class EventDetailActivity extends AppCompatActivity {
     public Date toDate(String dateString){
         //String startDateString = "06/27/2007";
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        DateFormat df2 = new SimpleDateFormat("dd-MM-yyyy");
         Date startDate=null;
         try {
             startDate = df.parse(dateString);
             String newDateString = df.format(startDate);
             System.out.println(newDateString);
         } catch (ParseException e) {
+            flagparse=true;
+            try{
+                startDate = df2.parse(dateString);
+                String newDateString = df.format(startDate);
+                System.out.println(newDateString);
+            }catch(ParseException e2){
+
+            }
             e.printStackTrace();
         }
         return startDate;
