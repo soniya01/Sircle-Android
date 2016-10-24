@@ -2,8 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:xlink="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     tools:context="com.snaptech.kipling.UI.Fragment.InstituteInfo">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
 
 
     <LinearLayout
@@ -12,12 +17,13 @@
         android:orientation="vertical">
 
 
-        <ImageView
-            android:layout_width="66dp"
+        <ImageButton
+            android:background="@drawable/emissionsloginlogo"
+            android:layout_width="wrap_content"
             android:layout_gravity="center"
-            android:layout_height="90dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:src="@drawable/emissionsloginlogo"/>
+           />
 
         <com.snaptech.kipling.custom.RobotoRegularTextView
             android:textSize="18dp"
@@ -65,7 +71,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+        <LinearLayout
+            android:layout_marginTop="15dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/btn_youtube"
+                android:layout_margin="10dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/youtube_logo"/>
+
+            <ImageButton
+                android:id="@+id/btn_facebook"
+                android:layout_margin="10dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/facebook_logo"/>
+            <ImageButton
+                android:id="@+id/btn_instagram"
+                android:layout_margin="10dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/insta_logo"/>
+
+        </LinearLayout>
     </LinearLayout>
 
-
+</ScrollView>
 </FrameLayout>

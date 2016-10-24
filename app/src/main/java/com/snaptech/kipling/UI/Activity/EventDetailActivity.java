@@ -76,7 +76,9 @@ public class EventDetailActivity extends AppCompatActivity {
 
                 intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, cal1.getTimeInMillis());
                 intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,cal2.getTimeInMillis());
-                intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
+                intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, false);
+
+
                 intent.putExtra(CalendarContract.Events.TITLE, eventTitle.getText().toString());
                 intent.putExtra(CalendarContract.Events.DESCRIPTION, eventCategory.getText().toString());
                 intent.putExtra(CalendarContract.Events.EVENT_LOCATION, eventLocation.getText().toString());
@@ -341,7 +343,7 @@ public class EventDetailActivity extends AppCompatActivity {
     }
     public Date toDate(String dateString){
         //String startDateString = "06/27/2007";
-        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm");
         Date startDate=null;
         try {
             startDate = df.parse(dateString);
