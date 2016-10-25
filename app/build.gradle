@@ -6,10 +6,10 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.snaptech.emissiodemo2"
+        applicationId "com.snaptech.emissio"
         minSdkVersion 15
         targetSdkVersion 20
-        versionCode 7
+        versionCode 6
         versionName "2.5"
         multiDexEnabled true
     }
