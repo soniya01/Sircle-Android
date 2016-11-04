@@ -6,7 +6,7 @@
     android:padding="10dp">
 
 
-    <com.snaptech.emissiodemo2.UI.CustomView.TouchImageView
+    <com.snaptech.fitness360amritsar.UI.CustomView.TouchImageView
         android:id="@+id/album_pager_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
