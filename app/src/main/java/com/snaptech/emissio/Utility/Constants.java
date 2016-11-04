@@ -1,6 +1,5 @@
 package com.snaptech.emissio.Utility;
 
-
 import android.graphics.Bitmap;
 import android.os.Environment;
 
