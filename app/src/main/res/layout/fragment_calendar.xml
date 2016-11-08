@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.snaptech.emissiodemo2.UI.Fragment.CalendarFragment">
+    tools:context="com.snaptech.kapruddin2016.UI.Fragment.CalendarFragment">
 
 
     <RelativeLayout
@@ -88,14 +88,7 @@
                 fab:fab_title="@string/floating_button_title_event"
                 fab:fab_colorPressed="@color/white_pressed"/>
 
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/actionSchoolHoliday"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                fab:fab_colorNormal="@color/white"
-                fab:fab_icon="@drawable/schoolholidayicon"
-                fab:fab_title="@string/floating_button_title_school_holiday"
-                fab:fab_colorPressed="@color/white_pressed"/>
+
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
