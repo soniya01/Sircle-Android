@@ -164,12 +164,14 @@ public class CalendarMonthFragment extends Fragment {
               //  Toast.makeText(getActivity().getApplicationContext(), formatter.format(date), Toast.LENGTH_SHORT).show();
                 //date.
 
+                System.out.println("Date selected is "+date);
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(date);
                 Intent addLinkIntent = new Intent(getActivity(), EventsListActivity.class);
                 addLinkIntent.putExtra("month",month);
                 addLinkIntent.putExtra("year",year);
                 addLinkIntent.putExtra("day",calendar.get(Calendar.DAY_OF_MONTH));
+                addLinkIntent.putExtra("date",calendar.get(Calendar.DAY_OF_MONTH)+"-"+month+"-"+year+" 12:00 PM");
                 startActivity(addLinkIntent);
 
             }

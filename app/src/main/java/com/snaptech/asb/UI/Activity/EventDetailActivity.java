@@ -35,6 +35,7 @@ public class EventDetailActivity extends AppCompatActivity {
     private Button saveButton, deleteButton;
     private String eventId,eventTitleString, eventLocationString, eventDetail;
     ProgressDialog ringProgressDialog;
+    private boolean flagparse=false;
     private SharedPreferences loginSharedPreferences;
 
     @Override
@@ -54,12 +55,11 @@ public class EventDetailActivity extends AppCompatActivity {
         eventLocation = (TextView)findViewById(R.id.event_detail_location);
         eventTitle = (TextView)findViewById(R.id.event_detail_title);
         eventCategory = (TextView)findViewById(R.id.event_detail_category);
-       // eventInfo = (TextView)findViewById(R.id.event_detail_info);
+        // eventInfo = (TextView)findViewById(R.id.event_detail_info);
         eventGroups = (TextView)findViewById(R.id.event_detail_groups);
         saveButton = (Button)findViewById(R.id.event_detail_save);
+        //  deleteButton = (Button)findViewById(R.id.event_detail_delete);
         eventLocation.setText("");
-      //  deleteButton = (Button)findViewById(R.id.event_detail_delete);
-
         // add event to calendar
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,11 +72,16 @@ public class EventDetailActivity extends AppCompatActivity {
 
                 Calendar cal1=Calendar.getInstance();
                 cal1.setTime(startDate);
-                Calendar cal2=Calendar.getInstance();
+                Calendar cal2= Calendar.getInstance();
                 cal2.setTime(endDate);
+
                 intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, cal1.getTimeInMillis());
                 intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,cal2.getTimeInMillis());
-                intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
+
+                intent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, flagparse);
+                flagparse=false;
+
+
                 intent.putExtra(CalendarContract.Events.TITLE, eventTitle.getText().toString());
                 intent.putExtra(CalendarContract.Events.DESCRIPTION, eventCategory.getText().toString());
                 intent.putExtra(CalendarContract.Events.EVENT_LOCATION, eventLocation.getText().toString());
@@ -103,7 +108,7 @@ public class EventDetailActivity extends AppCompatActivity {
 //                Event createdEvent =
 //                        service.events().quickAdd('primary').setText(eventText).execute();
 
-               // System.out.println(createdEvent.getId());
+                // System.out.println(createdEvent.getId());
             }
         });
 
@@ -117,7 +122,7 @@ public class EventDetailActivity extends AppCompatActivity {
 //        });
 
         if(InternetCheck.isNetworkConnected(EventDetailActivity.this))
-        getEventDetail();
+            getEventDetail();
         else
             Toast.makeText(EventDetailActivity.this,"Sorry! Please Check your Internet Connection.",Toast.LENGTH_SHORT).show();
     }
@@ -132,7 +137,7 @@ public class EventDetailActivity extends AppCompatActivity {
         {
             eventId = getIntent().getExtras().getString("eventId");
             if(InternetCheck.isNetworkConnected(EventDetailActivity.this))
-            getEventDetail();
+                getEventDetail();
             else
                 Toast.makeText(EventDetailActivity.this,"Sorry! Please Check your Internet Connection.",Toast.LENGTH_SHORT).show();
 //            shouldSelectListViewItem = true;
@@ -168,7 +173,7 @@ public class EventDetailActivity extends AppCompatActivity {
 //            spanString.setSpan(new ForegroundColorSpan(Color.WHITE), 0, spanString.length(), 0); //fix the color to white
 //            item.setTitle(spanString);
 //        }
-       // menu.findItem(R.id.delete).setTitle(Html.fromHtml("<font color='#ffffff'>Settings</font>"));
+        // menu.findItem(R.id.delete).setTitle(Html.fromHtml("<font color='#ffffff'>Settings</font>"));
 
 //        MenuInflater inflater = getMenuInflater();
 //        inflater.inflate(R.menu.menu_event_detail, menu);
@@ -236,14 +241,14 @@ public class EventDetailActivity extends AppCompatActivity {
                 public void onCompletion(PostResponse response, AppError error) {
                     if (response != null) {
                         if (response.getStatus() == 200) {
-                          //  Toast.makeText(EventDetailActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                            //  Toast.makeText(EventDetailActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
-                          //  Toast.makeText(EventDetailActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                            //  Toast.makeText(EventDetailActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                         }
 
                     } else {
-                        Toast.makeText(EventDetailActivity.this, "Some problem occurred", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EventDetailActivity.this,"Sorry! Please Check your Internet Connection.",Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -267,38 +272,33 @@ public class EventDetailActivity extends AppCompatActivity {
         EventManager.getSharedInstance().getEventDetails(params, new EventManager.EventManagerListener() {
             @Override
             public void onCompletion(EventDetailResponse eventDetailResponse, AppError error) {
-
-                if(Constants.flag_logout) {
+                ringProgressDialog.dismiss();
+                if (Constants.flag_logout) {
 
                     handleSharedPreferencesOnLogout();
                     Intent intent = new Intent(EventDetailActivity.this, LoginScreen.class);
                     startActivity(intent);
-                    Toast.makeText(EventDetailActivity.this, "Please Login again.", Toast.LENGTH_LONG).show();
-                    finish();
-
+                    Toast.makeText(EventDetailActivity.this, "Please Login again.", Toast.LENGTH_LONG).show();                    finish();
                     Constants.flag_logout = false;
 
+                } else {
+                    if (eventDetailResponse != null) {
+                        if (eventDetailResponse.getStatus() == 200) {
+                            if (eventDetailResponse.getData() != null) {
+                                eventTitle.setText(eventDetailResponse.getData().getEventTitle());
+                                eventStartDate.setText(eventDetailResponse.getData().getEventStartDate());
+                                eventEndDate.setText(eventDetailResponse.getData().getEventEndDate());
 
-                    ringProgressDialog.dismiss();
-                }
-                    else{
-                    ringProgressDialog.dismiss();
-                if (eventDetailResponse != null){
-                    if (eventDetailResponse.getStatus() == 200){
-                        if (eventDetailResponse.getData() != null){
-                            eventTitle.setText(eventDetailResponse.getData().getEventTitle());
-                            eventStartDate.setText(eventDetailResponse.getData().getEventStartDate());
-                            eventEndDate.setText(eventDetailResponse.getData().getEventEndDate());
 
-                           // eventInfo
-                           //
-                           //
-                           // .setText(eventDetailResponse.getData().getEventDescription());
-                          //  eventCategory.setText(eventDetailResponse.getData().getCategory());
-                           // eventGroups.setText("Groups: "+eventDetailResponse.getData().getEventGroups());
-                            eventLocation.setText(eventDetailResponse.getData().getEventLocation());
-                            eventCategory.setText(eventDetailResponse.getData().getEventDescription());
-                            //eventLocation.setText(eventDetailResponse.getData().get);
+                                // eventInfo
+                                //
+                                //
+                                // .setText(eventDetailResponse.getData().getEventDescription());
+                                //  eventCategory.setText(eventDetailResponse.getData().getCategory());
+                                // eventGroups.setText("Groups: "+eventDetailResponse.getData().getEventGroups());
+                                eventLocation.setText(eventDetailResponse.getData().getEventLocation());
+                                eventCategory.setText(eventDetailResponse.getData().getEventDescription());
+                                //eventLocation.setText(eventDetailResponse.getData().get);
 //                            String groupString = "";
 //                            for (EventDetailGroups groups : eventDetailResponse.getData().getEventGroups()){
 //                                groupString = groups.getName() + "," + groupString ;
@@ -306,20 +306,19 @@ public class EventDetailActivity extends AppCompatActivity {
 //                            eventGroups.setText("Groups: "+groupString);
 
 
-                           // eventLocationString = eventDetailResponse.getData().getEventInfo().getLocation();
-                           // eventTitleString = eventDetailResponse.getData().getEventInfo().getTitle();
-                           // eventDetail = eventDetailResponse.getData().getEventInfo().getDetail();
-                        }else {
-                         //   Toast.makeText(EventDetailActivity.this,eventDetailResponse.getMessage(),Toast.LENGTH_SHORT).show();
-                        }
+                                // eventLocationString = eventDetailResponse.getData().getEventInfo().getLocation();
+                                // eventTitleString = eventDetailResponse.getData().getEventInfo().getTitle();
+                                // eventDetail = eventDetailResponse.getData().getEventInfo().getDetail();
+                            } else {
+                                //   Toast.makeText(EventDetailActivity.this,eventDetailResponse.getMessage(),Toast.LENGTH_SHORT).show();
+                            }
 
-                    }else {
-                        //Toast.makeText(EventDetailActivity.this,eventDetailResponse.getMessage(),Toast.LENGTH_SHORT).show();
-                    }
-                }else {
-                    Toast.makeText(EventDetailActivity.this,"Sorry! Please Check your Internet Connection.",Toast.LENGTH_SHORT).show();
+                        } else {
+                            //Toast.makeText(EventDetailActivity.this,eventDetailResponse.getMessage(),Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(EventDetailActivity.this,"Sorry! Please Check your Internet Connection.",Toast.LENGTH_SHORT).show();                    }
                 }
-            }
             }
         });
     }
@@ -333,22 +332,35 @@ public class EventDetailActivity extends AppCompatActivity {
         // boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
         loginSharedPreferences = getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = loginSharedPreferences.edit();
-       String  userType = loginSharedPreferences.getString(Constants.LOGIN_LOGGED_IN_USER_TYPE,null);
+        String  userType = loginSharedPreferences.getString(Constants.LOGIN_LOGGED_IN_USER_TYPE,null);
 
         if (!userType.equals("admin")) {
             menu.findItem(R.id.delete).setVisible(false);
         }
+
+
+
+
         return super.onPrepareOptionsMenu(menu);
     }
     public Date toDate(String dateString){
         //String startDateString = "06/27/2007";
-        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        DateFormat df2 = new SimpleDateFormat("dd-MM-yyyy");
         Date startDate=null;
         try {
             startDate = df.parse(dateString);
             String newDateString = df.format(startDate);
             System.out.println(newDateString);
         } catch (ParseException e) {
+            flagparse=true;
+            try{
+                startDate = df2.parse(dateString);
+                String newDateString = df.format(startDate);
+                System.out.println(newDateString);
+            }catch(ParseException e2){
+
+            }
             e.printStackTrace();
         }
         return startDate;
@@ -366,3 +378,5 @@ public class EventDetailActivity extends AppCompatActivity {
         editor.apply();
     }
 }
+//Toast.makeText(EventDetailActivity.this,"Sorry! Please Check your Internet Connection.",Toast.LENGTH_SHORT).show();
+//Toast.makeText(EventDetailActivity.this, "Please Login again.", Toast.LENGTH_LONG).show();

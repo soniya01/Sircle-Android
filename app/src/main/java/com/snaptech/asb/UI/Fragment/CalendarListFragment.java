@@ -285,6 +285,7 @@ public class CalendarListFragment extends Fragment implements AbsListView.OnScro
 
         HashMap map = new HashMap();
       //  map.put("regId", Constants.GCM_REG_ID);
+        //dd-MM-yyyy HH:mm aa
         map.put("filter_month",""+CalendarMonthFragment.month);
         map.put("filter_year", ""+CalendarMonthFragment.year);
         map.put("page", "1");

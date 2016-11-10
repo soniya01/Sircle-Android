@@ -858,7 +858,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
 
             case Constants.EVENTS_GET_MONTH_WISE_API_PATH :
-                postWebservice.postEventDetailsApi(Integer.parseInt(params.get("page")),params.get("filter_month"),params.get("filter_year"),new Callback<JsonElement>() {
+                postWebservice.postEventDetailsApi(Integer.parseInt(params.get("page")),params.get("filter_month"),params.get("filter_year"),params.get("filter_date"),new Callback<JsonElement>() {
                     @Override
                     public void success(JsonElement jsonElement, Response response) {
                         if (!jsonElement.isJsonNull()) {
@@ -1645,7 +1645,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
 
         @FormUrlEncoded
         @POST("/")
-        void postEventDetailsApi(@Field("page") int page,@Field("filter_month") String filterMonth,@Field("filter_year") String filterYear, Callback<JsonElement> callback);
+        void postEventDetailsApi(@Field("page") int page,@Field("filter_month") String filterMonth,@Field("filter_year") String filterYear,@Field("filter_date") String filterDate, Callback<JsonElement> callback);
 
         @FormUrlEncoded
         @POST("/")

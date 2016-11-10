@@ -20,7 +20,10 @@ import com.snaptech.asb.UI.Model.Event;
 import com.snaptech.asb.Utility.AppError;
 import com.snaptech.asb.WebService.EventDataReponse;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,7 +33,7 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
     private ListView calendarMonthListView;
     private CalendarDayListAdapter calendarMonthListViewAdapter;
     private List<Event> calendarMonthList = new ArrayList<Event>();
-
+    private String date;
     private View footerView;
     private int month, year, day;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -47,6 +50,7 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
             month = getIntent().getIntExtra("month",0);
             year = getIntent().getIntExtra("year",0);
             day = getIntent().getIntExtra("day",0);
+            date=getIntent().getStringExtra("date");
         }
         setContentView(R.layout.activity_events_list);
 
@@ -152,8 +156,22 @@ if(calendarMonthList.size()!=0) {
 
         HashMap map = new HashMap();
      //   map.put("regId", Constants.GCM_REG_ID);
-        map.put("filter_month",""+month);
-        map.put("filter_year", ""+year);
+
+//        SimpleDateFormat form = new SimpleDateFormat("dd-MM-yyyy HH:mm aa");
+//        java.util.Date date2 = null;
+//        try
+//        {
+//            date2 = form.parse(date);
+//        }
+//        catch (ParseException e)
+//        {
+//
+//            e.printStackTrace();
+//        }
+//        SimpleDateFormat postFormater = new SimpleDateFormat("MMMMM dd, yyyy");
+//        String newDateStr = postFormater.format(date);
+        map.put("filter_date",""+date);
+        //map.put("filter_year", ""+year);
         map.put("page", "1");
       //  map.put("groupId", grpIdString);
         //ringProgressDialog = ProgressDialog.show(this, "", "", true);
@@ -171,7 +189,11 @@ if(calendarMonthList.size()!=0) {
                                     if (day != 0){
                                         // search data for a particular date
                                         // filter by date
-                                        filterEventsByDate();
+                                        //filterEventsByDate();
+//                                        calendarMonthList.clear();
+//                                        calendarMonthList.addAll(data.getEvents());
+                                        calendarMonthListViewAdapter = new CalendarDayListAdapter(EventsListActivity.this, calendarMonthList);
+                                        calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
 
                                     }else {
                                         ringProgressDialog.dismiss();
@@ -212,7 +234,7 @@ if(calendarMonthList.size()!=0) {
     @Override
     protected void onResume() {
         super.onResume();
-        populateDummyData();
+     //   populateDummyData();
     }
 
 
