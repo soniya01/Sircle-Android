@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:xlink="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
+    android:background="#FFF"
     tools:context="com.snaptech.kipling.UI.Fragment.InstituteInfo">
 <ScrollView
     android:layout_width="match_parent"
@@ -22,13 +22,13 @@
             android:layout_width="wrap_content"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
            />
 
         <com.snaptech.kipling.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:layout_gravity="center"
             android:text="Instituto Kipling de Morelia"
             android:layout_width="wrap_content"

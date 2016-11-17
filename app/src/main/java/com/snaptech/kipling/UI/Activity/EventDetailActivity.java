@@ -55,10 +55,10 @@ public class EventDetailActivity extends AppCompatActivity {
         eventLocation = (TextView)findViewById(R.id.event_detail_location);
         eventTitle = (TextView)findViewById(R.id.event_detail_title);
         eventCategory = (TextView)findViewById(R.id.event_detail_category);
-       // eventInfo = (TextView)findViewById(R.id.event_detail_info);
+        // eventInfo = (TextView)findViewById(R.id.event_detail_info);
         eventGroups = (TextView)findViewById(R.id.event_detail_groups);
         saveButton = (Button)findViewById(R.id.event_detail_save);
-      //  deleteButton = (Button)findViewById(R.id.event_detail_delete);
+        //  deleteButton = (Button)findViewById(R.id.event_detail_delete);
         eventLocation.setText("");
         // add event to calendar
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +108,7 @@ public class EventDetailActivity extends AppCompatActivity {
 //                Event createdEvent =
 //                        service.events().quickAdd('primary').setText(eventText).execute();
 
-               // System.out.println(createdEvent.getId());
+                // System.out.println(createdEvent.getId());
             }
         });
 
@@ -122,7 +122,7 @@ public class EventDetailActivity extends AppCompatActivity {
 //        });
 
         if(InternetCheck.isNetworkConnected(EventDetailActivity.this))
-        getEventDetail();
+            getEventDetail();
         else
             Toast.makeText(EventDetailActivity.this,"Compruebe internet",Toast.LENGTH_SHORT).show();
     }
@@ -137,7 +137,7 @@ public class EventDetailActivity extends AppCompatActivity {
         {
             eventId = getIntent().getExtras().getString("eventId");
             if(InternetCheck.isNetworkConnected(EventDetailActivity.this))
-            getEventDetail();
+                getEventDetail();
             else
                 Toast.makeText(EventDetailActivity.this,"Compruebe internet",Toast.LENGTH_SHORT).show();
 //            shouldSelectListViewItem = true;
@@ -173,7 +173,7 @@ public class EventDetailActivity extends AppCompatActivity {
 //            spanString.setSpan(new ForegroundColorSpan(Color.WHITE), 0, spanString.length(), 0); //fix the color to white
 //            item.setTitle(spanString);
 //        }
-       // menu.findItem(R.id.delete).setTitle(Html.fromHtml("<font color='#ffffff'>Settings</font>"));
+        // menu.findItem(R.id.delete).setTitle(Html.fromHtml("<font color='#ffffff'>Settings</font>"));
 
 //        MenuInflater inflater = getMenuInflater();
 //        inflater.inflate(R.menu.menu_event_detail, menu);
@@ -241,14 +241,14 @@ public class EventDetailActivity extends AppCompatActivity {
                 public void onCompletion(PostResponse response, AppError error) {
                     if (response != null) {
                         if (response.getStatus() == 200) {
-                          //  Toast.makeText(EventDetailActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                            //  Toast.makeText(EventDetailActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
-                          //  Toast.makeText(EventDetailActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                            //  Toast.makeText(EventDetailActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                         }
 
                     } else {
-                        Toast.makeText(EventDetailActivity.this, "Compruebe internet", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(EventDetailActivity.this,"Compruebe internet",Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -278,8 +278,7 @@ public class EventDetailActivity extends AppCompatActivity {
                     handleSharedPreferencesOnLogout();
                     Intent intent = new Intent(EventDetailActivity.this, LoginScreen.class);
                     startActivity(intent);
-                    Toast.makeText(EventDetailActivity.this, "Por favor introduzcalo de nuevo.", Toast.LENGTH_LONG).show();
-                    finish();
+                    Toast.makeText(EventDetailActivity.this, "Por favor introduzcalo de nuevo.", Toast.LENGTH_LONG).show();                    finish();
                     Constants.flag_logout = false;
 
                 } else {
@@ -318,8 +317,7 @@ public class EventDetailActivity extends AppCompatActivity {
                             //Toast.makeText(EventDetailActivity.this,eventDetailResponse.getMessage(),Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(EventDetailActivity.this, "Compruebe internet", Toast.LENGTH_SHORT).show();
-                    }
+                        Toast.makeText(EventDetailActivity.this,"Compruebe internet",Toast.LENGTH_SHORT).show();                    }
                 }
             }
         });
@@ -334,7 +332,7 @@ public class EventDetailActivity extends AppCompatActivity {
         // boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
         loginSharedPreferences = getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = loginSharedPreferences.edit();
-       String  userType = loginSharedPreferences.getString(Constants.LOGIN_LOGGED_IN_USER_TYPE,null);
+        String  userType = loginSharedPreferences.getString(Constants.LOGIN_LOGGED_IN_USER_TYPE,null);
 
         if (!userType.equals("admin")) {
             menu.findItem(R.id.delete).setVisible(false);
@@ -379,4 +377,5 @@ public class EventDetailActivity extends AppCompatActivity {
         editor.putString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, null);
         editor.apply();
     }
-}
+}//Compruebe internet
+//Por favor introduzcalo de nuevo.
