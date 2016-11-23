@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "761236184201",
-    "project_id": "american-school-of-bombay"
+    "project_number": "93597728343",
+    "project_id": "nahar-international-school"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:761236184201:android:beca8c2644eb40e2",
+        "mobilesdk_app_id": "1:93597728343:android:1e4afbac845b167a",
         "android_client_info": {
-          "package_name": "com.snaptech.asb"
+          "package_name": "com.snaptech.naharInt"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBuK-PUVBjucGqfzalKjYxwzwEuiVUmE1Y"
+          "current_key": "AIzaSyDhb6BVtdl5s73qw9LsYkTs-vtaQaPcbvQ"
         }
       ],
       "services": {

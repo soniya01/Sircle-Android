@@ -6,7 +6,7 @@
     android:padding="10dp">
 
 
-    <com.snaptech.asb.UI.CustomView.TouchImageView
+    <com.snaptech.naharInt.UI.CustomView.TouchImageView
         android:id="@+id/album_pager_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
