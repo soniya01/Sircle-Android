@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "761236184201",
-    "project_id": "american-school-of-bombay"
+    "project_number": "148184972552",
+    "project_id": "hasanat-high"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:761236184201:android:beca8c2644eb40e2",
+        "mobilesdk_app_id": "1:148184972552:android:da45ddef5e993868",
         "android_client_info": {
-          "package_name": "com.snaptech.asb"
+          "package_name": "com.snaptech.hasanaths"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBuK-PUVBjucGqfzalKjYxwzwEuiVUmE1Y"
+          "current_key": "AIzaSyCC-r52OgWzYYkFbaBmJoYvZZEkfwboPH4"
         }
       ],
       "services": {
