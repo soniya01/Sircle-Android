@@ -27,7 +27,7 @@
 
 
             <ImageView
-                android:layout_marginTop="66dp"
+                android:layout_marginTop="76dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -46,7 +46,7 @@
 
             <EditText
                 android:id="@+id/activity_login_email_text_view"
-                android:layout_marginTop="21dp"
+                android:layout_marginTop="51dp"
                 android:layout_marginLeft="21dp"
                 android:layout_marginRight="21dp"
                 android:layout_width="match_parent"
