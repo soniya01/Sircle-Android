@@ -2,13 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:xlink="http://schemas.android.com/apk/res-auto"
-    android:background="#FFF"
-    tools:context="com.snaptech.kipling.UI.Fragment.InstituteInfo">
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:background="@color/white"
+    tools:context="com.snaptech.montesorriamerican.UI.Fragment.InstituteInfo">
 
 
     <LinearLayout
@@ -17,100 +12,59 @@
         android:orientation="vertical">
 
 
-        <ImageButton
-            android:background="@drawable/emissionsloginlogo"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="66dp"
             android:layout_gravity="center"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-           />
+            android:layout_height="90dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/emissionsloginlogo"/>
 
-        <com.snaptech.kipling.custom.RobotoRegularTextView
+        <com.snaptech.montesorriamerican.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:text="Instituto Kipling de Morelia"
+            android:text="American Montessori"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <!--Praderas del Bosque #279, Col. San José del Cerrito. C.P. 58341. Morelia, Michoacán.-->
 
-        <!--01 (443) 315 99 00, 3 15 34 98, 323 50 48, 275 85 58 y 275 86 80-->
-
-        <!--www.kiplingmorelia.edu.mx-->
-        <com.snaptech.kipling.custom.RobotoRegularTextView
+        <!--AV. Juan Pablo Segundo No. 1620, Col. Santa Maria de Guido (Altozano), C.P 58090-->
+        <!--Morelia, Michoacán-->
+        <!--Tel: 2929118-->
+        <!--www.americanmontessori.mx-->
+        <com.snaptech.montesorriamerican.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
             android:textAlignment="center"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:gravity="center_horizontal"
-            android:text="Praderas del Bosque #279,\n Col. San José del Cerrito. C.P. 58341. \n Morelia, Michoacán."
+            android:text="AV. Juan Pablo Segundo No. 1620,\n Col. Santa Maria de Guido (Altozano) \n C.P 58090 \nMorelia, Michoacán."
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.snaptech.kipling.custom.RobotoRegularTextView
+        <com.snaptech.montesorriamerican.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
             android:layout_marginTop="20dp"
-            android:gravity="center_horizontal"
             android:layout_gravity="center"
-            android:text=" kiplingmorelia@yahoo.com.mx"
+            android:text="www.americanmontessori.mx"
             android:autoLink="email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <com.snaptech.kipling.custom.RobotoRegularTextView
-            android:textSize="18dp"
-            android:textColor="#002E49"
-            android:layout_marginTop="20dp"
-            android:gravity="center_horizontal"
-            android:layout_gravity="center"
-            android:text="www.kiplingmorelia.edu.mx"
-            android:autoLink="web"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
-        <com.snaptech.kipling.custom.RobotoRegularTextView
+        <com.snaptech.montesorriamerican.custom.RobotoRegularTextView
             android:textSize="18dp"
+            android:visibility="gone"
             android:textColor="#002E49"
             android:layout_marginTop="20dp"
-            android:gravity="center_horizontal"
             android:layout_gravity="center"
-            android:text="01 (443) 315 99 00,3 15 34 98,\n 323 50 48, 275 85 58 y, \n 275 86 80"
+            android:text="Tel: 2929118"
             android:autoLink="phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <LinearLayout
-            android:layout_marginTop="15dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
-
-            <ImageButton
-                android:id="@+id/btn_youtube"
-                android:layout_margin="10dp"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:background="@drawable/youtube_logo"/>
-
-            <ImageButton
-                android:id="@+id/btn_facebook"
-                android:layout_margin="10dp"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:background="@drawable/facebook_logo"/>
-            <ImageButton
-                android:id="@+id/btn_instagram"
-                android:layout_margin="10dp"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:background="@drawable/insta_logo"/>
-
-        </LinearLayout>
     </LinearLayout>
 
-</ScrollView>
+
 </FrameLayout>
