@@ -45,7 +45,7 @@ public class AlbumImagePagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
 
-        TouchImageView photoImageView;
+        final TouchImageView photoImageView;
         TextView titleLabel, countLabel;
 
         layoutInflater = (LayoutInflater) context
@@ -57,6 +57,8 @@ public class AlbumImagePagerAdapter extends PagerAdapter {
         titleLabel = (TextView)viewLayout.findViewById(R.id.album_image_title_label);
         countLabel = (TextView)viewLayout.findViewById(R.id.albums_image_no_label);
 
+
+
         //photoImageView.setScaleType(TouchImageView.ScaleType.CENTER_CROP);
         titleLabel.setText(albumDetailsList.get(position).getFileName());
 
@@ -65,10 +67,12 @@ public class AlbumImagePagerAdapter extends PagerAdapter {
         // get screen dimensions
         Picasso.with(context)
                 .load(albumDetailsList.get(position).getFilePath()).fit().centerInside()
+                .placeholder(R.drawable.emissionsloginlogo)
                 .into(photoImageView, new Callback() {
                     @Override
                     public void onSuccess() {
 
+                        photoImageView.setVisibility(View.VISIBLE);
                     }
 
                     @Override
