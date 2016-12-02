@@ -1,22 +1,25 @@
 {
   "project_info": {
-    "project_number": "761236184201",
-    "project_id": "american-school-of-bombay"
+    "project_number": "238714616104",
+    "firebase_url": "https://cn-gamdevi.firebaseio.com",
+    "project_id": "cn-gamdevi",
+    "storage_bucket": "cn-gamdevi.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:761236184201:android:beca8c2644eb40e2",
+        "mobilesdk_app_id": "1:238714616104:android:d7429154b141ae5a",
         "android_client_info": {
-          "package_name": "com.snaptech.asb"
+          "package_name": "com.snaptech.cngamdevi"
         }
       },
-      "oauth_client": [],
-      "api_key": [
+      "oauth_client": [
         {
-          "current_key": "AIzaSyBuK-PUVBjucGqfzalKjYxwzwEuiVUmE1Y"
+          "client_id": "238714616104-okp1ft4nh97cbnne8tulsdvcian1s6mj.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
+      "api_key": [],
       "services": {
         "analytics_service": {
           "status": 1
@@ -26,7 +29,7 @@
           "other_platform_oauth_client": []
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }
