@@ -9,7 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context="com.snaptech.kipling.UI.Activity.AddSelectedPhoto">
+    tools:context="com.snaptech.institutoverdemolina.UI.Activity.AddSelectedPhoto">
 
     <ImageView
         android:id="@+id/activity_add_new_photo_image"
@@ -55,7 +55,7 @@
         android:layout_gravity="bottom"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:background="#FC6F71"/>
+        android:background="@color/theme_color"/>
 
 </LinearLayout>
 </ScrollView>

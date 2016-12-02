@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context="com.snaptech.kipling.UI.Activity.AlbumDetailsActivity">
+    tools:context="com.snaptech.institutoverdemolina.UI.Activity.AlbumDetailsActivity">
 
     <GridView
         android:id="@+id/album_details_grid_view"
@@ -27,7 +27,7 @@
         android:layout_marginRight="20dp"
         android:padding="20dp"
         android:src="@drawable/ic_add_white"
-        app:backgroundTint="#FE6E6E"
+        app:backgroundTint="@color/theme_color"
         app:borderWidth="0dp"
         app:elevation="12dp"
         app:pressedTranslationZ="12dp" />

@@ -6,11 +6,11 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.snaptech.kipling"
+        applicationId "com.snaptech.institutoverdemolina"
         minSdkVersion 15
         targetSdkVersion 20
-        versionCode 12
-        versionName "3.0"
+        versionCode 1
+        versionName "1.0"
         multiDexEnabled true
     }
     buildTypes {

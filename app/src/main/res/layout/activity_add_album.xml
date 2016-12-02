@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical"
-    tools:context="com.snaptech.kipling.UI.Activity.AddLinksActivity">
+    tools:context="com.snaptech.institutoverdemolina.UI.Activity.AddLinksActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -26,10 +26,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/title_placeholder"
-                    android:drawableLeft="@drawable/linkstitleimage"
                     android:maxLines="2"
                     android:paddingBottom="20dp"
-                    android:paddingLeft="0dp"
+                    android:paddingLeft="31dp"
                     android:layout_marginLeft="15dp"
                     android:drawablePadding="19dp"
                     android:layout_marginRight="15dp"

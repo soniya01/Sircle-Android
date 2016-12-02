@@ -46,7 +46,7 @@
 
             <EditText
                 android:id="@+id/activity_login_email_text_view"
-                android:layout_marginTop="21dp"
+                android:layout_marginTop="31dp"
                 android:layout_marginLeft="21dp"
                 android:layout_marginRight="21dp"
                 android:layout_width="match_parent"
@@ -117,7 +117,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:background="#FC6F71"
+                android:background="@color/theme_color"
                 android:text="@string/register_button_title"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />

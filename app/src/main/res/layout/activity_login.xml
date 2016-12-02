@@ -27,18 +27,18 @@
 
 
                 <ImageView
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="55dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:contentDescription="@string/description_image_default"
                     android:src="@drawable/emissionsloginlogo" />
 
-                <com.snaptech.kipling.custom.RobotoLightTextView
+                <com.snaptech.institutoverdemolina.custom.RobotoLightTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginTop="48dp"
                     android:text="BIENVENIDO"
                     android:textColor="#5B5A5A"
                     android:textSize="18sp"
@@ -55,7 +55,7 @@
 
                     <EditText
                         android:id="@+id/activity_login_email_text_view"
-                        android:layout_marginTop="21dp"
+                        android:layout_marginTop="31dp"
                         android:layout_marginLeft="21dp"
                         android:layout_marginRight="21dp"
                         android:layout_width="match_parent"
@@ -114,7 +114,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
-                    android:background="#FC6F71"
+                    android:background="@color/theme_color"
                     android:text="@string/action_sign_in"
                     android:textColor="@android:color/white"
                     android:textStyle="bold" />
@@ -124,7 +124,7 @@
             <TextView
                 android:layout_marginTop="11dp"
                 android:id="@+id/forgotPasswordText"
-                android:textColor="#FC6F71"
+                android:textColor="@color/theme_color"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
