@@ -170,6 +170,8 @@ if(calendarMonthList.size()!=0) {
         map.put("filter_date",""+date);
         //map.put("filter_year", ""+year);
         map.put("page", "1");
+
+        System.out.println("Date sent is "+date);
       //  map.put("groupId", grpIdString);
         //ringProgressDialog = ProgressDialog.show(this, "", "", true);
         EventManager.getSharedInstance().getEventsMonthWise(map, new EventManager.GetMonthwiseEventsManagerListener() {
