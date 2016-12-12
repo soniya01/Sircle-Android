@@ -180,7 +180,6 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
 
                     //choose another format if PNG doesn't suit you
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
-
                     addImageToGallery(filePath);
 
                     bos.flush();
