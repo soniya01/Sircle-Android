@@ -1,25 +1,29 @@
 {
   "project_info": {
-    "project_number": "238714616104",
-    "firebase_url": "https://cn-gamdevi.firebaseio.com",
-    "project_id": "cn-gamdevi",
-    "storage_bucket": "cn-gamdevi.appspot.com"
+    "project_number": "905512970574",
+    "firebase_url": "https://cox-and-kings-4b48c.firebaseio.com",
+    "project_id": "cox-and-kings-4b48c",
+    "storage_bucket": "cox-and-kings-4b48c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:238714616104:android:d7429154b141ae5a",
+        "mobilesdk_app_id": "1:905512970574:android:a4b8e62ad95078c1",
         "android_client_info": {
-          "package_name": "com.snaptech.cngamdevi"
+          "package_name": "com.snaptech.coxandkingshr"
         }
       },
       "oauth_client": [
         {
-          "client_id": "238714616104-okp1ft4nh97cbnne8tulsdvcian1s6mj.apps.googleusercontent.com",
+          "client_id": "905512970574-pt3a9vi3dvr0oric1rg9fej5arhbshm4.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
-      "api_key": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqDzYiAGQgXrfcEyahLDyJqX12mXJb1Ik"
+        }
+      ],
       "services": {
         "analytics_service": {
           "status": 1

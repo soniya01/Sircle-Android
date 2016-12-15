@@ -90,7 +90,7 @@
             android:paddingBottom="15dp"
             android:singleLine="true"
             style="?android:attr/borderlessButtonStyle"
-            android:text="Information"/>
+            android:text="Newsletters"/>
 
 
 
@@ -107,7 +107,7 @@
             android:drawablePadding="10dp"
             android:paddingBottom="15dp"
             style="?android:attr/borderlessButtonStyle"
-            android:text="Circulars"/>
+            android:text="Documents"/>
 
         <Button
             android:layout_width="0dp"
@@ -180,7 +180,7 @@
             android:paddingBottom="15dp"
             style="?android:attr/borderlessButtonStyle"
             android:singleLine="true"
-            android:text="Contact us"/>
+            android:text="Corporate Address"/>
 
     </LinearLayout>
 

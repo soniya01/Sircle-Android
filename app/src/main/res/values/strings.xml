@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CN Gamdevi</string>
+    <string name="app_name">Cox and Kings</string>
 
 
     <!--Activity Add Album-->
@@ -112,12 +112,12 @@
         <item>Calendar</item>
         <item>Photos</item>
         <item>Messages</item>
-        <item>Information</item>
-        <item>Circulars</item>
+        <item>Newsletters</item>
+        <item>Documents</item>
         <item>Videos</item>
         <item>Links</item>
         <item>Settings</item>
-        <item>Contact us</item>
+        <item>Corporate Address</item>
         <item>Support</item>
         <item>Signout</item>
 
@@ -128,11 +128,11 @@
         <item>Calendar</item>
         <item>Photos</item>
         <item>Messages</item>
-        <item>Information</item>
-        <item>Circulars</item>
+        <item>Newsletters</item>
+        <item>Documents</item>
         <item>Videos</item>
         <item>Links</item>
-        <item>Contact us</item>
+        <item>Corporate Address</item>
         <item>Support</item>
         <item>Signout</item>
 
@@ -156,11 +156,11 @@
     <string name="title_activity_pdfviewer">PDFViewer</string>
 
     <!-- NewsLetter fragment -->
-    <string name="fragment_news_letter_title">Information</string>
+    <string name="fragment_news_letter_title">Newsletters</string>
     <string name="title_activity_alnum_details">AlnumDetailsActivity</string>
 
     <!-- NewsLetter fragment -->
-    <string name="fragment_documents_title">Information</string>
+    <string name="fragment_documents_title">Documents</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="title_activity_add_links">        Add   Links</string>
     <string name="title_activity_add_notification">  Add  Message</string>
