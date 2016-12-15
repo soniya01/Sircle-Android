@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Cox and Kings</string>
+    <string name="app_name">Emissio</string>
 
 
     <!--Activity Add Album-->
@@ -117,7 +117,7 @@
         <item>Videos</item>
         <item>Links</item>
         <item>Settings</item>
-        <item>Corporate Address</item>
+        <item>Institute Info</item>
         <item>Support</item>
         <item>Signout</item>
 
@@ -132,7 +132,7 @@
         <item>Documents</item>
         <item>Videos</item>
         <item>Links</item>
-        <item>Corporate Address</item>
+        <item>Institute Info</item>
         <item>Support</item>
         <item>Signout</item>
 

@@ -180,7 +180,7 @@
             android:paddingBottom="15dp"
             style="?android:attr/borderlessButtonStyle"
             android:singleLine="true"
-            android:text="Corporate Address"/>
+            android:text="Information"/>
 
     </LinearLayout>
 
