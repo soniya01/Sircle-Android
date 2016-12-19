@@ -1,20 +1,27 @@
 {
   "project_info": {
-    "project_number": "856748002062",
-    "project_id": "firebase-emissio"
+    "project_number": "947726347495",
+    "firebase_url": "https://stellar-preschool.firebaseio.com",
+    "project_id": "stellar-preschool",
+    "storage_bucket": "stellar-preschool.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:856748002062:android:0a1b558de85699a8",
+        "mobilesdk_app_id": "1:947726347495:android:fd22e7fb7411fc80",
         "android_client_info": {
-          "package_name": "com.snaptech.emissio"
+          "package_name": "com.snaptech.stellarpreschool"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "947726347495-bslverv54bgno181fh99niffob6uevr1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyCm4I0GdF4H9EcECJFfTGQDfHyFjz18aYQ"
+          "current_key": "AIzaSyCzFlJG1PZOfbVme83HTR6wAAs6JvG7UFs"
         }
       ],
       "services": {
@@ -26,7 +33,7 @@
           "other_platform_oauth_client": []
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }
