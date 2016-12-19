@@ -36,7 +36,7 @@ public class Constants {
 
 
     public static boolean flag_logout=false;
-    public static final String BASE_URL = "https://demo.emissioapp.com/api/";
+    public static final String BASE_URL = "https://stellareducation.emissioapp.com/api/";
 
     // stellareducation.emissioapp.com
 
