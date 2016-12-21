@@ -6,10 +6,13 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 
+
 import com.snaptech.stellarpreschool.R;
 import com.snaptech.stellarpreschool.Utility.Constants;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
+
+
 
 /**
  * Created by soniya on 26/10/15.

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+
 import com.snaptech.stellarpreschool.R;
 import com.snaptech.stellarpreschool.UI.Model.Video;
 import com.snaptech.stellarpreschool.Utility.Constants;

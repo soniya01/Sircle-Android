@@ -13,9 +13,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-
-import com.snaptech.stellarpreschool.Manager.LoginManager;
 import com.snaptech.stellarpreschool.R;
+import com.snaptech.stellarpreschool.Manager.LoginManager;
 import com.snaptech.stellarpreschool.UI.Activity.AlbumDetailsActivity;
 import com.snaptech.stellarpreschool.UI.Activity.BaseActivity;
 import com.snaptech.stellarpreschool.UI.Activity.EventDetailActivity;
@@ -23,6 +22,8 @@ import com.snaptech.stellarpreschool.Utility.Constants;
 import com.google.android.gms.gcm.GcmListenerService;
 
 import org.json.JSONObject;
+
+
 
 /**
  * Created by soniya on 26/10/15.
