@@ -1,27 +1,20 @@
 {
   "project_info": {
-    "project_number": "537976792752",
-    "firebase_url": "https://instituto-verde-molina.firebaseio.com",
-    "project_id": "instituto-verde-molina",
-    "storage_bucket": "instituto-verde-molina.appspot.com"
+    "project_number": "663419207335",
+    "project_id": "firebase-spanishdemo"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:537976792752:android:bab3964fb18aa856",
+        "mobilesdk_app_id": "1:663419207335:android:39e82a668afd4969",
         "android_client_info": {
-          "package_name": "com.snaptech.institutoverdemolina"
+          "package_name": "com.snaptech.spanish_demo"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "537976792752-ht05aoioajkh8dv6quumsgsb0be5fq80.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDu7DyQda3MfSLO8fpENqN_VBYZRXhVXdY"
+          "current_key": "AIzaSyBwlLb9eRnYyDeNoCjPGVdllkh0fBtSwmc"
         }
       ],
       "services": {
@@ -33,7 +26,7 @@
           "other_platform_oauth_client": []
         },
         "ads_service": {
-          "status": 2
+          "status": 1
         }
       }
     }
