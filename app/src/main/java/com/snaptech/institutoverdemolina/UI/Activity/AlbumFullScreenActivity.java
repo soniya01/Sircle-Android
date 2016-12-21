@@ -39,6 +39,7 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
     private List<AlbumDetails> albumDetailsList = new ArrayList<AlbumDetails>();
     ProgressDialog mProgressDialog;
     int position;
+    private static boolean download_flag=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +143,7 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
                 bitmap = BitmapFactory.decodeStream(input);
             } catch (Exception e) {
                 e.printStackTrace();
+                download_flag=false;
             }
             return bitmap;
         }
@@ -155,10 +157,17 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
         protected void onPostExecute(Bitmap bitmap) {
             super.onPostExecute(bitmap);
             mProgressDialog.dismiss();
-            Toast.makeText(AlbumFullScreenActivity.this,"Imagen descargado con éxito",Toast.LENGTH_LONG).show();
+
 
             // save image to gallery
             storeImage(bitmap);
+
+            if(download_flag)
+                Toast.makeText(AlbumFullScreenActivity.this,"Imagen descargado con éxito",Toast.LENGTH_LONG).show();
+            else{
+                Toast.makeText(AlbumFullScreenActivity.this,"Compruebe la conexión a Internet",Toast.LENGTH_LONG).show();
+                download_flag=true;
+            }
         }
 
 
@@ -187,10 +196,16 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
 
                 } catch (FileNotFoundException e) {
                     Log.w("TAG", "Error saving image file: " + e.getMessage());
+                    download_flag=false;
 
                 } catch (IOException e) {
                     Log.w("TAG", "Error saving image file: " + e.getMessage());
+                    download_flag=false;
 
+                }catch (Exception e){
+
+                    Log.w("TAG", "Error saving image file: " + e.getMessage());
+                    download_flag=false;
                 }
         }
 
