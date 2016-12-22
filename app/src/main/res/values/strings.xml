@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Cox and Kings</string>
-
+    <string name="app_name">C&amp;K - HR</string>
 
     <!--Activity Add Album-->
     <string name="title_placeholder">Title</string>
@@ -14,10 +13,10 @@
     <string name="details_placeholder">Details</string>
 
     <!--Activity Add Holiday-->
-    <string name="add_holiday_button_title">Add Holiday</string>
+    <string name="add_holiday_button_title">Add Public Holiday</string>
 
     <!--Activity Add School Holiday-->
-    <string name="add_school_holiday_button_title">Add School Holiday</string>
+    <string name="add_school_holiday_button_title">Add Holiday</string>
 
 
     <!--Activity Add Selected Photos-->
@@ -67,9 +66,9 @@
     <string name="Submit_button_title">Submit</string>
 
     <!--Fragment Calendar-->
-    <string name="floating_button_title_holiday">Holiday</string>
+    <string name="floating_button_title_holiday">Public Holiday</string>
     <string name="floating_button_title_event">Event</string>
-    <string name="floating_button_title_school_holiday">School Holiday</string>
+    <string name="floating_button_title_school_holiday">Holiday</string>
 
     <!--Fragment Calendar List -->
     <string name="no_events_title">No Events</string>
@@ -172,8 +171,8 @@
 
     <string name="title_activity_add_selected_photo">Add new photo</string>
 
-    <string name="title_activity_holiday">Holiday</string>
-    <string name="title_activity_school_holiday">School Holiday</string>
+    <string name="title_activity_holiday">Public Holiday</string>
+    <string name="title_activity_school_holiday">Holiday</string>
     <string name="title_activity_event">Event</string>
     <string name="title_activity_event_detail">Event Details</string>
     <string name="title_activity_vimeo_webview">VimeoWebviewActivity</string>

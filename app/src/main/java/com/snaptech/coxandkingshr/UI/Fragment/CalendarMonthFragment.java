@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -16,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
-
 import com.snaptech.coxandkingshr.Manager.EventManager;
 import com.snaptech.coxandkingshr.Manager.LogoutManager;
 import com.snaptech.coxandkingshr.R;
@@ -179,6 +177,7 @@ public class CalendarMonthFragment extends Fragment {
 //                }
                // else{
                     addLinkIntent.putExtra("date",calendar.get(Calendar.DAY_OF_MONTH)+"-"+month+"-"+year);
+                   // System.out.println("Date sent is "+calendar.get(Calendar.DAY_OF_MONTH)+"-"+month+"-"+year+" 00:00 AM");
                // }
 
                 startActivity(addLinkIntent);

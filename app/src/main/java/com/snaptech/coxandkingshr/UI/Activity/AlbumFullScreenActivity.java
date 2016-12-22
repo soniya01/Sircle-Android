@@ -39,6 +39,7 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
     private List<AlbumDetails> albumDetailsList = new ArrayList<AlbumDetails>();
     ProgressDialog mProgressDialog;
     int position;
+    boolean flag_download=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,6 +144,7 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
                 bitmap = BitmapFactory.decodeStream(input);
             } catch (Exception e) {
                 e.printStackTrace();
+                flag_download=false;
             }
             return bitmap;
         }
@@ -156,44 +158,60 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
         protected void onPostExecute(Bitmap bitmap) {
             super.onPostExecute(bitmap);
             mProgressDialog.dismiss();
-            Toast.makeText(AlbumFullScreenActivity.this,"Image Downloaded Successfully",Toast.LENGTH_LONG).show();
+
 
             // save image to gallery
             storeImage(bitmap);
+            if(flag_download){
+
+                Toast.makeText(AlbumFullScreenActivity.this,"Image downloaded successfully",Toast.LENGTH_LONG).show();
+            }
+            else{
+
+                Toast.makeText(AlbumFullScreenActivity.this,"Something went wrong, please check internet connection.",Toast.LENGTH_LONG).show();
+                flag_download=true;
+            }
         }
 
 
         public void storeImage(Bitmap bitmap){
-                //get path to external storage (SD card)
-                String iconsStoragePath = Constants.PHOTO_SAVE_GALLERY_DIR_IMAGE_PATH  + PhotosFragment.albumName;
-                File sdIconStorageDir = new File(iconsStoragePath);
+            //get path to external storage (SD card)
+            String iconsStoragePath = Constants.PHOTO_SAVE_GALLERY_DIR_IMAGE_PATH  + PhotosFragment.albumName;
+            File sdIconStorageDir = new File(iconsStoragePath);
 
-                //create storage directories, if they don't exist
+            //create storage directories, if they don't exist
             if (!sdIconStorageDir.mkdir()){
                 sdIconStorageDir.mkdirs();
             }
 
-                try {
-                    String filePath = sdIconStorageDir.toString() + "/image-" + position +".jpeg";
-                    FileOutputStream fileOutputStream = new FileOutputStream(filePath);
+            try {
+                String filePath = sdIconStorageDir.toString() + "/image-" + position +".jpeg";
+                FileOutputStream fileOutputStream = new FileOutputStream(filePath);
 
-                    BufferedOutputStream bos = new BufferedOutputStream(fileOutputStream);
+                BufferedOutputStream bos = new BufferedOutputStream(fileOutputStream);
 
-                    //choose another format if PNG doesn't suit you
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+                //choose another format if PNG doesn't suit you
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
 
-                    addImageToGallery(filePath);
+                addImageToGallery(filePath);
 
-                    bos.flush();
-                    bos.close();
+                bos.flush();
+                bos.close();
 
-                } catch (FileNotFoundException e) {
-                    Log.w("TAG", "Error saving image file: " + e.getMessage());
+            } catch (FileNotFoundException e) {
+                Log.w("TAG", "Error saving image file: " + e.getMessage());
+                flag_download=false;
 
-                } catch (IOException e) {
-                    Log.w("TAG", "Error saving image file: " + e.getMessage());
+            } catch (IOException e) {
+                Log.w("TAG", "Error saving image file: " + e.getMessage());
+                flag_download=false;
 
-                }
+            }
+            catch (Exception e){
+
+                Log.w("TAG", "Error saving image file: " + e.getMessage());
+                flag_download=false;
+            }
         }
 
 

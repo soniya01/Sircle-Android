@@ -1,6 +1,5 @@
 package com.snaptech.coxandkingshr.UI.Fragment;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -58,7 +57,6 @@ public class CalendarFragment extends Fragment {
         tabLayout = (TabLayout) x.findViewById(R.id.tabs);
         viewPager = (ViewPager) x.findViewById(R.id.viewpager);
 
-
         menuMultipleActions = (FloatingActionsMenu)x.findViewById(R.id.multiple_actions);
 
         loginSharedPreferences = getActivity().getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
@@ -89,7 +87,6 @@ public class CalendarFragment extends Fragment {
                 startActivity(addLinkIntent);
             }
         });
-
 
         final com.getbase.floatingactionbutton.FloatingActionButton actionSchoolHoliday = (com.getbase.floatingactionbutton.FloatingActionButton)x.findViewById(R.id.actionSchoolHoliday);
         actionSchoolHoliday.setOnClickListener(new View.OnClickListener() {
