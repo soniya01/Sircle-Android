@@ -36,7 +36,7 @@ public class Constants {
 
 
     public static boolean flag_logout=false;
-    public static final String BASE_URL = "https://ezeego1.emissioapp.com/api/";
+    public static final String BASE_URL = "https://ez1hr.emissioapp.com/api/";
 
     //public static final String BASE_URL = "http://demo.snaptech.in/";
    // public static final String LOGIN_API_PATH = "user/user_get/";
