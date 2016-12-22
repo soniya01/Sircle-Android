@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "905512970574",
-    "firebase_url": "https://cox-and-kings-4b48c.firebaseio.com",
-    "project_id": "cox-and-kings-4b48c",
-    "storage_bucket": "cox-and-kings-4b48c.appspot.com"
+    "project_number": "857709116255",
+    "firebase_url": "https://ez1-hr.firebaseio.com",
+    "project_id": "ez1-hr",
+    "storage_bucket": "ez1-hr.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:905512970574:android:a4b8e62ad95078c1",
+        "mobilesdk_app_id": "1:857709116255:android:b9800a67e722bfa6",
         "android_client_info": {
-          "package_name": "com.snaptech.coxandkingshr"
+          "package_name": "com.snaptech.ezeego1"
         }
       },
       "oauth_client": [
         {
-          "client_id": "905512970574-pt3a9vi3dvr0oric1rg9fej5arhbshm4.apps.googleusercontent.com",
+          "client_id": "857709116255-tvpiqt56ojrkqv4fbjdpblngdc3cs6in.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCqDzYiAGQgXrfcEyahLDyJqX12mXJb1Ik"
+          "current_key": "AIzaSyC2gjrgkKLWtD07UPh0zELN8IN3JI0IflA"
         }
       ],
       "services": {
