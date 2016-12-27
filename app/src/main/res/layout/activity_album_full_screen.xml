@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
 
-    <com.snaptech.stellarpreschool.Utility.ExtendedViewPager
+    <com.snaptech.msb.Utility.ExtendedViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

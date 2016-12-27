@@ -1,27 +1,20 @@
 {
   "project_info": {
-    "project_number": "947726347495",
-    "firebase_url": "https://stellar-preschool.firebaseio.com",
-    "project_id": "stellar-preschool",
-    "storage_bucket": "stellar-preschool.appspot.com"
+    "project_number": "128695971960",
+    "project_id": "msbmumbai-1347"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:947726347495:android:fd22e7fb7411fc80",
+        "mobilesdk_app_id": "1:128695971960:android:8978f124faa349e5",
         "android_client_info": {
-          "package_name": "com.snaptech.stellarpreschool"
+          "package_name": "com.snaptech.msb"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "947726347495-bslverv54bgno181fh99niffob6uevr1.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCzFlJG1PZOfbVme83HTR6wAAs6JvG7UFs"
+          "current_key": "AIzaSyAf9rcZshSpXQG8mxhrX7F4NHHADtSjcoY"
         }
       ],
       "services": {
@@ -33,7 +26,7 @@
           "other_platform_oauth_client": []
         },
         "ads_service": {
-          "status": 2
+          "status": 1
         }
       }
     }

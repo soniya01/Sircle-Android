@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context="com.snaptech.stellarpreschool.UI.Fragment.InstituteInfo">
+    android:background="#FFF"
+    tools:context="com.snaptech.msb.UI.Fragment.InstituteInfo">
 
 
     <LinearLayout
@@ -16,45 +16,45 @@
             android:layout_width="wrap_content"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:src="@drawable/emissionsloginlogo"/>
 
-        <com.snaptech.stellarpreschool.custom.RobotoRegularTextView
+        <com.snaptech.msb.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:text="Stellar Preschool"
+            android:text="MSB Mumbai"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.snaptech.stellarpreschool.custom.RobotoRegularTextView
+        <com.snaptech.msb.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
             android:textAlignment="center"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:gravity="center_horizontal"
-            android:text="No. 139, Jalan Beringin, \nMelodies Garden. \n80250 Johor Bahru, Johor.  "
+            android:text="Ground Floor,Taheri Manzil,\nNesbit Road,\nMazagaon. MUMBAI – 400010."
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.snaptech.stellarpreschool.custom.RobotoRegularTextView
+        <com.snaptech.msb.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:text="daniel@stellar.edu.my"
+            android:text="info@msbmumbai.in"
             android:autoLink="email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.snaptech.stellarpreschool.custom.RobotoRegularTextView
+        <com.snaptech.msb.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:text="+607 336 2116"
+            android:text="+912223746007"
             android:autoLink="phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
