@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFF"
-    tools:context="com.snaptech.msb.UI.Fragment.InstituteInfo">
+    tools:context="com.snaptech.naharInt.UI.Fragment.InstituteInfo">
 
 
     <LinearLayout
@@ -19,42 +19,42 @@
             android:layout_marginTop="20dp"
             android:src="@drawable/emissionsloginlogo"/>
 
-        <com.snaptech.msb.custom.RobotoRegularTextView
+        <com.snaptech.naharInt.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:text="MSB Mumbai"
+            android:text="Nahar International School"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.snaptech.msb.custom.RobotoRegularTextView
+        <com.snaptech.naharInt.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
             android:textAlignment="center"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:gravity="center_horizontal"
-            android:text="Ground Floor,Taheri Manzil,\nNesbit Road,\nMazagaon. MUMBAI – 400010."
+            android:text="Nahar Amrit Shakti, Chandivali Farm Road, Andheri East. Mumbai-400072."
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.snaptech.msb.custom.RobotoRegularTextView
+        <com.snaptech.naharInt.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:text="info@msbmumbai.in"
+            android:text="info@nahar-is.org"
             android:autoLink="email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.snaptech.msb.custom.RobotoRegularTextView
+        <com.snaptech.naharInt.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:text="+912223746007"
+            android:text="+912228475511"
             android:autoLink="phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

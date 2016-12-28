@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MSB Mumbai</string>
+    <string name="app_name">Nahar Intl</string>
 
 
     <!--Activity Add Album-->
@@ -112,7 +112,7 @@
         <item>Calendar</item>
         <item>Photos</item>
         <item>Messages</item>
-        <item>Newsletters</item>
+        <item>Circulars</item>
         <item>Documents</item>
         <item>Videos</item>
         <item>Links</item>
@@ -128,7 +128,7 @@
         <item>Calendar</item>
         <item>Photos</item>
         <item>Messages</item>
-        <item>Newsletters</item>
+        <item>Circulars</item>
         <item>Documents</item>
         <item>Videos</item>
         <item>Links</item>
@@ -156,7 +156,7 @@
     <string name="title_activity_pdfviewer">PDFViewer</string>
 
     <!-- NewsLetter fragment -->
-    <string name="fragment_news_letter_title">Newsletters</string>
+    <string name="fragment_news_letter_title">Circulars</string>
     <string name="title_activity_alnum_details">AlnumDetailsActivity</string>
 
     <!-- NewsLetter fragment -->
