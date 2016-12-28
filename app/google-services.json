@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "128695971960",
-    "project_id": "msbmumbai-1347"
+    "project_number": "805965478736",
+    "project_id": "the-true-school-of-music"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:128695971960:android:8978f124faa349e5",
+        "mobilesdk_app_id": "1:805965478736:android:050b7cecc7f31e95",
         "android_client_info": {
-          "package_name": "com.snaptech.msb"
+          "package_name": "com.snaptech.tsm"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAf9rcZshSpXQG8mxhrX7F4NHHADtSjcoY"
+          "current_key": "AIzaSyBDEMdYE_r5Q6k1PFIW81EK7KZ1RROs_7s"
         }
       ],
       "services": {
