@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -45,7 +46,7 @@ public class AlbumImagePagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
 
-        TouchImageView photoImageView;
+        final TouchImageView photoImageView;
         TextView titleLabel, countLabel;
 
         layoutInflater = (LayoutInflater) context
@@ -56,6 +57,13 @@ public class AlbumImagePagerAdapter extends PagerAdapter {
         photoImageView = (TouchImageView) viewLayout.findViewById(R.id.album_pager_image);
         titleLabel = (TextView)viewLayout.findViewById(R.id.album_image_title_label);
         countLabel = (TextView)viewLayout.findViewById(R.id.albums_image_no_label);
+        ProgressBar progressBar = null;
+        if (viewLayout != null) {
+            progressBar = (ProgressBar) viewLayout.findViewById(R.id.progressBar);
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+
 
         //photoImageView.setScaleType(TouchImageView.ScaleType.CENTER_CROP);
         titleLabel.setText(albumDetailsList.get(position).getFileName());
@@ -65,19 +73,26 @@ public class AlbumImagePagerAdapter extends PagerAdapter {
         // get screen dimensions
         Picasso.with(context)
                 .load(albumDetailsList.get(position).getFilePath()).fit().centerInside()
-                .into(photoImageView, new Callback() {
+                .placeholder(R.drawable.placeholder_black)
+                .into(photoImageView, new ImageLoadedCallback(progressBar) {
                     @Override
                     public void onSuccess() {
 
+                        if (this.progressBar != null) {
+                            this.progressBar.setVisibility(View.GONE);
+                        }
+                        photoImageView.setVisibility(View.VISIBLE);
                     }
 
                     @Override
                     public void onError() {
-
+                        if (this.progressBar != null) {
+                            this.progressBar.setVisibility(View.GONE);
+                        }
                     }
                 });
 
-                ((ViewPager) container).addView(viewLayout);
+        ((ViewPager) container).addView(viewLayout);
 
         return viewLayout;
     }
@@ -85,5 +100,22 @@ public class AlbumImagePagerAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         ((ViewPager) container).removeView((RelativeLayout) object);
+    }
+    private class ImageLoadedCallback implements Callback {
+        ProgressBar progressBar;
+
+        public  ImageLoadedCallback(ProgressBar progBar){
+            progressBar = progBar;
+        }
+
+        @Override
+        public void onSuccess() {
+
+        }
+
+        @Override
+        public void onError() {
+
+        }
     }
 }
