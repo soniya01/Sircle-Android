@@ -39,6 +39,7 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
     private List<AlbumDetails> albumDetailsList = new ArrayList<AlbumDetails>();
     ProgressDialog mProgressDialog;
     int position;
+    private boolean flag_download=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,6 +144,7 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
                 bitmap = BitmapFactory.decodeStream(input);
             } catch (Exception e) {
                 e.printStackTrace();
+                flag_download=false;
             }
             return bitmap;
         }
@@ -156,8 +158,15 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
         protected void onPostExecute(Bitmap bitmap) {
             super.onPostExecute(bitmap);
             mProgressDialog.dismiss();
-            Toast.makeText(AlbumFullScreenActivity.this,"Image Downloaded Successfully",Toast.LENGTH_LONG).show();
 
+            if(flag_download)
+            Toast.makeText(AlbumFullScreenActivity.this,"Image downloaded successfully",Toast.LENGTH_LONG).show();
+
+            else{
+
+                Toast.makeText(AlbumFullScreenActivity.this,"Something went wrong, please check your internet connection",Toast.LENGTH_LONG).show();
+                flag_download=true;
+            }
             // save image to gallery
             storeImage(bitmap);
         }
@@ -189,11 +198,17 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
 
                 } catch (FileNotFoundException e) {
                     Log.w("TAG", "Error saving image file: " + e.getMessage());
+                    flag_download=false;
 
                 } catch (IOException e) {
                     Log.w("TAG", "Error saving image file: " + e.getMessage());
+                    flag_download=false;
 
                 }
+            catch(Exception e){
+                flag_download=false;
+                e.printStackTrace();
+            }
         }
 
 
