@@ -171,7 +171,7 @@ public class CalendarMonthFragment extends Fragment {
                 addLinkIntent.putExtra("month",month);
                 addLinkIntent.putExtra("year",year);
                 addLinkIntent.putExtra("day",calendar.get(Calendar.DAY_OF_MONTH));
-                addLinkIntent.putExtra("date",calendar.get(Calendar.DAY_OF_MONTH)+"-"+month+"-"+year+" 12:00 PM");
+                addLinkIntent.putExtra("date",calendar.get(Calendar.DAY_OF_MONTH)+"-"+month+"-"+year);
                 startActivity(addLinkIntent);
 
             }
