@@ -30,7 +30,7 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
     private ListView calendarMonthListView;
     private CalendarDayListAdapter calendarMonthListViewAdapter;
     private List<Event> calendarMonthList = new ArrayList<Event>();
-
+    private String date;
     private View footerView;
     private int month, year, day;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -47,6 +47,7 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
             month = getIntent().getIntExtra("month",0);
             year = getIntent().getIntExtra("year",0);
             day = getIntent().getIntExtra("day",0);
+            date=getIntent().getStringExtra("date");
         }
         setContentView(R.layout.activity_events_list);
 
@@ -89,11 +90,11 @@ public class EventsListActivity extends ActionBarActivity implements SwipeRefres
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-if(calendarMonthList.size()!=0) {
-    Intent detailIntent = new Intent(EventsListActivity.this, EventDetailActivity.class);
-    detailIntent.putExtra("eventId", calendarMonthList.get(position).getId());
-    startActivity(detailIntent);
-}           }
+                if(calendarMonthList.size()!=0) {
+                    Intent detailIntent = new Intent(EventsListActivity.this, EventDetailActivity.class);
+                    detailIntent.putExtra("eventId", calendarMonthList.get(position).getId());
+                    startActivity(detailIntent);
+                }           }
         });
     }
 
@@ -148,14 +149,30 @@ if(calendarMonthList.size()!=0) {
 //            }
 //        }
 
-      //  String grpIdString = NotificationManager.getSharedInstance().getGroupIds(EventsListActivity.this);
+        //  String grpIdString = NotificationManager.getSharedInstance().getGroupIds(EventsListActivity.this);
 
         HashMap map = new HashMap();
-     //   map.put("regId", Constants.GCM_REG_ID);
-        map.put("filter_month",""+month);
-        map.put("filter_year", ""+year);
+        //   map.put("regId", Constants.GCM_REG_ID);
+
+//        SimpleDateFormat form = new SimpleDateFormat("dd-MM-yyyy HH:mm aa");
+//        java.util.Date date2 = null;
+//        try
+//        {
+//            date2 = form.parse(date);
+//        }
+//        catch (ParseException e)
+//        {
+//
+//            e.printStackTrace();
+//        }
+//        SimpleDateFormat postFormater = new SimpleDateFormat("MMMMM dd, yyyy");
+//        String newDateStr = postFormater.format(date);
+        map.put("filter_date",""+date);
+        //map.put("filter_year", ""+year);
         map.put("page", "1");
-      //  map.put("groupId", grpIdString);
+
+        System.out.println("Date sent is "+date);
+        //  map.put("groupId", grpIdString);
         //ringProgressDialog = ProgressDialog.show(this, "", "", true);
         EventManager.getSharedInstance().getEventsMonthWise(map, new EventManager.GetMonthwiseEventsManagerListener() {
             @Override
@@ -168,16 +185,20 @@ if(calendarMonthList.size()!=0) {
                                 calendarMonthList = data.getEvents();
 
 
-                                    if (day != 0){
-                                        // search data for a particular date
-                                        // filter by date
-                                        filterEventsByDate();
+                                if (day != 0){
+                                    // search data for a particular date
+                                    // filter by date
+                                    //filterEventsByDate();
+//                                        calendarMonthList.clear();
+//                                        calendarMonthList.addAll(data.getEvents());
+                                    calendarMonthListViewAdapter = new CalendarDayListAdapter(EventsListActivity.this, calendarMonthList);
+                                    calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
 
-                                    }else {
-                                        ringProgressDialog.dismiss();
-                                        calendarMonthListViewAdapter.notifyDataSetChanged();
-                                    }
-                                    //calendarMonthList.addAll(data.getEventData().getEvents());
+                                }else {
+                                    ringProgressDialog.dismiss();
+                                    calendarMonthListViewAdapter.notifyDataSetChanged();
+                                }
+                                //calendarMonthList.addAll(data.getEventData().getEvents());
 
 //                                } else {
 //                                    calendarMonthList.addAll(data.getEventData().getEvents());
@@ -185,10 +206,10 @@ if(calendarMonthList.size()!=0) {
 //                                    calendarMonthListView.setAdapter(calendarMonthListViewAdapter);
 //                                }
                             } else {
-                              //  Toast.makeText(EventsListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
+                                //  Toast.makeText(EventsListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }else {
-                           // Toast.makeText(EventsListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
+                            // Toast.makeText(EventsListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
                         }
 
                     } else {
@@ -196,7 +217,7 @@ if(calendarMonthList.size()!=0) {
                     }
 
                 } else {
-                   // Toast.makeText(EventsListActivity.this, error.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(EventsListActivity.this, error.getErrorMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -206,13 +227,13 @@ if(calendarMonthList.size()!=0) {
 
     @Override
     public void onRefresh() {
-       // populateDummyData();
+        // populateDummyData();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        populateDummyData();
+        //   populateDummyData();
     }
 
 
@@ -282,10 +303,10 @@ if(calendarMonthList.size()!=0) {
 //            }
 //        }
 
-       // String grpIdString = NotificationManager.getSharedInstance().getGroupIds(EventsListActivity.this);
+        // String grpIdString = NotificationManager.getSharedInstance().getGroupIds(EventsListActivity.this);
 
         HashMap map = new HashMap();
-      //  map.put("regId", Constants.GCM_REG_ID);
+        //  map.put("regId", Constants.GCM_REG_ID);
         map.put("filter_month",""+month);
         map.put("filter_year", ""+year);
         map.put("page", pageCount+"");
@@ -313,14 +334,14 @@ if(calendarMonthList.size()!=0) {
                                 }
 
                             } else {
-                               // Toast.makeText(EventsListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
+                                // Toast.makeText(EventsListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             //Toast.makeText(EventsListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
                         }
 
                     } else {
- //                       Toast.makeText(EventsListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
+                        //                       Toast.makeText(EventsListActivity.this, data.getMessage(), Toast.LENGTH_SHORT).show();
                     }
 
                 } else {

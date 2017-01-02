@@ -102,7 +102,7 @@ public class CalendarMonthFragment extends Fragment {
                              Bundle savedInstanceState) {
         viewFragment = inflater.inflate(R.layout.fragment_calendar_month, container, false);
         // Inflate the layout for this fragment
-       // caldroidFragment = new CaldroidFragment();
+        // caldroidFragment = new CaldroidFragment();
         caldroidFragment = new CaldroidSampleCustomFragment();
 
 
@@ -123,15 +123,15 @@ public class CalendarMonthFragment extends Fragment {
         }
         else
         {
-           // String dateString = "03/26/2012 11:49:00 AM";
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date convertedDate = new Date();
-        try {
-            convertedDate = dateFormat.parse(Constants.dateAvailabe);
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+            // String dateString = "03/26/2012 11:49:00 AM";
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date convertedDate = new Date();
+            try {
+                convertedDate = dateFormat.parse(Constants.dateAvailabe);
+            } catch (ParseException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
 
             Bundle args = new Bundle();
 
@@ -151,7 +151,7 @@ public class CalendarMonthFragment extends Fragment {
 
 
 
-      //  getCalendarEvents();
+        //  getCalendarEvents();
 
 
 //        String myFormat = "MM/dd/yy"; //In which you need put here
@@ -161,15 +161,26 @@ public class CalendarMonthFragment extends Fragment {
 
             @Override
             public void onSelectDate(Date date, View view) {
-              //  Toast.makeText(getActivity().getApplicationContext(), formatter.format(date), Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(getActivity().getApplicationContext(), formatter.format(date), Toast.LENGTH_SHORT).show();
                 //date.
 
+                System.out.println("Date selected is "+date);
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(date);
                 Intent addLinkIntent = new Intent(getActivity(), EventsListActivity.class);
                 addLinkIntent.putExtra("month",month);
                 addLinkIntent.putExtra("year",year);
+                String day=Calendar.DAY_OF_MONTH+"";
                 addLinkIntent.putExtra("day",calendar.get(Calendar.DAY_OF_MONTH));
+
+//                if(day.trim().length()==1){
+//                    addLinkIntent.putExtra("date","0"+calendar.get(Calendar.DAY_OF_MONTH)+"-"+month+"-"+year);
+//
+//                }
+                // else{
+                addLinkIntent.putExtra("date",calendar.get(Calendar.DAY_OF_MONTH)+"-"+month+"-"+year);
+                // }
+
                 startActivity(addLinkIntent);
 
             }
@@ -179,23 +190,23 @@ public class CalendarMonthFragment extends Fragment {
                 String text = "month: " + month + " year: " + year;
                 CalendarMonthFragment.this.month = month;
                 CalendarMonthFragment.this.year = year;
-               // Constants.dateAvailabe="01/"+month+"/"+year;
+                // Constants.dateAvailabe="01/"+month+"/"+year;
                 getCalendarEvents();
-              //  Toast.makeText(getActivity().getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(getActivity().getApplicationContext(), text, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onLongClickDate(Date date, View view) {
-               // Toast.makeText(getActivity().getApplicationContext(), "Long click " + formatter.format(date), Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getActivity().getApplicationContext(), "Long click " + formatter.format(date), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onCaldroidViewCreated() {
                 caldroidFragment.setShowNavigationArrows(false);
-             //  caldroidFragment.monthTitleTextView.setPaintFlags(monthTitleTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-               // monthTitleTextView.setText(monthTitle.toUpperCase(Locale.getDefault()));
+                //  caldroidFragment.monthTitleTextView.setPaintFlags(monthTitleTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+                // monthTitleTextView.setText(monthTitle.toUpperCase(Locale.getDefault()));
 
-               // Toast.makeText(getActivity().getApplicationContext(),"Caldroid view is created",Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getActivity().getApplicationContext(),"Caldroid view is created",Toast.LENGTH_SHORT).show();
             }
 
         };
@@ -220,16 +231,16 @@ public class CalendarMonthFragment extends Fragment {
 
                 caldroidFragment.moveToDate(new Date());
 
-             //  caldroidFragment = new CaldroidFragment();
+                //  caldroidFragment = new CaldroidFragment();
 
-              //  Bundle args = new Bundle();
+                //  Bundle args = new Bundle();
                 final Calendar cal = Calendar.getInstance();
 //                args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
 //                args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
-               // caldroidFragment.c
-               // caldroidFragment.setArguments(args);
+                // caldroidFragment.c
+                // caldroidFragment.setArguments(args);
 
-              //  caldroidFragment.refreshView();
+                //  caldroidFragment.refreshView();
 
                 month = cal.get(Calendar.MONTH) + 1;
                 year = cal.get(Calendar.YEAR);
@@ -296,14 +307,14 @@ public class CalendarMonthFragment extends Fragment {
 //            }
 //        }
 
-       // String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
+        // String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         HashMap object = new HashMap();
         //object.put("regId", Constants.GCM_REG_ID);
         object.put("filter_month",""+month);
         object.put("filter_year", ""+year);
         object.put("page", "1");
-      //  object.put("groupId", grpIdString);
+        //  object.put("groupId", grpIdString);
         final ProgressBar progressBar = new ProgressBar(getActivity(),null,android.R.attr.progressBarStyleLarge);
         progressBar.setIndeterminate(true);
         progressBar.setVisibility(View.VISIBLE);
@@ -341,7 +352,7 @@ public class CalendarMonthFragment extends Fragment {
                                 String to_date_String=splitted_to_date[0];
                                 String dateString = splited[0];
                                 if(!event.getStartDate().equalsIgnoreCase(event.getEndDate()))
-                                dateList=getDates(dateString,to_date_String);
+                                    dateList=getDates(dateString,to_date_String);
                                 SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
                                 Calendar cal1=Calendar.getInstance();
                                 Calendar cal2=Calendar.getInstance();
@@ -357,9 +368,9 @@ public class CalendarMonthFragment extends Fragment {
                                             boolean sameDay = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
                                                     cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
                                             if(!sameDay){
-                                            date=format.parse(format.format(dateList.get(i)));
-                                            dates.put(date,R.drawable.circular_border);
-                                        }
+                                                date=format.parse(format.format(dateList.get(i)));
+                                                dates.put(date,R.drawable.circular_border);
+                                            }
                                         }
                                     }
                                     else {
@@ -367,7 +378,7 @@ public class CalendarMonthFragment extends Fragment {
                                         boolean sameDay = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
                                                 cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
                                         if(!sameDay){
-                                        dates.put(date, R.drawable.circular_border);
+                                            dates.put(date, R.drawable.circular_border);
                                         }
                                         // dates.put(date,R.drawable.camera_icon);
                                         System.out.println("Date ->" + date);
