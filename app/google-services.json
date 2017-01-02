@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "805965478736",
-    "project_id": "the-true-school-of-music"
+    "project_number": "148184972552",
+    "project_id": "hasanat-high"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:805965478736:android:050b7cecc7f31e95",
+        "mobilesdk_app_id": "1:148184972552:android:da45ddef5e993868",
         "android_client_info": {
-          "package_name": "com.snaptech.tsm"
+          "package_name": "com.snaptech.hasanaths"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBDEMdYE_r5Q6k1PFIW81EK7KZ1RROs_7s"
+          "current_key": "AIzaSyCC-r52OgWzYYkFbaBmJoYvZZEkfwboPH4"
         }
       ],
       "services": {
