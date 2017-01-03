@@ -1,20 +1,27 @@
 {
   "project_info": {
-    "project_number": "663419207335",
-    "project_id": "firebase-spanishdemo"
+    "project_number": "177155058143",
+    "firebase_url": "https://american-montesorri.firebaseio.com",
+    "project_id": "american-montesorri",
+    "storage_bucket": "american-montesorri.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:663419207335:android:39e82a668afd4969",
+        "mobilesdk_app_id": "1:177155058143:android:f2982aa4110f86f6",
         "android_client_info": {
-          "package_name": "com.snaptech.spanish_demo"
+          "package_name": "com.snaptech.americanmontesorri"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "177155058143-bfliq2sk3b3ck8vhac721fhvhh3pntje.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyBwlLb9eRnYyDeNoCjPGVdllkh0fBtSwmc"
+          "current_key": "AIzaSyBXQ6n-BT1bj7d-QkqaqdYbuoP7GXeXzAo"
         }
       ],
       "services": {
@@ -26,7 +33,7 @@
           "other_platform_oauth_client": []
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }
