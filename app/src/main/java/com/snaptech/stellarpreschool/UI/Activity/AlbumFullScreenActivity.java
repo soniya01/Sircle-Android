@@ -159,6 +159,7 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
             super.onPostExecute(bitmap);
             mProgressDialog.dismiss();
 
+            storeImage(bitmap);
             if(flag_download)
             Toast.makeText(AlbumFullScreenActivity.this,"Image downloaded successfully",Toast.LENGTH_LONG).show();
 
@@ -168,7 +169,7 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
                 flag_download=true;
             }
             // save image to gallery
-            storeImage(bitmap);
+
         }
 
 
