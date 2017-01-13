@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@android:color/white"
     android:orientation="vertical"
-    tools:context="com.snaptech.fitness360amritsar.UI.Activity.AddLinksActivity">
+    tools:context="com.snaptech.techfitemissio.UI.Activity.AddLinksActivity">
 
     <ScrollView
         android:layout_width="match_parent"

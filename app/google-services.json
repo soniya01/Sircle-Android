@@ -1,29 +1,25 @@
 {
   "project_info": {
-    "project_number": "733178321929",
-    "firebase_url": "https://fitness-360-amritsar.firebaseio.com",
-    "project_id": "fitness-360-amritsar",
-    "storage_bucket": "fitness-360-amritsar.appspot.com"
+    "project_number": "233327004405",
+    "firebase_url": "https://techfit-emissio-gym.firebaseio.com",
+    "project_id": "techfit-emissio-gym",
+    "storage_bucket": "techfit-emissio-gym.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:733178321929:android:eea9e99823897e29",
+        "mobilesdk_app_id": "1:233327004405:android:b48d8a0b71d4fcb4",
         "android_client_info": {
-          "package_name": "com.snaptech.fitness360amritsar"
+          "package_name": "com.snaptech.techfitemissio"
         }
       },
       "oauth_client": [
         {
-          "client_id": "733178321929-ul6puof5mc9i8cvjolaqbuc1ocoovkik.apps.googleusercontent.com",
+          "client_id": "233327004405-g2oil5por0fnvfel5o79lt2bdn0nibr6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBzXMzxDW2yMVz3kGBhtnCRSq-H4qiqUBc"
-        }
-      ],
+      "api_key": [],
       "services": {
         "analytics_service": {
           "status": 1

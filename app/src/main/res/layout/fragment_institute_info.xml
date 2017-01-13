@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context="com.snaptech.fitness360amritsar.UI.Fragment.InstituteInfo">
+    android:background="#FFF"
+    tools:context="com.snaptech.techfitemissio.UI.Fragment.InstituteInfo">
 
 
     <LinearLayout
@@ -16,45 +16,45 @@
             android:layout_width="wrap_content"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:layout_marginTop="47dp"
+            android:layout_marginTop="20dp"
             android:src="@drawable/emissionsloginlogo"/>
 
-        <com.snaptech.fitness360amritsar.custom.RobotoRegularTextView
+        <com.snaptech.techfitemissio.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
-            android:layout_marginTop="54dp"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:text="FITNESS 360 Amritsar"
+            android:text="Techfit Emissio Gym"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.snaptech.fitness360amritsar.custom.RobotoRegularTextView
+        <com.snaptech.techfitemissio.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
             android:textAlignment="center"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:gravity="center_horizontal"
-            android:text="Surya Shine Complex,\n Above London Beauty near Bypass,\n Ranjit Avenue E-Block, Amritsar - 143001"
+            android:text="Plot No. 309, \nCoal Bunder Road, Darukhana, Reay Road (East), \nMumbai - 10."
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.snaptech.fitness360amritsar.custom.RobotoRegularTextView
+        <com.snaptech.techfitemissio.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:text="dineshf360@gmail.com"
+            android:text="techfitpa@gmail.com"
             android:autoLink="email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.snaptech.fitness360amritsar.custom.RobotoRegularTextView
+        <com.snaptech.techfitemissio.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:text="+91 8699360360"
+            android:text="+91 9820166910"
             android:autoLink="phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

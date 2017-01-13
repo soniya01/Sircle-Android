@@ -33,7 +33,7 @@
             android:contentDescription="@string/description_image_default"
             android:src="@android:drawable/ic_menu_add" />
 
-        <com.snaptech.fitness360amritsar.custom.RobotoLightTextView
+        <com.snaptech.techfitemissio.custom.RobotoLightTextView
             android:textSize="18dp"
             android:id="@+id/sliding_pane_text_module_name"
             android:layout_width="wrap_content"

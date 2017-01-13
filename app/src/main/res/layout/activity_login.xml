@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F6F7"
+    android:background="#FFF"
     android:orientation="vertical">
 
     <!-- Login progress -->
@@ -27,18 +27,18 @@
 
 
                 <ImageView
-                    android:layout_marginTop="66dp"
+                    android:layout_marginTop="30dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:contentDescription="@string/description_image_default"
                     android:src="@drawable/emissionsloginlogo" />
 
-                <com.snaptech.fitness360amritsar.custom.RobotoLightTextView
+                <com.snaptech.techfitemissio.custom.RobotoLightTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="45dp"
+                    android:layout_marginTop="20dp"
                     android:text="WELCOME"
                     android:textColor="#5B5A5A"
                     android:textSize="18sp"
