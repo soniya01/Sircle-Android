@@ -36,7 +36,7 @@ public class AlbumDetailsActivity extends AppCompatActivity implements SwipeRefr
     private AlbumDetailsGridAdapter albumDetailsGridAdapter;
     public List<AlbumDetails> albumDetailsList = new ArrayList<AlbumDetails>();
     private FloatingActionButton floatingActionButton;
-    public static int albumId;
+    public static int albumId=0;
     public static String albumName="";
   //  public static ProgressDialog ringProgressDialog;
 
@@ -60,7 +60,9 @@ public class AlbumDetailsActivity extends AppCompatActivity implements SwipeRefr
 
         if (getIntent() != null){
             String id = getIntent().getStringExtra("albumId");
+            if(id!=null)
             albumId = Integer.parseInt(id);
+
             PhotosFragment.albumName="Album";
            // albumName = getIntent().getStringExtra("albumName");
         }

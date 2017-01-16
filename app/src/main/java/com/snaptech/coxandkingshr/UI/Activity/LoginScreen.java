@@ -45,9 +45,6 @@ public class LoginScreen extends Activity {
     private EditText passwordEditText;
     private EditText usernameField;
     private SharedPreferences loginSharedPrefs;
-    private Date sessionExpiryDate;
-    private LoginResponse loginData;
-    private String accessToken;
     ProgressDialog ringProgressDialog;
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     SharedPreferences.Editor editor;
@@ -228,7 +225,7 @@ public class LoginScreen extends Activity {
                             startService(intent_receiver);
 
                             NotificationManager.getSharedInstance().grpIds.clear();
-                            sessionExpiryDate = new Date();
+
 
                             LoginManager.accessToken = response.getUserData().getAuthToken();
 
@@ -252,7 +249,7 @@ public class LoginScreen extends Activity {
                                     startActivity(homeIntent);
                                     finish();
                                 } else {
-                                    Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);
+                                    Intent homeIntent = new Intent(LoginScreen.this, BaseActivity.class);
                                     startActivity(homeIntent);
                                     finish();
                                 }
@@ -261,7 +258,7 @@ public class LoginScreen extends Activity {
                             {
                                 editor.putString(Constants.LOGIN_LOGGED_IN_USER_TYPE, "user");
                                 editor.apply();
-                                Intent homeIntent = new Intent(LoginScreen.this, SettingsActivity.class);
+                                Intent homeIntent = new Intent(LoginScreen.this, BaseActivity.class);
                                 startActivity(homeIntent);
                             }
 

@@ -43,11 +43,19 @@ TextView pdfPageCount;
       //  mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
       //  mProgressDialog.setCancelable(true);
 
-        String pdfUrl = getIntent().getExtras().getString("PdfUrl");
+        if(getIntent()!=null) {
 
-        String pdfFile = getIntent().getExtras().getString("PdfName");
+            if(getIntent().getExtras()!=null) {
 
-        view(pdfUrl,pdfFile);
+                if(getIntent().getExtras().getString("PdfUrl")!=null&&getIntent().getExtras().getString("PdfName")!=null) {
+
+                    String pdfUrl = getIntent().getExtras().getString("PdfUrl");
+                    String pdfFile = getIntent().getExtras().getString("PdfName");
+                    view(pdfUrl, pdfFile);
+
+                }
+            }
+        }
     }
     
 

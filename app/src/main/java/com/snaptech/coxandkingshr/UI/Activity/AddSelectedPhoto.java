@@ -139,9 +139,11 @@ public class AddSelectedPhoto extends AppCompatActivity {
             public void onGlobalLayout() {
 
                 Bundle extras = getIntent().getExtras();
-                backCameraShown = extras.getBoolean(CameraFragmentUI.INTENT_EXTRA_BACK_CAMERA_SHOWN);
 
                 if (extras != null && extras.containsKey("data")) {
+                backCameraShown = extras.getBoolean(CameraFragmentUI.INTENT_EXTRA_BACK_CAMERA_SHOWN);
+
+
                     data = (ImageData) extras.get("data");
                     new DecodeBitmapTask(data).execute();
                 } else {

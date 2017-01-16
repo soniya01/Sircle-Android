@@ -167,7 +167,6 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
         if (getIntent().getExtras() != null)
         {
             Bundle b = getIntent().getExtras();
-
             selectedModuleIndex = b.getInt("notificationActivity");
             shouldSelectListViewItem = true;
             didSelectListViewItemAtIndex(selectedModuleIndex);
@@ -310,12 +309,12 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
             if (userType.equals("admin")) {
                 menuList = getResources().getStringArray(R.array.array_module_name_withou_settings);
             } else {
-                menuList = getResources().getStringArray(R.array.array_module_name);
+                menuList = getResources().getStringArray(R.array.array_module_name_withou_settings);
             }
         }
         else
         {
-            menuList = getResources().getStringArray(R.array.array_module_name);
+            menuList = getResources().getStringArray(R.array.array_module_name_withou_settings);
         }
 
         adapter = new SlidingPaneAdapter(this,menuList);
@@ -545,8 +544,9 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                 }
                 else
                 {
-                    fragmentName = "Settings";
-                    fragmentToLoad = new SettingsFragment();
+                    fragmentName = "Corporate Address";
+                    fragmentToLoad = new InstituteInfo();
+                    closeApp = false;
                 }
                 closeApp = false;
                 break;
@@ -570,10 +570,10 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                 }
                 else
                 {
-                    fragmentName = "Corporate Address";
-                    fragmentToLoad = new InstituteInfo();
-                    closeApp = false;
-
+//                    fragmentName = "Corporate Address";
+//                    fragmentToLoad = new InstituteInfo();
+//                    closeApp = false;
+                    Common.sendEmailToSupport(this);
 
                 }
                 closeApp = false;
@@ -594,20 +594,28 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                 else
                 {
                    // mDrawerLayout.closeDrawer(mDrawerList);
-                    Common.sendEmailToSupport(this);
+                    //Common.sendEmailToSupport(this);
+                    mDrawerLayout.closeDrawer(mDrawerList);
+                    fragmentToLoad = null;
+                    selectedModuleIndex = 0;
+                    handleSharedPreferencesOnLogout();
+                    closeApp = false;
+                    Intent loginIntent = new Intent(BaseActivity.this, LoginScreen.class);
+                    startActivity(loginIntent);
+                    finish();
 
                 }
                 break;
             case 11:
 
-                mDrawerLayout.closeDrawer(mDrawerList);
-                fragmentToLoad = null;
-                selectedModuleIndex = 0;
-                handleSharedPreferencesOnLogout();
-                closeApp = false;
-                Intent loginIntent = new Intent(BaseActivity.this, LoginScreen.class);
-                startActivity(loginIntent);
-                finish();
+//                mDrawerLayout.closeDrawer(mDrawerList);
+//                fragmentToLoad = null;
+//                selectedModuleIndex = 0;
+//                handleSharedPreferencesOnLogout();
+//                closeApp = false;
+//                Intent loginIntent = new Intent(BaseActivity.this, LoginScreen.class);
+//                startActivity(loginIntent);
+//                finish();
 
             default:
                 break;

@@ -75,8 +75,10 @@ public class VideoActivity extends Activity implements MediaPlayer.OnCompletionL
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt("Loc", videoView.getCurrentPosition());
-        outState.putString("url", uriYouTube.toString());
+        if(uriYouTube!=null&&outState!=null) {
+            outState.putInt("Loc", videoView.getCurrentPosition());
+            outState.putString("url", uriYouTube.toString());
+        }
     }
 
     @Override

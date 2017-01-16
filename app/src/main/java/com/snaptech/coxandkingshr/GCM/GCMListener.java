@@ -29,7 +29,7 @@ import org.json.JSONObject;
  */
 public class GCMListener extends GcmListenerService {
     private Notification notification;
-    int count = 0;
+    private static int count = 0;
 
     @Override
     public void onMessageReceived(String from, Bundle data) {

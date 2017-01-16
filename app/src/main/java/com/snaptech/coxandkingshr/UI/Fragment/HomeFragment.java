@@ -153,11 +153,11 @@ public class HomeFragment extends Fragment {
                     String  userType = loginSharedPreferences.getString(Constants.LOGIN_LOGGED_IN_USER_TYPE,null);
 
                     if (!userType.equals("admin")) {
-                        loadFragment(getActivity(), fragmentToLoad,"Settings",8);
+                        Toast.makeText(getActivity(), "This Feature is not applicable", Toast.LENGTH_SHORT).show();
                     }
                     else
                     {
-                        Toast.makeText(getActivity(), "This Feature is not applicable to the Admin", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "This Feature is not applicable", Toast.LENGTH_SHORT).show();
                     }
 
 
