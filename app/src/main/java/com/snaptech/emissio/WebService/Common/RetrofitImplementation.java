@@ -694,6 +694,8 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     public void success(JsonElement jsonElement, Response response) {
                         if (!jsonElement.isJsonNull()) {
 
+
+                                System.out.println("messages response is "+jsonElement.toString());
                             Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
                             int code=0;
                             try {
