@@ -1,25 +1,29 @@
 {
   "project_info": {
-    "project_number": "238714616104",
-    "firebase_url": "https://cn-gamdevi.firebaseio.com",
-    "project_id": "cn-gamdevi",
-    "storage_bucket": "cn-gamdevi.appspot.com"
+    "project_number": "658860820213",
+    "firebase_url": "https://forjett-20b1c.firebaseio.com",
+    "project_id": "forjett-20b1c",
+    "storage_bucket": "forjett-20b1c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:238714616104:android:d7429154b141ae5a",
+        "mobilesdk_app_id": "1:658860820213:android:9463c558453a08c9",
         "android_client_info": {
-          "package_name": "com.snaptech.cngamdevi"
+          "package_name": "com.snaptech.cnforjett"
         }
       },
       "oauth_client": [
         {
-          "client_id": "238714616104-okp1ft4nh97cbnne8tulsdvcian1s6mj.apps.googleusercontent.com",
+          "client_id": "658860820213-2r8npirispjtjkni7e5ke884ce8me3ea.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
-      "api_key": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDb9tW1fFA_jrT_ANpzI0SCB5UA_yh3mOQ"
+        }
+      ],
       "services": {
         "analytics_service": {
           "status": 1
