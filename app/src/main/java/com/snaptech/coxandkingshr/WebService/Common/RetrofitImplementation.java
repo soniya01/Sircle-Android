@@ -197,8 +197,10 @@ public class RetrofitImplementation implements WebServiceProtocol{
                     @Override
                     public void success(JsonElement jsonElement, Response response) {
 
+
                         if (jsonElement != null) {
 
+                            System.out.println("forgot password response is "+jsonElement.toString());
                             if (!jsonElement.isJsonNull()) {
 
                                 Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_UTC).create();
@@ -243,6 +245,7 @@ public class RetrofitImplementation implements WebServiceProtocol{
                         appError.setErrorCode(getRetrofitErrorcode(error));
                         appError.setErrorMessage(error.getLocalizedMessage());
 
+                        System.out.println("Forgot password response "+appError.toString()+" and "+error.getLocalizedMessage());
                         // Send empty object
                         if (responseClass != null) {
                             webserviceListener.onCompletion(Common.createObjectForClass(responseClass), appError);

@@ -91,6 +91,11 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             @Override
             public void onCompletion(ForgotPasswordResponse response, AppError error) {
 
+
+                if(response!=null)
+
+                    System.out.println("response code for forgot password "+response.getStatus());
+
                 if (error.getErrorCode() == 0) {
                     // give access to the app features
                     if (response != null){

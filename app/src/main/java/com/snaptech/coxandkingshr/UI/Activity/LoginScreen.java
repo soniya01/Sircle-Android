@@ -221,6 +221,7 @@ public class LoginScreen extends Activity {
                     if (response != null){
                         if (response.getStatus() == 200)
                         {
+                            ringProgressDialog.dismiss();
                             Intent intent_receiver = new Intent(LoginScreen.this, GCMListener.class);
                             startService(intent_receiver);
 
