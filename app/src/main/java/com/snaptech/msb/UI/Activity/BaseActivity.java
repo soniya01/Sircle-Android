@@ -384,6 +384,8 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
 
     //check forced update
     private void checkForcedUpdate(ForcedUpdateResponse data,AppError error,int versionCode){
+
+        if(data!=null){
         if(versionCode<data.getForcedUpdateData().android_version&&data.getForcedUpdateData().force_update_android==0){
 
             Constants.flag = 2;
@@ -440,6 +442,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
         else{
             Constants.flag = 2;
         }
+    }
     }
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -698,6 +701,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
         {
             closeApp=true;
             fragmentToLoad = new HomeFragment();
+            fragmentName="Home";
             loadFragment(BaseActivity.this, fragmentToLoad,"Home");
             setActionBarTitle("Home");
         }

@@ -92,7 +92,7 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
              NewsLetter selectedItem = newsLetterList.get(position);
 
-                Toast.makeText(getActivity(), "File downloaded " + selectedItem.getName(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "File downloaded " + selectedItem.getName(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), PDFViewer.class);
                 intent.putExtra("PdfUrl",selectedItem.getPath());
                 intent.putExtra("PdfName",selectedItem.getName());
