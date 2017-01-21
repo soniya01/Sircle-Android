@@ -510,7 +510,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                 closeApp = false;
                 break;
             case 4:
-                fragmentName = "Newsletters";
+                fragmentName = "Weekly Insights";
                 if (!(fragmentToLoad instanceof NewsLetterFragment))
                 fragmentToLoad = new NewsLetterFragment();
                 closeApp=false;
@@ -706,6 +706,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
         {
             closeApp=true;
             fragmentToLoad = new HomeFragment();
+            fragmentName="Home";
             loadFragment(BaseActivity.this, fragmentToLoad,"Home");
             setActionBarTitle("Home");
         }

@@ -27,7 +27,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     Button loginButton;
     ProgressDialog ringProgressDialog;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
