@@ -6,11 +6,11 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.snaptech.coxandkingshr"
+        applicationId "com.snaptech.ezeego1"
         minSdkVersion 15
         targetSdkVersion 20
-        versionCode 2
-        versionName "1.1"
+        versionCode 3
+        versionName "1.2"
         multiDexEnabled true
     }
     buildTypes {

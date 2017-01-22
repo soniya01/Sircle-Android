@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">C&amp;K - HR</string>
+    <string name="app_name">Ez1 - HR</string>
 
     <!--Activity Add Album-->
     <string name="title_placeholder">Title</string>
@@ -111,7 +111,7 @@
         <item>Calendar</item>
         <item>Photos</item>
         <item>Messages</item>
-        <item>Newsletters</item>
+        <item>Weekly Insights</item>
         <item>Documents</item>
         <item>Videos</item>
         <item>Links</item>
@@ -127,7 +127,7 @@
         <item>Calendar</item>
         <item>Photos</item>
         <item>Messages</item>
-        <item>Newsletters</item>
+        <item>Weekly Insights</item>
         <item>Documents</item>
         <item>Videos</item>
         <item>Links</item>
@@ -155,7 +155,7 @@
     <string name="title_activity_pdfviewer">PDFViewer</string>
 
     <!-- NewsLetter fragment -->
-    <string name="fragment_news_letter_title">Newsletters</string>
+    <string name="fragment_news_letter_title">Weekly Insights</string>
     <string name="title_activity_alnum_details">AlnumDetailsActivity</string>
 
     <!-- NewsLetter fragment -->

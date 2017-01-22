@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.snaptech.coxandkingshr.UI.Fragment.CalendarFragment">
+    tools:context="com.snaptech.ezeego1.UI.Fragment.CalendarFragment">
 
 
     <RelativeLayout
@@ -16,7 +16,7 @@
             android:id="@+id/tabs"
             app:tabGravity="fill"
             app:tabMode="fixed"
-            android:background="#000000"
+            android:background="#BED62F"
             app:tabIndicatorColor="#ffffff"
             app:tabSelectedTextColor="#ffffff"
             app1:tabIndicatorHeight="4dp"
@@ -32,27 +32,6 @@
             android:layout_height="match_parent">
 
         </android.support.v4.view.ViewPager>
-
-     <!--   <com.astuetz.PagerSlidingTabStrip
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="48dip"
-            android:background="@null"
-            app1:pstsDividerColor="@null"
-            app1:pstsDividerPadding="24dp"
-            app1:pstsIndicatorColor="#0000ff"
-            app1:pstsIndicatorHeight="4dp"
-            app1:pstsScrollOffset="120dp"
-            app1:pstsShouldExpand="true"
-            app1:pstsUnderlineColor="@null"
-            app1:pstsUnderlineHeight="0dp" />
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/tabs"
-            tools:context=".LoginActivity" /> -->
 
 
         <com.getbase.floatingactionbutton.FloatingActionsMenu
