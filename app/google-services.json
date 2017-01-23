@@ -1,27 +1,20 @@
 {
   "project_info": {
-    "project_number": "177155058143",
-    "firebase_url": "https://american-montesorri.firebaseio.com",
-    "project_id": "american-montesorri",
-    "storage_bucket": "american-montesorri.appspot.com"
+    "project_number": "922511309928",
+    "project_id": "kipling-1470658499364"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:177155058143:android:f2982aa4110f86f6",
+        "mobilesdk_app_id": "1:922511309928:android:e31d14f39a94b8d9",
         "android_client_info": {
-          "package_name": "com.snaptech.americanmontesorri"
+          "package_name": "com.snaptech.kipling"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "177155058143-bfliq2sk3b3ck8vhac721fhvhh3pntje.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBXQ6n-BT1bj7d-QkqaqdYbuoP7GXeXzAo"
+          "current_key": "AIzaSyA4VkHA57V7KJLoVTuG7tSspyb1p2ZS780"
         }
       ],
       "services": {
@@ -33,7 +26,7 @@
           "other_platform_oauth_client": []
         },
         "ads_service": {
-          "status": 2
+          "status": 1
         }
       }
     }

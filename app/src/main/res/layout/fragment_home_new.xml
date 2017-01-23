@@ -134,7 +134,7 @@
             android:drawablePadding="10dp"
             android:paddingBottom="15dp"
             style="?android:attr/borderlessButtonStyle"
-            android:text="Videos"/>
+            android:text="VIDEOS"/>
 
 
 

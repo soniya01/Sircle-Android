@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.snaptech.montesorriamerican.UI.Fragment.GalleryFragment">
+    tools:context="com.snaptech.kipling.UI.Fragment.GalleryFragment">
 
 
     <GridView

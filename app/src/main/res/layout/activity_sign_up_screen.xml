@@ -27,7 +27,7 @@
 
 
             <ImageView
-                android:layout_marginTop="66dp"
+                android:layout_marginTop="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -116,7 +116,7 @@
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="30dp"
                 android:background="@color/theme_color"
                 android:text="@string/register_button_title"
                 android:textColor="@android:color/white"
