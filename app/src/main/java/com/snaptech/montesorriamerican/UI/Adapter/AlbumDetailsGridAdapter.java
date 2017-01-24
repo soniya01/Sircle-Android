@@ -76,28 +76,29 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
         }
 
         // get screen dimensions
-        if (!albumDetailsList.get(position).getFilePath().equals("")) {
+        if(albumDetailsList.size()>0) {
+            if (!albumDetailsList.get(position).getFilePath().equals("")) {
 
-          //  loadImageInBackground(mContext, viewHolder.albumImageView, albumDetailsList.get(position).getFilePath());
-            Picasso.with(this.mContext)
-                    .load(albumDetailsList.get(position).getFilePath()).fit().centerCrop()
-                    .into(viewHolder.albumImageView, new Callback() {
-                        @Override
-                        public void onSuccess() {
+                //  loadImageInBackground(mContext, viewHolder.albumImageView, albumDetailsList.get(position).getFilePath());
+                Picasso.with(this.mContext)
+                        .load(albumDetailsList.get(position).getFilePath()).fit().centerCrop()
+                        .into(viewHolder.albumImageView, new Callback() {
+                            @Override
+                            public void onSuccess() {
 
-                            if (position == albumDetailsList.size() - 1){
-                               // AlbumDetailsActivity.ringProgressDialog.dismiss();
+                                if (position == albumDetailsList.size() - 1) {
+                                    // AlbumDetailsActivity.ringProgressDialog.dismiss();
+                                }
                             }
-                    }
 
 
-                        @Override
-                        public void onError() {
-                           // AlbumDetailsActivity.ringProgressDialog.dismiss();
-                        }
-                    });
+                            @Override
+                            public void onError() {
+                                // AlbumDetailsActivity.ringProgressDialog.dismiss();
+                            }
+                        });
+            }
         }
-
 
         viewHolder.albumImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
