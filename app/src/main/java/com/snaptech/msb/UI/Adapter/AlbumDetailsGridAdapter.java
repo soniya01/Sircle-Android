@@ -76,7 +76,7 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
         }
 
         // get screen dimensions
-        if(position<=albumDetailsList.size()) {
+        if(albumDetailsList.size()>0) {
             if (!albumDetailsList.get(position).getFilePath().equals("")) {
 
                 //  loadImageInBackground(mContext, viewHolder.albumImageView, albumDetailsList.get(position).getFilePath());
