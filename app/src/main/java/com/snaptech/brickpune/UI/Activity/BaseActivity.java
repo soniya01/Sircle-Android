@@ -698,6 +698,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
         {
             closeApp=true;
             fragmentToLoad = new HomeFragment();
+            fragmentName="Home";
             loadFragment(BaseActivity.this, fragmentToLoad,"Home");
             setActionBarTitle("Home");
         }
