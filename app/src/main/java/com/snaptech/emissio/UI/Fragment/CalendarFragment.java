@@ -65,11 +65,11 @@ public class CalendarFragment extends Fragment {
         SharedPreferences.Editor editor = loginSharedPreferences.edit();
         String userType = loginSharedPreferences.getString(Constants.LOGIN_LOGGED_IN_USER_TYPE,null);
 
-        if (!userType.equals("admin"))
-        {
-            menuMultipleActions.setVisibility(View.GONE);
+        if(userType!=null) {
+            if (!userType.equals("admin")) {
+                menuMultipleActions.setVisibility(View.GONE);
+            }
         }
-
         final com.getbase.floatingactionbutton.FloatingActionButton actionHoliday = (com.getbase.floatingactionbutton.FloatingActionButton)x.findViewById(R.id.actionHoliday);
         actionHoliday.setOnClickListener(new View.OnClickListener() {
             @Override

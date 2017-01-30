@@ -7,10 +7,10 @@ android {
 
     defaultConfig {
         applicationId "com.snaptech.emissio"
-        minSdkVersion 15
-        targetSdkVersion 20
-        versionCode 7
-        versionName "2.6"
+        minSdkVersion 16
+        targetSdkVersion 23
+        versionCode 8
+        versionName "2.7"
         multiDexEnabled true
     }
     buildTypes {

@@ -326,9 +326,12 @@ public class CalendarMonthFragment extends Fragment {
         EventManager.getSharedInstance().getEventsMonthWise(object, new EventManager.GetMonthwiseEventsManagerListener() {
             @Override
             public void onCompletion(EventDataReponse data, AppError error) {
-
+                progressBar.setVisibility(View.GONE);
+               if(data!=null){
+                   progressBar.setVisibility(View.GONE);
                 if (data.getStatus()==401)
                 {
+                    progressBar.setVisibility(View.GONE);
                     //Logout User
                     LogoutManager.getSharedInstance().handleUserLogoutPreferences();
                     Intent loginIntent = new Intent(App.getAppContext(), LoginScreen.class);
@@ -336,7 +339,7 @@ public class CalendarMonthFragment extends Fragment {
                     getActivity().finish();
 
                 }
-                else if (data != null){
+                else {
                     if (data.getEvents() != null){
                         if (data.getEvents().size() > 0){
                             HashMap<Date,Integer> dates = new HashMap();
@@ -398,9 +401,12 @@ public class CalendarMonthFragment extends Fragment {
                     }else {
                         progressBar.setVisibility(View.GONE);
                     }
-                }else {
-                    progressBar.setVisibility(View.GONE);
                 }
+
+               }
+                else{
+
+               }
             }
         });
     }

@@ -1,14 +1,22 @@
 package com.snaptech.emissio.UI.Activity;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.AppCompatEditText;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,6 +47,8 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
     private List<AlbumDetails> albumDetailsList = new ArrayList<AlbumDetails>();
     ProgressDialog mProgressDialog;
     int position;
+    private boolean flag_permission_ex_storage=false;
+    private String imageUrl="";
     private boolean flag_download=true;
 
     @Override
@@ -55,7 +65,7 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
         imageViewPager = (ViewPager)findViewById(R.id.pager);
 
         position = getIntent().getIntExtra("position",0);
-        getSupportActionBar().setTitle("");
+        getSupportActionBar().setTitle(albumDetailsList.get(position).getAlbumName());
 
 
         albumImagePagerAdapter = new AlbumImagePagerAdapter(this, albumDetailsList);
@@ -97,9 +107,21 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
         // Activate the navigation drawer toggle
         if (item.getItemId() == R.id.action_download) {
             //TODO: download
-            int position = imageViewPager.getCurrentItem();
-            String imageUrl = albumDetailsList.get(position).getFilePath();
-            new ImageDownloader().execute(imageUrl);
+
+
+            imageUrl = albumDetailsList.get(position).getFilePath();
+            if(!checkExternalStoragePermission()) {
+                flag_permission_ex_storage=false;
+                ContextCompat.checkSelfPermission(AlbumFullScreenActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            }
+            else
+                flag_permission_ex_storage=true;
+
+            if(flag_permission_ex_storage) {
+                position = imageViewPager.getCurrentItem();
+                imageUrl = albumDetailsList.get(position).getFilePath();
+                new ImageDownloader().execute(imageUrl);
+            }
             return true;
         }if (item.getItemId() == android.R.id.home){
             finish();
@@ -223,6 +245,61 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
             values.put(MediaStore.MediaColumns.DATA, filePath);
 
             getApplicationContext().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        }
+    }
+    private boolean checkExternalStoragePermission()
+    {
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (AlbumFullScreenActivity.this.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+//                Log.v(TAG,"Permission is granted");
+                System.out.println("First condition");
+                return true;
+            } else {
+
+                System.out.println("Second condition");
+                //Log.v(TAG,"Permission is revoked");
+                ActivityCompat.requestPermissions(AlbumFullScreenActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return false;
+            }
+        }
+        else { //permission is automatically granted on sdk<23 upon installation
+            // Log.v(TAG,"Permission is granted");
+            System.out.println("Third condition");
+            return true;
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        System.out.println("Called request permission");
+        switch (requestCode) {
+
+
+            case 1: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+
+                    System.out.println("Inside case 1");
+
+                    if(imageUrl!=null)
+                        if(!imageUrl.trim().equals(""))
+                    new ImageDownloader().execute(imageUrl);
+                    // permission was granted, yay! do the
+                    // calendar task you need to do.
+
+                } else {
+
+                    Toast.makeText(AlbumFullScreenActivity.this,"Please give external storage permission to download image.",Toast.LENGTH_SHORT).show();
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'switch' lines to check for other
+            // permissions this app might request
         }
     }
 }

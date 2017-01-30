@@ -1,11 +1,16 @@
 package com.snaptech.emissio.UI.Fragment;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +24,7 @@ import com.snaptech.emissio.Manager.PhotoManager;
 import com.snaptech.emissio.R;
 import com.snaptech.emissio.UI.Activity.AddAlbumActivity;
 import com.snaptech.emissio.UI.Activity.AlbumDetailsActivity;
+import com.snaptech.emissio.UI.Activity.PDFViewer;
 import com.snaptech.emissio.UI.Adapter.PhotosListViewAdapter;
 import com.snaptech.emissio.UI.Model.Photo;
 import com.snaptech.emissio.Utility.AppError;
@@ -46,6 +52,7 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
     int totalRecord;
     int currentFirstVisibleItem,currentVisibleItemCount,currentScrollState,pageCount;
     boolean isLoading;
+    private boolean flag_camera_permission=false;
     private SharedPreferences loginSharedPreferences;
 
 
@@ -122,8 +129,25 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
             public void onClick(View v) {
                 //TODO: add album api call
 
-                Intent albumIntent = new Intent(getActivity(), AddAlbumActivity.class);
-                startActivity(albumIntent);
+
+                //check permission
+
+                if(!checkCameraPermission()) {
+                    flag_camera_permission=false;
+                    ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA);
+
+                }
+                else
+                    flag_camera_permission=true;
+
+                if(flag_camera_permission) {
+                    Intent albumIntent = new Intent(getActivity(), AddAlbumActivity.class);
+                    startActivity(albumIntent);
+                }
+                else{
+
+                   // Toast.makeText(getActivity(),"Please give Camera permission",Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -302,5 +326,54 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
             }
         });
     }
+    private boolean checkCameraPermission()
+    {
 
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (getActivity().checkSelfPermission(Manifest.permission.CAMERA)
+                    == PackageManager.PERMISSION_GRANTED) {
+//                Log.v(TAG,"Permission is granted");
+                System.out.println("First condition");
+                return true;
+            } else {
+
+                System.out.println("Second condition");
+                //Log.v(TAG,"Permission is revoked");
+                requestPermissions(new String[]{Manifest.permission.CAMERA}, 1);
+                return false;
+            }
+        }
+        else { //permission is automatically granted on sdk<23 upon installation
+            // Log.v(TAG,"Permission is granted");
+            System.out.println("Third condition");
+            return true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+
+                    Intent albumIntent = new Intent(getActivity(), AddAlbumActivity.class);
+                    startActivity(albumIntent);
+                    // permission was granted, yay! do the
+                    // calendar task you need to do.
+
+                } else {
+
+                    Toast.makeText(getActivity(),"Please give external storage permission to view pdf.",Toast.LENGTH_SHORT).show();
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'switch' lines to check for other
+            // permissions this app might request
+        }
+    }
 }

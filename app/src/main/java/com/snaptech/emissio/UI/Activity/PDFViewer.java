@@ -104,10 +104,18 @@ TextView pdfPageCount;
                 pdfFile.createNewFile();
                 FileDownloader.downloadFile(fileUrl, pdfFile);
             }catch (IOException e){
-                Toast.makeText(PDFViewer.this, "Error occurred", Toast.LENGTH_SHORT).show();
+
+                PDFViewer.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Toast.makeText(PDFViewer.this, "Please give Storage permission", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
                 e.printStackTrace();
             }catch (Exception e){
-                Toast.makeText(PDFViewer.this, Constants.NO_NET_CONNECTIVITY_MESSAGE, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(PDFViewer.this, Constants.NO_NET_CONNECTIVITY_MESSAGE, Toast.LENGTH_SHORT).show();
             }
             try {
                 Class.forName("android.os.AsyncTask");
