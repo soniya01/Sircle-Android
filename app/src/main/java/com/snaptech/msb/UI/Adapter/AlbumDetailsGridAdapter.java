@@ -76,7 +76,8 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
         }
 
         // get screen dimensions
-        if(albumDetailsList.size()>0) {
+
+        if(albumDetailsList.size()!=0) {
             if (!albumDetailsList.get(position).getFilePath().equals("")) {
 
                 //  loadImageInBackground(mContext, viewHolder.albumImageView, albumDetailsList.get(position).getFilePath());
@@ -98,9 +99,12 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
                             }
                         });
             }
+
         }
+        else{
 
-
+            Toast.makeText(mContext,"Sorry! Please Check your Internet Connection.",Toast.LENGTH_SHORT).show();
+        }
         viewHolder.albumImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         // image view click listener
@@ -109,7 +113,7 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
         return convertView;
     }
 
-    class OnImageClickListener implements View.OnClickListener {
+    private class OnImageClickListener implements View.OnClickListener {
 
         int _postion;
 
@@ -120,14 +124,20 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
 
         @Override
         public void onClick(View v) {
-           // Toast.makeText(mContext, "image clicked", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(mContext, "image clicked", Toast.LENGTH_SHORT).show();
             if(InternetCheck.isNetworkConnected(mContext)){
-            Intent i = new Intent(mContext, AlbumFullScreenActivity.class);
-            i.putExtra("position", _postion);
-            i.putExtra("url",albumDetailsList.get(_postion).getFilePath());
-            i.putExtra("caption",albumDetailsList.get(_postion).getFileName());
-            mContext.startActivity(i);
-        }
+                if(albumDetailsList.size()!=0) {
+                    Intent i = new Intent(mContext, AlbumFullScreenActivity.class);
+                    i.putExtra("position", _postion);
+                    i.putExtra("url", albumDetailsList.get(_postion).getFilePath());
+                    i.putExtra("caption", albumDetailsList.get(_postion).getFileName());
+                    mContext.startActivity(i);
+                }
+                else{
+                    Toast.makeText(mContext,"Sorry! Please Check your Internet Connection.",Toast.LENGTH_SHORT).show();
+
+                }
+            }
             else{
                 Toast.makeText(mContext,"Sorry! Please Check your Internet Connection.",Toast.LENGTH_SHORT).show();
             }
