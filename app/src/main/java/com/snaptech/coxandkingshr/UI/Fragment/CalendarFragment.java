@@ -22,12 +22,12 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 public class CalendarFragment extends Fragment {
 
-   // private PagerSlidingTabStrip tabs;
-   // private ViewPager pager;
+    // private PagerSlidingTabStrip tabs;
+    // private ViewPager pager;
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
     public static int int_items = 3 ;
-   // public static MyPagerAdapter adapter;
+    // public static MyPagerAdapter adapter;
     FloatingActionsMenu menuMultipleActions =  null;
 
     CalendarMonthFragment calendarMonthFragment;
@@ -57,17 +57,18 @@ public class CalendarFragment extends Fragment {
         tabLayout = (TabLayout) x.findViewById(R.id.tabs);
         viewPager = (ViewPager) x.findViewById(R.id.viewpager);
 
+
         menuMultipleActions = (FloatingActionsMenu)x.findViewById(R.id.multiple_actions);
 
         loginSharedPreferences = getActivity().getSharedPreferences(Constants.LOGIN_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = loginSharedPreferences.edit();
         String userType = loginSharedPreferences.getString(Constants.LOGIN_LOGGED_IN_USER_TYPE,null);
 
-        if (!userType.equals("admin"))
-        {
-            menuMultipleActions.setVisibility(View.GONE);
+        if(userType!=null) {
+            if (!userType.equals("admin")) {
+                menuMultipleActions.setVisibility(View.GONE);
+            }
         }
-
         final com.getbase.floatingactionbutton.FloatingActionButton actionHoliday = (com.getbase.floatingactionbutton.FloatingActionButton)x.findViewById(R.id.actionHoliday);
         actionHoliday.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +88,7 @@ public class CalendarFragment extends Fragment {
                 startActivity(addLinkIntent);
             }
         });
+
 
         final com.getbase.floatingactionbutton.FloatingActionButton actionSchoolHoliday = (com.getbase.floatingactionbutton.FloatingActionButton)x.findViewById(R.id.actionSchoolHoliday);
         actionSchoolHoliday.setOnClickListener(new View.OnClickListener() {
@@ -173,7 +175,6 @@ public class CalendarFragment extends Fragment {
             }
             // Other overridden methods
         });
-
         if (ViewCompat.isLaidOut(tabLayout)) {
             tabLayout.setupWithViewPager(viewPager);
         } else {
@@ -185,7 +186,6 @@ public class CalendarFragment extends Fragment {
                 }
             });
         }
-
         return x;
        */
 
