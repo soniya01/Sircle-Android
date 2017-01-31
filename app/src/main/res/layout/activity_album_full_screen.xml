@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
 
-    <com.snaptech.cngamdevi.Utility.ExtendedViewPager
+    <com.snaptech.cnforjett.Utility.ExtendedViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
