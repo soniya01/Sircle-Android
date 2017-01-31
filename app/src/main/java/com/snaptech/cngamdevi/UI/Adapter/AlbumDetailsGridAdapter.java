@@ -76,32 +76,29 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
         }
 
         // get screen dimensions
+        if (!albumDetailsList.get(position).getFilePath().equals("")) {
 
+            //  loadImageInBackground(mContext, viewHolder.albumImageView, albumDetailsList.get(position).getFilePath());
+            Picasso.with(this.mContext)
+                    .load(albumDetailsList.get(position).getFilePath()).fit().centerCrop()
+                    .into(viewHolder.albumImageView, new Callback() {
+                        @Override
+                        public void onSuccess() {
 
-        if(albumDetailsList.size()>0) {
-            if (!albumDetailsList.get(position).getFilePath().equals("")) {
-
-                //  loadImageInBackground(mContext, viewHolder.albumImageView, albumDetailsList.get(position).getFilePath());
-                Picasso.with(this.mContext)
-                        .load(albumDetailsList.get(position).getFilePath()).fit().centerCrop()
-                        .into(viewHolder.albumImageView, new Callback() {
-                            @Override
-                            public void onSuccess() {
-
-//                            if (position == albumDetailsList.size() - 1){
-//                               // AlbumDetailsActivity.ringProgressDialog.dismiss();
-//                            }
-                            }
-
-
-                            @Override
-                            public void onError() {
+                            if (position == albumDetailsList.size() - 1){
                                 // AlbumDetailsActivity.ringProgressDialog.dismiss();
                             }
-                        });
-            }
+                        }
 
+
+                        @Override
+                        public void onError() {
+                            // AlbumDetailsActivity.ringProgressDialog.dismiss();
+                        }
+                    });
         }
+
+
         viewHolder.albumImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         // image view click listener
@@ -110,7 +107,7 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private class OnImageClickListener implements View.OnClickListener {
+    class OnImageClickListener implements View.OnClickListener {
 
         int _postion;
 
@@ -121,14 +118,14 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
 
         @Override
         public void onClick(View v) {
-           // Toast.makeText(mContext, "image clicked", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(mContext, "image clicked", Toast.LENGTH_SHORT).show();
             if(InternetCheck.isNetworkConnected(mContext)){
-            Intent i = new Intent(mContext, AlbumFullScreenActivity.class);
-            i.putExtra("position", _postion);
-            i.putExtra("url",albumDetailsList.get(_postion).getFilePath());
-            i.putExtra("caption",albumDetailsList.get(_postion).getFileName());
-            mContext.startActivity(i);
-        }
+                Intent i = new Intent(mContext, AlbumFullScreenActivity.class);
+                i.putExtra("position", _postion);
+                i.putExtra("url",albumDetailsList.get(_postion).getFilePath());
+                i.putExtra("caption",albumDetailsList.get(_postion).getFileName());
+                mContext.startActivity(i);
+            }
             else{
                 Toast.makeText(mContext,"Sorry! Please Check your Internet Connection.",Toast.LENGTH_SHORT).show();
             }

@@ -8,9 +8,9 @@ android {
     defaultConfig {
         applicationId "com.snaptech.cngamdevi"
         minSdkVersion 15
-        targetSdkVersion 20
-        versionCode 8
-        versionName "1.7"
+        targetSdkVersion 23
+        versionCode 9
+        versionName "1.8"
         multiDexEnabled true
     }
     buildTypes {
