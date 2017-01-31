@@ -24,7 +24,7 @@ public class PDFViewer extends Activity implements OnPageChangeListener {
 
     PDFView pdfView;
 
-TextView pdfPageCount;
+    TextView pdfPageCount;
     ProgressDialog mProgressDialog;
 
     @Override
@@ -36,12 +36,12 @@ TextView pdfPageCount;
 
         pdfView = (PDFView) findViewById(R.id.pdfview);
 
-       // pdfView.
-       mProgressDialog = new ProgressDialog(this);
+        // pdfView.
+        mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setMessage("Loading");
-       mProgressDialog.setIndeterminate(true);
-      //  mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-      //  mProgressDialog.setCancelable(true);
+        mProgressDialog.setIndeterminate(true);
+        //  mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        //  mProgressDialog.setCancelable(true);
 
         String pdfUrl = getIntent().getExtras().getString("PdfUrl");
 
@@ -49,7 +49,7 @@ TextView pdfPageCount;
 
         view(pdfUrl,pdfFile);
     }
-    
+
 
     public void download(String url,String fileName)
     {
@@ -61,7 +61,7 @@ TextView pdfPageCount;
     public void view(String url,String filename)
     {
         Uri uri = Uri.parse(url);
-     //   String fileName = uri.getLastPathSegment();
+        //   String fileName = uri.getLastPathSegment();
 
         String fileName = filename;
 
@@ -104,10 +104,18 @@ TextView pdfPageCount;
                 pdfFile.createNewFile();
                 FileDownloader.downloadFile(fileUrl, pdfFile);
             }catch (IOException e){
-                Toast.makeText(PDFViewer.this, "Error occurred", Toast.LENGTH_SHORT).show();
+
+                PDFViewer.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Toast.makeText(PDFViewer.this, "Please give Storage permission", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
                 e.printStackTrace();
             }catch (Exception e){
-                Toast.makeText(PDFViewer.this, Constants.NO_NET_CONNECTIVITY_MESSAGE, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(PDFViewer.this, Constants.NO_NET_CONNECTIVITY_MESSAGE, Toast.LENGTH_SHORT).show();
             }
             try {
                 Class.forName("android.os.AsyncTask");
@@ -120,7 +128,7 @@ TextView pdfPageCount;
         }
 
 
-         @Override
+        @Override
         protected void onPreExecute() {
             super.onPreExecute();
             mProgressDialog.show();
@@ -135,27 +143,27 @@ TextView pdfPageCount;
 //            }
 //            else
 //            {
-                mProgressDialog.dismiss();
+            mProgressDialog.dismiss();
 
-                File pdfFile = new File(Environment.getExternalStorageDirectory() + "/Sircle/" + fileName);  // -> filename
-                if(pdfFile.exists() && pdfFile.length() != 0) {
-                   // pdfView.fromFile(pdfFile).defaultPage(1).load();
-                    pdfView.fromFile(pdfFile).defaultPage(1).onPageChange(PDFViewer.this).load();
-                    pdfPageCount.setText(pdfView.getCurrentPage() + "/" + pdfView.getPageCount());
-                }
+            File pdfFile = new File(Environment.getExternalStorageDirectory() + "/Sircle/" + fileName);  // -> filename
+            if(pdfFile.exists() && pdfFile.length() != 0) {
+                // pdfView.fromFile(pdfFile).defaultPage(1).load();
+                pdfView.fromFile(pdfFile).defaultPage(1).onPageChange(PDFViewer.this).load();
+                pdfPageCount.setText(pdfView.getCurrentPage() + "/" + pdfView.getPageCount());
+            }
 
-         //   }
-           // return;
+            //   }
+            // return;
 
         }
-        }
+    }
 
 
 //        @Override
 //        protected void onPostExecute(Void result) {
 //            //  progressDialog.dismiss();
 
- //}
+    //}
 
 
 }
