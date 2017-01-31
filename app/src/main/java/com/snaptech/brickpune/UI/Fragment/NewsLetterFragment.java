@@ -1,8 +1,12 @@
 package com.snaptech.brickpune.UI.Fragment;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,8 +37,11 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
     private List<NewsLetter> newsLetterList = new ArrayList<NewsLetter>();
     private View footerView, viewFragment;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private boolean flag_permission_ex_storage=false;
     int currentFirstVisibleItem,currentVisibleItemCount,currentScrollState,pageCount, totalRecord;
     boolean isLoading;
+    private String path="";
+    private String name="";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,7 +71,7 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
              * Showing Swipe Refresh animation on activity create
              * As animation won't start on onCreate, post runnable is used
              */
-          //  populateDummyData();
+            //  populateDummyData();
 //            swipeRefreshLayout.post(new Runnable() {
 //                                        @Override
 //                                        public void run() {
@@ -90,13 +97,28 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
         newsLetterListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-             NewsLetter selectedItem = newsLetterList.get(position);
+                NewsLetter selectedItem = newsLetterList.get(position);
 
-                Toast.makeText(getActivity(), "File downloaded " + selectedItem.getName(), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), PDFViewer.class);
-                intent.putExtra("PdfUrl",selectedItem.getPath());
-                intent.putExtra("PdfName",selectedItem.getName());
-                startActivity(intent);
+                path=selectedItem.getPath();
+                name=selectedItem.getName();
+                if(!checkExternalStoragePermission()) {
+                    ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                    flag_permission_ex_storage=false;
+                }
+                else
+                    flag_permission_ex_storage=true;
+                //Toast.makeText(getActivity(), "File downloaded " + selectedItem.getName(), Toast.LENGTH_SHORT).show();
+
+                if(flag_permission_ex_storage) {
+                    Intent intent = new Intent(getActivity(), PDFViewer.class);
+                    intent.putExtra("PdfUrl", selectedItem.getPath());
+                    intent.putExtra("PdfName", selectedItem.getName());
+                    startActivity(intent);
+                }
+//                else{
+//
+//                   // Toast.makeText(getActivity(),"Please give External Storage permission",Toast.LENGTH_SHORT).show();
+//                }
 //                Intent intent = new Intent(getActivity(), PDFWebViewer.class);
 //                intent.putExtra("PdfUrl",selectedItem.getPath());
 //                startActivity(intent);
@@ -127,7 +149,7 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
                     swipeRefreshLayout.setRefreshing(false);
                     if (Constants.flag_logout) {
 
-                     //   Toast.makeText(getActivity(), "Session Timed Out! Please reopen the app to Login again.", Toast.LENGTH_LONG).show();
+                        //   Toast.makeText(getActivity(), "Session Timed Out! Please reopen the app to Login again.", Toast.LENGTH_LONG).show();
                         Constants.flag_logout = false;
                     } else {
                         if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
@@ -171,7 +193,7 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
     @Override
     public void onResume() {
         super.onResume();
-       // populateDummyData();
+        // populateDummyData();
     }
 
     @Override
@@ -235,7 +257,7 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
         //String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         HashMap object = new HashMap();
-       // object.put("regId", Constants.GCM_REG_ID);
+        // object.put("regId", Constants.GCM_REG_ID);
         //object.put("groupId", grpIdString);
         object.put("page", pageCount+"");
 
@@ -250,16 +272,73 @@ public class NewsLetterFragment extends Fragment implements SwipeRefreshLayout.O
                             newsLetterListViewAdapter.notifyDataSetChanged();
 
                         } else {
-                          //  Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                            //  Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     } else {
 
-                      //  Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                        //  Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+    private boolean checkExternalStoragePermission()
+    {
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                System.out.println("First condition");
+//                Log.v(TAG,"Permission is granted");
+                return true;
+            } else {
+
+                System.out.println("Second condition");
+                //Log.v(TAG,"Permission is revoked");
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return false;
+            }
+        }
+        else {
+            System.out.println("Third condition");
+            //permission is automatically granted on sdk<23 upon installation
+            // Log.v(TAG,"Permission is granted");
+            return true;
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+
+                    if(path!=null) {
+
+                        if(!path.trim().equals("")) {
+                            Intent intent = new Intent(getActivity(), PDFViewer.class);
+                            intent.putExtra("PdfUrl", path);
+                            intent.putExtra("PdfName", name);
+                            startActivity(intent);
+                        }
+                    }
+                    // permission was granted, yay! do the
+                    // calendar task you need to do.
+
+                } else {
+
+                    Toast.makeText(getActivity(),"Please give external storage permission to view pdf.",Toast.LENGTH_SHORT).show();
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'switch' lines to check for other
+            // permissions this app might request
+        }
     }
 }
