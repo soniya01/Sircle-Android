@@ -1,11 +1,15 @@
 package com.snaptech.kipling.UI.Fragment;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +50,7 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
     int totalRecord;
     int currentFirstVisibleItem,currentVisibleItemCount,currentScrollState,pageCount;
     boolean isLoading;
+    private boolean flag_camera_permission=false;
     private SharedPreferences loginSharedPreferences;
 
 
@@ -74,7 +79,7 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
 //                                        public void run() {
 //                                            swipeRefreshLayout.setRefreshing(true);
 
-                                         //   populateDummyData();
+            //   populateDummyData();
 //                                        }
 //                                    }
 //            );
@@ -122,8 +127,25 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
             public void onClick(View v) {
                 //TODO: add album api call
 
-                Intent albumIntent = new Intent(getActivity(), AddAlbumActivity.class);
-                startActivity(albumIntent);
+
+                //check permission
+
+                if(!checkCameraPermission()) {
+                    flag_camera_permission=false;
+                    ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA);
+
+                }
+                else
+                    flag_camera_permission=true;
+
+                if(flag_camera_permission) {
+                    Intent albumIntent = new Intent(getActivity(), AddAlbumActivity.class);
+                    startActivity(albumIntent);
+                }
+                else{
+
+                    // Toast.makeText(getActivity(),"Please give Camera permission",Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -134,7 +156,7 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
     @Override
     public void onResume() {
         super.onResume();
-       // populateDummyData();
+        // populateDummyData();
     }
 
     private void populateDummyData() {
@@ -159,8 +181,8 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
         //String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         HashMap map = new HashMap();
-      //  map.put("regId", Constants.GCM_REG_ID);
-      //  map.put("groupId", grpIdString);
+        //  map.put("regId", Constants.GCM_REG_ID);
+        //  map.put("groupId", grpIdString);
         map.put("page","1");
 
         PhotoManager.getSharedInstance().getAlbums(map, new PhotoManager.GetAlbumsManagerListener() {
@@ -169,30 +191,34 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
                 //isLoading = false;
                 // progressBar.setVisibility(View.GONE);
                 swipeRefreshLayout.setRefreshing(false);
-                if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
-                    if (response != null) {
-                        if (response.getStatus() == 200) {
-                            if (response.getData().getAlbums().size() > 0) {
-                                //  photos = response.getData().getAlbums();
-                                //  photosListViewAdapter.notifyDataSetChanged();
-                                //   totalRecord = response.getData().getTotalRecords();
-                                photos.clear();
-                                photos.addAll(PhotoManager.albumsList);
-                                photosListViewAdapter.notifyDataSetChanged();
+                if (Constants.flag_logout) {
 
+                    //  Toast.makeText(getActivity(), "Session Timed Out! Please reopen the app to Login again.", Toast.LENGTH_LONG).show();
+                    Constants.flag_logout = false;
+                } else {
+                    if (error == null || error.getErrorCode() == AppError.NO_ERROR) {
+                        if (response != null) {
+                            if (response.getStatus() == 200) {
+                                if (response.getData().getAlbums().size() > 0) {
+                                    //  photos = response.getData().getAlbums();
+                                    //  photosListViewAdapter.notifyDataSetChanged();
+                                    //   totalRecord = response.getData().getTotalRecords();
+                                    photos.clear();
+                                    photos.addAll(PhotoManager.albumsList);
+                                    photosListViewAdapter.notifyDataSetChanged();
+
+                                }
+                            } else {
+                                //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                          //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Compruebe internet", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         Toast.makeText(getActivity(), "Compruebe internet", Toast.LENGTH_SHORT).show();
                     }
                 }
-                else {
-                    Toast.makeText(getActivity(), "Compruebe internet", Toast.LENGTH_SHORT).show();
-                }
             }
-
         });
 
     }
@@ -202,7 +228,7 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
 //        HashMap params = new HashMap();
 //        params.put("album_id",albumId);
 
-       // params.put("page","1");
+        // params.put("page","1");
 
 //        PhotoManager.getSharedInstance().getImages(params, new PhotoManager.GetPhotosManagerListener() {
 //            @Override
@@ -214,10 +240,10 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
 //            }
 //        });
         Intent albumIntent = new Intent(getActivity(), AlbumDetailsActivity.class);
-                //albumIntent.putExtra("albumId",photos.get(position).getAlbumID());
-                //albumIntent.putExtra("albumName",photos.get(position).getAlbumTitle());
+        //albumIntent.putExtra("albumId",photos.get(position).getAlbumID());
+        //albumIntent.putExtra("albumName",photos.get(position).getAlbumTitle());
         albumIntent.putExtra("albumId",""+albumId);
-                startActivity(albumIntent);
+        startActivity(albumIntent);
 
     }
 
@@ -263,7 +289,7 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
     public void loadMoreData(){
 
         pageCount = pageCount +1;
-       // String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
+        // String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 //        for (int i = 0; i< NotificationManager.grpIds.size(); i++){
 //            if (i == 0){
 //                grpIdString = NotificationManager.grpIds.get(i);
@@ -272,8 +298,8 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
 //            }
 //        }
         HashMap map = new HashMap();
-       // map.put("regId", Constants.GCM_REG_ID);
-       // map.put("groupId", grpIdString);
+        // map.put("regId", Constants.GCM_REG_ID);
+        // map.put("groupId", grpIdString);
         map.put("page",""+pageCount);
         System.out.println("page count in photos fragment is "+pageCount);
         PhotoManager.getSharedInstance().getAlbums(map, new PhotoManager.GetAlbumsManagerListener() {
@@ -290,7 +316,7 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
                         }
                     } else {
-                      //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                        //  Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }else {
                     Toast.makeText(getActivity(), "Compruebe internet", Toast.LENGTH_SHORT).show();
@@ -298,5 +324,54 @@ public class PhotosFragment extends Fragment implements SwipeRefreshLayout.OnRef
             }
         });
     }
+    private boolean checkCameraPermission()
+    {
 
-}
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (getActivity().checkSelfPermission(Manifest.permission.CAMERA)
+                    == PackageManager.PERMISSION_GRANTED) {
+//                Log.v(TAG,"Permission is granted");
+                System.out.println("First condition");
+                return true;
+            } else {
+
+                System.out.println("Second condition");
+                //Log.v(TAG,"Permission is revoked");
+                requestPermissions(new String[]{Manifest.permission.CAMERA}, 1);
+                return false;
+            }
+        }
+        else { //permission is automatically granted on sdk<23 upon installation
+            // Log.v(TAG,"Permission is granted");
+            System.out.println("Third condition");
+            return true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+
+                    Intent albumIntent = new Intent(getActivity(), AddAlbumActivity.class);
+                    startActivity(albumIntent);
+                    // permission was granted, yay! do the
+                    // calendar task you need to do.
+
+                } else {
+
+                    Toast.makeText(getActivity(),"Por favor den permiso de cámara",Toast.LENGTH_SHORT).show();
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'switch' lines to check for other
+            // permissions this app might request
+        }
+    }
+}//Compruebe internet

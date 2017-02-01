@@ -8,9 +8,9 @@ android {
     defaultConfig {
         applicationId "com.snaptech.kipling"
         minSdkVersion 15
-        targetSdkVersion 20
-        versionCode 15
-        versionName "3.3"
+        targetSdkVersion 23
+        versionCode 16
+        versionName "3.4"
         multiDexEnabled true
     }
     buildTypes {
