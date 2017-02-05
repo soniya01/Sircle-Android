@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.snaptech.msb.UI.Activity.EventDetailActivity">
+    tools:context="com.snaptech.asb.UI.Activity.EventDetailActivity">
 
     <item android:id="@+id/delete"
         android:title="DELETE"
