@@ -1,9 +1,13 @@
 package com.snaptech.spanishdemo.UI.Fragment;
 
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +23,7 @@ import com.snaptech.spanishdemo.UI.Activity.PDFViewer;
 import com.snaptech.spanishdemo.UI.Adapter.DocumentsViewAdapter;
 import com.snaptech.spanishdemo.UI.Model.NewsLetter;
 import com.snaptech.spanishdemo.Utility.AppError;
+import com.snaptech.spanishdemo.Utility.Constants;
 import com.snaptech.spanishdemo.Utility.InternetCheck;
 import com.snaptech.spanishdemo.WebService.DocumentsResponse;
 
@@ -34,8 +39,11 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
     private List<NewsLetter> newsLetterList = new ArrayList<NewsLetter>();
     private View footerView, viewFragment;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private boolean flag_permission_ex_storage=false;
     int currentFirstVisibleItem,currentVisibleItemCount,currentScrollState,pageCount, totalRecord;
     boolean isLoading;
+    private String path="";
+    private String name="";
 
 
     @Override
@@ -56,6 +64,8 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
         newsLetterListView.setAdapter(newsLetterListViewAdapter);
         newsLetterListView.setOnScrollListener(this);
 
+
+
         if (newsLetterList.size() <= 0){
             /**
              * Showing Swipe Refresh animation on activity create
@@ -66,7 +76,7 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
 //                                        public void run() {
 //                                            swipeRefreshLayout.setRefreshing(true);
 
-                                           // populateDummyData();
+            // populateDummyData();
 //                                        }
 //                                    }
 //            );
@@ -91,11 +101,26 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 NewsLetter selectedItem = newsLetterList.get(position);
 
-                Toast.makeText(getActivity(), "File downloaded " + selectedItem.getName(), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), PDFViewer.class);
-                intent.putExtra("PdfUrl",selectedItem.getPath());
-                intent.putExtra("PdfName",selectedItem.getName());
-                startActivity(intent);
+                path=selectedItem.getPath();
+                name=selectedItem.getName();
+                if(!checkExternalStoragePermission()) {
+                    flag_permission_ex_storage=false;
+                    ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                }
+                else
+                    flag_permission_ex_storage=true;
+                //Toast.makeText(getActivity(), "File downloaded " + selectedItem.getName(), Toast.LENGTH_SHORT).show();
+
+                if(flag_permission_ex_storage) {
+                    Intent intent = new Intent(getActivity(), PDFViewer.class);
+                    intent.putExtra("PdfUrl", selectedItem.getPath());
+                    intent.putExtra("PdfName", selectedItem.getName());
+                    startActivity(intent);
+                }
+                else{
+
+                    // Toast.makeText(getActivity(),"Please give External Storage permission",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -126,26 +151,34 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
                 @Override
                 public void onCompletion(DocumentsResponse data, AppError error) {
                     //progressBar.setVisibility(View.GONE);
-                    swipeRefreshLayout.setRefreshing(false);
-                    if (data != null) {
-                        if (data.getStatus() == 200) {
-                            if (data.getData().getDocs().size() > 0) {
-                                // no totalRecord in new aPI call
-                                //totalRecord = data.getData().getTotalRecords();
-                                newsLetterList.clear();
-                                newsLetterList.addAll(DocumentManager.docsList);
-                                newsLetterListViewAdapter.notifyDataSetChanged();
 
-                            } else if (data.getStatus() == 401) {
-                                //Logout User
+                    swipeRefreshLayout.setRefreshing(false);
+                    if(Constants.flag_logout){
+
+                        //  Toast.makeText(getActivity(),"Session Timed Out! Please reopen the app to Login again.",Toast.LENGTH_LONG).show();
+                        Constants.flag_logout=false;
+                    }
+                    else{
+                        if (data != null) {
+                            if (data.getStatus() == 200) {
+                                if (data.getData().getDocs().size() > 0) {
+                                    // no totalRecord in new aPI call
+                                    //totalRecord = data.getData().getTotalRecords();
+                                    newsLetterList.clear();
+                                    newsLetterList.addAll(DocumentManager.docsList);
+                                    newsLetterListViewAdapter.notifyDataSetChanged();
+
+                                } else if (data.getStatus() == 401) {
+                                    //Logout User
+                                } else {
+                                    //   Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
                             } else {
-                                //   Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                                // Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            // Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                            // Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
                         }
-                    } else {
-                        // Toast.makeText(getActivity(), error.getErrorMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -171,7 +204,7 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
     public void onRefresh() {
         newsLetterList.clear();
         newsLetterListViewAdapter.notifyDataSetChanged();
-      //  populateDummyData(1);
+        //  populateDummyData(1);
         populateDummyData();
     }
 
@@ -220,7 +253,7 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
 //            }
 //        }
 
-       // String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
+        // String grpIdString = NotificationManager.getSharedInstance().getGroupIds(getActivity());
 
         HashMap object = new HashMap();
         //object.put("regId", Constants.GCM_REG_ID);
@@ -238,7 +271,7 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
                             newsLetterListViewAdapter.notifyDataSetChanged();
 
                         } else {
-                         //   Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
+                            //   Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         //Toast.makeText(getActivity(), data.getMessage(), Toast.LENGTH_SHORT).show();
@@ -248,5 +281,61 @@ public class DocumentFragment extends Fragment implements SwipeRefreshLayout.OnR
                 }
             }
         });
+    }
+    private boolean checkExternalStoragePermission()
+    {
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+//                Log.v(TAG,"Permission is granted");
+                System.out.println("First condition");
+                return true;
+            } else {
+
+                System.out.println("Second condition");
+                //Log.v(TAG,"Permission is revoked");
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return false;
+            }
+        }
+        else { //permission is automatically granted on sdk<23 upon installation
+            // Log.v(TAG,"Permission is granted");
+            System.out.println("Third condition");
+            return true;
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+
+                    if(path!=null) {
+
+                        if(!path.trim().equals("")) {
+                            Intent intent = new Intent(getActivity(), PDFViewer.class);
+                            intent.putExtra("PdfUrl", path);
+                            intent.putExtra("PdfName", name);
+                            startActivity(intent);
+                        }
+                    }
+                    // permission was granted, yay! do the
+                    // calendar task you need to do.
+
+                } else {
+
+                    Toast.makeText(getActivity(),"Dé permiso de almacenamiento",Toast.LENGTH_SHORT).show();
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'switch' lines to check for other
+            // permissions this app might request
+        }
     }
 }

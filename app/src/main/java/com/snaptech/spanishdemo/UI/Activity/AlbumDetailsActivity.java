@@ -1,10 +1,15 @@
 package com.snaptech.spanishdemo.UI.Activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -32,18 +37,21 @@ import java.util.List;
 
 public class AlbumDetailsActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
 
+
+
     private GridView albumGridView;
     private AlbumDetailsGridAdapter albumDetailsGridAdapter;
     public List<AlbumDetails> albumDetailsList = new ArrayList<AlbumDetails>();
     private FloatingActionButton floatingActionButton;
-    public static int albumId;
+    public static int albumId=0;
+    private boolean flag_camera_permission=false;
     public static String albumName="";
-  //  public static ProgressDialog ringProgressDialog;
+    //  public static ProgressDialog ringProgressDialog;
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
     int currentFirstVisibleItem,currentVisibleItemCount,currentScrollState,pageCount;
-            //, totalRecord;
+    //, totalRecord;
     boolean isLoading;
 
     private SharedPreferences loginSharedPreferences;
@@ -62,10 +70,10 @@ public class AlbumDetailsActivity extends AppCompatActivity implements SwipeRefr
             String id = getIntent().getStringExtra("albumId");
             albumId = Integer.parseInt(id);
             PhotosFragment.albumName="Album";
-           // albumName = getIntent().getStringExtra("albumName");
+            // albumName = getIntent().getStringExtra("albumName");
         }
 
-       // albumId =PhotosFragment.albumId;
+        // albumId =PhotosFragment.albumId;
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -75,7 +83,7 @@ public class AlbumDetailsActivity extends AppCompatActivity implements SwipeRefr
         albumGridView = (GridView)findViewById(R.id.album_details_grid_view);
         floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
 
-       // ringProgressDialog = ProgressDialog.show(AlbumDetailsActivity.this, "", "", true);
+        // ringProgressDialog = ProgressDialog.show(AlbumDetailsActivity.this, "", "", true);
 
         //albumDetailsList.addAll(PhotoManager.getSharedInstance().albumDetailsList);
 
@@ -109,9 +117,19 @@ public class AlbumDetailsActivity extends AppCompatActivity implements SwipeRefr
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent albumIntent = new Intent(AlbumDetailsActivity.this, CameraActivity.class);
-                albumIntent.putExtra("albumId", ""+albumId);
-                startActivity(albumIntent);
+
+                if(!checkCameraPermission()) {
+                    flag_camera_permission=false;
+                    ContextCompat.checkSelfPermission(AlbumDetailsActivity.this, Manifest.permission.CAMERA);
+                }
+                else
+                    flag_camera_permission=true;
+
+                if(flag_camera_permission) {
+                    Intent albumIntent = new Intent(AlbumDetailsActivity.this, CameraActivity.class);
+                    albumIntent.putExtra("albumId", "" + albumId);
+                    startActivity(albumIntent);
+                }
             }
         });
 
@@ -139,10 +157,9 @@ public class AlbumDetailsActivity extends AppCompatActivity implements SwipeRefr
             albumDetailsList.clear();
             pageCount = 0;
             if(InternetCheck.isNetworkConnected(AlbumDetailsActivity.this))
-            loadMoreData();
+                loadMoreData();
             else
-                Toast.makeText(AlbumDetailsActivity.this,"Compruebe internet", Toast.LENGTH_SHORT).show();
-//            shouldSelectListViewItem = true;
+                Toast.makeText(AlbumDetailsActivity.this,"Compruebe internet",Toast.LENGTH_SHORT).show();//            shouldSelectListViewItem = true;
 //            didSelectListViewItemAtIndex(selectedModuleIndex);
         }
 
@@ -182,15 +199,14 @@ public class AlbumDetailsActivity extends AppCompatActivity implements SwipeRefr
 
         HashMap params = new HashMap();
         params.put("album_id",""+albumId);
-       // params.put("page",pageCount);
+        // params.put("page",pageCount);
 
-       // System.out.println("REG" + Constants.GCM_REG_ID);
+        // System.out.println("REG" + Constants.GCM_REG_ID);
 
 
         PhotoManager.getSharedInstance().getImages(params, new PhotoManager.GetPhotosManagerListener() {
             @Override
             public void onCompletion(AlbumResponse response, AppError error) {
-                progressBar.setVisibility(View.GONE);
 
                 if (Constants.flag_logout) {
                     handleSharedPreferencesOnLogout();
@@ -200,6 +216,7 @@ public class AlbumDetailsActivity extends AppCompatActivity implements SwipeRefr
                     finish();
                     Constants.flag_logout = false;
                 } else {
+                    progressBar.setVisibility(View.GONE);
                     if (response != null) {
                         if (response.getStatus() == 200) {
                             if (response.getData().getAlbum_images().size() > 0) {
@@ -341,21 +358,20 @@ public class AlbumDetailsActivity extends AppCompatActivity implements SwipeRefr
         albumDetailsList.clear();
         pageCount = 0;
         if(InternetCheck.isNetworkConnected(AlbumDetailsActivity.this))
-        loadMoreData();
+            loadMoreData();
         else
             Toast.makeText(AlbumDetailsActivity.this,"Compruebe internet",Toast.LENGTH_SHORT).show();
-
         //if (albumDetailsList.size() <= 0){
-            /**
-             * Showing Swipe Refresh animation on activity create
-             * As animation won't start on onCreate, post runnable is used
-             */
+        /**
+         * Showing Swipe Refresh animation on activity create
+         * As animation won't start on onCreate, post runnable is used
+         */
 //            swipeRefreshLayout.post(new Runnable() {
 //                                        @Override
 //                                        public void run() {
 //                                            swipeRefreshLayout.setRefreshing(true);
 
-            //populateDummyData();
+        //populateDummyData();
 //                                        }
 //                                    }
 //            );
@@ -374,5 +390,60 @@ public class AlbumDetailsActivity extends AppCompatActivity implements SwipeRefr
         SharedPreferences.Editor  editor = loginSharedPrefs.edit();
         editor.putString(Constants.LOGIN_ACCESS_TOKEN_PREFS_KEY, null);
         editor.apply();
+    }
+    private boolean checkCameraPermission()
+    {
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (AlbumDetailsActivity.this.checkSelfPermission(Manifest.permission.CAMERA)
+                    == PackageManager.PERMISSION_GRANTED) {
+//                Log.v(TAG,"Permission is granted");
+                System.out.println("First condition");
+                return true;
+            } else {
+
+                System.out.println("Second condition");
+                //Log.v(TAG,"Permission is revoked");
+                ActivityCompat.requestPermissions(AlbumDetailsActivity.this,new String[]{Manifest.permission.CAMERA}, 1);
+                return false;
+            }
+        }
+        else { //permission is automatically granted on sdk<23 upon installation
+            // Log.v(TAG,"Permission is granted");
+            System.out.println("Third condition");
+            return true;
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        System.out.println("Called request permission");
+        switch (requestCode) {
+
+
+            case 1: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+
+                    System.out.println("Inside case 1");
+
+                    Intent albumIntent = new Intent(AlbumDetailsActivity.this, CameraActivity.class);
+                    albumIntent.putExtra("albumId", "" + albumId);
+                    startActivity(albumIntent);
+                    // permission was granted, yay! do the
+                    // calendar task you need to do.
+
+                } else {
+
+                    Toast.makeText(AlbumDetailsActivity.this,"Por favor den permiso de cámara.",Toast.LENGTH_SHORT).show();
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'switch' lines to check for other
+            // permissions this app might request
+        }
     }
 }
