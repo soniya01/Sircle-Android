@@ -1,12 +1,17 @@
 package com.snaptech.institutoverdemolina.UI.Activity;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -39,7 +44,9 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
     private List<AlbumDetails> albumDetailsList = new ArrayList<AlbumDetails>();
     ProgressDialog mProgressDialog;
     int position;
-    private static boolean download_flag=true;
+    private boolean flag_permission_ex_storage=false;
+    private String imageUrl="";
+    private boolean flag_download=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +62,7 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
         imageViewPager = (ViewPager)findViewById(R.id.pager);
 
         position = getIntent().getIntExtra("position",0);
-        getSupportActionBar().setTitle("");
+        getSupportActionBar().setTitle(albumDetailsList.get(position).getAlbumName());
 
 
         albumImagePagerAdapter = new AlbumImagePagerAdapter(this, albumDetailsList);
@@ -97,9 +104,21 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
         // Activate the navigation drawer toggle
         if (item.getItemId() == R.id.action_download) {
             //TODO: download
-            int position = imageViewPager.getCurrentItem();
-            String imageUrl = albumDetailsList.get(position).getFilePath();
-            new ImageDownloader().execute(imageUrl);
+
+
+            imageUrl = albumDetailsList.get(position).getFilePath();
+            if(!checkExternalStoragePermission()) {
+                flag_permission_ex_storage=false;
+                ContextCompat.checkSelfPermission(AlbumFullScreenActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            }
+            else
+                flag_permission_ex_storage=true;
+
+            if(flag_permission_ex_storage) {
+                position = imageViewPager.getCurrentItem();
+                imageUrl = albumDetailsList.get(position).getFilePath();
+                new ImageDownloader().execute(imageUrl);
+            }
             return true;
         }if (item.getItemId() == android.R.id.home){
             finish();
@@ -136,14 +155,15 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
 
             Bitmap bitmap = null;
             try {
-                URI uri = new URI(imageURL.replace(" ", "%20"));
                 // Download Image from URL
+                URI uri = new URI(imageURL.replace(" ", "%20"));
+                System.out.println("Image url hit is "+uri.toString());
                 InputStream input = new java.net.URL(uri.toString()).openStream();
                 // Decode Bitmap
                 bitmap = BitmapFactory.decodeStream(input);
             } catch (Exception e) {
                 e.printStackTrace();
-                download_flag=false;
+                flag_download=false;
             }
             return bitmap;
         }
@@ -158,16 +178,16 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
             super.onPostExecute(bitmap);
             mProgressDialog.dismiss();
 
-
             // save image to gallery
             storeImage(bitmap);
-
-            if(download_flag)
+            if(flag_download)
                 Toast.makeText(AlbumFullScreenActivity.this,"Imagen descargado con éxito",Toast.LENGTH_LONG).show();
             else{
                 Toast.makeText(AlbumFullScreenActivity.this,"Compruebe la conexión a Internet",Toast.LENGTH_LONG).show();
-                download_flag=true;
+                flag_download=true;
             }
+
+
         }
 
 
@@ -189,6 +209,7 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
 
                 //choose another format if PNG doesn't suit you
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+
                 addImageToGallery(filePath);
 
                 bos.flush();
@@ -196,18 +217,20 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
 
             } catch (FileNotFoundException e) {
                 Log.w("TAG", "Error saving image file: " + e.getMessage());
-                download_flag=false;
+                flag_download=false;
 
             } catch (IOException e) {
                 Log.w("TAG", "Error saving image file: " + e.getMessage());
-                download_flag=false;
+                flag_download=false;
 
-            }catch (Exception e){
+            }
+            catch (Exception e){
 
-                Log.w("TAG", "Error saving image file: " + e.getMessage());
-                download_flag=false;
+                e.printStackTrace();
+                flag_download=false;
             }
         }
+
 
         public  void addImageToGallery(final String filePath) {
 
@@ -218,6 +241,61 @@ public class AlbumFullScreenActivity extends ActionBarActivity {
             values.put(MediaStore.MediaColumns.DATA, filePath);
 
             getApplicationContext().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        }
+    }
+    private boolean checkExternalStoragePermission()
+    {
+
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (AlbumFullScreenActivity.this.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+//                Log.v(TAG,"Permission is granted");
+                System.out.println("First condition");
+                return true;
+            } else {
+
+                System.out.println("Second condition");
+                //Log.v(TAG,"Permission is revoked");
+                ActivityCompat.requestPermissions(AlbumFullScreenActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return false;
+            }
+        }
+        else { //permission is automatically granted on sdk<23 upon installation
+            // Log.v(TAG,"Permission is granted");
+            System.out.println("Third condition");
+            return true;
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        System.out.println("Called request permission");
+        switch (requestCode) {
+
+
+            case 1: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+
+                    System.out.println("Inside case 1");
+
+                    if(imageUrl!=null)
+                        if(!imageUrl.trim().equals(""))
+                            new ImageDownloader().execute(imageUrl);
+                    // permission was granted, yay! do the
+                    // calendar task you need to do.
+
+                } else {
+
+                    Toast.makeText(AlbumFullScreenActivity.this,"Dé permiso de almacenamiento.",Toast.LENGTH_SHORT).show();
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'switch' lines to check for other
+            // permissions this app might request
         }
     }
 }

@@ -170,8 +170,17 @@ public class CalendarMonthFragment extends Fragment {
                 Intent addLinkIntent = new Intent(getActivity(), EventsListActivity.class);
                 addLinkIntent.putExtra("month",month);
                 addLinkIntent.putExtra("year",year);
+                String day=Calendar.DAY_OF_MONTH+"";
                 addLinkIntent.putExtra("day",calendar.get(Calendar.DAY_OF_MONTH));
-                addLinkIntent.putExtra("date",calendar.get(Calendar.DAY_OF_MONTH)+"-"+month+"-"+year+" 12:00 PM");
+
+//                if(day.trim().length()==1){
+//                    addLinkIntent.putExtra("date","0"+calendar.get(Calendar.DAY_OF_MONTH)+"-"+month+"-"+year);
+//
+//                }
+                // else{
+                addLinkIntent.putExtra("date",calendar.get(Calendar.DAY_OF_MONTH)+"-"+month+"-"+year);
+                // }
+
                 startActivity(addLinkIntent);
 
             }
@@ -317,80 +326,86 @@ public class CalendarMonthFragment extends Fragment {
         EventManager.getSharedInstance().getEventsMonthWise(object, new EventManager.GetMonthwiseEventsManagerListener() {
             @Override
             public void onCompletion(EventDataReponse data, AppError error) {
+                progressBar.setVisibility(View.GONE);
+                if(data!=null){
+                    progressBar.setVisibility(View.GONE);
+                    if (data.getStatus()==401)
+                    {
+                        progressBar.setVisibility(View.GONE);
+                        //Logout User
+                        LogoutManager.getSharedInstance().handleUserLogoutPreferences();
+                        Intent loginIntent = new Intent(App.getAppContext(), LoginScreen.class);
+                        startActivity(loginIntent);
+                        getActivity().finish();
 
-                if (data.getStatus()==401)
-                {
-                    //Logout User
-                    LogoutManager.getSharedInstance().handleUserLogoutPreferences();
-                    Intent loginIntent = new Intent(App.getAppContext(), LoginScreen.class);
-                    startActivity(loginIntent);
-                    getActivity().finish();
+                    }
+                    else {
+                        if (data.getEvents() != null){
+                            if (data.getEvents().size() > 0){
+                                HashMap<Date,Integer> dates = new HashMap();
+                                for (Event event:  data.getEvents()){
 
-                }
-                else if (data != null){
-                    if (data.getEvents() != null){
-                        if (data.getEvents().size() > 0){
-                            HashMap<Date,Integer> dates = new HashMap();
-                            for (Event event:  data.getEvents()){
-
-                                List<Date> dateList=null;
-                                Date date;
-                                Date to_date;
-                                String str = event.getStartDate();
-                                String str_to_date=event.getEndDate();
-                                String[] splited = str.split("\\s+");
-                                String[] splitted_to_date=str_to_date.split("\\s+");
-                                String to_date_String=splitted_to_date[0];
-                                String dateString = splited[0];
-                                if(!event.getStartDate().equalsIgnoreCase(event.getEndDate()))
-                                    dateList=getDates(dateString,to_date_String);
-                                SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-                                Calendar cal1=Calendar.getInstance();
-                                Calendar cal2=Calendar.getInstance();
-                                try {
-                                    if(dateList!=null) {
+                                    List<Date> dateList=null;
+                                    Date date;
+                                    Date to_date;
+                                    String str = event.getStartDate();
+                                    String str_to_date=event.getEndDate();
+                                    String[] splited = str.split("\\s+");
+                                    String[] splitted_to_date=str_to_date.split("\\s+");
+                                    String to_date_String=splitted_to_date[0];
+                                    String dateString = splited[0];
+                                    if(!event.getStartDate().equalsIgnoreCase(event.getEndDate()))
+                                        dateList=getDates(dateString,to_date_String);
+                                    SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+                                    Calendar cal1=Calendar.getInstance();
+                                    Calendar cal2=Calendar.getInstance();
+                                    try {
+                                        if(dateList!=null) {
 
 
-                                        System.out.println("Start date is " + dateString + " End date is " + to_date_String + " In between dates " + format.format(dateList.get(0)) + " and " + dateList.get(dateList.size() - 1));
+                                            System.out.println("Start date is " + dateString + " End date is " + to_date_String + " In between dates " + format.format(dateList.get(0)) + " and " + dateList.get(dateList.size() - 1));
 
-                                        for (int i=0;i<dateList.size();i++){
+                                            for (int i=0;i<dateList.size();i++){
 
-                                            cal2.setTime(dateList.get(i));
+                                                cal2.setTime(dateList.get(i));
+                                                boolean sameDay = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
+                                                        cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
+                                                if(!sameDay){
+                                                    date=format.parse(format.format(dateList.get(i)));
+                                                    dates.put(date,R.drawable.circular_border);
+                                                }
+                                            }
+                                        }
+                                        else {
+                                            date = format.parse(dateString);
                                             boolean sameDay = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
                                                     cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
                                             if(!sameDay){
-                                                date=format.parse(format.format(dateList.get(i)));
-                                                dates.put(date,R.drawable.circular_border);
+                                                dates.put(date, R.drawable.circular_border);
                                             }
+                                            // dates.put(date,R.drawable.camera_icon);
+                                            System.out.println("Date ->" + date);
                                         }
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
                                     }
-                                    else {
-                                        date = format.parse(dateString);
-                                        boolean sameDay = cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
-                                                cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
-                                        if(!sameDay){
-                                            dates.put(date, R.drawable.circular_border);
-                                        }
-                                        // dates.put(date,R.drawable.camera_icon);
-                                        System.out.println("Date ->" + date);
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
+                                    dateList=null;
                                 }
-                                dateList=null;
-                            }
-                            progressBar.setVisibility(View.GONE);
-                            caldroidFragment.setBackgroundResourceForDates(dates);
-                            caldroidFragment.refreshView();
+                                progressBar.setVisibility(View.GONE);
+                                caldroidFragment.setBackgroundResourceForDates(dates);
+                                caldroidFragment.refreshView();
 
+                            }else {
+                                progressBar.setVisibility(View.GONE);
+                            }
                         }else {
                             progressBar.setVisibility(View.GONE);
                         }
-                    }else {
-                        progressBar.setVisibility(View.GONE);
                     }
-                }else {
-                    progressBar.setVisibility(View.GONE);
+
+                }
+                else{
+
                 }
             }
         });
