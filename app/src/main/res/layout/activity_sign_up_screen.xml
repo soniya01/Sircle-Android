@@ -27,9 +27,9 @@
 
 
             <ImageView
-                android:layout_marginTop="66dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_width="172dp"
+                android:layout_height="172dp"
                 android:layout_gravity="center_horizontal"
                 android:contentDescription="@string/description_image_default"
                 android:src="@drawable/emissionsloginlogo" />
@@ -46,7 +46,7 @@
 
             <EditText
                 android:id="@+id/activity_login_email_text_view"
-                android:layout_marginTop="31dp"
+                android:layout_marginTop="25dp"
                 android:layout_marginLeft="21dp"
                 android:layout_marginRight="21dp"
                 android:layout_width="match_parent"

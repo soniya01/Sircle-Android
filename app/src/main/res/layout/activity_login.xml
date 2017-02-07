@@ -27,18 +27,18 @@
 
 
                 <ImageView
-                    android:layout_marginTop="50dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_width="172dp"
+                    android:layout_height="172dp"
                     android:layout_gravity="center_horizontal"
                     android:contentDescription="@string/description_image_default"
                     android:src="@drawable/emissionsloginlogo" />
 
-                <com.snaptech.montesorriamerican.custom.RobotoLightTextView
+                <com.snaptech.jardinmysol.custom.RobotoLightTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="15dp"
                     android:text="BIENVENIDO"
                     android:textColor="#5B5A5A"
                     android:textSize="18sp"

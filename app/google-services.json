@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "177155058143",
-    "firebase_url": "https://american-montesorri.firebaseio.com",
-    "project_id": "american-montesorri",
-    "storage_bucket": "american-montesorri.appspot.com"
+    "project_number": "80238907368",
+    "firebase_url": "https://jardin-mysol.firebaseio.com",
+    "project_id": "jardin-mysol",
+    "storage_bucket": "jardin-mysol.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:177155058143:android:f2982aa4110f86f6",
+        "mobilesdk_app_id": "1:80238907368:android:fc009cef500ec50a",
         "android_client_info": {
-          "package_name": "com.snaptech.americanmontesorri"
+          "package_name": "com.snaptech.jardinmysol"
         }
       },
       "oauth_client": [
         {
-          "client_id": "177155058143-bfliq2sk3b3ck8vhac721fhvhh3pntje.apps.googleusercontent.com",
+          "client_id": "80238907368-qm1h3c4gruaggplf3qoqam6pmk397k4j.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBXQ6n-BT1bj7d-QkqaqdYbuoP7GXeXzAo"
+          "current_key": "AIzaSyDQmNAp9SwEiuhMHW9bUA-5W93c59B9fck"
         }
       ],
       "services": {
