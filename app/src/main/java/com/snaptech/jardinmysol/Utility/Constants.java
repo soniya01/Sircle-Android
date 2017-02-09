@@ -6,7 +6,7 @@ import android.os.Environment;
 public class Constants {
 
  public static Bitmap myBitmap;
-
+ public static int count = 0;
  public static int flag;
  public static final String LOGIN_PREFS_NAME = "LOGIN_PREFS";
  public static final String LOGIN_ACCESS_TOKEN_PREFS_KEY = "accessToken";

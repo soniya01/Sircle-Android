@@ -24,12 +24,14 @@ import com.google.android.gms.gcm.GcmListenerService;
 
 import org.json.JSONObject;
 
+import static com.snaptech.jardinmysol.Utility.Constants.count;
+
 /**
  * Created by soniya on 26/10/15.
  */
 public class GCMListener extends GcmListenerService {
     private Notification notification;
-   public static int count = 0;
+
 
     @Override
     public void onMessageReceived(String from, Bundle data) {
