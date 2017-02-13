@@ -6,11 +6,11 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.snaptech.emissio"
+        applicationId "com.snaptech.quaderia"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 9
-        versionName "2.8"
+        versionCode 1
+        versionName "1.0"
         multiDexEnabled true
     }
     buildTypes {
