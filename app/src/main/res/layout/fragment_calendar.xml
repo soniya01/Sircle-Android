@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.snaptech.montessorideirapuato.UI.Fragment.CalendarFragment">
+    tools:context="com.snaptech.alexanderbain.UI.Fragment.CalendarFragment">
 
 
     <RelativeLayout
@@ -16,7 +16,7 @@
             android:id="@+id/tabs"
             app:tabGravity="fill"
             app:tabMode="fixed"
-            android:background="#A0DEEE"
+            android:background="#5A2A82"
             app:tabIndicatorColor="#ffffff"
             app:tabSelectedTextColor="#ffffff"
             app1:tabIndicatorHeight="4dp"
