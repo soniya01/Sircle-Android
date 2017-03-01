@@ -6,7 +6,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.snaptech.alexanderbain"
+        applicationId "com.snaptech.colegiobosques"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1

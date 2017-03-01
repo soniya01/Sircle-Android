@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "748226624102",
-    "firebase_url": "https://alexander-bain.firebaseio.com",
-    "project_id": "alexander-bain",
-    "storage_bucket": "alexander-bain.appspot.com"
+    "project_number": "858970569886",
+    "firebase_url": "https://colegio-bosques-del-sol.firebaseio.com",
+    "project_id": "colegio-bosques-del-sol",
+    "storage_bucket": "colegio-bosques-del-sol.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:748226624102:android:fbb27a8857917070",
+        "mobilesdk_app_id": "1:858970569886:android:c42d2c3ac1faf99e",
         "android_client_info": {
-          "package_name": "com.snaptech.alexanderbain"
+          "package_name": "com.snaptech.colegiobosques"
         }
       },
       "oauth_client": [
         {
-          "client_id": "748226624102-osuf9m9p8lauvc0g9o6cn03hprt78j0d.apps.googleusercontent.com",
+          "client_id": "858970569886-8npba98sguj5a6prun48hkal5cjr944o.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCnSunNMjjkH06PY_a92I1VJYzV5d387eo"
+          "current_key": "AIzaSyDi5QgcrQQrvNmYsCThMFGTP1sJw9LDC7Y"
         }
       ],
       "services": {
