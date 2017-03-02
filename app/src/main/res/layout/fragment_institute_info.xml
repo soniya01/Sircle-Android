@@ -17,18 +17,16 @@
         android:orientation="vertical">
 
 
-        <ImageButton
-            android:background="@drawable/emissionsloginlogo"
+        <ImageView
+            android:background="@drawable/sirclebysnaptechios"
             android:layout_width="172dp"
             android:layout_gravity="center"
             android:layout_height="172dp"
-            android:layout_marginTop="30dp"
            />
 
         <com.snaptech.alexanderbain.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
-            android:layout_marginTop="15dp"
             android:layout_gravity="center"
             android:text="Colegio Alexander Bain"
             android:layout_width="wrap_content"
@@ -61,7 +59,6 @@
             android:layout_height="wrap_content" />
 
 
-        http://alexbain.edu.mx/
 
         <com.snaptech.alexanderbain.custom.RobotoRegularTextView
             android:textSize="18dp"
