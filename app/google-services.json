@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "858970569886",
-    "firebase_url": "https://colegio-bosques-del-sol.firebaseio.com",
-    "project_id": "colegio-bosques-del-sol",
-    "storage_bucket": "colegio-bosques-del-sol.appspot.com"
+    "project_number": "1017010770706",
+    "firebase_url": "https://jardin-de-ninos-solecito.firebaseio.com",
+    "project_id": "jardin-de-ninos-solecito",
+    "storage_bucket": "jardin-de-ninos-solecito.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:858970569886:android:c42d2c3ac1faf99e",
+        "mobilesdk_app_id": "1:1017010770706:android:a6395d69fd7ed439",
         "android_client_info": {
-          "package_name": "com.snaptech.colegiobosques"
+          "package_name": "com.snaptech.Jardindeninossolecito"
         }
       },
       "oauth_client": [
         {
-          "client_id": "858970569886-8npba98sguj5a6prun48hkal5cjr944o.apps.googleusercontent.com",
+          "client_id": "1017010770706-bq2o2e6971bptacjdvjaeeq5iu9egma8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDi5QgcrQQrvNmYsCThMFGTP1sJw9LDC7Y"
+          "current_key": "AIzaSyCxGo2md5l6L_HYhkJdrGaqorOPXY4m1WI"
         }
       ],
       "services": {

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:xlink="http://schemas.android.com/apk/res-auto"
     android:background="#FFF"
-    tools:context="com.snaptech.colegiobosques.UI.Fragment.InstituteInfo">
+    tools:context="com.snaptech.Jardindeninossolecito.UI.Fragment.InstituteInfo">
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -25,12 +25,12 @@
             android:layout_marginTop="30dp"
            />
 
-        <com.snaptech.colegiobosques.custom.RobotoRegularTextView
+        <com.snaptech.Jardindeninossolecito.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
             android:layout_marginTop="15dp"
             android:layout_gravity="center"
-            android:text="Colegio Bosques del Sol"
+            android:text="Jardín De Niños Solecito"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <!--Praderas del Bosque #279, Col. San José del Cerrito. C.P. 58341. Morelia, Michoacán.-->
@@ -38,24 +38,24 @@
         <!--01 (443) 315 99 00, 3 15 34 98, 323 50 48, 275 85 58 y 275 86 80-->
 
         <!--www.kiplingmorelia.edu.mx-->
-        <com.snaptech.colegiobosques.custom.RobotoRegularTextView
+        <com.snaptech.Jardindeninossolecito.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
             android:textAlignment="center"
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:gravity="center_horizontal"
-            android:text="Juan Escutia #232 Col. \nChapultepec Norte, C.P. 58260 Morelia, Michoacán, México"
+            android:text="Mariano Jiménez #333, \nColonia Nueva Chapultepec, C.P. 58280, Morelia, Michoácan, México."
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <com.snaptech.colegiobosques.custom.RobotoRegularTextView
+        <com.snaptech.Jardindeninossolecito.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
             android:layout_marginTop="20dp"
             android:gravity="center_horizontal"
             android:layout_gravity="center"
-            android:text="c.bosques_adm@hotmail.com"
+            android:text="solecitosk@hotmail.com"
             android:autoLink="email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -63,46 +63,18 @@
 
 
 
-        <com.snaptech.colegiobosques.custom.RobotoRegularTextView
+        <com.snaptech.Jardindeninossolecito.custom.RobotoRegularTextView
             android:textSize="18dp"
             android:textColor="#002E49"
             android:layout_marginTop="20dp"
             android:gravity="center_horizontal"
             android:layout_gravity="center"
-            android:text="4433143617, 4433365252"
+            android:text="4433240158"
             android:autoLink="phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <!--<LinearLayout-->
-            <!--android:layout_marginTop="15dp"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:gravity="center"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:orientation="horizontal"-->
-            <!--android:layout_height="wrap_content">-->
 
-            <!--&lt;!&ndash;<ImageButton&ndash;&gt;-->
-                <!--&lt;!&ndash;android:id="@+id/btn_youtube"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_margin="10dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_width="45dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_height="45dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:background="@drawable/youtube_logo"/>&ndash;&gt;-->
-
-            <!--&lt;!&ndash;<ImageButton&ndash;&gt;-->
-                <!--&lt;!&ndash;android:id="@+id/btn_facebook"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_margin="10dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_width="45dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_height="45dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:background="@drawable/facebook_logo"/>&ndash;&gt;-->
-            <!--&lt;!&ndash;<ImageButton&ndash;&gt;-->
-                <!--&lt;!&ndash;android:id="@+id/btn_instagram"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_margin="10dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_width="45dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:layout_height="45dp"&ndash;&gt;-->
-                <!--&lt;!&ndash;android:background="@drawable/insta_logo"/>&ndash;&gt;-->
-
-        <!--</LinearLayout>-->
     </LinearLayout>
 
 </ScrollView>
