@@ -27,18 +27,19 @@
 
 
                 <ImageView
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="35dp"
                     android:layout_width="172dp"
                     android:layout_height="172dp"
                     android:layout_gravity="center_horizontal"
                     android:contentDescription="@string/description_image_default"
                     android:src="@drawable/emissionsloginlogo" />
 
-                <com.snaptech.Jardindeninossolecito.custom.RobotoLightTextView
+                <com.snaptech.institutocolombres.custom.RobotoLightTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="BIENVENIDO"
+                    android:layout_marginTop="35dp"
                     android:textColor="#5B5A5A"
                     android:textSize="18sp"
                     android:textStyle="bold" />
