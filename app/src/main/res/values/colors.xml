@@ -9,14 +9,14 @@
     <color name="pink_pressed">#ec407a</color>
     <color name="blue_semi_transparent">#805677fc</color>
     <color name="blue_semi_transparent_pressed">#80738ffe</color>
-    <color name="actionbarBlue">#31498F</color>
+    <color name="actionbarBlue">#500607</color>
     <color name="statusbarBlue">#000</color> -->
     <color name="listimagebackgroundcolor">#F8FBFF</color>
-    <color name="toolbar">#31498F</color>
+    <color name="toolbar">#500607</color>
     <color name="secondarytextcolor">#666666</color>
     <!--<color name="background">#FFFFFF</color>-->
     <color name="transparent_toolbar">#80333332</color>
     <color name="itemSelected">#F7F7F7</color>
     <color name="itemNotSelected">#ECECEC</color>
-    <color name="themecolor">#31498F</color>
+    <color name="themecolor">#500607</color>
 </resources>

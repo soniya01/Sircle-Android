@@ -70,15 +70,15 @@ public class CalendarFragment extends Fragment {
                 menuMultipleActions.setVisibility(View.GONE);
             }
         }
-        final com.getbase.floatingactionbutton.FloatingActionButton actionHoliday = (com.getbase.floatingactionbutton.FloatingActionButton)x.findViewById(R.id.actionHoliday);
-        actionHoliday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                menuMultipleActions.collapseImmediately();
-                Intent addLinkIntent = new Intent(getActivity(), HolidayActivity.class);
-                startActivity(addLinkIntent);
-            }
-        });
+//        final com.getbase.floatingactionbutton.FloatingActionButton actionHoliday = (com.getbase.floatingactionbutton.FloatingActionButton)x.findViewById(R.id.actionHoliday);
+//        actionHoliday.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                menuMultipleActions.collapseImmediately();
+//                Intent addLinkIntent = new Intent(getActivity(), HolidayActivity.class);
+//                startActivity(addLinkIntent);
+//            }
+//        });
 
         final com.getbase.floatingactionbutton.FloatingActionButton actionEvent = (com.getbase.floatingactionbutton.FloatingActionButton)x.findViewById(R.id.actionEvent);
         actionEvent.setOnClickListener(new View.OnClickListener() {
@@ -91,15 +91,15 @@ public class CalendarFragment extends Fragment {
         });
 
 
-        final com.getbase.floatingactionbutton.FloatingActionButton actionSchoolHoliday = (com.getbase.floatingactionbutton.FloatingActionButton)x.findViewById(R.id.actionSchoolHoliday);
-        actionSchoolHoliday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                menuMultipleActions.collapseImmediately();
-                Intent addLinkIntent = new Intent(getActivity(), SchoolHolidayActivity.class);
-                startActivity(addLinkIntent);
-            }
-        });
+//        final com.getbase.floatingactionbutton.FloatingActionButton actionSchoolHoliday = (com.getbase.floatingactionbutton.FloatingActionButton)x.findViewById(R.id.actionSchoolHoliday);
+//        actionSchoolHoliday.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                menuMultipleActions.collapseImmediately();
+//                Intent addLinkIntent = new Intent(getActivity(), SchoolHolidayActivity.class);
+//                startActivity(addLinkIntent);
+//            }
+//        });
 
 
         /**

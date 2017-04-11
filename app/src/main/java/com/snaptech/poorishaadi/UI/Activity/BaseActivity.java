@@ -34,6 +34,7 @@ import com.snaptech.poorishaadi.UI.Fragment.CalendarTodayFragment;
 import com.snaptech.poorishaadi.UI.Fragment.DocumentFragment;
 import com.snaptech.poorishaadi.UI.Fragment.HomeFragment;
 import com.snaptech.poorishaadi.UI.Fragment.InstituteInfo;
+
 import com.snaptech.poorishaadi.UI.Fragment.LinksFragment;
 import com.snaptech.poorishaadi.UI.Fragment.NewsLetterFragment;
 import com.snaptech.poorishaadi.UI.Fragment.NotificationFragment;
@@ -541,7 +542,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
             case 8:
                 if (userType.equals("admin")) {
 
-                    fragmentName = "Institute Info";
+                    fragmentName = "Wedding Info";
                     fragmentToLoad = new InstituteInfo();
                     closeApp = false;
 
@@ -573,7 +574,7 @@ public class BaseActivity extends AppCompatActivity implements CalendarMonthFrag
                 }
                 else
                 {
-                    fragmentName = "Institute Info";
+                    fragmentName = "Wedding Info";
                     fragmentToLoad = new InstituteInfo();
                     closeApp = false;
 

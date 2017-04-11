@@ -1,20 +1,27 @@
 {
   "project_info": {
-    "project_number": "128695971960",
-    "project_id": "msbmumbai-1347"
+    "project_number": "457605055778",
+    "firebase_url": "https://poori-shaadi.firebaseio.com",
+    "project_id": "poori-shaadi",
+    "storage_bucket": "poori-shaadi.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:128695971960:android:8978f124faa349e5",
+        "mobilesdk_app_id": "1:457605055778:android:69df3b641e440d2a",
         "android_client_info": {
-          "package_name": "com.snaptech.msb"
+          "package_name": "com.snaptech.poorishaadi"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "457605055778-u61a8f06ueth00osd05aku6gjearb1pp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyAf9rcZshSpXQG8mxhrX7F4NHHADtSjcoY"
+          "current_key": "AIzaSyCXiN-9H0GDg8knKCsiZbsbGA8lyV8-SHA"
         }
       ],
       "services": {
@@ -26,7 +33,7 @@
           "other_platform_oauth_client": []
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }

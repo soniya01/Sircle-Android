@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MSB Mumbai</string>
+    <string name="app_name">PooRishaadi</string>
 
 
     <!--Activity Add Album-->
@@ -117,7 +117,7 @@
         <item>Videos</item>
         <item>Links</item>
         <item>Settings</item>
-        <item>Institute Info</item>
+        <item>Wedding Info</item>
         <item>Support</item>
         <item>Signout</item>
 
@@ -132,7 +132,7 @@
         <item>Documents</item>
         <item>Videos</item>
         <item>Links</item>
-        <item>Institute Info</item>
+        <item>Wedding Info</item>
         <item>Support</item>
         <item>Signout</item>
 
@@ -179,5 +179,7 @@
     <string name="title_activity_vimeo_webview">VimeoWebviewActivity</string>
     <string name="title_activity_sign_up">SignUp</string>
     <string name="title_activity_forced_update">ForcedUpdateActivity</string>
+    <string name="cocktail_reception"><u>Cocktail Reception</u></string>
+    <string name="wedding_ceremony"><u>Wedding Ceremony</u></string>
 
 </resources>

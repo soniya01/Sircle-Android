@@ -200,11 +200,11 @@ public class HomeFragment extends Fragment {
                     String  userType = loginSharedPreferences.getString(Constants.LOGIN_LOGGED_IN_USER_TYPE,null);
 
                     if (!userType.equals("admin")) {
-                        loadFragment(getActivity(), fragmentToLoad,"Institute Info",9);
+                        loadFragment(getActivity(), fragmentToLoad,"Wedding Info",9);
                     }
                     else
                     {
-                        loadFragment(getActivity(), fragmentToLoad,"Institute Info",8);
+                        loadFragment(getActivity(), fragmentToLoad,"Wedding Info",8);
                     }
 
 
