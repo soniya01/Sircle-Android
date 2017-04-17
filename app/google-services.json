@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "905512970574",
-    "firebase_url": "https://cox-and-kings-4b48c.firebaseio.com",
-    "project_id": "cox-and-kings-4b48c",
-    "storage_bucket": "cox-and-kings-4b48c.appspot.com"
+    "project_number": "735523413079",
+    "firebase_url": "https://msl-group-india.firebaseio.com",
+    "project_id": "msl-group-india",
+    "storage_bucket": "msl-group-india.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:905512970574:android:a4b8e62ad95078c1",
+        "mobilesdk_app_id": "1:735523413079:android:a13877c4bca857ff",
         "android_client_info": {
-          "package_name": "com.snaptech.coxandkingshr"
+          "package_name": "com.snaptech.mslgroupindia"
         }
       },
       "oauth_client": [
         {
-          "client_id": "905512970574-pt3a9vi3dvr0oric1rg9fej5arhbshm4.apps.googleusercontent.com",
+          "client_id": "735523413079-heo3168c4sga1mp7t7r0ak33tjqruv60.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCqDzYiAGQgXrfcEyahLDyJqX12mXJb1Ik"
+          "current_key": "AIzaSyAKBGg3b0LvDQOoOgmRHGs4awVOMqrMmAU"
         }
       ],
       "services": {
