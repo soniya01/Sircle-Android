@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "880497341126",
-    "firebase_url": "https://instituto-colombres.firebaseio.com",
-    "project_id": "instituto-colombres",
-    "storage_bucket": "instituto-colombres.appspot.com"
+    "project_number": "1089017926502",
+    "firebase_url": "https://montessori-omeyocan.firebaseio.com",
+    "project_id": "montessori-omeyocan",
+    "storage_bucket": "montessori-omeyocan.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:880497341126:android:a72713472d5c20fd",
+        "mobilesdk_app_id": "1:1089017926502:android:a582ba1d54960f44",
         "android_client_info": {
-          "package_name": "com.snaptech.institutocolombres"
+          "package_name": "com.snaptech.omeyocan"
         }
       },
       "oauth_client": [
         {
-          "client_id": "880497341126-c5db7k3b9perutl28lh6l3igtaf8aqr0.apps.googleusercontent.com",
+          "client_id": "1089017926502-fht7sdtcgtqdvtllhghcqsplb0pbsjhu.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyACKIB6GyMUipK8W55H7ljkO8YYST-2oyA"
+          "current_key": "AIzaSyCGVmeQ_M2DrLNweUoAZ32Xi3fYyjU7TFs"
         }
       ],
       "services": {
