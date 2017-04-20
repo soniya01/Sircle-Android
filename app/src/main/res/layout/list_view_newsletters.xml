@@ -40,7 +40,7 @@
             android:layout_toRightOf="@+id/imageLayout"
             android:orientation="vertical">
 
-            <com.snaptech.omeyocan.custom.RobotoLightTextView
+            <com.snaptech.CentroEducativoLoyola.custom.RobotoLightTextView
                 android:id="@+id/pdfDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
                 android:textColor="#666666"
                 android:text="Wed 27 July 2015" />
 
-            <com.snaptech.omeyocan.custom.RobotoLightTextView
+            <com.snaptech.CentroEducativoLoyola.custom.RobotoLightTextView
                 android:id="@+id/pdfTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
                 />
 
         </LinearLayout>
-        <com.snaptech.omeyocan.custom.RobotoLightTextView
+        <com.snaptech.CentroEducativoLoyola.custom.RobotoLightTextView
             android:id="@+id/pdfTime"
             android:textColor="#666666"
             android:layout_width="wrap_content"
