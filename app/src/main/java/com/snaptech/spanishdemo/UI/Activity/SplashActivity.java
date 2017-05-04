@@ -99,11 +99,25 @@ public class SplashActivity extends Activity {
         //object.put("groupId", grpIdString);
         object.put("page", "1");
 
-
+        if(Constants.flag_logout){
+            Intent intent=new Intent(SplashActivity.this,LoginScreen.class);
+            startActivity(intent);
+            Toast.makeText(SplashActivity.this, "Por favor introduzcalo de nuevo.", Toast.LENGTH_LONG).show();
+            handleSharedPreferencesOnLogout();
+            finish();
+            Constants.flag_logout=false;
+        }
         LoginManager.getSharedInstance().checkUserLogoutStatus(object, new LoginManager.LogoutStatusManagerListener() {
             @Override
             public void onCompletion(LogoutStatusResponse response, AppError error) {
-
+                if(Constants.flag_logout){
+                    Intent intent=new Intent(SplashActivity.this,LoginScreen.class);
+                    startActivity(intent);
+                    Toast.makeText(SplashActivity.this, "Por favor introduzcalo de nuevo.", Toast.LENGTH_LONG).show();
+                    handleSharedPreferencesOnLogout();
+                    finish();
+                    Constants.flag_logout=false;
+                }
                 if (error.getErrorCode() == 0) {
                     // give access to the app features
                     if (response != null){
