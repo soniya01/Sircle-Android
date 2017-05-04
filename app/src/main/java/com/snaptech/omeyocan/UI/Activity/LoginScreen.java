@@ -67,7 +67,7 @@ public class LoginScreen extends Activity {
 
         signUpTextView.setText("¿No tiene una cuenta?, Cree Una.", TextView.BufferType.SPANNABLE);
         Spannable span = (Spannable) signUpTextView.getText();
-        span.setSpan(new ForegroundColorSpan(Color.parseColor("#FF9700")),23 , 31,
+        span.setSpan(new ForegroundColorSpan(Color.parseColor("#080d7c")),23 , 31,
                 Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
 
         signUpTextView.setOnClickListener(new View.OnClickListener() {

@@ -81,8 +81,13 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
             if (!albumDetailsList.get(position).getFilePath().equals("")) {
 
                 //  loadImageInBackground(mContext, viewHolder.albumImageView, albumDetailsList.get(position).getFilePath());
+                String flag1=albumDetailsList.get(position).getFilePath();
+                flag1 = flag1.replaceAll(" ", "%20");
+
+                System.out.println("Url of position "+position+" is"+flag1);
                 Picasso.with(this.mContext)
-                        .load(albumDetailsList.get(position).getFilePath()).fit().centerCrop()
+                        .load(flag1).fit().centerCrop()
+
                         .into(viewHolder.albumImageView, new Callback() {
                             @Override
                             public void onSuccess() {
@@ -123,10 +128,12 @@ public class AlbumDetailsGridAdapter extends BaseAdapter {
             // Toast.makeText(mContext, "image clicked", Toast.LENGTH_SHORT).show();
             if(InternetCheck.isNetworkConnected(mContext)){
 
+                String flag1=albumDetailsList.get(_postion).getFilePath();
+                flag1 = flag1.replaceAll(" ", "%20");
                 if(albumDetailsList.size()!=0) {
                     Intent i = new Intent(mContext, AlbumFullScreenActivity.class);
                     i.putExtra("position", _postion);
-                    i.putExtra("url", albumDetailsList.get(_postion).getFilePath());
+                    i.putExtra("url", flag1);
                     i.putExtra("caption", albumDetailsList.get(_postion).getFileName());
                     mContext.startActivity(i);
                 }
