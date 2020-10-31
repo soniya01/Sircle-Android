@@ -1,0 +1,267 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F4F4F4"
+        android:orientation="vertical"
+        tools:context="com.snaptech.msb.UI.Activity.EventDetailActivity">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:id="@+id/detailsLayout"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="20dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="17dp"
+
+                    android:src="@drawable/eventtime"/>
+
+
+                <com.snaptech.msb.custom.RobotoLightTextView
+                    android:id="@+id/event_detail_title"
+                    android:layout_width="match_parent"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="19dp"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginBottom="22dp"
+                    android:textColor="#666666"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="17dp"
+
+                    android:src="@drawable/urltitleimage"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.snaptech.msb.custom.RobotoLightTextView
+                        android:layout_width="match_parent"
+                        android:text="@string/starts_title"
+                        android:textSize="12dp"
+                        android:layout_marginLeft="19dp"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginBottom="2dp"
+                        android:textColor="#666666"
+                        android:layout_height="wrap_content" />
+
+
+                    <com.snaptech.msb.custom.RobotoLightTextView
+                        android:id="@+id/event_start_date"
+                        android:layout_width="match_parent"
+                        android:textSize="20dp"
+                        android:layout_marginLeft="19dp"
+                        android:layout_marginBottom="9dp"
+                        android:textColor="#666666"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="17dp"
+                    android:src="@drawable/enddateicon"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.snaptech.msb.custom.RobotoLightTextView
+                        android:layout_width="match_parent"
+                        android:text="@string/ends_title"
+                        android:textSize="12dp"
+                        android:layout_marginLeft="19dp"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginBottom="2dp"
+                        android:textColor="#666666"
+                        android:layout_height="wrap_content" />
+
+
+                    <com.snaptech.msb.custom.RobotoLightTextView
+                        android:id="@+id/event_end_date"
+                        android:layout_width="match_parent"
+                        android:textSize="20dp"
+                        android:layout_marginLeft="19dp"
+                        android:layout_marginBottom="9dp"
+                        android:textColor="#666666"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="17dp"
+                    android:src="@drawable/locationlabelimage"/>
+
+
+                <com.snaptech.msb.custom.RobotoLightTextView
+                    android:id="@+id/event_detail_location"
+                    android:layout_width="match_parent"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="19dp"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginBottom="22dp"
+                    android:textColor="#666666"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="17dp"
+                    android:src="@drawable/categorytitleimage"/>
+
+                <com.snaptech.msb.custom.RobotoLightTextView
+                    android:id="@+id/event_detail_category"
+                    android:layout_width="match_parent"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="19dp"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginBottom="22dp"
+                    android:textColor="#666666"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="17dp"
+                    android:src="@drawable/groupsicon"/>
+
+                <com.snaptech.msb.custom.RobotoLightTextView
+                    android:id="@+id/event_detail_groups"
+                    android:layout_width="match_parent"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="19dp"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginBottom="22dp"
+                    android:textColor="#666666"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+
+
+
+
+            <!--<TextView-->
+                <!--android:id="@+id/event_detail_info"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:text="Event Info"-->
+                <!--android:gravity="center"-->
+                <!--android:padding="10dp"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:background="@drawable/custom_border_fill"-->
+                <!--android:layout_height="wrap_content" />-->
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+    <Button
+        android:id="@+id/event_detail_save"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="0dp"
+        android:text="@string/save_event_button_title"
+        android:textSize="18sp"
+        android:background="#FC6F71"
+        android:layout_below="@+id/detailsLayout"
+        android:layout_alignParentBottom="true"
+        android:textColor="@android:color/white"/>
+
+    <!--<Button-->
+        <!--android:id="@+id/event_detail_delete"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:layout_marginBottom="20dp"-->
+        <!--android:text="DELETE"-->
+        <!--android:textSize="18sp"-->
+        <!--android:background="#FC6F71"-->
+        <!--android:textColor="@android:color/white"/>-->
+
+    </RelativeLayout>
+
+
+</ScrollView>
+
+        </LinearLayout>

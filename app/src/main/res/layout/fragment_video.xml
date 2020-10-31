@@ -1,0 +1,41 @@
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:context="com.snaptech.msb.UI.Fragment.NotificationFragment">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <!--<ListView-->
+        <!--android:id="@+id/"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="?android:attr/selectableItemBackground"-->
+        <!--android:cacheColorHint="@android:color/white"-->
+        <!--android:dividerHeight="0dp"-->
+        <!--android:listSelector="@android:color/transparent"-->
+        <!--android:overScrollMode="never"-->
+        <!--android:scrollbars="none"/>-->
+
+        <ListView
+            android:id="@+id/fragment_video_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dividerHeight="0dp"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+        </ListView>
+
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

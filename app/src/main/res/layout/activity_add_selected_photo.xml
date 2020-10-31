@@ -1,0 +1,61 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:scrollbars="vertical">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context="com.grayjam.sircle.UI.Activity.AddSelectedPhoto">
+
+    <ImageView
+        android:id="@+id/activity_add_new_photo_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:contentDescription="@string/description_image_default" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_marginTop="27dp"
+        android:id="@+id/titleTextContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:counterEnabled="true"
+        app:counterMaxLength="72">
+
+    <EditText
+        android:id="@+id/activity_add_new_photo_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:layout_marginRight="19dp"
+        android:layout_marginLeft="19dp"
+        android:textColor="#000000"
+        android:hint="@string/add_caption_placeholder"
+        android:textColorHint="@color/secondarytextcolor"
+        android:text=""
+        android:maxLength="72"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/activity_add_new_photo"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        style="?android:textAppearanceSmall"
+        android:text="@string/add_photo_title"
+        android:layout_marginTop="17dp"
+        android:layout_gravity="bottom"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:background="#FC6F71"/>
+
+</LinearLayout>
+</ScrollView>

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:baselineAligned="true"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_weight="0">
+
+
+
+        <Button
+            android:layout_margin="10dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/calendarblack"
+            android:textColor="#333332"
+            android:id="@+id/calendarButton"
+            android:paddingTop="32sp"
+            android:background="@color/white"
+            android:drawablePadding="10dp"
+            android:paddingBottom="15dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:text="Calendar"/>
+
+        <Button
+            android:layout_margin="10dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/photosblack"
+            android:textColor="#333332"
+            android:id="@+id/photosButton"
+            android:paddingTop="32sp"
+            android:background="@color/white"
+            android:drawablePadding="10dp"
+            android:paddingBottom="15dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:text="Photos"/>
+
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/notificationblack"
+            android:textColor="#333332"
+            android:id="@+id/notificationsButton"
+            android:paddingTop="32sp"
+            android:layout_margin="10dp"
+            android:drawablePadding="10dp"
+            android:paddingBottom="15dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:text="Messages"/>
+
+
+
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_weight="0">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/newslettersblack"
+            android:textColor="#333332"
+            android:id="@+id/newsletterButton"
+            android:paddingTop="32sp"
+            android:layout_margin="10dp"
+            android:drawablePadding="10dp"
+            android:paddingBottom="15dp"
+            android:singleLine="true"
+            style="?android:attr/borderlessButtonStyle"
+            android:text="Newsletter"/>
+
+
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/documentsblack"
+            android:textColor="#333332"
+            android:id="@+id/documentsButton"
+            android:paddingTop="32sp"
+            android:layout_margin="10dp"
+            android:drawablePadding="10dp"
+            android:paddingBottom="15dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:text="Documents"/>
+
+
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/videosblack"
+            android:textColor="#333332"
+            android:id="@+id/videosButton"
+            android:paddingTop="32sp"
+            android:layout_margin="10dp"
+            android:drawablePadding="10dp"
+            android:paddingBottom="15dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:text="Videos"/>
+
+
+
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:layout_weight="0">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/linksblack"
+            android:textColor="#333332"
+            android:id="@+id/linksButton"
+            android:paddingTop="32sp"
+            android:layout_margin="10dp"
+            android:drawablePadding="10dp"
+            android:paddingBottom="15dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:text="Links"/>
+
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/settingsblack"
+            android:textColor="#333332"
+            android:id="@+id/settingsButton"
+            android:paddingTop="32sp"
+            android:layout_margin="10dp"
+            android:drawablePadding="10dp"
+            android:paddingBottom="15dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:text="Settings"/>
+
+
+
+
+
+
+
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/informationblack"
+            android:textColor="#333332"
+            android:id="@+id/informationButton"
+            android:paddingTop="32sp"
+            android:layout_margin="10dp"
+            android:drawablePadding="10dp"
+            android:paddingBottom="15dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:singleLine="true"
+            android:text="Information"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,135 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:context="com.snaptech.msb.UI.Activity.AddLinksActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_marginTop="22dp"
+                android:id="@+id/titleTextContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                app:counterMaxLength="140">
+    <EditText
+        android:id="@+id/activity_add_notification_title_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/title_placeholder"
+        android:maxLength="140"
+        android:textColor="#303030"
+        android:textSize="20dp"
+        android:drawableRight="@drawable/notificationstitleimage"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_marginTop="5dp"
+                android:id="@+id/detailsTextContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:counterEnabled="true"
+                app:counterMaxLength="255">
+
+    <EditText
+        android:id="@+id/activity_add_notification_desc_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLength="255"
+        android:hint="@string/details_placeholder"
+        android:textColor="#303030"
+        android:textSize="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/layoutSelectAll">
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="27dp"
+                        android:layout_marginTop="20dp"
+                        android:src="@drawable/groupsicon"/>
+
+                    <TextView
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Groups"
+                        android:textSize="20dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_alignParentRight="true"
+                    android:layout_height="wrap_content">
+
+                    <CheckBox
+                        android:layout_marginRight="12dp"
+                        android:layout_marginTop="12dp"
+                        android:id="@+id/checkAll"
+                        android:checked="false"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="All"
+                        android:textSize="20dp" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+
+
+            <ListView
+        android:id="@+id/activity_add_group_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:overScrollMode="never"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:scrollbars="none" />
+
+            </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
+
